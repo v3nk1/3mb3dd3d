@@ -1,0 +1,16 @@
+Quicknotes for Qtopia:
+----------------------
+->
+
+sudo apt-get install g++ libx11-dev libxmu-dev libxext-dev zlib1g-dev libjpeg62-dev libssl-dev uuid-dev
+
+->
+Build Cross-compile toolchain and genarate path
+
+->
+Download Qtopia ARM-Qtopia 2.2.0
+Extarct to home folder
+# cd arm-qtopia/
+# ./build-all
+
+

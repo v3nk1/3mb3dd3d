@@ -1,0 +1,53 @@
+nfs-server:
+===========
+
+	1. Make sure that is your running kernel in OS has nfs support?
+		root# cat /proc/filesystems | grep nfs*
+		nodev	nfs
+		nodev	nfs4
+		nodev	nfsd
+	2. If it displays nothing., So confirm that you dont have nfs support builded for ur running kernel.
+
+	   Build that: <sir has told>
+
+			give
+				make
+				make modules
+				make modules_install
+				make install
+
+	3. Now boot with the new installed kernel
+
+
+
+After booted:
+-------------
+	root# apt-get install nfs-kernel-server
+
+In sudo vi /etc/exports	add below 1 line:
+=========================================
+	/nfs    10.0.0.111(rw,sync,no_subtree_check,no_root_squash)
+
+&restart nfs-kernel-services
+	
+	root# sudo /etc/init.d/nfs-kernel-server restart                      ========> means stop and start
+
+	
+Append bellow stuff in "vi /etc/network/interfaces"
+===================================================
+
+auto eth0
+iface eth0 inet static
+        address         10.0.0.4
+        netmask         255.255.255.0
+        network         10.0.0.0
+        broadcast       10.0.0.255
+        gateway         10.0.0.254
+
+
+
+
+/***************************************************
+ * AFTER ADDING THIS YOU MUST RESTART THE SYSTEM.. *
+ ***************************************************/
+

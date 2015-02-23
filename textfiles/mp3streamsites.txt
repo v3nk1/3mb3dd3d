@@ -1,0 +1,2 @@
+http://www.instructables.com/id/Turn-your-Raspberry-Pi-into-a-Portable-Bluetooth-A/?ALLSTEPS
+https://wiki.archlinux.org/index.php/Bluetooth_headset

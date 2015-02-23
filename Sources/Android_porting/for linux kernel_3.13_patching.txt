@@ -1,0 +1,70 @@
+Add bellow lines to
+
+root# vi <linux-src>/arch/arm/mach-s3c24xx/mach-mini2440.c
+
+- Add one more to this difinations
+	static struct s3c2410fb_display mini2440_lcd_cfg[] __initdata = {
+			
+        [4] = {
+                _LCD_DECLARE(
+                        /* clock */
+                        7,
+                        /* xres, margin_right, margin_left, hsync */
+                        320, 25, 0, 4,
+                        /* yres, margin_top, margin_bottom, vsync */
+                        240, 0, 4, 9,
+                        /* refresh rate */
+                        60),
+                .lcdcon5        = (S3C2410_LCDCON5_FRM565 	| 
+				   S3C2410_LCDCON5_INVVDEN 	| 
+				   S3C2410_LCDCON5_INVVFRAME 	| 
+				   S3C2410_LCDCON5_INVVLINE 	| 
+				   S3C2410_LCDCON5_INVVCLK 	| 
+				   S3C2410_LCDCON5_HWSWP 	| 
+				   S3C2410_LCDCON5_PWREN),
+        },
+
+- Add one more to this
+	static struct gpio_keys_button mini2440_buttons[] = {
+	
+	{
+                .gpio           = S3C2410_GPG(4),               /* added */
+                .code           = KEY_F4,
+                .desc           = "Button 4",
+                .active_low     = 1,
+        },
+
+		
+
+root# vi <linux-src>/drivers/video/Kconfig
+
+- Add below lines (line:1913)
+
+	config FB_S3C2410_X240320
+        boolean "3.5 inch 240X320 SONY LCD"
+        depends on FB_S3C2410
+        help
+        3.5 inch 240x320 SONY LCD
+
+
+root# cd <linux-src>/
+root# make ARCH=arm mini2440_defconfig
+root# make ARCH=arm menuconfig
+		Device Drivers  --->
+			Graphics support  --->
+				<*> Support for frame buffer devices  --->                                               
+				[*] 3.5 inch 240X320 SONY LCD                                                           
+				<*> S3C2410 LCD framebuffer support
+
+			 [*] Staging drivers  ---> 
+				Android  --->
+					[*] Android Drivers					
+					[*]   Timed output class driver
+					[*]   Synchronization framework 
+
+				<*>   USB over WiFi Host Controller
+
+
+			 [*] USB support  --->
+
+root# make ARCH=arm CROSS_COMPILE=arm-linux- uImage

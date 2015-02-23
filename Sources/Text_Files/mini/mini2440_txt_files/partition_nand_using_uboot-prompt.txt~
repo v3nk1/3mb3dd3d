@@ -1,0 +1,2 @@
+mtdparts del kernel
+setenv mtdparts mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)

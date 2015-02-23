@@ -1,0 +1,6 @@
+dtb file in kernel: am335x-boneblack.dtb
+
+setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111
+setenv bootargs console=ttyO0,115200 root=/dev/mmcblk0p2
+tftp 0x81000000 bgl/uImage-bbb;tftp 0x82000000 bgl/bbb.dtb
+bootm 0x81000000 - 0x82000000

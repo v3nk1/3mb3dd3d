@@ -1,0 +1,64 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: bluetoothd
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: Starts or stops the sshd daemon.
+### END INIT INFO
+
+NAME=bluetoothd
+DAEMON=/usr/libexec/bluetooth/$NAME
+PIDFILE=/var/run/$NAME.pid
+
+# This --compat will allows you to add sdptool service otherwise
+# Failed to connect to SDP server on FF:FF:FF:00:00:00: No such file or directory
+BLUEZ_OPS="--compat"
+
+if ! test -x "$DAEMON" ;then 
+	echo $DAEMON": Not found or no execution permission"
+	exit 0
+fi
+
+case "$1" in
+    start)
+	#/etc/init.d/dbus start
+	rm -rf $PIDFILE
+	if [ ! -e $PIDFILE ]; then
+		/etc/init.d/dbus start
+	        echo "Starting daemon" "$NAME"
+		start-stop-daemon --start --quiet --oknodo -m --pidfile "$PIDFILE" --exec "$DAEMON" -- ${BLUEZ_OPS} &
+		/usr/bin/hciconfig hci0 up
+	else 
+		echo "$NAME-deamon is running."	
+	fi
+	#/usr/bin/hciconfig hci0 up
+       	 ;;
+    stop)
+	if [ -e $PIDFILE ]; then
+	        echo "Stopping daemon" "$NAME"
+		#start-stop-daemon --stop --quiet --oknodo --name bluetoothd --pidfile "$PIDFILE"
+		start-stop-daemon --stop --quiet --oknodo --pidfile "$PIDFILE"
+		rm -rf $PIDFILE
+	else
+		echo "$NAME-daemon is not running."
+	fi
+	
+        ;;
+    restart|force-reload)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        if [ -e $PIDFILE ] ; then
+		echo "Bluetoothd is upon running"
+	else
+		echo "Bluetoothd is not running"
+        fi
+        ;;
+    *)
+        echo "Usage: /etc/init.d/bluetooth {start|stop|restart|force-reload|status}"
+        exit 1
+        ;;
+esac
+
+exit 0

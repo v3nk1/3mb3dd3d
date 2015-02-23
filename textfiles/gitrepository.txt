@@ -1,0 +1,71 @@
+Step 1:
+	Create an account in github.com
+	Verify in with your mail account.
+
+Step 2:
+	Create a directory in Host where you want to maintain
+	repository through terminal
+	
+Step 3:
+	Create a new repository in your web browser "github.com" account by
+	clicking new-repository right after your user name
+
+	Give the name of your current project.
+
+	you are given to a link for your new created project repository
+	Copy that to your clipboard.
+
+Step 4:
+	Goto your project maintanance directory in terminal.
+	
+	# git init
+	# git add <file1> <file2> <file3> ..
+	# git commit -m "first commit"
+	# git remote add origin https://github.com/v3nk1/<your-created-git-repo-website>
+		OR
+	  git remote add origin <previously-copied-to-clipboard-address>
+	# git push -u origin master
+		[ It will ask for username of git and password for that username for authentication]
+
+
+Step 5:
+	push an existing repository from the command line
+
+	# git remote add origin https://github.com/v3nk1/<your-created-git-repo-website>
+	# git add <file1> <file2> <file3> ..
+	# git commit -m "first commit"
+	# git push -u origin master
+
+Step 6:
+	Delete a file in git then
+	
+	# git rm <file1> <file2> <file3> ..
+	# git commit -m "first commit"
+	# git push -u origin master
+		
+Step 7:
+	Dowload or sync from repository
+	
+	# git clone <previously-copied-to-clipboard-address>
+
+	To get updated things from repository without download all, 
+	only change or download modified things in repository
+	
+	# git pull
+
+	To update things to repository without upload all,
+	
+	# git add .
+	# git commit -m "first commit"
+	# git push -u origin master
+
+Step 8:
+	To see the current status of repository but unsynced or tobe sync data
+	
+	# git stauts
+
+How to pull specific directory with git
+---------------------------------------
+	# cd <into the top of your repo copy>
+	# git fetch
+	# git checkout HEAD path/to/your/dir/or/file

@@ -1,0 +1,10 @@
+
+make ARCH=arm mini2440_defconfig
+make ARCH=arm menuconfig
+
+	 Device Drivers  
+		--->Generic Driver Options  
+			[*] Maintain a devtmpfs filesystem to mount at /dev                                    
+               		[*]   Automount devtmpfs at /dev, after the kernel mounted the rootfs
+
+	Without populating /dev in ur rootfs it will work.

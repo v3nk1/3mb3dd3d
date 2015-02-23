@@ -1,0 +1,19 @@
+Enable tochdriver:
+	While baking uImage select respective ADC & Touchscreen drivers for mini2440's touchscreen enabling.
+
+	# cd <linux-src>
+	# make ARCH=arm mini2440_defconfig
+	# make ARCH=arm menuconfig
+		
+		Device Drivers  --->
+			Input device support  --->
+				[*]   Touchscreens  --->
+					<*>   ADS7846/TSC2046/AD7873 and AD(S)7843 based touchscreens
+					<*>   AD7877 based touchscreens
+					<*>   Analog Devices AD7879-1/AD7889-1 touchscreen interface
+					<*>     support I2C bus connection
+					<*>     support SPI bus connection
+					<*>   Atmel mXT I2C Touchscreen
+					< >
+					< >
+					<*>   Samsung S3C2410/generic touchscreen input driver

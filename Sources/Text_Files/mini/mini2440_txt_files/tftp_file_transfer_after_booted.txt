@@ -1,0 +1,29 @@
+/ #    ---> client (target)
+root # ---> Server (host)
+
+root # vi /etc/xinetd.d/tftp
+	In that we previously write some configuration, in that i've given that
+	/tftpboot is the directory for i/o through tftp.
+
+root # cd /tftpboot
+root # ls
+
+Set ip addresses as per n/w concept: Here in my case
+server(HOST): 10.0.0.4
+client(Target): 10.0.0.111
+
+getting file from HOST..
+The file u request must be in /tftpboot directory of HOST.
+/ # tftp -g 10.0.0.4 -l file_u_wnt2_get.c
+
+Putting file to HOST..
+/ # tftp -p 10.0.0.4 -l file_u_wnt2_put.c 
+It will fail. bcoz of permission issues. So for that create an empty file in host with same name 
+what u intended to transfer.
+
+root # cd /tftpboot
+root # touch file_tranferring.c && chmod 0777 file_transferring.c
+
+Now transfer:
+/ # tftp -p 10.0.0.4 -l file_u_wnt2_put.c
+

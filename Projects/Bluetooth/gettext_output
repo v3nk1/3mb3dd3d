@@ -1,0 +1,2128 @@
+.
+|-- bin
+|   |-- autopoint
+|   |-- envsubst
+|   |-- gettext
+|   |-- gettextize
+|   |-- gettext.sh
+|   |-- msgattrib
+|   |-- msgcat
+|   |-- msgcmp
+|   |-- msgcomm
+|   |-- msgconv
+|   |-- msgen
+|   |-- msgexec
+|   |-- msgfilter
+|   |-- msgfmt
+|   |-- msggrep
+|   |-- msginit
+|   |-- msgmerge
+|   |-- msgunfmt
+|   |-- msguniq
+|   |-- ngettext
+|   |-- recode-sr-latin
+|   `-- xgettext
+|-- gettext_output
+|-- include
+|   |-- autosprintf.h
+|   |-- gettext-po.h
+|   `-- libintl.h
+|-- lib
+|   |-- gettext
+|   |   |-- hostname
+|   |   |-- project-id
+|   |   |-- urlget
+|   |   `-- user-email
+|   |-- libasprintf.a
+|   |-- libasprintf.la
+|   |-- libasprintf.so -> libasprintf.so.0.0.0
+|   |-- libasprintf.so.0 -> libasprintf.so.0.0.0
+|   |-- libasprintf.so.0.0.0
+|   |-- libgettextlib-0.19.1.so
+|   |-- libgettextlib.la
+|   |-- libgettextlib.so -> libgettextlib-0.19.1.so
+|   |-- libgettextpo.a
+|   |-- libgettextpo.la
+|   |-- libgettextpo.so -> libgettextpo.so.0.5.2
+|   |-- libgettextpo.so.0 -> libgettextpo.so.0.5.2
+|   |-- libgettextpo.so.0.5.2
+|   |-- libgettextsrc-0.19.1.so
+|   |-- libgettextsrc.la
+|   |-- libgettextsrc.so -> libgettextsrc-0.19.1.so
+|   |-- libintl.a
+|   |-- libintl.la
+|   |-- libintl.so -> libintl.so.8.1.2
+|   |-- libintl.so.8 -> libintl.so.8.1.2
+|   `-- libintl.so.8.1.2
+`-- share
+    |-- aclocal
+    |   |-- codeset.m4
+    |   |-- extern-inline.m4
+    |   |-- fcntl-o.m4
+    |   |-- gettext.m4
+    |   |-- glibc21.m4
+    |   |-- glibc2.m4
+    |   |-- iconv.m4
+    |   |-- intdiv0.m4
+    |   |-- intldir.m4
+    |   |-- intl.m4
+    |   |-- intlmacosx.m4
+    |   |-- intmax.m4
+    |   |-- inttypes_h.m4
+    |   |-- inttypes-pri.m4
+    |   |-- lcmessage.m4
+    |   |-- lib-ld.m4
+    |   |-- lib-link.m4
+    |   |-- lib-prefix.m4
+    |   |-- lock.m4
+    |   |-- longlong.m4
+    |   |-- nls.m4
+    |   |-- po.m4
+    |   |-- printf-posix.m4
+    |   |-- progtest.m4
+    |   |-- size_max.m4
+    |   |-- stdint_h.m4
+    |   |-- threadlib.m4
+    |   |-- uintmax_t.m4
+    |   |-- visibility.m4
+    |   |-- wchar_t.m4
+    |   |-- wint_t.m4
+    |   `-- xsize.m4
+    |-- doc
+    |   |-- gettext
+    |   |   |-- autopoint.1.html
+    |   |   |-- bindtextdomain.3.html
+    |   |   |-- bind_textdomain_codeset.3.html
+    |   |   |-- csharpdoc
+    |   |   |   |-- begin.html
+    |   |   |   |-- GNU_Gettext_GettextResourceManager.html
+    |   |   |   |-- GNU_Gettext_GettextResourceSet.html
+    |   |   |   |-- GNU_Gettext.html
+    |   |   |   |-- index.html
+    |   |   |   `-- namespaces.html
+    |   |   |-- envsubst.1.html
+    |   |   |-- examples
+    |   |   |   |-- build-aux
+    |   |   |   |   |-- csharpcomp.m4
+    |   |   |   |   |-- csharpcomp.sh.in
+    |   |   |   |   |-- csharpexec.m4
+    |   |   |   |   |-- csharpexec.sh.in
+    |   |   |   |   |-- csharpexec-test.exe
+    |   |   |   |   |-- gcj.m4
+    |   |   |   |   |-- javacomp.m4
+    |   |   |   |   |-- javacomp.sh.in
+    |   |   |   |   |-- javaexec.m4
+    |   |   |   |   `-- javaexec.sh.in
+    |   |   |   |-- hello-c
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.c
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c++
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cc
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c-gnome
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.c
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- gnome-gnorba-check.m4
+    |   |   |   |   |   |-- gnome.m4
+    |   |   |   |   |   |-- gnome-orbit-check.m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c++-gnome
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cc
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- gnome-gnorba-check.m4
+    |   |   |   |   |   |-- gnome.m4
+    |   |   |   |   |   |-- gnome-orbit-check.m4
+    |   |   |   |   |   |-- gtk--.m4
+    |   |   |   |   |   |-- gtk.m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c-gnome3
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.c
+    |   |   |   |   |-- hello.desktop.in.in
+    |   |   |   |   |-- hello.gresource.xml
+    |   |   |   |   |-- hello.gschema.xml
+    |   |   |   |   |-- hello.ui
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c++-kde
+    |   |   |   |   |-- admin
+    |   |   |   |   |   |-- acinclude.m4.in
+    |   |   |   |   |   |-- am_edit
+    |   |   |   |   |   |-- ChangeLog
+    |   |   |   |   |   |-- compile
+    |   |   |   |   |   |-- conf.change.pl
+    |   |   |   |   |   |-- config.guess
+    |   |   |   |   |   |-- config.pl
+    |   |   |   |   |   |-- config.sub
+    |   |   |   |   |   |-- configure.in.bot.end
+    |   |   |   |   |   |-- configure.in.min
+    |   |   |   |   |   |-- cvs-clean.pl
+    |   |   |   |   |   |-- cvs.sh
+    |   |   |   |   |   |-- debianrules
+    |   |   |   |   |   |-- depcomp
+    |   |   |   |   |   |-- detect-autoconf.sh
+    |   |   |   |   |   |-- Doxyfile.am
+    |   |   |   |   |   |-- Doxyfile.global
+    |   |   |   |   |   |-- install-sh
+    |   |   |   |   |   |-- libtool.m4.in
+    |   |   |   |   |   |-- ltmain.sh
+    |   |   |   |   |   |-- Makefile.common
+    |   |   |   |   |   |-- missing
+    |   |   |   |   |   |-- mkinstalldirs
+    |   |   |   |   |   `-- ylwrap
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.in.in
+    |   |   |   |   |-- hello.cc
+    |   |   |   |   |-- hellowindow.cc
+    |   |   |   |   |-- hellowindow.h
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-clisp
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.lisp.in
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-c++-qt
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cc
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   `-- qt.m4
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-csharp
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cs
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-csharp-forms
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cs
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   |-- po
+    |   |   |   |   |   |-- af.po
+    |   |   |   |   |   |-- ast.po
+    |   |   |   |   |   |-- bg.po
+    |   |   |   |   |   |-- ca.po
+    |   |   |   |   |   |-- cs.po
+    |   |   |   |   |   |-- da.po
+    |   |   |   |   |   |-- de.po
+    |   |   |   |   |   |-- el.po
+    |   |   |   |   |   |-- eo.po
+    |   |   |   |   |   |-- es.po
+    |   |   |   |   |   |-- fi.po
+    |   |   |   |   |   |-- fr.po
+    |   |   |   |   |   |-- ga.po
+    |   |   |   |   |   |-- gl.po
+    |   |   |   |   |   |-- hr.po
+    |   |   |   |   |   |-- hu.po
+    |   |   |   |   |   |-- id.po
+    |   |   |   |   |   |-- it.po
+    |   |   |   |   |   |-- ja.po
+    |   |   |   |   |   |-- ky.po
+    |   |   |   |   |   |-- LINGUAS
+    |   |   |   |   |   |-- lv.po
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   |-- ms.po
+    |   |   |   |   |   |-- mt.po
+    |   |   |   |   |   |-- nb.po
+    |   |   |   |   |   |-- nl.po
+    |   |   |   |   |   |-- pl.po
+    |   |   |   |   |   |-- pt_BR.po
+    |   |   |   |   |   |-- pt.po
+    |   |   |   |   |   |-- ro.po
+    |   |   |   |   |   |-- ru.po
+    |   |   |   |   |   |-- sk.po
+    |   |   |   |   |   |-- sl.po
+    |   |   |   |   |   |-- sr.po
+    |   |   |   |   |   |-- sv.po
+    |   |   |   |   |   |-- tr.po
+    |   |   |   |   |   |-- uk.po
+    |   |   |   |   |   |-- vi.po
+    |   |   |   |   |   |-- zh_CN.po
+    |   |   |   |   |   |-- zh_HK.po
+    |   |   |   |   |   `-- zh_TW.po
+    |   |   |   |   `-- README
+    |   |   |   |-- hello-c++-wxwidgets
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.cc
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   `-- wxwidgets.m4
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-gawk
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.awk
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-guile
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.scm
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-java
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- Hello.java
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-java-awt
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- Hello.java
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   |-- TestAWT.class
+    |   |   |   |   |   `-- TestAWT.java
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-java-qtjambi
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- Hello.java
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   |-- Test15.class
+    |   |   |   |   |   `-- Test15.java
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-java-swing
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- Hello.java
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   |-- TestAWT.class
+    |   |   |   |   |   `-- TestAWT.java
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-librep
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.jl.in
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-objc
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.m
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-objc-gnome
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.m
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   |-- gnome-gnorba-check.m4
+    |   |   |   |   |   |-- gnome.m4
+    |   |   |   |   |   |-- gnome-orbit-check.m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makevars
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- POTFILES.in
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-objc-gnustep
+    |   |   |   |   |-- AppController.h
+    |   |   |   |   |-- AppController.m
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- BUGS
+    |   |   |   |   |-- GNUmakefile
+    |   |   |   |   |-- Hello.h
+    |   |   |   |   |-- Hello.m
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- main.m
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- GNUmakefile
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- LocaleAliases
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-pascal
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.pas
+    |   |   |   |   |-- hello.rst
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-perl
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello-1.pl.in
+    |   |   |   |   |-- hello-2.pl.in
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-php
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.php
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   |-- po
+    |   |   |   |   |   |-- af.po
+    |   |   |   |   |   |-- ast.po
+    |   |   |   |   |   |-- bg.po
+    |   |   |   |   |   |-- ca.po
+    |   |   |   |   |   |-- cs.po
+    |   |   |   |   |   |-- da.po
+    |   |   |   |   |   |-- de.po
+    |   |   |   |   |   |-- el.po
+    |   |   |   |   |   |-- eo.po
+    |   |   |   |   |   |-- es.po
+    |   |   |   |   |   |-- fi.po
+    |   |   |   |   |   |-- fr.po
+    |   |   |   |   |   |-- ga.po
+    |   |   |   |   |   |-- gl.po
+    |   |   |   |   |   |-- hr.po
+    |   |   |   |   |   |-- hu.po
+    |   |   |   |   |   |-- id.po
+    |   |   |   |   |   |-- it.po
+    |   |   |   |   |   |-- ja.po
+    |   |   |   |   |   |-- ky.po
+    |   |   |   |   |   |-- LINGUAS
+    |   |   |   |   |   |-- lv.po
+    |   |   |   |   |   |-- Makefile.am
+    |   |   |   |   |   |-- ms.po
+    |   |   |   |   |   |-- mt.po
+    |   |   |   |   |   |-- nb.po
+    |   |   |   |   |   |-- nl.po
+    |   |   |   |   |   |-- pl.po
+    |   |   |   |   |   |-- pt_BR.po
+    |   |   |   |   |   |-- pt.po
+    |   |   |   |   |   |-- ro.po
+    |   |   |   |   |   |-- ru.po
+    |   |   |   |   |   |-- sk.po
+    |   |   |   |   |   |-- sl.po
+    |   |   |   |   |   |-- sr.po
+    |   |   |   |   |   |-- sv.po
+    |   |   |   |   |   |-- tr.po
+    |   |   |   |   |   |-- uk.po
+    |   |   |   |   |   |-- vi.po
+    |   |   |   |   |   |-- zh_CN.po
+    |   |   |   |   |   |-- zh_HK.po
+    |   |   |   |   |   `-- zh_TW.po
+    |   |   |   |   `-- README
+    |   |   |   |-- hello-python
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.py.in
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-sh
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.sh
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-smalltalk
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.st.in
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-tcl
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.tcl
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-tcl-tk
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.tcl
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- hello-ycp
+    |   |   |   |   |-- autoclean.sh
+    |   |   |   |   |-- autogen.sh
+    |   |   |   |   |-- configure.ac
+    |   |   |   |   |-- hello.ycp
+    |   |   |   |   |-- INSTALL
+    |   |   |   |   |-- m4
+    |   |   |   |   |   `-- Makefile.am
+    |   |   |   |   |-- Makefile.am
+    |   |   |   |   `-- po
+    |   |   |   |       |-- af.po
+    |   |   |   |       |-- ast.po
+    |   |   |   |       |-- bg.po
+    |   |   |   |       |-- ca.po
+    |   |   |   |       |-- cs.po
+    |   |   |   |       |-- da.po
+    |   |   |   |       |-- de.po
+    |   |   |   |       |-- el.po
+    |   |   |   |       |-- eo.po
+    |   |   |   |       |-- es.po
+    |   |   |   |       |-- fi.po
+    |   |   |   |       |-- fr.po
+    |   |   |   |       |-- ga.po
+    |   |   |   |       |-- gl.po
+    |   |   |   |       |-- hr.po
+    |   |   |   |       |-- hu.po
+    |   |   |   |       |-- id.po
+    |   |   |   |       |-- it.po
+    |   |   |   |       |-- ja.po
+    |   |   |   |       |-- ky.po
+    |   |   |   |       |-- LINGUAS
+    |   |   |   |       |-- lv.po
+    |   |   |   |       |-- Makefile.am
+    |   |   |   |       |-- ms.po
+    |   |   |   |       |-- mt.po
+    |   |   |   |       |-- nb.po
+    |   |   |   |       |-- nl.po
+    |   |   |   |       |-- pl.po
+    |   |   |   |       |-- pt_BR.po
+    |   |   |   |       |-- pt.po
+    |   |   |   |       |-- ro.po
+    |   |   |   |       |-- ru.po
+    |   |   |   |       |-- sk.po
+    |   |   |   |       |-- sl.po
+    |   |   |   |       |-- sr.po
+    |   |   |   |       |-- sv.po
+    |   |   |   |       |-- tr.po
+    |   |   |   |       |-- uk.po
+    |   |   |   |       |-- vi.po
+    |   |   |   |       |-- zh_CN.po
+    |   |   |   |       |-- zh_HK.po
+    |   |   |   |       `-- zh_TW.po
+    |   |   |   |-- installpaths
+    |   |   |   `-- README
+    |   |   |-- FAQ.html
+    |   |   |-- gettext_10.html
+    |   |   |-- gettext_11.html
+    |   |   |-- gettext_12.html
+    |   |   |-- gettext_13.html
+    |   |   |-- gettext_14.html
+    |   |   |-- gettext_15.html
+    |   |   |-- gettext_16.html
+    |   |   |-- gettext_17.html
+    |   |   |-- gettext_18.html
+    |   |   |-- gettext_19.html
+    |   |   |-- gettext_1.html
+    |   |   |-- gettext.1.html
+    |   |   |-- gettext_20.html
+    |   |   |-- gettext_21.html
+    |   |   |-- gettext_22.html
+    |   |   |-- gettext_23.html
+    |   |   |-- gettext_24.html
+    |   |   |-- gettext_25.html
+    |   |   |-- gettext_2.html
+    |   |   |-- gettext_3.html
+    |   |   |-- gettext.3.html
+    |   |   |-- gettext_4.html
+    |   |   |-- gettext_5.html
+    |   |   |-- gettext_6.html
+    |   |   |-- gettext_7.html
+    |   |   |-- gettext_8.html
+    |   |   |-- gettext_9.html
+    |   |   |-- gettext_foot.html
+    |   |   |-- gettextize.1.html
+    |   |   |-- gettext_toc.html
+    |   |   |-- javadoc2
+    |   |   |   |-- allclasses-frame.html
+    |   |   |   |-- deprecated-list.html
+    |   |   |   |-- gnu
+    |   |   |   |   `-- gettext
+    |   |   |   |       |-- GettextResource.html
+    |   |   |   |       |-- package-frame.html
+    |   |   |   |       |-- package-summary.html
+    |   |   |   |       `-- package-tree.html
+    |   |   |   |-- help-doc.html
+    |   |   |   |-- index-all.html
+    |   |   |   |-- index.html
+    |   |   |   |-- overview-tree.html
+    |   |   |   |-- package-list
+    |   |   |   |-- packages.html
+    |   |   |   |-- serialized-form.html
+    |   |   |   `-- stylesheet.css
+    |   |   |-- msgattrib.1.html
+    |   |   |-- msgcat.1.html
+    |   |   |-- msgcmp.1.html
+    |   |   |-- msgcomm.1.html
+    |   |   |-- msgconv.1.html
+    |   |   |-- msgen.1.html
+    |   |   |-- msgexec.1.html
+    |   |   |-- msgfilter.1.html
+    |   |   |-- msgfmt.1.html
+    |   |   |-- msggrep.1.html
+    |   |   |-- msginit.1.html
+    |   |   |-- msgmerge.1.html
+    |   |   |-- msgunfmt.1.html
+    |   |   |-- msguniq.1.html
+    |   |   |-- ngettext.1.html
+    |   |   |-- ngettext.3.html
+    |   |   |-- recode-sr-latin.1.html
+    |   |   |-- textdomain.3.html
+    |   |   |-- tutorial.html
+    |   |   `-- xgettext.1.html
+    |   `-- libasprintf
+    |       `-- autosprintf_all.html
+    |-- gettext
+    |   |-- ABOUT-NLS
+    |   |-- archive.dir.tar.xz
+    |   |-- config.rpath
+    |   |-- gettext.h
+    |   |-- intl
+    |   |   |-- bindtextdom.c
+    |   |   |-- config.charset
+    |   |   |-- COPYING.LIB
+    |   |   |-- dcgettext.c
+    |   |   |-- dcigettext.c
+    |   |   |-- dcngettext.c
+    |   |   |-- dgettext.c
+    |   |   |-- dngettext.c
+    |   |   |-- eval-plural.h
+    |   |   |-- explodename.c
+    |   |   |-- export.h
+    |   |   |-- finddomain.c
+    |   |   |-- gettext.c
+    |   |   |-- gettextP.h
+    |   |   |-- gmo.h
+    |   |   |-- hash-string.c
+    |   |   |-- hash-string.h
+    |   |   |-- intl-compat.c
+    |   |   |-- intl-exports.c
+    |   |   |-- l10nflist.c
+    |   |   |-- langprefs.c
+    |   |   |-- libgnuintl.in.h
+    |   |   |-- libintl.rc
+    |   |   |-- loadinfo.h
+    |   |   |-- loadmsgcat.c
+    |   |   |-- localcharset.c
+    |   |   |-- localcharset.h
+    |   |   |-- locale.alias
+    |   |   |-- localealias.c
+    |   |   |-- localename.c
+    |   |   |-- lock.c
+    |   |   |-- lock.h
+    |   |   |-- log.c
+    |   |   |-- Makefile.in
+    |   |   |-- ngettext.c
+    |   |   |-- os2compat.c
+    |   |   |-- os2compat.h
+    |   |   |-- osdep.c
+    |   |   |-- plural.c
+    |   |   |-- plural-exp.c
+    |   |   |-- plural-exp.h
+    |   |   |-- plural.y
+    |   |   |-- printf-args.c
+    |   |   |-- printf-args.h
+    |   |   |-- printf.c
+    |   |   |-- printf-parse.c
+    |   |   |-- printf-parse.h
+    |   |   |-- ref-add.sin
+    |   |   |-- ref-del.sin
+    |   |   |-- relocatable.c
+    |   |   |-- relocatable.h
+    |   |   |-- setlocale.c
+    |   |   |-- textdomain.c
+    |   |   |-- threadlib.c
+    |   |   |-- tsearch.c
+    |   |   |-- tsearch.h
+    |   |   |-- vasnprintf.c
+    |   |   |-- vasnprintf.h
+    |   |   |-- vasnwprintf.h
+    |   |   |-- verify.h
+    |   |   |-- VERSION
+    |   |   |-- version.c
+    |   |   |-- wprintf-parse.h
+    |   |   |-- xsize.c
+    |   |   `-- xsize.h
+    |   |-- javaversion.class
+    |   |-- msgunfmt.tcl
+    |   |-- po
+    |   |   |-- boldquot.sed
+    |   |   |-- en@boldquot.header
+    |   |   |-- en@quot.header
+    |   |   |-- insert-header.sin
+    |   |   |-- Makefile.in.in
+    |   |   |-- Makevars.template
+    |   |   |-- quot.sed
+    |   |   |-- remove-potcdate.sin
+    |   |   `-- Rules-quot
+    |   |-- projects
+    |   |   |-- GNOME
+    |   |   |   |-- team-address
+    |   |   |   |-- teams.html
+    |   |   |   |-- teams.url
+    |   |   |   `-- trigger
+    |   |   |-- index
+    |   |   |-- KDE
+    |   |   |   |-- team-address
+    |   |   |   |-- teams.html
+    |   |   |   |-- teams.url
+    |   |   |   `-- trigger
+    |   |   |-- team-address
+    |   |   `-- TP
+    |   |       |-- team-address
+    |   |       |-- teams.html
+    |   |       |-- teams.url
+    |   |       `-- trigger
+    |   `-- styles
+    |       |-- po-default.css
+    |       |-- po-emacs-x.css
+    |       |-- po-emacs-xterm16.css
+    |       |-- po-emacs-xterm256.css
+    |       |-- po-emacs-xterm.css
+    |       `-- po-vim.css
+    |-- info
+    |   |-- autosprintf.info
+    |   |-- dir
+    |   `-- gettext.info
+    |-- locale
+    |   |-- be
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- bg
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ca
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- cs
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- da
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- de
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- el
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- en@boldquot
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- en@quot
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- eo
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-runtime.mo
+    |   |-- es
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- et
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- eu
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-tools.mo
+    |   |-- fi
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- fr
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ga
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-runtime.mo
+    |   |-- gl
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- hr
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-runtime.mo
+    |   |-- hu
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-runtime.mo
+    |   |-- id
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- it
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ja
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ko
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- locale.alias
+    |   |-- nb
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- nl
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- nn
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- pa
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-tools.mo
+    |   |-- pl
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- pt
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- pt_BR
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ro
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- ru
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- sk
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- sl
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- sr
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- sv
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- tr
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- uk
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- vi
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- zh_CN
+    |   |   `-- LC_MESSAGES
+    |   |       |-- gettext-runtime.mo
+    |   |       `-- gettext-tools.mo
+    |   |-- zh_HK
+    |   |   `-- LC_MESSAGES
+    |   |       `-- gettext-runtime.mo
+    |   `-- zh_TW
+    |       `-- LC_MESSAGES
+    |           |-- gettext-runtime.mo
+    |           `-- gettext-tools.mo
+    `-- man
+        |-- man1
+        |   |-- autopoint.1
+        |   |-- envsubst.1
+        |   |-- gettext.1
+        |   |-- gettextize.1
+        |   |-- msgattrib.1
+        |   |-- msgcat.1
+        |   |-- msgcmp.1
+        |   |-- msgcomm.1
+        |   |-- msgconv.1
+        |   |-- msgen.1
+        |   |-- msgexec.1
+        |   |-- msgfilter.1
+        |   |-- msgfmt.1
+        |   |-- msggrep.1
+        |   |-- msginit.1
+        |   |-- msgmerge.1
+        |   |-- msgunfmt.1
+        |   |-- msguniq.1
+        |   |-- ngettext.1
+        |   |-- recode-sr-latin.1
+        |   `-- xgettext.1
+        `-- man3
+            |-- bindtextdomain.3
+            |-- bind_textdomain_codeset.3
+            |-- dcgettext.3
+            |-- dcngettext.3
+            |-- dgettext.3
+            |-- dngettext.3
+            |-- gettext.3
+            |-- ngettext.3
+            `-- textdomain.3
+
+202 directories, 1923 files

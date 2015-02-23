@@ -1,0 +1,44 @@
+for lcd on: 
+-----------
+	# cat /sys/class/leds/backlight/brightness
+		1 if on
+		0 if off
+			/*
+			 * Actually its a softlink., the main file path is at "/sys/devices/platform/s3c24xx_led.5/leds/backlight"
+			 */
+
+	To make it on:
+	# echo "1" > /sys/class/leds/backlight/brightness		
+	OR
+	# echo 1 > /dev/backligth		<it sometimes maynot work use above one>
+
+
+###################################################################################################################################
+To automate ANY job from booting itself:
+=========================================
+	Append follwed(required line) line, Since everytime when booting first /etc/inittab will start, then it awakens /etc/init.d/rcS to run
+
+	# echo "echo "1" > /sys/class/leds/backlight/brightness" >> /etc/init.d/rcS
+
+###################################################################################################################################
+
+
+To make particual LED on:
+-------------------------
+	It is possible to make led1 on/off also:
+
+	echo "1" > /sys/class/leds/led1/brightness
+
+Cursor_blinking on board:
+=========================
+
+	ON:
+	---
+		MINI2440# echo 1 > /sys/class/graphics/fbcon/cursor_blink
+	OFF:
+	----
+		MINI2440# echo 0 > /sys/class/graphics/fbcon/cursor_blink
+
+
+
+/sys/devices/platform/s3c2410-lcd/graphics/fb0 

@@ -1,0 +1,45 @@
+1. Install following packages.
+	$ sudo apt-get install xinetd tftpd tftp
+
+2. Create vi /etc/xinetd.d/tftp and put this entry
+	service tftp
+	{
+		protocol        = udp
+		port            = 69
+		socket_type     = dgram
+		wait            = yes
+		user            = nobody
+		server          = /usr/sbin/in.tftpd
+		server_args     = /tftpboot
+		disable         = no
+	}
+
+3. Create a folder /tftpboot  this should match whatever you gave in server_args. mostly it will be tftpboot
+	$ sudo mkdir /tftpboot
+	$ sudo chmod -R 777 /tftpboot
+	$ sudo chown -R nobody /tftpboot
+
+4. Restart the xinetd service.
+	$ sudo /etc/init.d/xinetd stop
+	$ sudo /etc/init.d/xinetd start
+
+Now our tftp server is up and running.
+
+Testing our tftp server
+
+5. Create a file named test with some content in /tftpboot path of the tftp server
+	$ ls / > /tftpboot/test
+	$ sudo chmod -R 777 /tftpboot
+	$ ls /tftpboot/test -lh
+		-rw-r--r-- 1 veda veda 159 2010-03-05 20:48 test
+
+6. Set the ipaddress of tftp by using ifconfig command
+	$ sudo ifconfig eth0 192.168.1.2
+
+7. Now in some other system follow the following steps.
+	$ tftp 192.168.1.2
+		tftp> get test
+		Sent 159 bytes in 0.0 seconds
+	tftp> quit
+	$ ls test -lh
+		-rw-r--r-- 1 veda veda 159 2010-03-05 20:48 test

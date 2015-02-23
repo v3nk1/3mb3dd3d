@@ -1,0 +1,10 @@
+$ vi /home/emb.sh
+
+	ARCH=arm
+	CROSS_COMPILE=arm-linux-
+
+In which terminal u need these ...
+Execute like this:
+------------------
+	
+	# . /home/emb.sh

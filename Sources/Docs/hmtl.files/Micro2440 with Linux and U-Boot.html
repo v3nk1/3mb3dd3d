@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Micro2440 with Linux and U-Boot</title>
+<link rel="alternate" type="application/rss+xml" title="pages updates" href="/_command/49/RSSfeedGenerator/download/RSS.xml?count=10" />
+<link rel="shortcut icon" type="image/x-icon" href="/kc-favicon.png" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="index,follow" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="DC.Date" content="2010-07-15 14:19:38.008511" />
+<meta name="DC.Date.created" content="" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<meta http-equiv="imagetoolbar" content="no" />
+<!-- additional JS/CSS files START -->
+
+
+<!-- additional stylesheets from main_menu -->
+<link href="/media/PyLucid/internal_page/main_menu/main_menu_ul.css" rel="stylesheet" type="text/css" />
+
+<!-- additional stylesheets from search -->
+<link href="/media/PyLucid/internal_page/search/input_form.css" rel="stylesheet" type="text/css" />
+
+<!-- additional stylesheets from back_links -->
+<link href="/media/PyLucid/internal_page/back_links/back_links.css" rel="stylesheet" type="text/css" />
+
+<!-- additional JS/CSS files END -->
+<link rel="stylesheet" type="text/css" href="/media/PyLucid/kc.css" />
+
+</head>
+
+<body>
+<div id="wrap">
+
+  <!-- page header -->
+  <div class="header3">
+    <a href="/"><img class="site_logo" src="/static/kc-logo-labs.png" alt="KC Labs" title="KC Labs"/></a>
+  </div>
+
+  <!-- left panel -->
+  <div id="leftside">
+    <h2 class="hide">Menu:</h2>
+    <div class="PyLucidPlugins main_menu" id="main_menu_lucidTag">
+<ul>
+  <li><a href="/Labs-Home/" title="Welcome to KC Labs" class="level1 first">Labs Home</a></li>
+<li><a href="/About/" title="About KC and KC Labs" class="level1 middle">About</a></li>
+<li><a href="/News/" title="News" class="level1 middle">News</a></li>
+<li><a href="/Projects/" title="" class="level1 middle">Projects</a></li>
+<li><a href="/Tools/" title="Development Tools" class="level1 middle">Tools</a></li>
+<li><a href="/Bookshelf/" title="Bookshelf" class="level1 middle">Bookshelf</a></li>
+<li><a href="/Publications/" title="Information published by kc folks" class="level1 middle active">Publications</a><ul><li><a href="/Publications/Cardman-4000/" title="Using the Cardman 4000 with GnuPG" class="level2 first">Cardman 4000</a></li><li><a href="/Publications/GPE-Applications-for-Maemo/" title="GPE Applications port to Maemo" class="level2 middle">GPE Applications for Maemo</a></li><li><a href="/Publications/IBM-Lenovo-ThinkPad-X60/" title="Linux on the IBM / Lenovo ThinkPad X60" class="level2 middle">IBM/Lenovo ThinkPad X60</a></li><li><a href="/Publications/Letux-400/" title="Letux 400 - JZ4730 mini notebook" class="level2 middle">Letux 400</a></li><li><a href="/Publications/LinuxTag-Shirt-Designs/" title="LinuxTag Shirt Designs" class="level2 middle">LinuxTag Shirt Designs</a></li><li><a href="/Publications/Micro2440/" title="Micro2440 with Linux and U-Boot" class="level2 middle active current">Micro2440</a></li><li><a href="/Publications/TMPA900-Boards/" title="Using the TMPA900 CPU Boards" class="level2 middle">TMPA900 Boards</a></li><li><a href="/Publications/Zydas-ZD1211/" title="Using the Zydas ZD1211 with Linux" class="level2 middle">Zydas ZD1211</a></li><li><a href="/Publications/Prior-Art/" title="Prior Art publications" class="level2 last">Prior Art</a></li></ul></li>
+<li><a href="/Members/" title="Who is who at kernel concepts labs" class="level1 middle">Members</a></li>
+<li><a href="/SiteMap/" title="SiteMap" class="level1 last">SiteMap</a></li>
+</ul>
+
+</div>
+
+    <div class="PyLucidPlugins search" id="search_lucidTag">
+<p>
+<form id="search_form" method="post" action="/_command/49/search/do_search/">
+
+    
+    <input id="id_search_string" type="text" name="search_string" maxlength="50" />
+    
+    <input type="submit" name="search plugin" value="search" />
+    
+
+</form>
+</p>
+</div>
+
+  </div>
+
+  <!-- content section -->
+  <div id="contentwide">
+    <div id="admin"><div class="PyLucidPlugins admin_menu" id="admin_menu_lucidTag">
+
+</div>
+</div>
+    
+
+    <!-- breadcrumbs - helps to find your way back -->
+    <p><div class="PyLucidPlugins back_links" id="back_links_lucidTag">
+<ul>
+  
+    <li><a href="/">Index</a></li>
+  
+  
+    <li><a href="/Publications/">Publications</a></li>
+  
+    <li><a href="/Publications/Micro2440/">Micro2440</a></li>
+  
+</ul>
+</div>
+</p>
+
+
+    <h1 id="Micro2440-with-Linux-and-U-Boot"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Micro2440-with-Linux-and-U-Boot" class="anchor">Micro2440 with Linux and U-Boot</a></h1>
+
+    <h2 id="Micro2440-Instructions-for-U-Boot-and-Linux"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Micro2440-Instructions-for-U-Boot-and-Linux" class="anchor">Micro2440 Instructions for U-Boot and Linux</a></h2>
+
+
+<p>A brief introduction about how to get started with the Micro2440 boards and u-boot.<br />
+We are going to replace all contents of the NAND flash - so make sure to have a backup if there is any valuable data on your device.</p>
+
+<h3 id="What-we-need"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#What-we-need" class="anchor">What we need</a></h3>
+
+
+<ul>
+	<li>Micro2440 SDK</li>
+	<li>Linux PC (Windows would work as well but I'm not sure how to upload files to Vivi with it.)</li>
+	<li>SD/MMC card</li>
+	<li>Serial cable</li>
+	<li>USB cable or JTAG (to replace vivi)</li>
+</ul>
+<h3 id="Replacing-the-Bootloader"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Replacing-the-Bootloader" class="anchor">Replacing the Bootloader</a></h3>
+
+
+<p>We are going to use the bootloader in NOR flash for booting preparing the whole boot environment in NAND flash. Doing so we can create a new bad block table for the NAND flash which seems to be necessary for most of the board shipped.<br />
+We are going to copy u-boot into the RAM of the board and execute it there. u-boot will provide us all necessary features to prepare nand flash and copy itself there.</p>
+
+<p>1. Use your preferred serial terminal application and connect to the micro2440 SDK board "COM-0" port. The u-boot serial console communication parameters are 115200,8,n,1. Connect the USB client (B) plug of the board with an USB port of your PC. Make sure to set the boot selection switch to the 'NOR' position before you power on the board.</p>
+
+<p>2. No need to build anything from source, the binaries are provided in the support kit linked <a href="/_goto/46/Micro2440-Mini2440/#Downloads">here</a>. Download and unpack this file.</p>
+
+<p>3. When you turn on the board you should see a list of options from the Vivi bootloader the board is shipped with.</p>
+<pre>
+##### FriendlyARM BIOS for 2440 #####
+[x] bon part 0 320k 2368k
+[v] Download vivi 
+...
+</pre>
+<p>Press 'q' to enter the Vivi shell.</p>
+
+<p>4. Now you can enter the command to download the u-boot bootlader via USB. </p>
+<pre>
+Supervivi&gt; load ram 0x31000000 239016 u
+USB host is connected. Waiting a download. 
+</pre>
+<p>The second number is the length of the file in bytes. The number in this description is an example and needs to replaced with the correct length of the file you are actually uploading.</p>
+
+<p>Upload the file from your PC. Note that you need to have root privileges to do this.</p>
+<pre>
+$ sudo ./s3c2410_boot_usb u-boot.bin
+</pre>
+<p>Ususally you get an error message before the program terminates. This can be ignored. At the Vivi shell you should see something like this:</p>
+<pre>
+Now, Downloading [ADDRESS:31000000h,TOTAL:239026]                               
+RECEIVED FILE SIZE:  239026 (116KB/S, 2S)                                       
+Downloaded file at 0x31000000, size = 239016 bytes
+</pre>
+<p>5. Now we are going to jump to u-boot and prepare the NAND flash</p>
+<pre>
+go 0x31000000
+</pre>
+<p>You should see u-boot starting:</p>
+<pre>
+U-Boot 1.3.2-dirty-moko12 (Apr 16 2009 - 18:14:52)                              
+                                                                                
+I2C:   ready                                                                    
+DRAM:  64 MB                                                                    
+Flash:  2 MB                                                                    
+NAND:  Bad block table not found for chip 0                                     
+Bad block table not found for chip 0                                            
+64 MiB                                                                          
+*** Warning - bad CRC or NAND, using default environment                        
+                                                                                
+USB:   S3C2410 USB Deviced                                                      
+In:    serial                                                                   
+Out:   serial                                                                   
+Err:   serial                                                                   
+MAC: 08:08:11:18:12:27                                                          
+Hit any key to stop autoboot:  0
+</pre>
+<p>Now we can prepare the NAND slash:</p>
+<pre>
+MINI2440 # nand scrub
+</pre>
+<pre>
+NAND scrub: device 0 whole chip                                                 
+Warning: scrub option will erase all factory set bad blocks!                    
+         There is no reliable way to recover them.                              
+         Use this command only for testing purposes if you                      
+         are sure of what you are doing!                                        
+                                                                                
+Really scrub this NAND flash? &lt;y/N&gt;                                             
+Erasing at 0x3ffc000 -- 100% complete.                                          
+Bad block table not found for chip 0                                            
+Bad block table not found for chip 0                                            
+OK
+</pre>
+<p>and</p>
+<pre>
+MINI2440 # nand createbbt
+</pre>
+<pre>
+Create BBT and erase everything ? &lt;y/N&gt;                                         
+Skipping bad block at  0x03ff0000                                               
+Skipping bad block at  0x03ff4000                                               
+Skipping bad block at  0x03ff8000                                               
+Skipping bad block at  0x03ffc000                                               
+                                                                                
+Creating BBT. Please wait ...
+</pre>
+
+<p>6. We copy u-boot to NAND</p>
+<pre>
+MINI2440 # nand write 0x31000000 u-boot                                         
+</pre>
+<pre>
+NAND write: device 0 offset 0x0, size 0x40000                                   
+ 262144 bytes written: OK                                                       
+</pre>
+
+<p>7. Reset <br />
+Return the boot selection switch to the NAND setting and try your new installed u-boot. Right after reset the u-boot console should appear again.</p>
+
+<h3 id="Working-with-U-Boot"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Working-with-U-Boot" class="anchor">Working with U-Boot</a></h3>
+
+
+<p>1. Create a dynamic environment:</p>
+<pre>
+MINI2440 # dynenv set 40000
+</pre>
+
+<p>2. Copy the *.jffs2 and the uImage file to the SD/MMC card and put it into the card slot of the Micro2440 SDK.</p>
+
+<p>3. Populate the kernel partiton in NAND flash<br />
+At the u-boot prompt enter the following commands</p>
+<pre>
+MINI2440 # nand erase kernel
+MINI2440 # mmcinit
+MINI2440 # fatload mmc 0:1 0x31000000 uImage
+MINI2440 # nand write 0x31000000 kernel 
+</pre>
+
+<p>4. Populate the filesystem partition in NAND flash<br />
+The 'filesize' environment variable holds the size of the last file read by the fatload command. Because its padded to a erase block boundary we can use this knowledge to deal with root filesystems of multiple size easily.</p>
+<pre>
+MINI2440 # nand erase root
+MINI2440 # mmcinit
+MINI2440 # fatload mmc 0:1 0x31000000 gpe-image-micro2440.jffs2
+MINI2440 # nand write.jffs2 0x31000000 root ${filesize}
+</pre>
+
+<p>5. Set the boot command and save the environment settings</p>
+<pre>
+MINI2440 # setenv bootcmd nboot.e kernel \; bootm
+MINI2440 # saveenv
+</pre>
+<p>If you have a board with 7" LCD you need to set (and save) this parameter:</p>
+<pre>
+MINI2440 # setenv bootargs root=/dev/mtdblock3 rootfstype=jffs2 console=ttySAC0,
+115200 mini2440=1tb
+</pre>
+
+<p>6. Reset and boot the device</p>
+<pre>
+MINI2440 # reset
+</pre>
+
+<h3 id="Some-additional-information"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Some-additional-information" class="anchor">Some additional information</a></h3>
+
+
+<h4 id="U-Boot-partition-layout"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#U-Boot-partition-layout" class="anchor">U-Boot partition layout</a></h4>
+
+
+<pre>
+nr  name    size        offset
+ 0  u-boot  0x00040000  0x00000000
+ 1  env     0x00020000  0x00040000
+ 2  kernel  0x00500000  0x00060000
+ 3  root    0x03aa0000  0x00560000
+</pre>
+
+<h4 id="OpenOCD-configuration"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#OpenOCD-configuration" class="anchor">OpenOCD configuration</a></h4>
+
+
+<p>You can use this configuration to access your Micro2440 using the parallel port JTAG that comes with it. </p>
+<pre>
+interface parport
+parport_port 0x378
+parport_cable triton
+jtag_speed 0
+
+source [find target/samsung_s3c2440.cfg]
+
+telnet_port 4444
+gdb_port 3333
+
+reset_config trst_and_srst
+</pre>
+
+<h3 id="Bootstrapping-without-a-working-bootloader"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#Bootstrapping-without-a-working-bootloader" class="anchor">Bootstrapping without a working bootloader</a></h3>
+
+
+<p>If you have a device without valid bootloader you can bootstrap it by running u-boot from ram. This procedure is a little bit tricky since the CPU needs some initialisation before you can write an u-boot executable to the RAM. <br />
+You will need the JTAG cable, OpenOCD 1.x and the lowlevel_foo.bin image included in the support kit.</p>
+
+<p>At the OpenOCD prompt  follow this sequence:<br />
+Reset the CPU and let it wait </p>
+<pre>
+&gt; reset halt
+</pre>
+<p>Now we bring out initialisation commands in place.</p>
+<pre>
+&gt; load_image /path/to/lowlevel_foo.bin 0
+downloaded 332 byte in 0s 21899us
+</pre>
+<p>We set a breakpoint at the address in RAM the initialisation code jumps to after successful execution.</p>
+<pre>
+&gt; bp 0x33f80000 4 hw
+breakpoint added at address 0x33f80000
+</pre>
+<p>Now let the CPU run. It will go through the initialisation and finally jump to our breakpoint.</p>
+<pre>
+&gt; resume
+Target 0 resumed
+&gt; Target 0 halted
+target halted in ARM state due to breakpoint, current mode: Supervisor
+cpsr: 0x600000d3 pc: 0x33f80000
+MMU: disabled, D-Cache: disabled, I-Cache: enabled
+</pre>
+<p>Now that we have initialised RAM we can bring our bootloader in place. We copy it to the address where the CPU is waiting due to the breakpoint.</p>
+<pre>
+&gt; load_image /path/to/u-boot.bin 0x33f80000
+</pre>
+<p>And we allow it continue execution... </p>
+<pre>
+resume 
+</pre>
+<p>You should get an u-boot console on the serial port now.<br />
+Write the u-boot binary to the "u-boot" partition now. (Same commands like for the kernel, but <br />
+use the existing address 0x33f80000 and "u-boot" for the partition name.</p>
+
+<p>There is a screencast [4] available that is based on this decription.</p>
+
+<h3 id="References"><a title="Link to this section" href="http://labs.kernelconcepts.de/_goto/49/Micro2440/#References" class="anchor">References</a></h3>
+
+<p>[1] LinuxMCE Wiki: <a href="http://wiki.linuxmce.org/index.php/Mini2440">http://wiki.linuxmce.org/index.php/Mini2440</a><br />
+[2] OpenMoko Wiki: <a href="http://wiki.openmoko.org/wiki/Bootloader#Using_JTAG_to_boot_from_RAM">http://wiki.openmoko.org/wiki/Bootloader#Using_JTAG_to_boot_from_RAM</a><br />
+[3] Mini Bringup Guide: <a href="http://code.google.com/p/mini2440/wiki/MiniBringup">http://code.google.com/p/mini2440/wiki/MiniBringup</a><br />
+[4] mini2440 screencast: <a href="http://www.youtube.com/watch?v=oi66srITOcA">http://www.youtube.com/watch?v=oi66srITOcA</a></p>
+
+
+
+    <p id="permalink"><a href="http://labs.kernelconcepts.de/_goto/49/Micro2440/" title="permalink to this page">permalink</a></p>
+
+  </div>
+
+  <!-- footer section -->
+  <div id="footer">
+    <p>
+      powered by <a href="http://www.pylucid.org">PyLucid v0.8.6rc1</a> | <a href="/_command/49/auth/login/">Log in</a> | last modified: 2010-07-15 14:19:38.008511
+    </p>
+  </div>
+</div>
+</body>
+</html>

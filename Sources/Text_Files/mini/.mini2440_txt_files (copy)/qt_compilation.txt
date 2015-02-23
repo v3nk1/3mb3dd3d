@@ -1,0 +1,86 @@
+2. Qt4.6.2 compilation.
+#get Qt4.6.2 from the link http://get.qt.nokia.com/qt/source/qt-everywhere-opensource-src-4.6.2.tar.gz
+#copy it into /usr/local
+$cd /usr/local
+$tar -zxvf qt-everywhere-opensource-src-4.6.2.tar.gz
+$cd qt-everywhere-opensource-src-4.6.2
+$cd mkspecs/common/
+$gedit g++.conf
+
+#change         QMAKE_CFLAGS_RELEASE += -O2
+#into         QMAKE_CFLAGS_RELEASE += -O0
+#save the file
+
+$cd /usr/local/qt-everywhere-opensource-src-4.6.2/mkspecs/qws/linux-arm-g++/
+$gedit qmake.conf 
+
+#change the file into, note that, the path /usr/local/arm/4.3.2/ is the path which you installed tool chain.
+#
+# qmake configuration for building with arm-linux-g++
+#
+
+
+include(../../common/g++.conf)
+include(../../common/linux.conf)
+include(../../common/qws.conf)
+
+
+# modifications to g++.conf
+QMAKE_CC                = arm-linux-gcc -msoft-float -D__GCC_FLOAT_NOT_NEEDED -march=armv4t -mtune=arm920t -O0 -lts
+QMAKE_CXX               = arm-linux-g++ -msoft-float -D__GCC_FLOAT_NOT_NEEDED -march=armv4t -mtune=arm920t -O0 -lts
+QMAKE_LINK              = arm-linux-g++ -msoft-float -D__GCC_FLOAT_NOT_NEEDED -march=armv4t -mtune=arm920t -O0 -lts
+QMAKE_LINK_SHLIB        = arm-linux-g++ -msoft-float -D__GCC_FLOAT_NOT_NEEDED -march=armv4t -mtune=arm920t -O0 -lts
+
+
+# modifications to linux.conf
+QMAKE_AR                = arm-linux-ar cqs 
+QMAKE_OBJCOPY           = arm-linux-objcopy
+QMAKE_STRIP             = arm-linux-strip
+
+
+QMAKE_INCDIR   += /tslib/include/
+QMAKE_LIBDIR += /tslib/lib/
+
+
+QMAKE_CFLAGS_RELEASE += -march=armv4 -mtune=arm920t
+QMAKE_CFLAGS_DEBUG += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_MT += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_MT_DBG += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_MT_DLL += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_MT_DLLDBG += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_SHLIB += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_THREAD += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_WARN_OFF += -march=armv4t -mtune=arm920t
+QMAKE_CFLAGS_WARN_ON += -march=armv4t -mtune=arm920t
+
+
+QMAKE_CXXFLAGS_DEBUG += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_MT += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_MT_DBG += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_MT_DLL += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_MT_DLLDBG += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_RELEASE += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_SHLIB += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_THREAD += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_WARN_OFF += -march=armv4t -mtune=arm920t
+QMAKE_CXXFLAGS_WARN_ON += -march=armv4t -mtune=arm920t
+
+
+load(qt_config)
+
+#then, save the file. Continue on console panel:
+
+$mkdir /usr/local/Qt
+$cd /usr/local/qt-everywhere-opensource-src-4.6.2
+$./configure -embedded arm -xplatform qws/linux-arm-g++ -prefix /usr/local/Qt -qt-mouse-tslib -little-endian -no-webkit -no-qt3support -no-cups -no-largefile -optimized-qmake -no-openssl -nomake tools -qt-sql-sqlite -no-3dnow -system-zlib -qt-gif -qt-libtiff -qt-libpng -qt-libmng -qt-libjpeg -no-opengl -gtkstyle -no-openvg -no-xshape -no-xsync -no-xrandr -qt-freetype -qt-gfx-linuxfb -qt-kbd-tty -qt-kbd-linuxinput -qt-mouse-tslib -qt-mouse-linuxinput
+
+#chose 'o' Open Source Edition
+#chose 'yes' to accept license offer
+#then, you will wait for about 5 miniutes
+
+$make
+#it will take nearly one hour on my due core 1.7GHz laptop, too long!
+$make install
+#Ok, if the compilation is done, you will see the result files in /usr/local/Qt.
+
+

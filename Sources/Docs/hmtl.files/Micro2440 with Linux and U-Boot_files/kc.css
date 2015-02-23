@@ -1,0 +1,521 @@
+/* 
+ * Globals 
+ */
+
+* {
+    margin:0px;
+    padding:0px;
+}
+
+html {
+    background-color: #000055;
+    font-family: "Arial", "DejaVu Sans", sans-serif;
+}
+
+body {
+    font-size: 0.9em;
+    border: 1px solid grey;
+    margin: 6em auto 4em auto;
+    background-color: #f7f7f7;
+    width: 90%;
+    max-width: 80em;
+    min-width: 50em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+pre {
+  margin-bottom: 1em;
+  display: block;
+  background-color: #f7f7f7;
+  padding: 1em;
+}
+
+ul {
+  margin-left: 1em;
+}
+
+a {
+  text-decoration:none;
+  font-weight:bold;
+  color:#000099;
+  background-color:inherit;
+}
+a:hover {
+  text-decoration:underline;
+  background-color:inherit;
+}
+a img {
+  border:0;
+}
+
+h1 {
+    font-size: 144%;
+    padding: 6px;
+    margin-bottom: 1em;
+    margin-right: 1ex;
+    align: top;
+    background-color: #f4f4f4;
+}
+
+h1:first-child {
+    margin-top: 0ex;
+}
+
+h2 {
+    margin-top: 3em;
+    margin-bottom: 1em;
+    margin-right: 1ex;
+    padding: 3px;
+    font-size: 120%;
+    background-color: #f4f4f4;
+}
+
+h2:first-child {
+    margin-top: 0ex;
+}
+
+h3 {
+    margin-top: 3em;
+    margin-bottom: 1em;
+    padding: 3px;
+    font-style: italic;
+    float:none;
+}
+
+fieldset {
+  border: 0px;
+}
+
+img {
+  border: 1ex solid #f4f4f4;
+}
+
+table th {
+  text-align: left;
+}
+
+/* 
+ * Custom styles for page contents
+ */
+
+.hide {
+  display: none;
+}
+
+
+.header {
+  text-align:left;
+  background:url(/static/labs-header.png) right top no-repeat;
+  background-color: #ffd800;
+  float: none;
+  display: block;
+  width: 100%;
+  padding: 0;
+}
+
+.header img {
+  border: 0;
+}
+
+.header2 {
+  text-align:left;
+  background:url(/static/labs-header2.png) right top no-repeat;
+  background-color: #ffd800;
+  float: none;
+  display: block;
+  width: 100%;
+}
+
+.header2 img {
+  border: 0;
+}
+
+.header3 {
+  text-align:left;
+  background:url(/static/labs-header3.png) right top no-repeat;
+  background-color: #ffd800;
+  float: none;
+  display: block;
+  width: 100%;
+}
+
+.header3 img {
+  border: 0;
+}
+
+.header4 {
+  text-align:left;
+  background:url(/static/labs-header4.png) right top no-repeat;
+  background-color: #ffd800;
+  float: none;
+  display: block;
+  width: 100%;
+}
+
+.header4 img {
+  border: 0;
+}
+
+.site_logo {
+  border: 0;
+}
+
+.project_panel {
+  float: left;
+}
+
+.project_panel table {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  padding: 1ex;
+  margin: 0em 1em 1em 0em;
+  border-spacing: 0;
+}
+
+.project_panel table th {
+  background-color: #ddd;
+  padding: 5px;
+}
+
+.project_panel #n1 {
+  border-left: 4px solid #11bb33;
+}
+
+.project_panel table td {
+   padding: 0.3em;
+}
+
+.project_panel a {
+  display: block;
+  color: #505050;
+  text-decoration: none;
+}
+
+#page_updates {
+  margin-top: 2em;
+}
+
+#wrap {
+  background:#ffffff;
+  margin:0 auto;
+  width: 100%;
+}
+
+#contentwide {
+  margin:0 1em 1em 25%;
+  border-left:1px solid #f0f0f0;
+  padding:0 0 0 10px;
+  line-height:1.2em;
+  img border: solid #f4f4f4;
+
+}
+
+#leftside {
+  /*
+  includes the menu + search plugin
+  */
+  float:left;
+  padding: 0 0 0 10px;
+  margin-top: 1em;
+}
+
+#admin {
+  text-align: right;
+  font-size:0.9em;
+  margin: 1em 1em;;
+  padding: 0;
+}
+
+.img_center {
+    margin: 0em auto 2em auto;
+    text-align: center;
+    float: none;
+    clear: both;
+    display: block;
+}
+
+.img_left {
+    margin-right: auto;
+    margin-left: 0em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.img_left a img {
+  border: 1ex solid #f4f4f4;
+}
+
+.img_left a img:hover {
+  border: 1ex solid #eaeaea;
+}
+
+
+
+.img_right {
+    display: block;
+    float: none;
+    margin-left: auto;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.search input, .search button {
+  font-size: 0.85em;
+  border: 1px solid #f0f0f0;
+  padding: 1px;
+  max-width: 14ex;
+}
+
+.main_menu {
+  font-size:0.9em;
+  padding: 0;
+  margin-bottom: 2em;
+  margin-left: -1em;
+}
+
+.main_menu a:hover, .main_menu a.current {
+  text-decoration: none;
+}
+
+
+.main_menu ul {
+  padding: 0;
+}
+
+.main_menu ul ul {
+  /* indent submenu */
+  padding: 0 0 0 1.5em;
+  font-size:0.95em; /* smaller font for subitems */
+}
+
+.main_menu li {
+  list-style:none;
+  padding: 0;
+  margin: 0;
+}
+
+.main_menu li a {
+  display: block;
+  width: 140px;
+  background-color: #f4f4f4;
+  color: #505050;
+  font-weight: bold;
+  padding: 4px;
+  margin: 2px;
+  border-left: 4px solid #cccccc;
+  text-decoration: none;
+}
+
+.main_menu li a:hover {
+  background-color: #eaeaea;
+  border-left: 4px solid #286ea0;
+  color: #505050;
+  text-decoration: none;
+}
+
+.main_menu a.current {
+  text-decoration: none;
+  background-color: #ddd;
+  border-left: 4px solid #bb1133;
+}
+
+#footer * {
+  color: #808080;
+}
+
+#footer {
+  clear: both;
+  margin: 0 auto;
+  padding: 10px 0 20px;
+  border-top: 4px solid #f0f0f0;
+  text-align: center;
+  font-size: 0.8em;
+}
+#footer a {
+  background-color: inherit;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  text-decoration: underline;
+}
+
+
+/* 
+ * Plugin styles
+ */
+
+.RSS {
+  margin-top: 2em;
+  padding: 1em;
+}
+.RSS h1 {
+  font-size: 1.2em;
+  background-color: #DDD;
+  padding: 0.4em;
+  margin-left: 0em;
+}
+.RSS ul {
+  margin: 0;
+  padding: 0;
+}
+.RSS li {
+  list-style-type:none;
+  background-color: #EEE;
+  border: 1px solid #BBB;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.SiteMap {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.SiteMap li {
+  list-style-type: none;
+  line-height:1.5em;
+}
+.SiteMap a {
+  text-decoration:underline;
+}
+.SiteMap p {
+  display:inline;
+}
+.SiteMap p.deep_1 {
+  display:block;
+  margin-top: 3em;
+  margin-right: 2em;
+  font-size: 1.2em;
+  border-bottom: 1px solid #f0f0f0;
+}
+.SiteMap p.deep_1 a {
+  text-decoration:none;
+}
+.SiteMap p.deep_2 {
+  margin-top: 1em;
+}
+.SiteMap p:hover {
+  background-color: #FFFFFF;
+}
+
+#page_updates {
+    text-align: left;
+}
+
+#page_updates td {
+    padding-right: 1ex;
+    padding-top: 1ex;
+}
+
+#page_updates tr:hover {
+    color: #000;
+    text-decoration:underline;
+    background-color: #eee;
+}
+
+
+
+/* ----------------------------------------------------------------------------
+   internal
+------------------------------------------------------------------------------- */
+textarea {
+  /* all text areas should use the full width */
+  width: 100%;
+}
+
+.PyLucidPlugins.search {
+  display: block;
+  margin: 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.back_links {
+  margin-bottom: 2ex;
+  font-size: 0.8em;
+}
+
+#permalink {
+  font-size: 0.8em;
+  text-align: right;
+  padding: 10px;
+}
+
+.pygments_code, .pygments_code table, .pygments_code .code, .pygments_code pre {
+  background: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+.pygments_code pre {
+  border: 1px solid #f0f0f0;
+}
+.pygments_code .code {
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------------
+   Pygments syntax highlighter
+---------------------------------------------------------------------- */
+.pygments  { background: #ffffff; }
+.pygments .c { color: #808080 } /* Comment */
+.pygments .err { color: #F00000; background-color: #F0A0A0 } /* Error */
+.pygments .k { color: #008000; font-weight: bold } /* Keyword */
+.pygments .o { color: #303030 } /* Operator */
+.pygments .cm { color: #808080 } /* Comment.Multiline */
+.pygments .cp { color: #507090 } /* Comment.Preproc */
+.pygments .c1 { color: #808080 } /* Comment.Single */
+.pygments .cs { color: #cc0000; font-weight: bold } /* Comment.Special */
+.pygments .gd { color: #A00000 } /* Generic.Deleted */
+.pygments .ge { font-style: italic } /* Generic.Emph */
+.pygments .gr { color: #FF0000 } /* Generic.Error */
+.pygments .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.pygments .gi { color: #00A000 } /* Generic.Inserted */
+.pygments .go { color: #808080 } /* Generic.Output */
+.pygments .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.pygments .gs { font-weight: bold } /* Generic.Strong */
+.pygments .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.pygments .gt { color: #0040D0 } /* Generic.Traceback */
+.pygments .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.pygments .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.pygments .kp { color: #003080; font-weight: bold } /* Keyword.Pseudo */
+.pygments .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.pygments .kt { color: #303090; font-weight: bold } /* Keyword.Type */
+.pygments .m { color: #6000E0; font-weight: bold } /* Literal.Number */
+.pygments .s { background-color: #fff0f0 } /* Literal.String */
+.pygments .na { color: #0000C0 } /* Name.Attribute */
+.pygments .nb { color: #007020 } /* Name.Builtin */
+.pygments .nc { color: #B00060; font-weight: bold } /* Name.Class */
+.pygments .no { color: #003060; font-weight: bold } /* Name.Constant */
+.pygments .nd { color: #505050; font-weight: bold } /* Name.Decorator */
+.pygments .ni { color: #800000; font-weight: bold } /* Name.Entity */
+.pygments .ne { color: #F00000; font-weight: bold } /* Name.Exception */
+.pygments .nf { color: #0060B0; font-weight: bold } /* Name.Function */
+.pygments .nl { color: #907000; font-weight: bold } /* Name.Label */
+.pygments .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.pygments .nt { color: #007000 } /* Name.Tag */
+.pygments .nv { color: #906030 } /* Name.Variable */
+.pygments .ow { color: #000000; font-weight: bold } /* Operator.Word */
+.pygments .w { color: #bbbbbb } /* Text.Whitespace */
+.pygments .mf { color: #6000E0; font-weight: bold } /* Literal.Number.Float */
+.pygments .mh { color: #005080; font-weight: bold } /* Literal.Number.Hex */
+.pygments .mi { color: #0000D0; font-weight: bold } /* Literal.Number.Integer */
+.pygments .mo { color: #4000E0; font-weight: bold } /* Literal.Number.Oct */
+.pygments .sb { background-color: #fff0f0 } /* Literal.String.Backtick */
+.pygments .sc { color: #0040D0 } /* Literal.String.Char */
+.pygments .sd { color: #D04020 } /* Literal.String.Doc */
+.pygments .s2 { background-color: #fff0f0 } /* Literal.String.Double */
+.pygments .se { color: #606060; font-weight: bold; background-color: #fff0f0 } /* Literal.String.Escape */
+.pygments .sh { background-color: #fff0f0 } /* Literal.String.Heredoc */
+.pygments .si { background-color: #e0e0e0 } /* Literal.String.Interpol */
+.pygments .sx { color: #D02000; background-color: #fff0f0 } /* Literal.String.Other */
+.pygments .sr { color: #000000; background-color: #fff0ff } /* Literal.String.Regex */
+.pygments .s1 { background-color: #fff0f0 } /* Literal.String.Single */
+.pygments .ss { color: #A06000 } /* Literal.String.Symbol */
+.pygments .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.pygments .vc { color: #306090 } /* Name.Variable.Class */
+.pygments .vg { color: #d07000; font-weight: bold } /* Name.Variable.Global */
+.pygments .vi { color: #3030B0 } /* Name.Variable.Instance */
+.pygments .il { color: #0000D0; font-weight: bold } /* Literal.Number.Integer.Long */

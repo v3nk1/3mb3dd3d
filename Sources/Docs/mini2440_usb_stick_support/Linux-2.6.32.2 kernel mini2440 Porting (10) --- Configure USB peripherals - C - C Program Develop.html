@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals - C - C Program Develop</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="keywords" content="Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals, c program develop" />
+<meta name="description" content="Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals. Get c program develop assist from cprogramdevelop.com." />
+<link href="/resources/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="block_header">
+      <div class="logo"><a href="http://www.cprogramdevelop.com"><img src="/resources/images/logo.bmp" width="297" height="56" border="0" alt="logo" /></a></div>
+      <div class="clr"></div>
+      <div class="menu">
+        <ul>
+          <li><a href="http://www.cprogramdevelop.com" class="active">Home</a></li>
+          <li><a href="http://www.cprogramdevelop.com/345/1600346/">C</a></li>
+          <li><a href="http://www.cprogramdevelop.com/345/1600506/">C++</a></li>
+          <li><a href="http://www.cprogramdevelop.com/345/1600666/">C#</a></li>
+          <li><a href="http://www.cprogramdevelop.com/disclaimer.html">Disclaimer</a></li>
+          <li><a href="http://www.cprogramdevelop.com/disclosure.html">Disclosure</a></li>
+          <li><a href="http://www.cprogramdevelop.com/PrivacyPolicy.html">Privacy Policy</a></li>
+          <li><a href="mailto:cprogramdevelop@live.com">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="clr"></div>
+  <div class="body">
+    <div class="body_resize">
+      <div class="News">
+      <script language='javascript' src='http://www.cprogramdevelop.com/resources/js/336_280.js'></script>
+<h2>Related</h2>
+			<ul class="sidemenu">
+					<li><a href="http://www.cprogramdevelop.com/940442/" title="Mini2440 Porting of Linux-2.6.32.2 kernel (9) --- configure USB peripherals">Mini2440 Porting of Linux-2.6.32.2 kernel (9) --- configure USB peripherals</a></li>
+					<li><a href="http://www.cprogramdevelop.com/2225297/" title="Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals">Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals</a></li>
+					<li><a href="http://www.cprogramdevelop.com/3369264/" title="[Quote] Linux-2.6.32.2 kernel the mini2440 transplant (ten) --- configure USB peripherals">[Quote] Linux-2.6.32.2 kernel the mini2440 transplant (ten) --- configure USB peripherals</a></li>
+					<li><a href="http://www.cprogramdevelop.com/3117513/" title="Mini2440 Porting of Linux-2.6.32.2 kernel (a) --- kernel porting">Mini2440 Porting of Linux-2.6.32.2 kernel (a) --- kernel porting</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890536/" title="Linux-2.6.32.2 kernel mini2440 Porting (e) --- activate RTC driver">Linux-2.6.32.2 kernel mini2440 Porting (e) --- activate RTC driver</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890556/" title="Mini2440 Porting of Linux-2.6.32.2 kernel (9) --- touch screen driver transplantation">Mini2440 Porting of Linux-2.6.32.2 kernel (9) --- touch screen driver transplantation</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890568/" title="Linux-2.6.32.2 kernel mini2440 Porting (11) --- transplantation SD card driver">Linux-2.6.32.2 kernel mini2440 Porting (11) --- transplantation SD card driver</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890570/" title="Linux-2.6.32.2 kernel mini2440 Porting (18) --- UART2 into ordinary serial port driver">Linux-2.6.32.2 kernel mini2440 Porting (18) --- UART2 into ordinary serial port driver</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890660/" title="Linux-2.6.32.2 kernel mini2440 Porting (17) --- transplant PWM control buzzer driver">Linux-2.6.32.2 kernel mini2440 Porting (17) --- transplant PWM control buzzer driver</a></li>
+					<li><a href="http://www.cprogramdevelop.com/890670/" title="Linux-2.6.32.2 kernel mini2440 Porting (14) --- graft watchdog driver">Linux-2.6.32.2 kernel mini2440 Porting (14) --- graft watchdog driver</a></li>
+					</ul>
+				</div>
+      <div class="Welcome">
+        <h1>Linux-2.6.32.2 kernel mini2440 Porting (10) --- Configure USB peripherals</h1>
+			<div class="descr">
+				<span style="padding:0px 5px;"><b>Tag</b>: flash, deprecated, kernel porting</span>
+				<span style="padding:0px 5px;"><b>Category</b>: <a href='/345/1600346/'>C</a></span>
+				<span style="padding:0px 5px;"><b>Author</b>: davidlam05</span>
+				<span style="padding:0px 5px;"><b>Date</b>: 2010-11-27</span>
+			</div>
+<script language='javascript' src='http://www.cprogramdevelop.com/resources/js/728_90.js'></script>
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Transplant environment <strong><span style="color:rgb(255,0,0)">(red bold word</span></strong> <span style="color:rgb(0,0,0)">to</span> modify the contents of the <span style="color:rgb(0,0,255)"><strong>blue bold</strong></span> special attention to the content)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > 1, the host environment: VMare under CentOS 5.5, 1G memory.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > 2, the integrated development environment: Elipse IDE</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > 3, the compiler-compiler environment: arm-linux-gcc v4.4.3, arm-none-linux-gnueabi-gcc v4.5.1.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > 4, the development board: mini2440, 2M NOR Flash, 128M nand flash.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > U-boot version: u-boot-2009.08</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Linux version: linux-2.6.32.2</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > 7, reference articles:</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left; text-indent:2em"> <span > Embedded Linux application development entirely manual, Wei Dongshan, ed.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left; text-indent:2em"> <span > The Mini2440 of Linux transplantation develop combat guide</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [1] hci device drivers in the kernel configuration USB keyboard and mouse</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Linux-2.6.32.2 kernel support for USB peripherals is quite rich, and already contains S3C2440 USBHost driver support, so we only need to configure your kernel, you, here are a variety of USB peripherals kernel configuration.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > In the implementation of make menuconfig Linux-2.6.32.2 root directory, and then confirm the following options are selected</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Device Drivers ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [*] HID Devices ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; USB Human Interface Device (full HID) support <span style="color:rgb(0,0,255)">/ / support USB keyboard and mouse hci</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > <span style="color:rgb(0,0,255)">Tip: The configuration options corresponding to the kernel source directory: linux-2.6.32.2/drivers/hid/usbhid USB keyboard and barcode scanner principle is the same, so the code is the same.</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [*] <span style="color:rgb(0,0,255)">/</span> Dev / hiddev raw HID device support / / <span style="color:rgb(0,0,255)">access to the original raw HID device.</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > <span style="color:rgb(0,0,0)">The above information is selected can see the following in the console startup information</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > ......</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > <span style="color:rgb(0,0,255)"><strong>usbcore: registered new interface driver hiddev</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>usbcore: registered new interface driver usbhid</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>usbhid: v2.6: USB HID core driver</strong></span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > ......</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > LCD and USB keyboard as a terminal</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > The kernel has support for LCD and USB keyboard can use it as a console terminal to ensure that likelihood by  previous article  said in command increase in line &quot;console = tty1 and modify inittab file, when connected to a USB keyboard and LCD on the LCD and see the following message&quot; Please press Enter to activate this console. &quot;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > It should be noted, point selected using a USB keyboard and LCD as an independent after the input and output devices, serial control terminal will no longer work in the development of the commissioning phase, or not so good as.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [2] U disk driver in the kernel configuration.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > USB flash drives use the SCSI command, so let's add SCSI support.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Device Drivers ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > SCSI device support ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > <span style="color:rgb(255,0,0)"><strong>&lt;*&gt; SCSI device support</strong></span> <span style="color:rgb(0,0,255)">/ / To support USB disk, this selected.</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span style="color:rgb(0,0,255)"><span style="color:rgb(0,0,0)"></span></span> <span > <span style="color:rgb(0,0,0)">[*] Legacy <span style="color:rgb(0,0,255)">/</span> proc / scsi / support / /</span> <span style="color:rgb(0,0,255)">in the / proc / scsi directory.</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; <span style="color:rgb(0,0,255)">SCSI</span> disk support <span style="color:rgb(0,0,255)">/ /</span> SCSI <span style="color:rgb(0,0,255)">hard disk, U disk support, this selected.</span></span> <span style="color:rgb(0,0,255)"><br /></span> <span > [*] USB support ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; Support for Host-side <span style="color:rgb(0,0,255)">USB / / usb host controller</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [*] USB device filesystem (DEPRECATED) <span style="color:rgb(0,0,255)">/ / some debugging information in the / proc file system</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; <span style="color:rgb(0,0,255)">OHCI</span> HCD support <span style="color:rgb(0,0,255)">/ /</span> OHCI <span style="color:rgb(0,0,255)">host controller driver</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; <span style="color:rgb(0,0,255)">USB</span> Mass Storage support <span style="color:rgb(0,0,255)">/ /</span> USB <span style="color:rgb(0,0,255)">storage device</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > U disk mobile memory used mostly FAT/FAT32 format, so we need to add the FAT32 file system support in the kernel configuration under the main menu, select the following menu items:</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > File systems ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > DOS / FAT / NT Filesystems ---&gt;</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; MSDOS fs support <span style="color:rgb(0,0,255)">/ / add the FAT32 file system support</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > - * - Native language support ---&gt; <span style="color:rgb(0,0,255)">/ / The following is the encoding support in English</span></span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; Codepage 437 (United States, Canada)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; Simplified Chinese charset (CP936, GB2312)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; Traditional Chinese charset (Big5)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; NLS ISO 8859-1 (Latin 1; Western European Languages)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > &lt;*&gt; NLS UTF-8</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Once configured, exit and save the above configuration, recompile Make uImage.</span> <span > Then copy the generated uImage to / nfsboot / kernel to restart development board, see the following information:</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > ......</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > eth0: dm9000e at c4872300, c4876304 IRQ 51 MAC: 08:90:90:90:90:90 (chip)</span> <br /> <span > <span style="color:rgb(0,0,255)"><strong>ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>s3c2410-ohci s3c2410-ohci: S3C24XX OHCI</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>s3c2410-ohci s3c2410-ohci: new USB bus registered, assigned bus number 1</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > s3c2410-ohci s3c2410-ohci: irq 42, io mem 0x49000000</span> <br /> <span > <span style="color:rgb(0,0,255)"><strong>usb usb1: configuration # 1 chosen from 1 choice</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>hub 1-0:1.0: USB hub found</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>hub 1-0:1.0: 2 ports detected</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>Initializing USB Mass Storage driver ...</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>usbcore: registered new interface driver usb-storage</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>USB Mass Storage support registered.</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>usbcore: registered new interface driver libusual</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > <span style="color:rgb(0,0,255)"><strong>mice: PS / 2 mouse device common for all mice</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > mini2440_TouchScreen successfully loaded</span> <br /> <span > input: mini2440_TouchScreen as / devices/virtual/input/input0</span> <br /> <span > S3C24XX RTC, (c) 2004,2006 Simtec Electronics</span> <br /> <span > s3c2410-rtc s3c2410-rtc: rtc disabled, re-enabling</span> <br /> <span > s3c2410-rtc s3c2410-rtc: rtc core: registered s3c as rtc0</span> <br /> <span > i2c / dev entries driver</span> <br /> <span > S3C2410 Watchdog Timer, (c) 2004 Simtec Electronics</span> <br /> <span > s3c2410-wdt s3c2410-wdt: watchdog inactive, reset disabled, irq enabled</span> <br /> <span > cpuidle: using governor ladder</span> <br /> <span > ......</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Test U disk</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > In order to see the print insert U disk, system startup when you do not insert a USB flash drives, such as the system boots, enter the command line console, insert U disk, you can see the following information:</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [Root @ mini2440 /] # usb 1-1: new full speed USB device using s3c2410-ohci and addr</span> <br /> <span > ess</span> <br /> <span > usb 1-1: configuration # 1 chosen from 1 choice</span> <br /> <span > scsi0: SCSI emulation for USB Mass Storage devices</span> <br /> <span > scsi 0:0:0:0: Direct-Access USB 2.0 Flash Drive 5.00 PQ: 0 ANSI: 2</span> <br /> <span > sd 0:0:0:0: [sda] 2073600 512-byte logical blocks: (1.06 GB/1012 MiB)</span> <br /> <span > sd 0:0:0:0: [sda] Write Protect is off</span> <br /> <span > sd 0:0:0:0: [sda] Assuming drive cache: write through</span> <br /> <span > sd 0:0:0:0: [sda] Assuming drive cache: write through</span> <br /> <span > <span style="color:rgb(0,0,255)"><strong>SDA: sda1</strong></span></span> <span style="color:rgb(0,0,255)"><strong><br /></strong></span> <span > sd 0:0:0:0: [sda] Assuming drive cache: write through</span> <br /> <span > sd 0:0:0:0: [sda] Attached SCSI removable disk</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [Root @ mini2440 /] #</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > Corresponding to the above message, U disk is / dev/sda1 mount it</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [Root @ mini2440 /] # mount-t vfat / dev/sda1 / mnt / udisk</span> <br /> <span > [Root @ mini2440 /] # cd / mnt / udisk</span> <br /> <span > [Root @ mini2440 udisk] # ls</span> <br /> <span > 100MLT29 20x15 8X6???. Jpg FileRecv20100328</span> <br /> <span > 18X8??????. Jpg 24X18???? Photo</span> <br /> <span > 2.4X3.5 24X36??. Jpg?????,????? Picall</span> <br /> <span > 20x24?? Jpg 6X8?? Jpg???????? Pdf uImage_T35</span> <br /> <span > The [root _AT_ the mini2440 udisk] #</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > You can see the the U disk contents listed above.</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [4] to configure and test the USB camera driver</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > (To be continued)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > [5] to configure and test the USB wireless network card</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > (To be continued)</span> </p> 
+<p style="color:rgb(51,51,51); font-family:Arial; font-size:14px; line-height:26px; text-align:left"> <span > <span style="color:rgb(0,0,0)"><span style="color:rgb(255,0,0)">Next, the SD card driver transplantation</span></span></span> </p><script language='javascript' src='http://www.cprogramdevelop.com/resources/js/728_90_1.js'></script>
+</div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="footer">
+    <div class="resize">
+      <div>
+        <p>Copyright © Cprogramdevelop.com. 2009-2014<a href="http://www.cprogramdevelop.com/">cprogramdevelop.com</a>. All Rights Reserved</p>
+      </div>
+    </div>
+    <p class="clr"></p>
+  </div>
+</div>
+<div style="display: none;"><script type="text/javascript" src="/resources/t.js"></script></div>
+<script type="text/javascript" src="/resources/ilr.js"></script>
+</body>
+</html>

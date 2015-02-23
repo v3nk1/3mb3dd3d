@@ -1,0 +1,30 @@
+#####################################
+#POSSIBLE ERROS:(while building Qt):#
+#####################################
+
+	Failed tslib functionality.
+	
+		1) Then check QMAKE_INCDIR,QMAKE_LIBDIR path.
+		2) check the file format of libraries(lib) and bin directory executables 
+		   of tslib build directory.
+
+
+====================================================================================
+
+#########
+# Cubie #
+#########
+
+make[1]: Entering directory `/usr/local/cubie/qt-4.8.5/qt-everywhere-opensource-src-4.8.5/src/gui'
+arm-linux-gcc -c -include .pch/release-shared-emb-arm/QtGui -pipe -fno-exceptions -O2 -fvisibility=hidden -Wall -W -D_REENTRANT -fPIC -DQT_SHARED -DQT_BUILD_GUI_LIB -DQT_NO_USING_NAMESPACE -DQT_NO_CAST_TO_ASCII -DQT_ASCII_CAST_WARNINGS -DQT3_SUPPORT -DQT_MOC_COMPAT -DQT_USE_QSTRINGBUILDER -DQT_USE_BUNDLED_LIBPNG -DPNG_NO_ASSEMBLER_CODE -DQT_NO_FONTCONFIG -DFT2_BUILD_LIBRARY -DFT_CONFIG_OPTION_SYSTEM_ZLIB -DQT_NO_OPENTYPE -DQT_NO_STYLE_MAC -DQT_NO_STYLE_WINDOWSVISTA -DQT_NO_STYLE_WINDOWSXP -DQT_NO_STYLE_GTK -DQT_NO_STYLE_WINDOWSCE -DQT_NO_STYLE_WINDOWSMOBILE -DQT_NO_STYLE_S60 -DQ_INTERNAL_QAPP_SRC -DQT_HAVE_NEON -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_CORE_LIB -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -I../../mkspecs/qws/linux-arm-g++ -I. -I../../include/QtCore -I../../include/QtNetwork -I../../include -I../../include/QtGui -I.rcc/release-shared-emb-arm -Iimage -I../3rdparty/libpng -I../3rdparty/freetype/builds/unix -I../3rdparty/freetype/src -I../3rdparty/freetype/include -I../3rdparty/harfbuzz/src -Idialogs -I.moc/release-shared-emb-arm -I.uic/release-shared-emb-arm -I/usr/local/cubie/tslib/tslib/build/include -o .obj/release-shared-emb-arm/pixman-arm-neon-asm.o ../3rdparty/pixman/pixman-arm-neon-asm.S
+cc1: fatal error: .pch/release-shared-emb-arm/QtGui: No such file or directory
+compilation terminated.
+make[1]: *** [.obj/release-shared-emb-arm/pixman-arm-neon-asm.o] Error 1
+make[1]: Leaving directory `/usr/local/cubie/qt-4.8.5/qt-everywhere-opensource-src-4.8.5/src/gui'
+make: *** [sub-gui-make_default-ordered] Error 2
+
+THEN:
+=====
+	# ./configure -embedded arm -xplatform qws/linux-arm-g++ -prefix /usr/local/mini2440/qt-4.8.5/build -no-pch -qt-mouse-tslib -little-endian
+	# make -j4
+	# make install

@@ -1,0 +1,81 @@
+					Mouting rootfs on target as readonly(squashfs)
+					==============================================
+
+
+HOST# apt-get install squash-tools
+HOST# modprobe squash
+
+METHOD1:
+--------
+
+HOST# mksquashfs <path/2/rootfs>/* ./initrd.squash
+HOST# file ./initrd.squash
+	XXXXX Squashfs file image.
+
+				---------end of method1-----------
+
+METHOD2:
+--------
+
+HOST# dd if=/dev/zero of=initrd.squash.img bs=1024 count=8192				(8M)
+HOST# file initrd.squash.img
+	Data file
+HOST# losetup /dev/loop0 initrd.squash.img
+HOST# mksquashfs <path/2/rootfs>/* /dev/loop0
+HOST# file initrd.squash.img
+	XXXXX Squashfs file image.
+
+				---------end of method2-----------
+
+MINI2440# setenv bootargs console=ttySAC0,115200 root=/dev/ram initrd=0x32000000,4M rootfstype=squashfs rootwait;tftp 0x31000000 uImage;tftp 0x32000000 initrd.squash; bootm 0x31000000
+
+	#/  mount
+	#/ Try to remove/create any file
+
+
+					Creating/Making a partition(NAND) as readonly(squashfs)
+					=======================================================
+
+Building mksquashfs for arm:
+----------------------------
+
+HOST# mkdir rootfs
+HOST# INSTALL_DIR=$PWD/rootfs
+HOST# tar -xvf zlib-1.2.8.tar.gz
+      cd zlib-1.2.8
+      CC=arm-linux-gcc CFLAGS="-O4" ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+      make DESTDIR=${INSTALL_DIR} -j4 &&
+      make DESTDIR=${INSTALL_DIR} install
+
+HOST# apt-get source squashfs-tools
+HOST# rm -rf *dsc* *diff* *debian* *orig* *ubuntu*
+HOST# make CC="arm-linux-gcc -I${INSTALL_DIR}/include/ -L${INSTALL_DIR}/lib"
+HOST# make INSTALL_DIR=${INSTALL_DIR} install
+
+HOST# cp -Rfp ${INSTALL_DIR}/* <nfs/ported/rootfs/with/busybox-binaries>/
+
+
+Bring-up the board using NFS:
+-----------------------------
+
+#/ cat /proc/mtd
+	See information about mtd-partitions
+#/ ls /dev/mtd*
+#/ flash_eraseall /dev/mtd3
+#/ mksquashfs <path/to/files>/* /dev/mtdblock3 -noappend
+
+	-noappend: do not append to existing filesystem.
+#/ mount
+
+#/ mount -t squashfs /dev/mtdblock3 /mnt
+
+#/ mount
+
+#/ cd /mnt
+#/ ls
+
+
+Trying to Remove/Create any file:
+---------------------------------
+# rm <file-name>
+	Read-only file system

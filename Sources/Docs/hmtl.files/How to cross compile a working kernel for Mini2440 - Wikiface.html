@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>How to cross compile a working kernel for Mini2440 - Wikiface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.4">
+<link rel="shortcut icon" href="http://wiki.iface.ch/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.iface.ch/opensearch_desc.php" title="Wikiface (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.iface.ch/index.php?title=How_to_cross_compile_a_working_kernel_for_Mini2440&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikiface Atom feed" href="http://wiki.iface.ch/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/main-ltr.css" media="screen">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/shared.css" media="screen">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/index_003.css">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/index.css" media="print">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/index_002.css">
+<link rel="stylesheet" href="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/index_004.css">
+<script>
+var skin="vector",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://wiki.iface.ch",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="How_to_cross_compile_a_working_kernel_for_Mini2440",
+wgTitle="How to cross compile a working kernel for Mini2440",
+wgAction="view",
+wgArticleId=21,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=69,
+wgVersion="1.16.4",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikiface", "5": "Wikiface talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikiface": 4, "wikiface_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="Wikiface",
+wgCategories=["Mini2440", "Linux"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/wikibits.js"></script>
+<script src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/ajax.js"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.htc")}</style><![endif]-->
+<script src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/index.php"></script>
+
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #b1b100;}
+.c.source-c .kw2 {color: #000000; font-weight: bold;}
+.c.source-c .kw3 {color: #000066;}
+.c.source-c .kw4 {color: #993333;}
+.c.source-c .co1 {color: #666666; font-style: italic;}
+.c.source-c .co2 {color: #339933;}
+.c.source-c .coMULTI {color: #808080; font-style: italic;}
+.c.source-c .es0 {color: #000099; font-weight: bold;}
+.c.source-c .es1 {color: #000099; font-weight: bold;}
+.c.source-c .es2 {color: #660099; font-weight: bold;}
+.c.source-c .es3 {color: #660099; font-weight: bold;}
+.c.source-c .es4 {color: #660099; font-weight: bold;}
+.c.source-c .es5 {color: #006699; font-weight: bold;}
+.c.source-c .br0 {color: #009900;}
+.c.source-c .sy0 {color: #339933;}
+.c.source-c .st0 {color: #ff0000;}
+.c.source-c .nu0 {color: #0000dd;}
+.c.source-c .nu6 {color: #208080;}
+.c.source-c .nu8 {color: #208080;}
+.c.source-c .nu12 {color: #208080;}
+.c.source-c .nu16 {color:#800080;}
+.c.source-c .nu17 {color:#800080;}
+.c.source-c .nu18 {color:#800080;}
+.c.source-c .nu19 {color:#800080;}
+.c.source-c .me1 {color: #202020;}
+.c.source-c .me2 {color: #202020;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style></head>
+<body class="mediawiki ltr ns-0 ns-subject page-How_to_cross_compile_a_working_kernel_for_Mini2440 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">How to cross compile a working kernel for Mini2440</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<h3 id="siteSub">From Wikiface</h3>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>In this note we compile and test a kernel for the Mini2440 development board.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Download_the_kernel_source"><span class="tocnumber">2</span> <span class="toctext">Download the kernel source</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Configure_the_kernel"><span class="tocnumber">3</span> <span class="toctext">Configure the kernel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Preconfiguration"><span class="tocnumber">3.1</span> <span class="toctext">Preconfiguration</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Changes_with_menuconfig"><span class="tocnumber">3.2</span> <span class="toctext">Changes with menuconfig</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Building"><span class="tocnumber">3.3</span> <span class="toctext">Building</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Buildup_a_testing_application"><span class="tocnumber">4</span> <span class="toctext">Buildup a testing application</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Setup_u-boot_on_board"><span class="tocnumber">5</span> <span class="toctext">Setup u-boot on board</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Prerequisites_2"><span class="tocnumber">5.1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Configuration_of_environment_variables"><span class="tocnumber">5.2</span> <span class="toctext">Configuration of environment variables</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Go_with_the_test"><span class="tocnumber">6</span> <span class="toctext">Go with the test</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Create_the_console_device"><span class="tocnumber">6.1</span> <span class="toctext">Create the console device</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Run_the_test"><span class="tocnumber">6.2</span> <span class="toctext">Run the test</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Prerequisites">Prerequisites</span></h1>
+<p>Before running the instructions provided below, please run the instructions reported on the followings notes:
+</p>
+<ul><li><a href="http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440" title="Installing u-boot on Mini2440">Installing u-boot on Mini2440</a>;
+</li><li><a href="http://wiki.iface.ch/index.php/Setup_a_testing_environment_for_Mini2440" title="Setup a testing environment for Mini2440">Setup a testing environment for Mini2440</a>.
+</li></ul>
+<h1> <span class="mw-headline" id="Download_the_kernel_source">Download the kernel source</span></h1>
+<p>The kernel source for Mini2440 patched with all the drivers to handle the board hardware can be found on the <a href="http://www.friendlyarm.net/downloads" class="external text" rel="nofollow">Mini2440 download page</a>; this kernel is based on the linux kernel release 2.6.32.2.
+</p><p>As mentioned on the previous <a href="http://wiki.iface.ch/index.php/Setup_a_testing_environment_for_Mini2440" title="Setup a testing environment for Mini2440">Setup a testing environment for Mini2440</a> we will work on our host PC under <b>~/fadevel/</b> directory.
+</p><p>The file can be downloaded with the help of your favorite browser into the working directory.
+After a time depending on your network speed and remote host speed, on your <b>~/fadevel/</b> directory you'll get the following:
+</p>
+<pre>~/fadevel$ <b>ls -l</b>
+totale 82564
+drwxr-xr-x 7 fpiraneo fpiraneo     4096 2011-04-08 11:04 arm-2010.09
+-rw-r--r-- 1 fpiraneo fpiraneo 84524423 2011-04-08 15:06 linux-2.6.32.2-mini2440_20100609.tgz
+-rwxr-xr-x 1 fpiraneo fpiraneo      295 2011-04-08 11:17 setvars
+drwxr-xr-x 2 fpiraneo fpiraneo     4096 2011-04-08 12:03 target
+drwxr-xr-x 2 fpiraneo fpiraneo     4096 2011-04-08 11:08 zipped
+</pre>
+<p>As usual we unpack the source and we will move the <b>tgz</b> file into the <b>zipped\</b> directory:
+</p>
+<pre>~/fadevel$ <b>tar -xf linux-2.6.32.2-mini2440_20100609.tgz</b>
+~/fadevel$ <b>mv linux-2.6.32.2-mini2440_20100609.tgz zipped/</b>
+~/fadevel$ <b>ll</b>
+totale 28K
+drwxr-xr-x  6 fpiraneo fpiraneo 4.0K 2011-04-08 15:10 ./
+drwxr-xr-x 76 fpiraneo fpiraneo 4.0K 2011-04-08 11:38 ../
+drwxr-xr-x  7 fpiraneo fpiraneo 4.0K 2011-04-08 11:04 arm-2010.09/
+drwxr-xr-x 23 fpiraneo fpiraneo 4.0K 2010-06-09 05:32 linux-2.6.32.2/
+-rwxr-xr-x  1 fpiraneo fpiraneo  295 2011-04-08 11:17 setvars*
+drwxr-xr-x  2 fpiraneo fpiraneo 4.0K 2011-04-08 12:03 target/
+drwxr-xr-x  2 fpiraneo fpiraneo 4.0K 2011-04-08 15:10 zipped/
+</pre>
+<h1> <span class="mw-headline" id="Configure_the_kernel">Configure the kernel</span></h1>
+<p>We divide the configuration phase in two steps:
+</p>
+<ul><li><b>Preconfiguration -</b> We copy one of the pre-built configuration files into the <b>.config</b> file;
+</li><li><b>Changes with <i>menuconfig</i> -</b> We modify the preconfiguration file to make a kernel suitable for our needs.
+</li></ul>
+<p>Before starting the job, don't forget to set all environment variables with:
+</p>
+<pre>~/fadevel$ <b>. ./setvars</b>
+</pre>
+<p>Crosscheck with <b>printenv</b> if everything looks good.
+</p>
+<h2> <span class="mw-headline" id="Preconfiguration">Preconfiguration</span></h2>
+<p>Diving into the kernel directory, here is part of the content:
+</p>
+<pre>~/fadevel$ <b>cd linux-2.6.32.2/</b>
+~/fadevel/linux-2.6.32.2$ <b>ls -l</b>
+totale 684K
+drwxr-xr-x 23 fpiraneo fpiraneo 4.0K 2010-06-09 05:32 ./
+drwxr-xr-x  6 fpiraneo fpiraneo 4.0K 2011-04-08 15:10 ../
+drwxr-xr-x 25 fpiraneo fpiraneo 4.0K 2009-12-03 04:51 arch/
+drwxr-xr-x  2 fpiraneo fpiraneo 4.0K 2010-06-09 05:32 block/
+-rw-r--r--  1 fpiraneo fpiraneo  42K 2010-01-06 09:35 <b>config_mini2440_a70</b>
+-rw-r--r--  1 fpiraneo fpiraneo  42K 2010-01-06 09:38 <b>config_mini2440_l80</b>
+-rw-r--r--  1 fpiraneo fpiraneo  42K 2010-01-06 09:28 <b>config_mini2440_n35</b>
+-rw-r--r--  1 fpiraneo fpiraneo  42K 2010-01-06 09:24 <b>config_mini2440_t35</b>
+-rw-r--r--  1 fpiraneo fpiraneo  41K 2010-01-06 09:40 <b>config_mini2440_vga1024x768</b>
+-rw-r--r--  1 fpiraneo fpiraneo  19K 2009-12-03 04:51 COPYING
+<i>{...cut...}</i>
+</pre>
+<p>Five files takes our attention: <i>config_mini2440_{a70,l80,n35,t35,vga1024x768}</i>.
+</p><p>Actually my board has a <b>LCDT35-090616</b> display (this data is written on the display PCB - check yours) so I'll use the <b>config_mini2440_t35</b> configuration file; note that this setup can be changed into <b>menuconfig</b> utility.
+</p>
+<pre>~/fadevel/linux-2.6.32.2$ <b>cp config_mini2440_t35 .config</b>
+</pre>
+<h2> <span class="mw-headline" id="Changes_with_menuconfig">Changes with <i>menuconfig</i></span></h2>
+<p>Now it's time to tuneup the kernel features as our needs, so start <i>menuconfig</i>:
+</p>
+<pre>~/fadevel/linux-2.6.32.2$ <b>make menuconfig</b>
+</pre>
+<p>The kernel menu configuration appears.
+</p><p>Now, check the following to be sure we're operating correctly:
+</p>
+<ul><li><b>Kernel version is 2.6.32.2</b> - This data appears at the top left of the screen;
+</li><li><b>.config file is used</b> - This data appears at the top left of the screen;
+</li><li>Under <b>System Type</b> --&gt; <b>ARM system type (Samsung S3C2410, S3C2412, S3C2413, S3C2440, S3C2442, S3C2443)</b>.
+</li></ul>
+<p>Configure the kernel starting from the main menu:
+</p>
+<ul><li>Uncheck <b>Enable loadable module support</b> - I don't like modules for now;
+</li><li>Under <b>Kernel Features</b> select <b>Preemption Model</b> as <b>Preemptible Kernel (Low-Latency Desktop)</b>;
+</li><li>Under <b>Networking support</b> disable <b>Wireless</b>;
+</li><li>Under <b>Device Drivers</b>:
+<ul><li>Under <b>Network device support</b> --&gt; Uncheck <b>Wireless LAN</b>;
+<ul><li>Under <b>Network device support</b> --&gt; <b>Networking options</b> check the followings:
+<ul><li><b>IP: kernel level autoconfiguration</b> and one level below:
+<ul><li><b>IP: DHCP support</b>;
+</li><li><b>IP: BOOTP support</b>;
+</li><li><b>IP: RARP support</b>;
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+<p>(Note: these three features enables the kernel to get a dynamic IP address and boot from an NFS share)
+</p>
+<ul><li><ul><li>Check <b>SPI support</b> and under this item check the following:
+<ul><li><b>Samsung S3C24XX series SPI</b>;
+</li><li><b>Samsung S3C24XX series SPI by GPIO</b>;
+</li></ul>
+</li><li>Under <i>Graphics support</i> --&gt; <b>Console display driver support</b>:
+<ul><li>Check <b>Mac console 6x11 font (not supported by all drivers)</b>;
+</li><li>Uncheck <b>VGA 8x16 font</b>;
+</li></ul>
+</li></ul>
+</li></ul>
+<p>(Note: the last two actions provides a better tradeoff between nice fonts and best space usage on small displays)
+</p>
+<ul><li>Under <b>File systems</b>:
+<ul><li>Under <b>Miscellaneous filesystems</b> --&gt; Check <b>Journalling Flash File System v2 (JFFS2) support</b>;
+</li><li>Under <b>Network File Systems</b> --&gt; be sure that <b>Root file system on NFS</b> is checked;
+</li></ul>
+</li></ul>
+<p>Exit from <i>menuconfig</i> utility saving changes.
+</p>
+<h2> <span class="mw-headline" id="Building">Building</span></h2>
+<p>Now it's time to build with:
+</p>
+<pre>~/fadevel/linux-2.6.32.2$ <b>make uImage</b>
+</pre>
+<p><i>uImage</i> here builds a kernel image compliant for u-boot.
+After lot of build messages you'll get the following:
+</p>
+<pre>  OBJCOPY arch/arm/boot/zImage
+  Kernel: arch/arm/boot/zImage is ready
+  UIMAGE  arch/arm/boot/uImage
+Image Name:   Linux-2.6.32.2-FriendlyARM
+Created:      Fri Apr  8 17:17:33 2011
+Image Type:   ARM Linux Kernel Image (uncompressed)
+Data Size:    2518152 Bytes = 2459.13 kB = 2.40 MB
+Load Address: 0x30008000
+Entry Point:  0x30008000
+  Image arch/arm/boot/uImage is ready
+~/fadevel/linux-2.6.32.2$ 
+</pre>
+<p>That's means that the kernel is ready to be used and can be found under <b>arch/arm/boot/uImage</b>.
+Copy it under our publicly available target NFS directory:
+</p>
+<pre>~/fadevel/linux-2.6.32.2$ <b>cp -v arch/arm/boot/uImage ~/fadevel/target/</b>
+"arch/arm/boot/uImage" -&gt; "/home/fpiraneo/fadevel/target/uImage"
+~/fadevel/linux-2.6.32.2$ 
+</pre>
+<p>Change now the owner of the kernel image to <i>root</i> with:
+</p>
+<pre>~/fadevel/linux-2.6.32.2$ <b>sudo chown root:root ~/fadevel/target/uImage</b>
+</pre>
+<h1> <span class="mw-headline" id="Buildup_a_testing_application">Buildup a testing application</span></h1>
+<p>For testing purposes of the kernel (and of the whole toolchain...) I 
+prefer to build a new statically linked application that prints the most
+ famous sentence in the world. Such application will be loaded on root 
+directory and will be the first program (and the least) the kernel will 
+run; here is the listing:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span><span class="sy0">*</span> argv<span class="br0">)</span>
+<span class="br0">{</span>
+     <span class="kw3">printf</span><span class="br0">(</span><span class="st0">"<span class="es1">\n</span><span class="es1">\n</span>Hello world!<span class="es1">\n</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+     sleep<span class="br0">(</span><span class="nu0">99999</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>We will save this source under <b>helloworld.c</b> and we will compile it.
+</p>
+<pre>~/fadevel/helloworld$ <b>"$CROSS_COMPILE"gcc $CFLAGS -static helloworld.c -o helloworld</b>
+</pre>
+<p><b>NOTE:</b> As usual I prefer to put everything under an appropriate directory named <b>helloworld</b>.
+</p><p>The content of our directory is now:
+</p>
+<pre>~/fadevel/helloworld$ <b>ls -l</b>
+totale 644
+-rwxr-xr-x 1 fpiraneo fpiraneo 653965 2011-04-08 17:34 helloworld
+-rw-r--r-- 1 fpiraneo fpiraneo    112 2011-04-08 17:31 helloworld.c
+</pre>
+<p>As final steps we copy the executable under our public NFS share and we change the owner to <i>root</i>:
+</p>
+<pre>~/fadevel/helloworld$ <b>cp helloworld ~/fadevel/target/helloworld</b>
+~/fadevel/helloworld$ <b>sudo chown root:root ~/fadevel/target/helloworld</b>
+</pre>
+<h1> <span class="mw-headline" id="Setup_u-boot_on_board">Setup u-boot on board</span></h1>
+<p>The following steps illustrates how to setup the Mini2440 to pickup the kernel from the NFS share, execute it and run the <i>init</i> program, in this case it will be our <i>helloworld</i>.
+</p>
+<h2> <span class="mw-headline" id="Prerequisites_2">Prerequisites</span></h2>
+<p>Mini2440 has to be connected with the RS232 straight cable as 
+illustrated before; no USB cable is needed; we connect the board to the 
+LAN with a proper Ethernet cable.
+</p><p>Start <i>minicom</i> (don't forget to setup the communication parameters to <i>115200 8N1</i>) and powerup the board; as usual you'll see the welcome messages and stroke a key <i>before</i> the three seconds delay expires.
+</p><p>Now u-boot is ready to be configured.
+</p>
+<h2> <span class="mw-headline" id="Configuration_of_environment_variables">Configuration of environment variables</span></h2>
+<p>We are interested on two variables of the whole environment:
+</p>
+<ul><li><b>bootcmd</b> - Contains the commands that will be executed by u-boot to get and run the kernel;
+</li><li><b>bootargs</b> - Contains the parameters string passed to kernel.
+</li></ul>
+<p>We will configure <b>bootcmd</b> as follows:
+</p>
+<pre>MINI2440 # <b>setenv bootcmd nfs 0x31000000 10.0.20.1:/home/fpiraneo/fadevel/target/uImage \; bootm</b>
+</pre>
+<p>The line above states:
+</p>
+<ul><li>look for a valid kernel on an NFS shares;
+</li><li>load the kernel starting from <b>0x31000000</b>;
+</li><li>get the kernel on the machine IP <b>10.0.20.1</b>;
+</li><li>get the kernel under <b>/home/fpiraneo/fadevel/target/uImage</b>;
+</li><li>start it.
+</li></ul>
+<p>The second parameter we have to configure is the arguments passed to the kernel we're about to run:
+</p>
+<pre>MINI2440 # <b>setenv bootargs console=ttySAC0,115200 ip=10.0.100.10:10.0.20.1::255.0.0.0 root=/dev/nfs nfsroot=10.0.20.1:/home/fpiraneo/fadevel/target init=helloworld</b>
+</pre>
+<p>The line above states:
+</p>
+<ul><li>set a console on <b>ttySAC0</b> speed is <b>115200</b>;
+</li><li>set our IP as <b>10.0.100.1</b>, rootfs on <b>10.0.20.1</b> subnet mask is <b>255.0.0.0</b>;
+</li><li>root file system will be <b>/dev/nfs</b>;
+</li><li>root file system share is <b>10.0.20.1:/home/fpiraneo/fadevel/target</b>;
+</li><li>init program will be <b>helloworld</b>.
+</li></ul>
+<p>Don't forget to save all the changes with:
+</p>
+<pre>MINI2440 # <b>saveenv</b>
+Saving Environment to NAND...
+Erasing Nand...Writing to Nand... done
+</pre>
+<h1> <span class="mw-headline" id="Go_with_the_test">Go with the test</span></h1>
+<p>This are the final preparation step, used to create a console device and look at the output.
+</p>
+<h2> <span class="mw-headline" id="Create_the_console_device">Create the <i>console</i> device</span></h2>
+<p>For our test to properly display <i>"Helloworld"</i> on the console, we have to create the console device.
+</p><p>Execute the following:
+</p>
+<pre>$ <b>cd ~/fadevel/target</b>
+~/fadevel/target$ <b>sudo mkdir dev</b>
+~/fadevel/target$ <b>cd dev</b>
+~/fadevel/target/dev$ <b>sudo mknod console c 4 0</b>
+</pre>
+<p>The indicated <i>major</i> and <i>minor</i> couple indicates the <i>tty0</i> device, so the main LCD screen.
+</p>
+<h2> <span class="mw-headline" id="Run_the_test">Run the test</span></h2>
+<p>Now the board is ready to be rebooted. On u-boot console issue the following command:
+</p>
+<pre>MINI2440 # <b>reset</b>
+</pre>
+<p>...or just push the <i>Reset</i> button on the lower side of Mini2440.
+</p><p>On minicom console you'll see the kernel messages showing how the boot progress; finally you get:
+</p>
+<pre><i>{...lot of output lines suppressed...}</i>
+IP-Config: Complete:
+     device=eth0, addr=10.0.100.10, mask=255.0.0.0, gw=255.255.255.255,
+     host=10.0.100.10, domain=, nis-domain=(none),
+     bootserver=10.0.20.1, rootserver=10.0.20.1, rootpath=
+Looking up port of RPC 100003/2 on 10.0.20.1
+eth0: link up, 100Mbps, full-duplex, lpa 0x45E1
+Looking up port of RPC 100005/1 on 10.0.20.1
+VFS: Mounted root (nfs filesystem) on device 0:11.
+Freeing init memory: 160K
+</pre>
+<p>...and the cursor blinking; on the Mini2440 you get the following:
+</p><p><a href="http://wiki.iface.ch/index.php/File:FA_Minimal_Booted.JPG" class="image"><img alt="FA Minimal Booted.JPG" src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/600px-FA_Minimal_Booted.JPG" height="381" width="600"></a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 60/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikiface:pcache:idhash:21-0!1!0!!en!2!edit=0 and timestamp 20131219231712 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wiki.iface.ch/index.php/How_to_cross_compile_a_working_kernel_for_Mini2440">http://wiki.iface.ch/index.php/How_to_cross_compile_a_working_kernel_for_Mini2440</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://wiki.iface.ch/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Mini2440" title="Category:Mini2440">Mini2440</a></span> | <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Linux" title="Category:Linux">Linux</a></span></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li id="pt-login"><a href="http://wiki.iface.ch/index.php?title=Special:UserLogin&amp;returnto=How_to_cross_compile_a_working_kernel_for_Mini2440" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><a href="http://wiki.iface.ch/index.php/How_to_cross_compile_a_working_kernel_for_Mini2440" title="View the content page [alt-shift-c]" accesskey="c"><span>Page</span></a></li>
+					<li id="ca-talk" class="new"><a href="http://wiki.iface.ch/index.php?title=Talk:How_to_cross_compile_a_working_kernel_for_Mini2440&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t"><span>Discussion</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><a href="http://wiki.iface.ch/index.php/How_to_cross_compile_a_working_kernel_for_Mini2440"><span>Read</span></a></li>
+					<li id="ca-viewsource"><a href="http://wiki.iface.ch/index.php?title=How_to_cross_compile_a_working_kernel_for_Mini2440&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e"><span>View source</span></a></li>
+					<li id="ca-history" class="collapsible "><a href="http://wiki.iface.ch/index.php?title=How_to_cross_compile_a_working_kernel_for_Mini2440&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h"><span>View history</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" name="search" title="Search Wikiface [alt-shift-f]" accesskey="f" type="text">
+		<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">
+		<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/wikiface-logo.png);" href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+					<li id="n-portal"><a href="http://wiki.iface.ch/index.php/Wikiface:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+					<li id="n-currentevents"><a href="http://wiki.iface.ch/index.php/Wikiface:Current_events" title="Find background information on current events">Current events</a></li>
+					<li id="n-recentchanges"><a href="http://wiki.iface.ch/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+					<li id="n-randompage"><a href="http://wiki.iface.ch/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+					<li id="n-help"><a href="http://wiki.iface.ch/index.php/Help:Contents" title="The place to find out">Help</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://wiki.iface.ch/index.php/Special:WhatLinksHere/How_to_cross_compile_a_working_kernel_for_Mini2440" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="http://wiki.iface.ch/index.php/Special:RecentChangesLinked/How_to_cross_compile_a_working_kernel_for_Mini2440" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="http://wiki.iface.ch/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+									<li id="t-print"><a href="http://wiki.iface.ch/index.php?title=How_to_cross_compile_a_working_kernel_for_Mini2440&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+						<li id="t-permalink"><a href="http://wiki.iface.ch/index.php?title=How_to_cross_compile_a_working_kernel_for_Mini2440&amp;oldid=69" title="Permanent link to this revision of the page">Permanent link</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 19 April 2011, at 09:37.</li>
+																							<li id="footer-info-viewcount">This page has been accessed 7,949 times.</li>
+																							<li id="footer-info-copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" class="external ">Attribution-NonCommercial-NoDerivs 3.0 Unported</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://wiki.iface.ch/index.php/Wikiface:Privacy_policy" title="Wikiface:Privacy policy">Privacy policy</a></li>
+																							<li id="footer-places-about"><a href="http://wiki.iface.ch/index.php/Wikiface:About" title="Wikiface:About">About Wikiface</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://wiki.iface.ch/index.php/Wikiface:General_disclaimer" title="Wikiface:General disclaimer">Disclaimers</a></li>
+															</ul>
+										<ul id="footer-icons" class="noprint">
+								<li id="footer-icon-poweredby"><a href="http://www.mediawiki.org/"><img src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></li>
+												<li id="footer-icon-copyright"><a href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/88x31.png" alt="Attribution-NonCommercial-NoDerivs 3.0 Unported" height="31" width="88"></a></li>
+							</ul>
+			<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="How%20to%20cross%20compile%20a%20working%20kernel%20for%20Mini2440%20-%20Wikiface_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-22891129-1");
+pageTracker._trackPageview();
+</script>		<!-- Served in 0.103 secs. -->			
+
+</body></html>

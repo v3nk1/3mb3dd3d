@@ -1,0 +1,114 @@
+man dd, losetup, mkfs, mount, umount
+
+Creating a virtual blockdevice:
+===============================
+	<Creatd by root only>
+
+	See (man dd):
+	-------------
+		In dd N and BYTES may be followed by the following multiplicative suffixes: c =1, w =2, b =512, kB =1000, K =1024,
+        MB =1000*1000, M =1024*1024, xM =M GB =1000*1000*1000, G =1024*1024*1024, and so on for T, P, E, Z, Y.
+
+	# dd if=/dev/zero of=./<name-virtual-bdevice> bs=1024 count=4096
+		It will endup in creating a blockdevice file under current directory
+		Its now 'empty' it havnt contain any file system.
+
+	# file <name-virtual-bdevice>		shows as data file, since no filesystem doent associate in it.,
+ 
+	size: bs*count = 1024*4096 = 4MB
+
+Changing premissons:
+====================
+	if u create it root.,
+
+	chown -R root ven
+	chmod 0666 <name>	
+
+Mount it on to a loopback device node:
+======================================
+
+MOUNTING:
+---------
+	==> Display which loop back devices are used right now in /dev/loop*
+	    # losetup -a
+	    # losetup -f
+			/* First available loop back device */
+
+	==> For example loop0 is free then
+	    # losetup /dev/loop0 <mount-file>
+	
+	(or)
+
+	==> Once filesystem has burned in the virtual block device then u can use mount., 
+	   since in mount command we must specify the type of fs.
+	   Then we've to find out free loop dev file in /dev and mount on to that (abv 2 commands)
+
+	   To automate the above 2 steps: (it will search for the free loopback divece and mounts on it)
+
+	    First u have to create file system on it., so 1st follow "losetup commands" after filesys created use mount command
+
+	    The mount command automatically creates a loop device from a regular file if a filesystem type is not specified
+	    # mount <mount-file> /mnt -o loop   	(Or)
+	    # mount <mount-file> /mnt			(Or)
+	    # mount -t ext4 <mount-file> /mnt -o loop
+	    
+	
+	==> After done with file system its like an USB-STICK block device., its cant automatically mounted., u have to mount 
+	    manually.
+
+	    To check name of ur file image    
+	    # file <name-of-ur-blockdevice-image>; suppose ext4 (say)
+
+	    For mount command u have to specify the filesystem type of that particular blockdevice
+	    # mount -t ext4 <name-of-ur-blockdevice-image> <mount-point(/mnt or /media/ven/)>
+
+UMOUNTING:
+----------
+	==> To unmount <we've to give the loopback device to which file mounted on..>
+	    # losetup -d /dev/loop0	(use it for if u use "losetup" for mounting)
+	
+	(or)
+	
+	    # umount -d /dev/loop0	(use it if u use "mount" for mounting ) or use below one
+	    # umount /dev/loop0
+
+Creating filesystem on loopback device:
+=======================================
+	{man mkfs}
+
+After mounting
+
+	# mkfs.ext2 /dev/loop1 <count_given_in_dd>
+	# mkfs.ext3 /dev/loop1 <count_given_in_dd>
+	# mkfs.ext4 /dev/loop1 <count_given_in_dd>
+
+	# file <name-virtual-block-dev-file>	
+		/* Now it gives Some info about what file system in that device */
+
+
+Checking:
+=========
+
+	You can check the mounted or unmounted device file by using commands
+	# mount -l
+	# losetup -a		/*Displays which /dev/loop* are in used for which */
+	
+	To check the device file types:
+	# file <file-name>
+
+Mount-Point:
+============
+	If u mount ur filesystem image to /media it appears in nautilus(graphical) home directory.
+	Create a specified directory and mount one block device in one directory like
+
+	# mkdir /media/ven/vbdev			/*for virtual block device images*/
+	# mkdir /media/ven/vbdev/myfs1
+	# mkdir /media/ven/vbdev/myfs2
+
+	# mount myfs1 /media/ven/vbdev/myfs1
+	# mount myfs2 /media/ven/vbdev/myfs2 
+
+	Then u can unmount like
+	# umount /media/ven/vbdev/myfs1			<but each directory shud contain same filesystems mounted> or
+							<1 directory contain 1 blockdevice image only>
+	# umount /media/ven/vbdev/myfs2

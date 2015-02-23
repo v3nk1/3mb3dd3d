@@ -1,0 +1,6 @@
+Quicknotes for Qtopia:
+----------------------
+
+sudo apt-get install g++ libx11-dev libxmu-dev libxext-dev zlib1g-dev libjpeg62-dev libssl-dev uuid-dev
+
+

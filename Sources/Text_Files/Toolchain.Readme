@@ -1,0 +1,66 @@
+Binutils
+--------
+
+Binutils is a set of tools to generate and manipulate binaries for a given CPU
+architecture
+- as, the assembler, that generates binary code from assembler source code
+- ld, the linker
+- ar, ranlib, to generate .a archives, used for libraries
+- objdump, readelf, size, nm, strings, to inspect binaries. Very useful analysis
+  tools !
+- strip, to strip useless parts of binaries in order to reduce their size
+- http://www.gnu.org/software/binutils/
+- GPL license
+
+Kernel headers
+--------------
+
+- The C library and compiled programs needs to interact with the kernel
+- Available system calls and their numbers
+- Constant definitions
+- Data structures, etc.
+- Therefore, compiling the C library requires kernel
+  headers, and many applications also require them.
+
+Available in <linux/...> and <asm/...> and a few other directories corresponding to
+the ones visible in include/ in the kernel sources
+
+	- System call numbers, in <asm/unistd.h>
+		#define __NR_exit	1
+		#define __NR_fork	2
+		#define __NR_read	3
+
+	- Constant definitions, here in <asm-generic/fcntl.h>, included from
+	  <asm/fcntl.h>, included from <linux/fcntl.h>
+		#define O_RDWR 	00000002
+
+	- Data structures, here in <asm/stat.h>
+		struct stat {
+			unsigned long st_dev;
+			unsigned long st_ino;
+			[...]
+		};
+
+GCC compiler
+------------
+
+- GNU C Compiler, the famous free software compiler
+- Can compile C, C++, Ada, Fortran, Java, Objective-C, Objective-C++,
+  and generate code for a large number of CPU architectures, including
+  ARM, AVR, Blackfin, CRIS, FRV, M32, MIPS, MN10300, PowerPC,
+  SH, v850, i386, x86_64, IA64, Xtensa, etc.
+- http://gcc.gnu.org/
+- Available under the GPL license,
+  libraries under the LGPL.
+
+C library
+---------
+- The C library is an essential component of a Linux
+  system
+- Interface between the applications and the kernel
+- Provides the well-known standard C API to ease application development
+- Several C libraries are available:
+  glibc, uClibc, eglibc, dietlibc, newlib, etc.
+- The choice of the C library must be made at the time of the cross-compiling 
+  toolchain generation, as the
+  GCC compiler is compiled against a specific C library.

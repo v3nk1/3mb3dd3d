@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":0,"url":"http:\/\/qtinstall.blogspot.com\/2013\/07\/1download-arm-qte-4.html\/"});

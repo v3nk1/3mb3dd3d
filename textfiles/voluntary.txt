@@ -1,0 +1,26 @@
+Voluntary preemption:
+=====================
+	sleep();wait();pause();getchar();
+
+Involuntary/Forced preemption:
+==============================
+	mutex_locks();
+	Interrupt occur while serving a systemcall() then it preempts and 
+	ISR will be executed first.
+
+I/O bound (I/O driven):
+=======================
+
+
+Processor bound:
+================
+
+
+I/O intensive:
+==============
+
+
+Processor intensive:
+====================
+
+

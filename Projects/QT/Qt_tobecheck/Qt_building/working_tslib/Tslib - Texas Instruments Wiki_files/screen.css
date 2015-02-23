@@ -1,0 +1,606 @@
+# Formatting for the e2e header added for upgrade to MW 1.22
+# by Bill Traynor January 2014
+
+/**** E2E Refresh project (pushed on 02/07/13) CSS begins ****/
+
+.main-header-container {
+	width: 100%;
+	height: 146px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.ticom-top-header-container {
+	border-bottom: 1px solid #DBD8D8;
+	height: 60px\0/IE8+9;
+}
+.ticom-top-header-links a:link, .ticom-top-header-links a:visited, .ticom-top-header-links a:active, .ticom-top-header-cart a:link, .ticom-top-header-cart a:visited, .ticom-top-header-cart a:active {
+	text-decoration: none;
+	color: #000000;
+ *top:25px;
+	left: 0;
+}
+.ticom-top-header-links a:hover, .ticom-top-header-cart a:hover {
+	text-decoration: underline;
+	color: #EA272A;
+ *top:25px;
+	left: 0;
+}
+.ticom-top-header-cart {
+	float: right;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	left: 850px;
+	position: absolute;
+	text-align: left;
+	top: 20px;
+	width: 180px;
+}
+.e2e-top-header-container {
+	position: relative;
+	height: 50px;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F3F0F0', endColorstr='#FFFFFF'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#F3F0F0), to(#FFFFFF)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #F3F0F0, #FFFFFF); /* for firefox 3.6+ */
+	vertical-align: top;
+*height:60px;
+	height: 60px \0/IE8+9;
+	padding-left:20px;
+}
+.e2e-top-header-container p {
+	font-weight: bold;
+	font-size: 22px;
+	padding-top: 8px;
+}
+.e2e-profile-options-links {
+	width: 500px;
+	text-align: right;
+	float: right;
+	padding-right: 24px;
+	color: #EA272A;
+	vertical-align: middle;
+	position: relative;
+	top: 19px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.e2e-profile-options-links a:link, .e2e-profile-options-links a:visited, .e2e-profile-options-links a:hover, .e2e-profile-options-links a:active {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #EA272A;
+}
+.e2e-top-header-dropdown-bar {
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#636363', endColorstr='#000000'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#636363), to(#000000)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #636363, #000000); /* for firefox 3.6+ */
+	height: 34px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #FFFFFF;
+	position: relative;
+	z-index: 0;
+}
+.e2e-top-header-dropdown-bar a:link, .e2e-top-header-dropdown-bar a:visited, .e2e-top-header-dropdown-bar a:active {
+	color: #FFFFFF;
+	text-decoration: none;
+	padding: 8px 10px 10px 10px;
+	padding: 18px 10px 8px \0/IE8+9;
+	position: relative;
+	top: -12px \0/IE8+9;
+	font-size: 14px;
+}
+.e2e-top-header-dropdown-bar a:hover {
+	color: #EA272A;
+	text-decoration: none;
+	background: #FFFFFF;
+	height: 34px;
+	padding: 8px 10px 10px 10px;
+*padding-bottom:27px;
+	padding: 18px 10px 8px \0/IE8+9;
+	position: relative;
+	top: -12px \0/IE8+9;
+	font-size: 14px;
+}
+.e2e-top-header-dropdown-bar .header-nav-menu-open a {
+	color: #EA272A;
+	text-decoration: none;
+	background: #FFFFFF;
+	height: 34px;
+	padding: 8px 10px 10px 10px;
+*padding-bottom:27px;
+	padding: 18px 10px 8px \0/IE8+9;
+	position: relative;
+	top: -12px \0/IE8+9;
+	font-size: 14px;
+}
+.e2e-header-dropdown-level1 li {
+	display: inline;
+	position: relative;
+	padding-right: 10px;
+	left: -24px;
+	top: 8px;
+}
+.e2e-top-header-underline {
+	display: none;
+}
+.navigation-list-item-dropdown {
+	font-family: Arial, Helvetica, sans-serif;
+	position: relative;
+	top: -7px;
+	left: 0px;
+	display: block;
+	background: #FFFFFF;
+	height: auto;
+	width: auto;
+	padding: 0 20px 20px 20px;
+	border-bottom: 1px solid #EA272A;
+	border-left: 1px solid #EA272A;
+	border-right: 1px solid #EA272A;
+	margin-left: 15px;
+}
+.navigation-list-item-dropdown ul li {
+	position: relative;
+	display: block;
+	padding: 5px 10px;
+	top: 0px;
+	left: -30px;
+	list-style-type: none;
+}
+.navigation-list-item-dropdown ul li a:link, .navigation-list-item-dropdown-forums ul li a:visited, .navigation-list-item-dropdown ul li a:active {
+	color: #000000;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+.navigation-list-item-dropdown ul li a:hover {
+	color: #EA272A;
+	text-decoration: underline;
+	font-size: 13px;
+}
+&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;lt;!--
+DROP DOWN SUB HEADING *IF NEEDED
+--&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;gt;
+.dropdown-subheading {
+ font-family:Arial, Helvetica, sans-serif;
+ font-size:14px;
+}
+.layout-region.header .content-fragment.site-user-navigation {
+	top: 68px;
+	top: 80px\9;/*width:620px; */ /* taken out by doug -- adjusting through child item */
+}
+.layout-region.header .content-fragment {
+	padding: 0;
+	margin: 0;
+	vertical-align: top;
+	z-index: 99;
+}
+.header-fragment.search .field-item-input input {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	color: #333333;
+	display: block;
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	height: 20px;
+	width: 175px;
+	z-index: 500;
+	-moz-border-radius: 4px;
+	position: relative;
+}
+.layout-region.header .content-fragment.site-user-navigation .avatar {
+	display: none;
+}
+.layout-region.header .content-fragment.site-user-navigation a:link, .layout-region.header .content-fragment.site-user-navigation a:visited, .layout-region.header .content-fragment.site-user-navigation a:active {
+	color: #EA272A;
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: normal;
+}
+.content-fragment.site-user-navigation .navigation-item .internal-link.favorite-list span, .content-fragment.site-user-navigation .navigation-item .internal-link.browse-groups span {
+	background: url("http://e2e.ti.com/cfs-file.ashx/__key/themefiles/s-ac6c06b274524486add6d4f6b26d379d-files/icon_2D00_right_2D00_arrow.gif") no-repeat scroll center center transparent;
+	height: 14px;
+	left: 103px;
+	position: absolute;
+	top: 1px;
+	width: 10px;
+}
+.content-fragment.site-user-navigation a, .layout-region.header .content-fragment.site-user-navigation .TI_Dashboard_Header_Link {
+	border-left: 1px solid #EA272A;
+}
+.search ul.field-list li.field-item a {
+	background: none;
+	cursor: pointer;
+	display: block;
+	float: right;
+	left: 2px;
+	padding: 0px;
+	position: relative;
+	width: 28px;
+}
+.search ul.field-list li.field-item a {
+	background: none;
+	border: none;
+}
+.header-fragment.search ul.field-list li {
+	background: none;
+	float: right;
+	margin-top: -6px;
+	padding: 0;
+	position: relative;
+	width: 216px;
+	margin-top: 8px\9;
+}
+
+/* START CODE - ATTEMPT TO STRETCH BG ACROSS 100% */
+body {
+	padding: 0;
+}
+.admin-bar {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+}
+/* KEEP LAYOUT WITHIN 980px */
+.content-fragment-page {
+	margin-left: auto;
+	margin-right: auto;
+	width: 980px;
+	z-index: 99;
+}
+/* TI Graphic */
+
+/* E2E Graphic */
+.ticom-top-header-container img {
+	padding-left: 0;
+	position: relative;
+ *top:-5px;
+	top: -5px\0/IE8+9;
+}
+.ticom-top-header-cart img {
+	float: none;
+	position: relative;
+	top: 2px\9;
+ *top:0px;
+}
+.header-fragment.search ul.field-list {
+	background: none repeat scroll 0 0 transparent;
+	display: block;
+	float: left;
+	padding-left: 24px;
+	position: relative;
+	width: 240px;
+}
+.site-user-navigation ul.navigation-list {
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	position: relative;
+	width: 540px;/*    top: 48px;
+    left: -30px; */ /* removed by doug - adjusted through parent item */
+}
+.e2e-top-header-container a img {
+	left: 0;
+	position: relative;
+}
+.e2e-header-dropdown-level1 li {
+	display: inline;
+	left: 0;
+	padding-right: 10px;
+	position: relative;
+	top: 8px;
+}
+.content-fragment-page .layout, .footer-fragments .layout, .header-fragments .layout, .page-editing, .page-tabs, .admin-bar .navigation-list, .admin-bar fieldset.field-list, .poweredby-wrapper, .footer-fragments, .footer-fragments-header, .footer-fragments-footer {
+	width: 100%;
+	max-width: 100%;
+	min-width: 980px;
+}
+.footer-fragments {
+	height: 10px;
+}
+/* END STRETCH ATTEMPT */
+/* IE FIXES */
+.menu.search-content.options {
+	display: none;
+	margin-top: 20px \0/IE8+9;
+}
+.header-fragment.search fieldset.field-list {
+	margin-top: 11px;
+*margin-top:18px;
+}
+.search {
+}
+.t-i-site-banner .content-fragment-content {
+	clear: left;
+	max-width: 100%;
+}
+.t-i-footer .content-fragment-content {
+	z-index: 235;
+}
+
+/* ADDED AFTER SEPT 24 */
+/* FOR FOOTER */
+#footer a:link, #footer a:visited, #footer a:active, #footnote a:link, #footnote a:visited, #footnote a:active {
+	color: #555555;
+}
+#footer a:hover, #footnote a:hover {
+	color: #EA272A;
+}
+#footnote {
+	padding-bottom: 60px;
+	color: #555555;
+}
+.content-fragment.footer-fragment.t-i-footer.no-wrapper {
+	border-top: 1px solid #999999;
+	margin-left: auto;
+	margin-right: auto;
+	/*MB - marked
+    padding-left: 10px;
+    padding-right: 10px;  
+*/
+	padding-left: 0px;
+	padding-right: 0px;
+	width: 980px;
+}
+.content-fragment.footer-fragment.t-i-footer.no-wrapper img {
+	border: 0 none;
+}
+.footertop {
+	left: 0px;
+	position: relative;
+	width: 980px;
+}
+/* END FOR FOOTER */
+
+/* END ADDED FOR MENU REORDER */
+
+/* FIX FOR PAGE CENTERING */
+.header-fragments {
+	margin: 0 auto;
+	overflow: visible;
+	padding-top: 0;
+	position: relative;
+	z-index: 100;
+	width: none;
+	min-width: none;
+}
+.ticom-top-header-cart {
+	left: 810px;
+}
+.navigation-list-item-dropdown {
+	left: 40px;
+}
+.ticom-top-header-links {
+	color: #000000;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	height: 14px;
+	left: 225px;
+	position: absolute;
+	top: 18px;
+	width: 70%;
+*top:30px;
+	top: 20px\0/IE8+9;
+	display: inline;
+	padding-right: 20px;
+}
+
+.e2e-header-dropdown-level1 li {
+	left: -27px;
+}
+
+.content-fragment.group-application-navigation .content-fragment-content .navigation-list, .content-fragment.user-navigation .content-fragment-content .navigation-list {
+	padding: 10px 0 0 0;
+}
+
+.site-user-navigation .content-fragment-content {
+	float: right;
+}
+
+/* FOR FOOTER */
+#footer a:link, #footer a:visited, #footer a:active, #footnote a:link, #footnote a:visited, #footnote a:active {
+	color: #444444;
+}
+.content-fragment.footer-fragment.t-i-footer.no-wrapper {
+	border-top: 1px solid #999999;
+	margin-left: auto;
+	margin-right: auto;
+	/*MB - marked   
+    padding-left: 10px;
+    padding-right: 10px;
+*/
+	padding-left: 0px;
+	padding-right: 0px;
+	width: 980px;
+}
+/* END FOR FOOTER */
+
+/* FIX FOR HORIZONTAL SCROLLER */
+.content-fragment.headerAddThis.no-wrapper {
+	left: 875px;
+	position: relative;
+	width: 150px;
+}
+#e2e_header_search_root {
+	display: none;
+}
+#e2e_header_search_sub {
+	-moz-border-radius: 0 0 4px 4px;
+	-webkit-border-radius: 0 0 4px 4px;
+	-khtml-border-radius: 0 0 4px 4px;
+	background: none repeat scroll 0 0 #EFEFEF;
+	border-radius: 0 0 4px 4px;
+	padding: 0 10px 10px;
+	top: 31px;
+ *top:50px;
+	width: 196px;
+}
+
+.menu.search-content a {
+	display: block;
+	font-family: Arial;
+	font-size: 11px;
+	margin-top: 0;
+	padding: 0;
+	text-decoration: underline;
+	width: 95px;
+	cursor: pointer;
+	margin-top: 2px\0/IE8+9;
+}
+
+.ticom-top-header-links li {
+	display: inline;
+	padding-right: 15px;
+}
+
+/* RENAV FOOTER */
+#footerLinks_e2e, #footerLinks_e2eGroups, #footerLinks_partners, #footerLinks_other {
+	float: left;
+	padding: 15px 45px 0 20px;
+}
+.footer-fragments #disclaimer {/*MB - #16281*/
+	clear: both;
+	color: #ADADAD;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 980px;
+}
+.footer-fragments #disclaimer a:link, .footer-fragments #disclaimer a:visited, .footer-fragments #disclaimer a:active {/*MB - #16281*/
+	color: #ADADAD;
+	text-decoration: underline;
+}
+.footer-fragments #disclaimer a:hover {/*MB - #16281*/
+	color: #CC0000;
+}
+#footer-2 {
+	padding: 0;
+}
+.footerLinks {
+	height: 175px;
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f2f3', endColorstr='#FFFFFF'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#f6f2f3), to(#FFFFFF)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #f6f2f3, #FFFFFF); /* for firefox 3.6+ */
+	padding-left: 24px;
+}
+.foothead {
+	border-bottom: 1px solid #999999;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: normal;
+	padding-bottom: 5px;
+}
+.footlinks {
+	font-size: 11px;
+	/*list-style: square outside url("http://focus.ti.com/graphics/shared/css/ul-arrow2.gif");*/
+	list-style: none;
+	padding: 0;
+	line-height: 18px;
+}
+.footlinks a:link, .footlinks a:visited, .footlinks a:active {
+	color: #333333;
+}
+/* END RENAV FOOTER */
+
+/* HOME PAGE */
+.content-fragment-page.common-home .layout-region-inner.right-sidebar .content-fragment.quick-post.group-top-user-list.no-wrapper.with-header {
+	float: left;
+	left: -25px;
+	width: 250px;
+	position: relative;/* padding-top:35px; */
+}
+.content-fragment.raw-html.no-wrapper.hp-banner.banner1 img, .content-fragment.raw-html.no-wrapper.hp-banner.banner2 img {
+	padding-bottom: 15px;
+}
+.content-fragment.raw-html.no-wrapper.hp-banner.banner3 img {
+	padding-bottom: 30px;
+}
+.filter-option.communitymembers a div, .filter-option.tiemployees a div {
+	line-height: 12px;
+}
+#fragment-23866 {
+	height: 160px;
+}
+.content-fragment.home-search .search {
+	line-height: 24px;
+	border: 1px solid #555555;
+	border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-khtml-border-radius: 4px 4px 4px 4px;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: normal;
+	height: 28px;
+	padding: 1px 0px 3px 10px;
+	width: 580px;
+	position: relative;
+ *top:6px;
+	top: 2px\0/IE8+9;
+	vertical-align: middle;
+	left: -5px;
+	background-image: -webkit-linear-gradient(top, rgba(225,225,225,1), rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0));
+	background-image: -moz-linear-gradient(top, rgba(225,225,225,1), rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0));
+	background-image: -ms-linear-gradient(top, rgba(225,225,225,1), rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0));
+	background-image: -o-linear-gradient(top, rgba(225,225,225,1), rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0));
+	background: linear-gradient(top, #e1e1e1 100%, #fff 0%, #fff 0%, #fff 0%);
+}
+.content-fragment.home-search .support-aslink {
+	left: 10px;
+	position: relative;
+	top: 7px;
+}
+.content-fragment.home-search .field-item.advanced-search-link {
+	color: #CC0000;
+	left: 590px;
+	position: relative;
+	top: -43px;
+	width: 150px;
+}
+.content-fragment.home-search .content-fragment-content .field-item a img {
+	position: relative;
+	top: 13px;
+	top: 15px\0/IE8+9;
+}
+.ti-purchase-cart{
+	right: -30px;
+	position: absolute;
+	top: 0px;
+}
+.ti-search-box{
+	vertical-align: middle;
+	width: 170px;
+	background-color: #fff;
+	border: 0 solid #000;
+	color: #333;
+	margin: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	height:17px;
+}
+
+#p-logo {
+    display: none;
+}
+
+div#mw-head {
+    top: 130px;
+}
+
+div#simpleSearch{
+        top:-80px;
+}
+
+#p-personal {
+    top: -70px;
+}
+
+#mw-page-base {
+	height: 5em;
+}
+
+.layout-region.header .content-fragment {
+	         Background:#FFF;
+	 }

@@ -1,0 +1,12 @@
+Making u-boot.bin:
+==================
+
+1.Download ubootxxx.tar file(version of ur wish)
+2.Untar it.
+3.See README file (Building the Software:) section for any furuther details:
+
+# CROSS_COMPILE=arm-linux-
+# make mini2440_config
+# make all
+# ls  --> you'll find some uboot* images. we require u-boot.bin
+

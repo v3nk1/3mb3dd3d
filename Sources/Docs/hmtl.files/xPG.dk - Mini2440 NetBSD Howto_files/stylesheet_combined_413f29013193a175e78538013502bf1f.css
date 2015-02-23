@@ -1,0 +1,688 @@
+/* accessibility */
+
+/* 
+menu links accesskeys 
+*/
+span.accesskey {
+   text-decoration:none;
+}
+
+/* 
+accessibility divs are hidden by default 
+text, screenreaders and such will show these 
+*/
+.accessibility, hr {
+   position: absolute;
+   top: -999em;
+   left: -999em;
+}
+
+/* 
+definition tags are also hidden 
+these are also used for menu links    
+*/
+dfn {
+   position: absolute;
+   left: -1000px;
+   top: -1000px;
+   width: 0;
+   height: 0;
+   overflow: hidden;
+   display: inline;
+}
+/* end accessibility */
+
+
+/* wiki style external links */
+/* external links will have "(external link)" text added, lets hide it */
+a.external span {
+  position: absolute;
+  left: -5000px;
+  width: 4000px;
+}
+
+/* make some room for the image */
+a.external {
+/* css shorthand rules, read: first top padding 0 then right padding 12px then bottom then right */
+  padding: 0 12px 0 0;
+}
+/* colors for external links */
+a.external:link {
+  color: #18507C;
+  background-color: inherit;
+/* background image for the link to show wiki style arrow */
+  background: url(http://xpg.dk/images/cms/external.gif) no-repeat 100% 0;
+}
+a.external:visited {
+  color: #18507C; /* a different color can be used for visited external links */
+  background-color: inherit;
+/* 
+Set the last 0 to -100px to use that part of the external.gif image for different color for active links 
+external.gif is actually 300px tall, we can use different positions of the image to simulate rollover image changes.
+*/
+  background: urlhttp://xpg.dk/(images/cms/external.gif) no-repeat 100% 0; 
+}
+
+a.external:hover {
+  color: #18507C;
+/* Set the last 0 to -200px to use that part of the external.gif image for different color on hover */
+  background: url(http://xpg.dk/images/cms/external.gif) no-repeat 100% 0; 
+  background-color: #C3D4DF;
+}
+/* end wiki style external links */
+
+
+/* clearing */
+/* 
+clearfix is a hack for divs that hold floated elements. it will force the holding div to span all the way down to last floated item.
+We strongly recommend against using this as it is a hack and might not render correctly but it is included here for convenience.
+Do not edit if you dont know what you are doing
+*/
+	.clearfix:after {
+		content: "."; 
+		display: block; 
+		height: 0; 
+		clear: both; 
+		visibility: hidden;
+	}
+	* html>body .clearfix {
+		display: inline-table; 
+		width: 100%;
+	}
+	
+	* html .clearfix {
+		/* Hides from IE-mac \*/
+		height: 1%;
+		/* End hide from IE-mac */
+	}
+
+/* end clearing */
+/* Stylesheet: Accessibility and cross-browser tools Modified On 2013-10-22 23:20:41 */
+/*****************
+browsers interpret margin and padding a little differently, 
+we'll remove all default padding and margins and
+set them later on
+******************/
+* {
+margin:0;
+padding:0;
+}
+
+/*
+Set initial font styles
+*/
+body {
+   text-align: left;
+   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+   font-size: 75.01%;
+   line-height: normal;
+}
+
+/*
+set font size for all divs,
+this overrides some body rules
+*/
+div {
+   font-size: 1em;
+}
+
+/*
+if img is inside "a" it would have 
+borders, we don't want that
+*/
+img {
+   border: 0;
+}
+
+/*
+default link styles
+*/
+/* set all links to have underline and bluish color */
+a,
+a:link 
+a:active {
+   text-decoration: underline;
+/* css validation will give a warning if color is set without background color. this will explicitly tell this element to inherit bg colour from parent element */
+   background-color: inherit; 
+   /*color: #18507C; */
+   color: #000000;
+}
+
+a:visited {
+   text-decoration: underline;
+   background-color: inherit;
+  /*color: #18507C;*/                /* a different color can be used for visited links */
+   color: #000000;
+}
+
+
+/* remove underline on hover and change color */
+a:hover {
+   text-decoration: none;
+/*   background-color: #C3D4DF;
+   color: #385C72;*/
+   background-color: #AAAAAA;
+   color: #FFFFFF;
+}
+
+/*****************
+basic layout 
+*****************/
+body {
+   background-color: #F9F9F9;
+   color: #333;
+   margin:1em;    /* gives some air for the pagewrapper */
+}
+
+/* center wrapper, min max width */
+div#pagewrapper {
+/*   border: 1px solid black;*/
+   margin: 0 auto;       /* this centers wrapper */
+   max-width: 80em;   /* IE wont understand these, so we will use javascript magick */
+   min-width: 60em;
+/*   background-color: #fff;;*/
+/*   background-color: #EEEEEE;*/
+   background-color: inherit;
+   color: black;
+}
+
+
+/*** header ***
+we will hide text and replace it with a image
+we need to assign a height for it so that the image wont cut off
+*/
+div#header {
+   height: 80px;    /* adjust according your image size */
+/*   background: #385C72;           */
+}
+
+div#header h1 a {
+/* you can set your own image here */
+   background: url(http://xpg.dk/uploads/images/xpg-logo.png) no-repeat 0 12px; 
+   display: block;
+   height: 80px;             /* adjust according your image size */
+   text-indent: -999em;  /* this hides the text */
+   text-decoration:none; /* old firefox would have shown underline for the link, this explicitly hides it */
+}
+
+/* position for the search box */
+div#search {
+   float: right;
+   width: 23em;    /* enough width for the search input box */
+   text-align: right;
+   padding: 0.6em 0 0.2em 0;
+   margin: 0 1em;
+}
+
+div.breadcrumbs {
+   padding: 1em 0 1.2em 0; /* CSS short hand rule first value is top then right, bottom and left */
+   font-size: 90%;        /* its good to set fontsizes to be relative, this way viewer can change his/her fontsize */
+   margin: 0 1em;        /* css shorthand rule will be opened to be "0 1em 0 1em" */
+   border-bottom: 1px dotted #000;
+}
+
+div#content {
+   margin: 1.5em auto 2em 0;   /* some air above and under menu and content */
+}
+
+
+div#main {
+   margin-left: 29%; /* this will give room for sidebar to be on the left side, make sure this space is bigger than sidebar width */
+   margin-right: 2%; /* and some air on the right */
+   border: 1px solid black;
+   padding-top: 0.5em;
+   padding-right: 0.5em;
+   padding-left: 0.5em;
+   background-color: #EEEEEE;
+   color: inherit;
+}
+
+div#sidebar {
+   float: left;        /* set sidebar on the left side. Change to right to float it right instead. */
+   width: 26%;     /* sidebar width, if you change this please also change #main margins */
+   display: inline;  /* FIX IE double margin bug */
+   margin-left: 0;
+
+   border: 1px solid black;
+   padding-top: 0.5em;
+   padding-right: 0.5em;
+
+   background-color: #EEEEEE;
+   color: inherit;
+}
+
+div#footer {
+   clear: both;       /* keep footer below content and menu */
+   background-color: inherit;
+   color: #C0C0C0;
+}
+
+div#footer p {
+   font-size: 0.8em;
+   padding: 1.5em;       /* some air for footer */
+   text-align: center;  /* centered text */
+   margin: 0;
+}
+
+div#footer p a {
+   color: #fff; /* needed because footer link would be same color as background otherwise */
+   background-color: inherit;
+}
+
+/* as we hid all hr for accessibility we create new hr with extra div element */
+div.hr {
+   height: 1px;
+   padding: 1em;
+   border-bottom: 1px dotted black;
+   margin: 0em;
+}
+
+/* relational links under content */
+div.left49 {
+  width: 49%; /* 50% for both left and right might lead to rounding error on some browser */
+}
+
+div.right49 {
+  float: right;
+  width: 49%;
+  text-align: right;
+}
+
+div.one-image {
+  text-align: center;
+}
+
+
+/********************
+CONTENT STYLING
+*********************/
+div#content {
+
+}
+
+/* HEADINGS */
+div#content h1 {
+   font-size: 2em; /* font size for h1 */
+   line-height: 1em;
+   margin: 0;
+}
+div#content h2 {
+	color: #294B5F; 
+        background-color: inherit;
+	font-size: 1.5em; 
+	text-align: left; 
+/* some air around the text */
+	padding-left: 0.5em;
+	padding-bottom: 1px;
+/* set borders around header */
+	border-bottom: 1px solid #e7ab0b; 
+	border-left: 1.1em solid #e7ab0b; 
+        line-height: 1.5em;
+/* and some air under the border */
+        margin: 0 0 0.5em 0;
+}
+div#content h3 {
+   color: #294B5F; 
+   background-color: inherit;
+   font-size: 1.3em;
+   line-height: 1.3em;
+   margin: 0 0 0.5em 0;
+}
+div#content h4 {
+   color: #294B5F; 
+   background-color: inherit;
+   font-size: 1.2em;
+   line-height: 1.3em;
+   margin: 0 0 0.25em 0;
+}
+div#content h5 {
+   color: #294B5F; 
+   background-color: inherit;
+   font-size: 1.1em;
+   line-height: 1.3em;
+   margin: 0 0 0.25em 0;
+}
+h6 {
+   color: #294B5F; 
+   background-color: inherit;
+   font-size: 1em;
+   line-height: 1.3em;
+   margin: 0 0 0.25em 0;
+}
+/* END HEADINGS */
+
+/* TEXT */
+p {
+   font-size: 1em;
+   margin: 0 0 1.5em 0; /* some air around p elements */
+   line-height: 1.4em;
+   padding: 0;
+}
+
+blockquote {
+   border-left: 10px solid #ddd;
+   margin-left: 10px;
+}
+strong, b {
+/* explicit setting for these */
+   font-weight: bold;
+}
+em, i {
+/* explicit setting for these */
+   font-style:italic;
+}
+
+pre {
+   border: 1px solid #000;  /* black border for pre blocks */
+   color: inherit;
+   background-color: #ddd;
+   margin: 0 1em 1em 1em;
+   padding: 0.5em;
+   line-height: 1.5em;
+   font-size: 90%;
+}
+
+/* Separating the divs on the template explanation page, with some bottom-border */
+div.templatecode {
+  margin: 0 0 2.5em;
+}
+
+/* END TEXT */
+
+/* LISTS */
+/* lists in content need some margins to look nice */
+div#main ul,
+div#main ol,
+div#main dl {
+   font-size: 1.0em;
+   line-height: 1.4em;
+   margin: 0 0 1.5em 0;
+}
+
+div#main ul li,
+div#main ol li {
+   margin: 0 0 0.25em 3em;
+}
+
+/* definition lists topics on bold */
+div#main dl dt {
+   font-weight: bold;
+   margin: 0 0 0 1em;
+}
+div#main dl dd {
+   margin: 0 0 1em 1em;
+}
+
+div#main dl {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #c0c0c0;
+}
+
+
+/* END LISTS */
+/* Stylesheet: Layout: Left sidebar + 1 column Modified On 2013-10-22 23:19:36 */
+div#news {
+  margin: 2em 0 1em 1em;  /* margin for the entire div surrounding the news list */
+  border: 1px solid #000; 
+  background: #FFE9AF; 
+  color: inherit;
+}
+
+div#news h2 {
+   line-height: 2em;
+   background: #fff;
+   color: inherit;
+}
+
+.NewsSummary {
+    padding: 0.5em 0.5em 1em; /* padding for the news article summary */
+    margin: 0 0.5em 1em 0.5em; /* margin to the bottom of the news article summary */
+    border-bottom: 1px solid #ccc; 
+}
+
+.NewsSummaryPostdate {
+  font-size: 90%;
+  font-weight: bold;
+ }
+
+.NewsSummaryLink {
+    font-weight: bold;
+    padding-top: 0.2em;
+}
+
+.NewsSummaryCategory {
+  font-style: italic;
+  margin: 5px 0;
+ }
+
+.NewsSummaryAuthor {
+  font-style: italic;
+  padding-bottom: 0.5em;
+}
+
+.NewsSummarySummary, .NewsSummaryContent {
+  line-height: 140%;
+ }
+
+.NewsSummaryMorelink {
+  padding-top: 0.5em;
+}
+
+#NewsPostDetailDate {
+  font-size: 90%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  }
+
+#NewsPostDetailSummary {
+   line-height: 150%;
+   }
+
+#NewsPostDetailCategory {
+  font-style: italic;
+  border-top: 1px solid #ccc;
+  margin-top: 0.5em;
+  padding: 0.2em 0;
+}
+
+#NewsPostDetailContent {
+  margin-bottom: 15px;
+  line-height: 150%;
+  }
+
+#NewsPostDetailAuthor {
+
+  padding-bottom: 1.5em;
+  font-style: italic;
+}
+
+
+/* to add specific style to the below divs, uncomment them. */
+
+/* 
+#NewsPostDetailTitle {}
+#NewsPostDetailHorizRule {}
+#NewsPostDetailPrintLink {}
+#NewsPostDetailReturnLink {}
+*/
+/* Stylesheet: Module: News Modified On 2006-11-14 22:49:08 */
+/********************
+MENU
+*********************/
+#menu_vert {
+   padding-left: 0;
+   margin-left: 1em;
+}
+
+
+/* third level has some padding to have it stand out */
+div#menu_vert ul ul ul {
+   padding-bottom: 0.5em;
+}
+
+/* menu li block */
+#menu_vert li {
+   list-style: none;
+   margin: 0;
+   border-bottom: 1px solid #c0c0c0;
+   display: block;
+}
+
+#menu_vert ul ul li {
+   border: none;
+}
+
+/** fix stupid ie bug with display:block; **/
+* html #menu_vert li a { height: 1%; } 
+* html #menu_vert li hr { height: 1%; }
+/** end fix **/
+
+/* first level links */
+div#menu_vert a {
+   text-decoration:none; /* no underline for links */
+   display: block; /* IE has problems with this, fixed above */
+   padding: 0.8em 0.5em 0.8em 1.5em; /* some air for it */
+   color: #18507C; /* this will be link color for all levels */   
+   background-color: inherit;
+   background: url("http://xpg.dk/images/cms/arrow-right.gif");
+   background-repeat: no-repeat;
+   background-position: 0.5em; 
+   min-height:1em; /* Fixes IE7 whitespace bug */ 
+}
+
+/* next level links, more padding and smaller font */
+div#menu_vert ul ul a {
+   font-size: 90%;
+   padding: 0.5em 0.5em 0.5em 2.8em;
+   background-position: 1.5em;
+}
+
+/* third level links, more padding */
+div#menu_vert ul ul ul a {
+   padding: 0.3em 0.5em 0.3em 4.3em;
+   background: url("http://xpg.dk/images/cms/dash.gif") no-repeat 2.8em; 
+}
+
+/* hover state for all links */
+div#menu_vert a:hover {
+   background-color: #C3D4DF;
+   color: inherit;
+}
+div#menu_vert a.activeparent:hover {
+   background-color: #C3D4DF;
+   color: #18507C;
+}
+
+/* 
+active parent, that is the first-level parent 
+of a child page that is the current page 
+*/
+div#menu_vert li a.activeparent {
+   background: url("http://xpg.dk/images/cms/arrow-down.gif") no-repeat 0.4em; 
+   background-color: #385C72;
+   color: #fff;
+}
+
+div#menu_vert ul ul li a.activeparent {
+   background-position: 1.5em; 
+   background-color: transparent;
+   color: #18507C;
+}
+
+
+/* 
+current pages in the default Menu Manager 
+template are unclickable. This is for current page on first level 
+*/
+div#menu_vert ul h3 {
+   background: url("http://xpg.dk/images/cms/arrow-right-active.gif") no-repeat 0.4em;
+   background-color: #385C72;
+   display: block; 
+   padding: 0.8em 0.5em 0.8em 1.5em;  /* some air for it */
+   color: #fff;                                 /* this will be link color for all levels */
+   font-size: 1em;                           /* instead of the normal font size for <h3> */
+   margin: 0;                                  /* as <h3> normally has some margin by default */
+}
+
+/* 
+next level current pages, more padding, 
+smaller font and no background color or bottom border 
+*/
+div#menu_vert ul ul h3 {
+   font-size: 90%;
+   padding: 0.3em 0.5em 0.3em 2.8em;
+   background-position: 1.4em;
+   background-color: transparent;
+   border-bottom: none;
+   color: #000;     
+}
+
+/* current page on third level, more padding */
+div#menu_vert ul ul ul h3 {
+   padding: 0.3em 0.5em 0.3em 4.3em;
+   background: url("http://xpg.dk/images/cms/arrow-right-active.gif") no-repeat 2.7em; 
+}
+
+/* section header */
+div#menu_vert li.sectionheader {
+   border-right: none;
+   font-size: 130%;
+   font-weight: bold;
+   padding: 1.5em 0 0.8em 0;
+   background-color: #fff;
+   color: inherit;
+   line-height: 1em;
+   margin: 0;
+   text-align:center;
+}
+
+
+
+/* separator */
+div#menu_vert li.separator {
+   height: 1px !important;
+   margin-top: -1px;
+   margin-bottom: 0;
+   padding:2px 0 2px 0;
+   background-color: #000;
+   color: inherit;
+   overflow:hidden !important;
+   line-height:1px !important;
+   font-size:1px; /* for ie */
+}
+
+div#menu_vert li.separator hr {
+   display: none; /* this is for accessibility */
+}
+/* Stylesheet: Navigation: Simple - Vertical Modified On 2013-10-22 23:21:11 */
+.XPGTable {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.XPGTable thead {
+  font-weight: bold
+}
+
+table.XPGTable td {
+  border: 1px solid grey;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  vertical-align: top;
+}
+
+td.XPGTableDone {
+  background: green;
+}
+
+td.XPGTableInProgress {
+  background: yellow;
+}
+
+td.XPGTableNotDone {
+  background: red;
+}
+/* Stylesheet: XPG Tables Modified On 2010-05-20 22:55:04 */

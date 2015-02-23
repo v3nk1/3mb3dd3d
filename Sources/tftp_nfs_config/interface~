@@ -1,0 +1,10 @@
+Append bellow stuff in "vi /etc/network/interfaces"
+===================================================
+
+auto eth0
+iface eth0 inet static
+        address         10.0.0.4
+        netmask         255.255.255.0
+        network         10.0.0.0
+        broadcast       10.0.0.255
+        gateway         10.0.0.254

@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>Compiling QT using Buildroot - OK6410 wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.2">
+<link rel="shortcut icon" href="http://www.arm9board.net/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.arm9board.net/wiki/opensearch_desc.php" title="OK6410 wiki (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="OK6410 wiki Atom feed" href="http://www.arm9board.net/wiki/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/shared.css" media="screen">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/main.css" media="screen">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/index_004.css">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/index_003.css" media="print">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/index.css">
+<link rel="stylesheet" href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/index_002.css">
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php?title=$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.arm9board.net",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Compiling_QT_using_Buildroot",
+wgTitle="Compiling QT using Buildroot",
+wgAction="view",
+wgArticleId=248,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=559,
+wgVersion="1.16.2",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OK6410 wiki", "5": "OK6410 wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "ok6410_wiki": 4, "ok6410_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="OK6410 wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/wikibits.js"></script><link href="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/FF2Fixes.css" rel="stylesheet" type="text/css">
+<script src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/ajax.js"></script>
+<script src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/index.php"></script>
+
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/wiki/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style><script src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/a.js" async="" type="text/javascript"></script></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Compiling_QT_using_Buildroot skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Compiling QT using Buildroot</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From OK6410 wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Needed_System"><span class="tocnumber">1</span> <span class="toctext">Needed System</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Buildroot_configuration"><span class="tocnumber">2</span> <span class="toctext">Buildroot configuration</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Accessing_the_QT_tutorials"><span class="tocnumber">3</span> <span class="toctext">Accessing the QT tutorials</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_the_input_interfaces"><span class="tocnumber">4</span> <span class="toctext">Configuring the input interfaces</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Using_the_touchscreen"><span class="tocnumber">4.1</span> <span class="toctext">Using the touchscreen</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Using_a_universal_USB_mouse"><span class="tocnumber">4.2</span> <span class="toctext">Using a universal USB mouse</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Using_the_touchscreen_and_the_mouse_together"><span class="tocnumber">4.3</span> <span class="toctext">Using the touchscreen and the mouse together</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Saving_the_variables_into_your_system"><span class="tocnumber">5</span> <span class="toctext">Saving the variables into your system</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h2> <span class="mw-headline" id="Needed_System"> Needed System </span></h2>
+<ul><li> I used the finished buildroot system (tutorial can be found <a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot" class="external text" rel="nofollow">here</a>)
+</li><li> Together with an NFS server for the filesystem (tutorial can be found <a href="http://www.arm9board.net/wiki/index.php?title=Configuring_NFS_Filesystem" class="external text" rel="nofollow">here</a>)
+</li></ul>
+<h2> <span class="mw-headline" id="Buildroot_configuration"> Buildroot configuration </span></h2>
+<p>We will now make the necessary configurations to build QT for the 
+OK6410 development board. First of all move into your buildroot 
+directory and start the menuconfig:
+</p>
+<pre>$ make menuconfig
+</pre>
+<p>And make the following changes
+</p>
+<pre>Package Selection for the target ---&gt;
+       Graphic libraries and applications (graphic/text) ---&gt;
+            [*] Qt ---&gt;
+                   [*] Compile and install demos and examples (with code)
+                   [*] Approve free license
+</pre>
+<p>This is the basic system we will start from, but you can always make 
+some personal changes. Exit the menuconfig and compile the new system:
+</p>
+<pre>$ make
+</pre>
+<p>This can take some time and after the compilation has finished, 
+inside the output/images directory you can find a freshly created 
+rootfs.tar filesystem. The NFS tutorial explained already how to use 
+this file to mount it as NFS root filesystem:
+</p>
+<pre>$ sudo rm -rf ~/nfs_root/*
+$ sudo cp ~/buildroot-2011.05/output/images rootfs.tar ~/nfs_root/
+$ cd ~/nfs_root
+$ sudo tar -xf rootfs.tar
+</pre>
+<p>Open a minicom terminal and reboot the board. It will mount our filesystem containing QT.
+</p>
+<h2> <span class="mw-headline" id="Accessing_the_QT_tutorials"> Accessing the QT tutorials </span></h2>
+<p>Now move to the minicom terminal, login (using <b>root</b>). The QT tutorials can be found inside the /usr/share/qt folder. So:
+</p>
+<pre># cd /usr/share/qt
+</pre>
+<p>Inside this directory we can find a demo and an examples folder where
+ the included demos and examples are stored. Let's for example go into 
+the widgets/sliders example directory:
+</p>
+<pre># cd /usr/share/qt/examples/widgets/sliders
+</pre>
+<p>You can try the sliders example by typing:
+</p>
+<pre># ./sliders -qws
+</pre>
+<p>You will see a window appearing on the screen containing several 
+slider widgets. Unfortunately we can not do anything because there's no 
+mouse or touchscreen configured. That's what we will do now! Press 
+CTRL+C to exit the example.
+</p>
+<h2> <span class="mw-headline" id="Configuring_the_input_interfaces"> Configuring the input interfaces </span></h2>
+<p>Two methods will be discussed here: the touchscreen and a USB mouse. 
+We will configure QT to handle those input devices and configure the 
+Linux kernel to calibrate the touchscreen.
+</p>
+<h3> <span class="mw-headline" id="Using_the_touchscreen"> Using the touchscreen </span></h3>
+<p>First of all we need to make the necessary changes to the Buildroot 
+QT configuration to access the touchscreen. Open a new terminal and open
+ the configuration of buildroot:
+</p>
+<pre>$ cd ~/buildroot-2011.05
+$ make menuconfig
+</pre>
+<p>Make the changes for the touchscreen:
+</p>
+<pre>[*] Package Selection for the target  ---&gt;
+          [*] Graphic libraries and applications (graphic/text)  ---&gt;
+                 [*]   Qt  ---&gt;
+                     Mouse drivers  ---&gt;
+                           [*] tslib
+</pre>
+<p>Exit buildroot and make:
+</p>
+<pre>$ make
+</pre>
+<p>Replace the NFS filesystem with the fresh one (see above). Switch to 
+the minicom terminal, reboot the board and login into Builroot. First 
+thing to do is to create the necessary environment variables:
+</p>
+<pre># export TSLIB_TSDEVICE=/dev/input/event1
+# export TSLIB_TSEVENTTYPE=INPUT
+# export TSLIB_CONFFILE=/etc/ts.conf
+# export TSLIB_CALIBFILE=/etc/pointercal
+</pre>
+<p>After the configuration we can do the calibration of the touchscreen to make it work proparly:
+</p>
+<pre># ts_calibrate
+</pre>
+<p>And follow the instructions on the screen. After calibrating you can start testing it using the following command:
+</p>
+<pre># ts_test
+</pre>
+<p>Let's try the QT example again using the touchscreen. But first QT needs to know which device to listen to:
+</p>
+<pre># export QWS_MOUSE_PROTO="Tslib:/dev/input/event1"
+</pre>
+<p>Then we can run the example:
+</p>
+<pre># cd /usr/share/qt/examples/widgets/sliders
+# ./sliders -qws
+</pre>
+<p>The -qws parameter is necessary for our embedded system because we 
+don't run a QWS server. The -qws command creates a QWS server only for 
+this app.
+You will discover that this example is not really made for the 
+touchscreen because all the buttons are very small, but in the end it 
+works!&nbsp;;-)
+</p>
+<h3> <span class="mw-headline" id="Using_a_universal_USB_mouse"> Using a universal USB mouse </span></h3>
+<p>The second option is to plug in a USB mouse into the USB port of the 
+OK6410 board and use this mouse as a pointer device. So let's edit the 
+buildroot configuration again:
+</p>
+<pre>$ cd ~/buildroot-2011.05
+$ make menuconfig
+</pre>
+<pre> [*] Package Selection for the target  ---&gt;
+          [*] Graphic libraries and applications (graphic/text)  ---&gt;
+                 [*]   Qt  ---&gt;
+                     Mouse drivers  ---&gt;
+                           [*] pc
+                           [*] tslib (you can leave this one active if you want to use the touchscreen some more)
+</pre>
+<pre>$ make
+</pre>
+<p>Replace the old filesystem with the new one from the 
+buildroot-2011.05/output/image/rootfs.tar (as explained above), reboot 
+the board and go into the minicom terminal and plugin the USB mouse. 
+First we have to discover which /dev/input/mouseXX device is connected 
+to your USB mouse (replace the XX by a number going from 0 to 3, you can
+ check this inside the following folder on the board: /dev/input/)
+</p>
+<pre># cat /dev/input/mouseXX | hexdump
+</pre>
+<p>On one device you will see a lot of data appearing when you move the 
+mouse. This means that you have found the right mouseXX device. (also 
+use CTRL+C to end the cat command). For me it was the mouse1 input 
+device, so replace mouse1 in the next command with your mouse device:
+</p>
+<pre># export QWS_MOUSE_PROTO="MouseMan:/dev/input/mouse1"
+</pre>
+<p>A lot more info about the drivers and QWS_MOUSE_PROTO variable can be found on the following <a href="http://doc.qt.nokia.com/4.6/qt-embedded-pointer.html" class="external text" rel="nofollow">QT website</a>.
+</p><p>Run the slider example:
+</p>
+<pre># cd /usr/share/qt/examples/widgets/sliders
+# ./sliders -qws
+</pre>
+<p><b>IMPORTANT:</b> Now you have configured your mouse manual, this can also be done automatically by using this export command:
+</p>
+<pre class="apf"># export QWS_MOUSE_PROTO="Auto"
+</pre>
+<h3> <span class="mw-headline" id="Using_the_touchscreen_and_the_mouse_together"> Using the touchscreen and the mouse together </span></h3>
+<p>The configuration method is exactly the same, only the <i>export QWS_MOUSE_PROTO</i> command will contain several parameters. For example to use the auto detection of the mouse and the touchscreen together, type:
+</p>
+<pre># export QWS_MOUSE_PROTO="Tslib:/dev/input/event1 Auto"
+</pre>
+<h2> <span class="mw-headline" id="Saving_the_variables_into_your_system"> Saving the variables into your system </span></h2>
+<p>When you save the variables into your system, you can directly start 
+working after you booted. You just need to edit the nfs_root/etc/profile
+ file. Open a terminal and type:
+</p>
+<pre>$ sudo gedit ~/nfs_root/etc/profile
+</pre>
+<p>And at the bottom of the file write the exports you want, those are the ones I used (for touchscreen and mouse):
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="bash source-bash"><pre class="de1"><span class="kw3">export</span> <span class="re2">TSLIB_TSDEVICE</span>=<span class="sy0">/</span>dev<span class="sy0">/</span>input<span class="sy0">/</span>event1
+<span class="kw3">export</span> <span class="re2">TSLIB_TSEVENTTYPE</span>=INPUT
+<span class="kw3">export</span> <span class="re2">TSLIB_CONFFILE</span>=<span class="sy0">/</span>etc<span class="sy0">/</span>ts.conf
+<span class="kw3">export</span> <span class="re2">TSLIB_CALIBFILE</span>=<span class="sy0">/</span>etc<span class="sy0">/</span>pointercal
+<span class="kw3">export</span> <span class="re2">QWS_MOUSE_PROTO</span>=<span class="st0">"Tslib:/dev/input/event1 Auto"</span></pre></div></div>
+<p><b>REMEMBER: You always have to run ts_calibrate and edit the 
+etc/profile file every time you place a new filesystem inside nfs_root!!</b>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 42/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key C292798_wiki:pcache:idhash:248-0!1!0!!en!2!edit=0 and timestamp 20131223152458 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot">http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="http://www.arm9board.net/wiki/index.php?title=Talk:Compiling_QT_using_Buildroot&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://www.arm9board.net/wiki/index.php?title=Special:UserLogin&amp;returnto=Compiling_QT_using_Buildroot" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/wiki/images/wiki_logo.gif);" href="http://www.arm9board.net/wiki/index.php?title=Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="http://www.arm9board.net/wiki/index.php?title=Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-Windows-CE"><a href="http://www.arm9board.net/wiki/index.php?title=Windows_CE">Windows CE</a></li>
+				<li id="n-Embedded-Linux"><a href="http://www.arm9board.net/wiki/index.php?title=Embedded_Linux">Embedded Linux</a></li>
+				<li id="n-Android"><a href="http://www.arm9board.net/wiki/index.php?title=Android">Android</a></li>
+				<li id="n-arm9board.net"><a href="http://www.arm9board.net/sel/default.aspx">arm9board.net</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" title="Search OK6410 wiki" accesskey="f" name="search" type="search">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.arm9board.net/wiki/index.php?title=Special:WhatLinksHere/Compiling_QT_using_Buildroot" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.arm9board.net/wiki/index.php?title=Special:RecentChangesLinked/Compiling_QT_using_Buildroot" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="http://www.arm9board.net/wiki/index.php?title=Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://www.arm9board.net/wiki/index.php?title=Compiling_QT_using_Buildroot&amp;oldid=559" title="Permanent link to this revision of the page">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></div>
+	<div id="f-copyrightico"><a href="http://www.gnu.org/copyleft/fdl.html"><img src="Compiling%20QT%20using%20Buildroot%20-%20OK6410%20wiki_files/gnu-fdl.png" alt="GNU Free Documentation License 1.3" height="31" width="88"></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 7 July 2011, at 10:51.</li>
+		<li id="viewcount">This page has been accessed 2,811 times.</li>
+		<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" class="external ">GNU Free Documentation License 1.3</a>.</li>
+		<li id="privacy"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:Privacy_policy" title="OK6410 wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:About" title="OK6410 wiki:About">About OK6410 wiki</a></li>
+		<li id="disclaimer"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:General_disclaimer" title="OK6410 wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.220 secs. -->
+</body></html>

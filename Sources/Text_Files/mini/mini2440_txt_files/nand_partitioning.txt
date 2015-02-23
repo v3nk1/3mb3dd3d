@@ -1,0 +1,120 @@
+
+Partioning NAND flash (Using bootloder):
+===================================
+
+Method1: {dynamic partioning using uboot}
+-------
+		Bootup target with u-boot prompt. And make mtdparts
+		
+MINI2440# mtdparts
+
+device nand0 <mini2440-nand>, # parts = 4
+ #: name                        size            offset          mask_flags
+ 0: u-boot              0x00040000      0x00000000      0
+ 1: env                 0x00020000      0x00040000      0
+ 2: kernel              0x00500000      0x00060000      0
+ 3: root                0x3faa0000      0x00560000      0
+
+Delete partions:
+----------------
+MINI2440# mtdparts del root
+
+MINI2440# mtdparts
+
+device nand0 <mini2440-nand>, # parts = 4
+ #: name                        size            offset          mask_flags
+ 0: u-boot              0x00040000      0x00000000      0
+ 1: env                 0x00020000      0x00040000      0
+ 2: kernel              0x00500000      0x00060000      0
+
+Adding a data partion:
+----------------------
+mtdparts add <mtd-dev> <size>[@<offset>] [<name>] [ro]
+
+	OR
+
+Adding a 'data' partition in Nand flash memory of target by making root is limited to 100M & rest of mem left to data partition:
+
+MINI2440# setenv mtdparts mtdparts=mini2440-nand:128k(bootloader),128k(bootloader_env),5m(kernel),100m(rootfs),-(data)
+
+MINI2440 # mtdparts 
+
+device nand0 <mini2440-nand>, # parts = 5
+ #: name                        size            offset          mask_flags
+ 0: u-boot              0x00020000      0x00000000      0
+ 1: env                 0x00020000      0x00020000      0
+ 2: kernel              0x00500000      0x00040000      0
+ 3: root                0x06400000      0x00540000      0
+ 4: data                0x396c0000      0x06940000      0
+
+active partition: nand0,0 - (u-boot) 0x00020000 @ 0x00000000
+
+defaults:
+mtdids  : nand0=mini2440-nand
+mtdparts: <NULL>
+
+
+
+MINI2440# saveenv		
+
+
+Method2: Static partitioning using source code(while building bootloader.bin)
+----------------------------------------------------------------------------
+	edit following file.
+	# vi <path/2/u-boot-mini2440>/board/mini2440/mini2440.c +257
+
+
+
+
+
+###########################################################################################################################################
+
+
+By default the pations are not pharsed to kernel:
+These bootloader partitions are not visible when u bootup with kernel.
+
+So inorder to parse the partitions to kernel, 
+
+Method1:(static approach, edit the source code) and modify
+-------
+
+    root# vi <linux-src>/arch/arm/mach-s3c24xx/mach-mini2440.c
+	  And search for nand partitions.
+
+		add a partition by seeing syntax of above lines in that file.
+
+
+Method2:(dynamic while booting, pasing boot arguments through bootloader)
+-------------------------------------------------------------------------
+
+In latest kernels, kernel provides some kernel parameters "mtdparts"
+    root# vi <linux-src>/Documentation/kernel-paramters.txt
+
+MINI2440# setenv bootargs mtdparts=nand:nand:128k(bootloader),128k(bootloader_env),5m(kernel),100m(rootfs),-(data) console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/minifs;
+
+	- Here in mtdparts device name shud be "nand:", otherwise partitions don't create.
+	- See in the kernel source architecture specific machine code, search for nand partitions,
+	in that structure see the name of the device, in name member.
+
+ 
+After boot give command:
+
+-To see created partitions info of nand
+    root# cat /proc/mtd
+- To see bootargs
+    root# cat /proc/cmdline
+
+
+
+Default mtdparts:
+-----------------
+MINI2440# setenv mtdparts mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)
+
+mtdparts default
+    - reset partition table to defaults
+
+To make these settings permanant(after reset also shud be available) save to nand by giving
+
+MINI2440# saveenv
+
+

@@ -1,0 +1,21 @@
+After all building tslib/touchscreen lib:
+-----------------------------------------
+
+	Go to your given prefix path:
+		# cd <given-prefix-path>
+		# ls include
+			tslib.h
+		But we need zlib.h also. so download source for zlib and compile it for your target.
+
+		# cd <zlib_downloaded_dir>
+		# tar xvf zlib_x.x.x.tar.gz
+		# cd zlib_xxx.tar.gz
+		# prefix=/your/given/path/to/tslib/ CC=/path2/cross/compiled/toolchain/ CFLAGS="-O4" ./configure
+			OR
+		if path exported already then
+		# prefix=/your/given/path/to/tslib/ CC=arm-linux-cc CFLAGS="-O4" ./configure
+		
+		the configure file will endup in creating Makefile
+		# make -j4
+		# make install
+		Then the tslib & zlib will be installed in your given path.

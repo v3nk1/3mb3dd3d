@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Linux Device Drivers</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.embeddedveda.com/wordpress/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://www.embeddedveda.com/wordpress/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="Linux Device Drivers » Feed" href="http://www.embeddedveda.com/wordpress/?feed=rss2">
+<link rel="alternate" type="application/rss+xml" title="Linux Device Drivers » Comments Feed" href="http://www.embeddedveda.com/wordpress/?feed=comments-rss2">
+<link rel="stylesheet" id="twentytwelve-fonts-css" href="Linux%20Device%20Drivers_files/css.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-style-css" href="Linux%20Device%20Drivers_files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='http://www.embeddedveda.com/wordpress/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.embeddedveda.com/wordpress/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.embeddedveda.com/wordpress/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 3.5.1">
+<link rel="stylesheet" type="text/css" href="Linux%20Device%20Drivers_files/recaptcha.css">	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #e6e6e6; }
+</style>
+</head>
+
+<body class="home blog custom-background custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="http://www.embeddedveda.com/wordpress/" title="Linux Device Drivers" rel="home">Linux Device Drivers</a></h1>
+			<h2 class="site-description"></h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<h3 class="menu-toggle">Menu</h3>
+			<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
+			<div class="nav-menu"><ul><li class="current_page_item"><a href="http://www.embeddedveda.com/wordpress/" title="Home">Home</a></li></ul></div>
+		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+		
+										
+	<article id="post-280" class="post-280 post type-post status-publish format-standard hentry category-embeddedlinux category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=280" title="Permalink to Developing Basic USB to Serial Port Driver" rel="bookmark">Developing Basic USB to Serial Port Driver</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>This article describes the procedure for developing a basic USB to
+ Serial port driver. Note that this article will not discuss about any 
+framework, like the Linux UART framework.</p>
+<p>In this article, BAFO BF-810 USB to Serial port adapter is used for demonstration.</p>
+<h1>Steps:</h1>
+<ol>
+<li><span style="line-height: 21px;">Determine the USB product ID and device ID.</span></li>
+<li>Check whether Linux supports the existing hardware. If yes, rename the existing driver.</li>
+<li>Create the USB deviceID table, USB driver information and register the driver.</li>
+<li>Testing the connection and disconnection</li>
+<li>Create the USB vendor class driver information and register the class driver.</li>
+<li>Testing the /dev entry creating based on the vendor class driver information.</li>
+</ol>
+<h3>Determine the USB product ID and device ID</h3>
+<p>In order to determine the product ID and device ID of the USB to 
+Serial port adapter, execute the ‘lsusb’ command observed the output. 
+You will see an output similar to the one shown below:</p>
+<pre>training@ubuntu:~$ lsusb
+Bus 002 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse
+Bus 002 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 004: ID 0e0f:0008 VMware, Inc.</pre>
+<p>Now connect the USB to Serial port cable and execute the ‘lsusb’ 
+command again. You will see an output serial to the one shown below:</p>
+<pre>training@ubuntu:~$ lsusb
+Bus 002 Device 002: ID 0e0f:0003 VMware, Inc. Virtual Mouse
+Bus 002 Device 003: ID 0e0f:0002 VMware, Inc. Virtual USB Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 002 Device 004: ID 0e0f:0008 VMware, Inc. 
+Bus 002 Device 005: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port</pre>
+<p>Notice there is an additional entry in the second ‘lsusb’ command 
+output. This entry corresponds to the USB to Serial port hardware that 
+you have connected.</p>
+<pre>Bus 002 Device 005: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;"><strong>067b:2303</strong> corresponds to the vendor ID and product ID of the device.</span></p>
+<h3>Check and rename existing drivers</h3>
+<p>Check whether the Linux kernel already supports the connect USB to 
+Serial adapter. In order to determine this, execute the following 
+command:</p>
+<pre>training@ubuntu:~$ cat /lib/modules/$(uname -r)/modules.usbmap | grep "067b.*2303"</pre>
+<p>Notice that <strong>“067b.*2303″</strong> in the above command 
+corresponds to the vendor ID and product ID of the USB to Serial port 
+adapter that you have connected. The above command will generate an 
+output as follows:</p>
+<pre>pl2303 0x0003 0x067b 0x2303 0x0000 0x0000 0x00 0x00 0x00 0x00 0x00 0x00 0x0</pre>
+<p>The first entry “pl2303″ in the above output corresponds to the driver for the USB to Serial port adapter that is attached.</p>
+<p>Rename this driver before you develop a driver the adapter.</p>
+<pre>training@ubuntu:~$ cd /lib/modules/$(uname -r)/kernel/drivers/usb/serial
+
+training@ubuntu:/lib/modules/3.9.0/kernel/drivers/usb/serial$ ls pl2303.*
+pl2303.ko
+
+training@ubuntu:/lib/modules/3.9.0/kernel/drivers/usb/serial$ mv pl2303.ko
+pl2303.ko.org</pre>
+<h3>Create the USB driver ID and driver information</h3>
+<p>Based on the vendor ID and product ID that is obtained in the 
+previous steps, create the following USB driver data structures and 
+variables:</p>
+<ul>
+<li><span style="line-height: 14px;">struct usb_device_id</span></li>
+<li>MODULE_DEVICE_TABLE</li>
+<li>struct usb_driver</li>
+</ul>
+<p>The below code snippet depicts the code for Vendor ID 0x067b and Product ID 0×2303.</p>
+<pre>struct usb_device_id example_usb_tbl[] = 
+{
+    /* vendor ID and Device ID of the device */
+    {USB_DEVICE(0x067B, 0x2303)},
+
+    /* Last entry */
+    {},
+};
+
+MODULE_DEVICE_TABLE(usb, example_usb_tbl);
+
+struct usb_driver example_usb_driver = {
+    .name = "example_usb",
+    .id_table = example_usb_tbl,
+    .probe = example_usb_probe,
+    .disconnect = example_usb_disconnect,
+};</pre>
+<p>Once you have defined the USB device ID table and USB driver 
+information, register the USB driver with the kernel using the 
+usb_register() function. Similarly, unregister the USB driver using the 
+usb_deregister() function.</p>
+<pre>int example_01_init(void)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+
+    /* Register your driver with the kernel */
+    usb_register(&amp;example_01_usb_driver);
+
+    return 0;
+}
+
+void example_01_exit(void)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+
+    /* Unregister your driver with the kernel */
+    usb_deregister(&amp;example_01_usb_driver);
+}
+
+module_init(example_01_init); 
+module_exit(example_01_exit);</pre>
+<p>The below code snippet depicts a sample probe and disconnect 
+functions. Note that the probe function is called when the device is 
+connected and disconnect function is called when the device is 
+disconnected.</p>
+<pre>int example_01_usb_probe(struct usb_interface *intf, const struct usb_device_id *id)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+    return 0;
+}
+
+void example_01_usb_disconnect(struct usb_interface *intf)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+}</pre>
+<h3>Testing Device Connection and Disconnection</h3>
+<p>Once you have built the module, insert the module using the <strong>insmod</strong> command. While you are loading the module, make sure the USB to Serial port adapter is not connected.</p>
+<p>Once you have inserted the module, you will notice the following log messages in the /var/log/syslog file.</p>
+<pre>[ 4295.115276] Inside the example_01_init function
+[ 4295.115882] Hello World
+[ 4295.121009] usbcore: registered new interface driver example_usb
+[ 4315.225034] usb 2-2.2: new full-speed USB device number 6 using uhci_hcd</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Connect the USB to Serial port adapter. You will notice the following log message in the /var/log/syslog file.</span></p>
+<pre>[ 4315.351086] Inside the example_01_usb_probe function</pre>
+<p>Disconnect the USB to Serial port adapter. You will notice the following log message in the /var/log/syslog file.</p>
+<pre>[ 4328.833204] Inside the example_01_usb_disconnect function</pre>
+<h3>Registering USB vendor class driver</h3>
+<p>In order to register / deregister an USB vendor class driver, perform the following operations:</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Initialize the ‘struct usb_class_driver’ structure.</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">In the probe function, register the USB class driver using the ‘usb_register_dev’ function.</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">In the disconnect function, deregister the USB class driver using the ‘usb_deregister_dev’ function.</span></li>
+</ul>
+<p>The following code snippet depicts the above operations.</p>
+<pre>int example_open (struct inode *pi, struct file *pf)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+    return 0;
+}
+
+ssize_t example_read (struct file *pf, char __user *buffer, size_t length, loff_t *offset)
+{
+    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+    return length;
+<em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">}
+
+</em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">ssize_t example_write (struct file *pf, const char __user *buffer, size_t length, loff_t *offset)
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    return length;
+</em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">}
+
+</em></em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">int example_release (struct inode *pi, struct file *pf)
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    return 0;
+</em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">}
+
+</em></em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">/* For to perform the device specific operations */
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">static long example_ioctl(struct file *p_file, unsigned int command, unsigned long parameter)
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">{
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    return 0;
+</em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">}
+
+</em></em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">struct file_operations example_fops = 
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    .owner = THIS_MODULE,</em></em></em>
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .open = example_open,
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .read = example_read,</em></em></em></em></em></em></em></em></em>
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .write = example_write,
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .release = example_release,</em></em></em></em></em></em></em></em></em></em></em></em></em>
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .unlocked_ioctl = example_ioctl,
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">};</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">
+</em></em></em></em></em></em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">struct usb_class_driver example_class_driver = 
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{</em></em>
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    .name = "usb2serial%d",
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .fops = &amp;example_fops,</em></em></em></em>
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">    .minor_base = 16,
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">};</em></em></em></em></em></em></em></em></em></em></em>
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel"><em id="__mceDel">
+</em></em></em></em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">int example_usb_probe(struct usb_interface *intf, const struct usb_device_id *id)
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{</em></em>
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">    
+    /* Register the class driver */</em>
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">    usb_register_dev(intf, &amp;example_class_driver);
+
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">    return 0;
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">}</em></em>
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">
+</em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">void example_usb_disconnect(struct usb_interface *intf)
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">{</em></em>
+</em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">    printk(KERN_ALERT "Inside the %s function\n", __FUNCTION__);
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;">
+    /* Unregister the class driver */</em>
+</em></em></em><em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel">    usb_deregister_dev(intf, &amp;example_class_driver);
+<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel"><em id="__mceDel">}</em></em></em></em></em></pre>
+<p>Note that the major number for any vendor specific USB driver is 180.
+ As per the above code initialization, the minor number of the device 
+will start from 16.<em id="__mceDel" style="line-height: 1.714285714; font-size: 1rem;">&nbsp;</em></p>
+<h3>Testing the USB vendor class driver and the /dev entry</h3>
+<p>Once you have built the module, insert the module using the&nbsp;<strong>insmod</strong>&nbsp;command. While you are loading the module, make sure the USB to Serial port adapter is not connected.</p>
+<p>Before inserting the USB to Serial port adapter, check the /dev entries for devices starting with “usb” string.</p>
+<pre>training@ubuntu:~$ ls -l /dev/usb*
+l<em id="__mceDel" style="font-size: 0.857142857rem; line-height: 1.714285714;"><em id="__mceDel" style="line-height: 1.714285714; font-size: 1rem;">s: cannot access /dev/usb*: No such file or directory</em></em></pre>
+<p>Connect the USB to Serial port adapter and check the /dev entries. 
+You will notice the /dev/usb2serial0 device entry corresponding to the 
+USB to Serial port adapter. Also check the major and minor number of the
+ /dev entry.</p>
+<pre>training@ubuntu:~$ ls -l /dev/usb*
+crw------- 1 root root 180, 16 Jul 17 23:11 /dev/usb2serial0</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">If you 
+connect another instance of the USB to Serial port adapter, you will 
+observe another /dev entry corresponding to the device.</span></p>
+<pre>training@ubuntu:~$ ls -l /dev/usb*
+crw------- 1 root root 180, 16 Jul 17 23:11 /dev/usb2serial0
+crw------- 1 root root 180, 17 Jul 17 23:12 /dev/usb2serial1</pre>
+<p>You can now extend this skeleton driver for USB data transfer.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=4" title="View all posts in Embedded Linux" rel="category">Embedded Linux</a>, <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=280" title="5:47 pm" rel="bookmark"><time class="entry-date" datetime="2013-07-17T17:47:50+00:00">July 17, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-244" class="post-244 post type-post status-publish format-standard hentry category-embeddedlinux">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=244" title="Permalink to PandaBoard ES with Ubuntu 12.04" rel="bookmark">PandaBoard ES with Ubuntu 12.04</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<h1 style="text-align: justify;">Ubuntu for OMAP</h1>
+<p style="text-align: justify;">Ubuntu has an official release for the 
+OMAP 3 and 4 processors. This blog describes the procedure for 
+installing Ubuntu on a PandaBoard ES.</p>
+<h1 style="text-align: justify;">Prerequisites</h1>
+<ol style="text-align: justify;">
+<li><span style="line-height: 1.714285714; font-size: 1rem;">PandaBoard ES. (I used PandaBoard ES B2)</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">8 GB SD Card</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">HDMI Cable</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Ubuntu binary for Panda Board</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Laptop running Linux, for example Ubuntu</span></li>
+</ol>
+<h1 style="text-align: justify;">Download Ubuntu</h1>
+<p style="text-align: justify;">Download Ubuntu for OMAP4 from the following location:</p>
+<p style="text-align: justify;"><a title="Ubuntu 12.04 for OMAP4" href="http://cdimage.ubuntu.com/releases/12.04/release/ubuntu-12.04-preinstalled-desktop-armhf+omap4.img.gz">http://cdimage.ubuntu.com/releases/12.04/release/ubuntu-12.04-preinstalled-desktop-armhf+omap4.img.gz</a></p>
+<h1 style="text-align: justify;">Installing Ubuntu</h1>
+<p style="text-align: justify;">In order to install Ubuntu, follow the below steps:</p>
+<ol style="text-align: justify;">
+<li>Insert the SD card and determine the device node for the same. For example, the device node can be /dev/sdb.</li>
+<li>Make sure the SD card is not mounted. In order to check this, execute the following command:
+<pre>sudo mount</pre>
+</li>
+<li>If you see the /dev/sdb entry in the mount command output, execute the umount command to unmount the card.
+<pre>sudo umount &lt;mount point&gt;</pre>
+</li>
+<li>Execute the following command to unzip the image
+<pre>gunzip&nbsp;ubuntu-12.04-preinstalled-desktop-armhf+omap4.img.gz</pre>
+</li>
+<li>Install the image on the SD card
+<pre>sudo dd bs=4M if=ubuntu-12.04-preinstalled-desktop-armhf+omap4.img of=/dev/sdb</pre>
+</li>
+<li>Note that /dev/sdb is the device name. You might already have 
+multiple partitions on the SD card. For example, /dev/sdb1, /dev/sdb2. 
+Do not give the individual partition in the command.</li>
+<li>Execute the following command to ensure that the files are completely copied and then remove the SD card.
+<pre>sync</pre>
+</li>
+</ol>
+<h1 style="text-align: justify;">Updating Ubuntu</h1>
+<p style="text-align: justify;">Once you have performed the installation, you can boot the PandaBoard with the SD card.</p>
+<p style="text-align: justify;">In order to update Ubuntu distribution, connect a network cable and execute the following commands:</p>
+<pre>sudo add-apt-repository ppa:tiomap-dev/release
+sudo apt-get update
+sudo apt-get dist-upgrade</pre>
+<h1 style="text-align: justify;">Audio over HDMI</h1>
+<p style="text-align: justify;">In order to configure Ubuntu to play audio over HDMI, perform the following steps:</p>
+<ol style="text-align: justify;">
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Click on the top right (power icon)</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Select “System Settings”</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Select “Sound”</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Select “Analog Output, PandaHDMI” in the “Play sound through” option.</span></li>
+</ol>
+<p style="text-align: justify;"><span style="line-height: 1.714285714; font-size: 1rem;">You can refer to the below images corresponding to the above steps.</span></p>
+<p style="text-align: justify;"><img alt="Main Screen" src="Linux%20Device%20Drivers_files/PandaUbuntu1.jpg"></p>
+<p style="text-align: justify;"><img alt="Main Screen" src="Linux%20Device%20Drivers_files/PandaUbuntu2.jpg"></p>
+<h1 style="text-align: justify;">Installing Additional Codecs</h1>
+<p style="text-align: justify;">In order to play an audio or video file,
+ copy the file to the PandaBoard. Double click on the file to play it. 
+This will launch the media player and will prompt you to install the 
+necessary gstreamer plugins. Install the plugins and it should play the 
+audio or video files.</p>
+<p style="text-align: justify;">
+					</p></div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=4" title="View all posts in Embedded Linux" rel="category">Embedded Linux</a> on <a href="http://www.embeddedveda.com/wordpress/?p=244" title="9:01 am" rel="bookmark"><time class="entry-date" datetime="2013-04-29T09:01:13+00:00">April 29, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-237" class="post-237 post type-post status-publish format-standard hentry category-embeddedlinux">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=237" title="Permalink to PandaBoard ES with XBMC Linux" rel="bookmark">PandaBoard ES with XBMC Linux</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<h1 style="text-align: justify;">What is XBMC?</h1>
+<p style="text-align: justify;">XBMC is an award winning, free and open source media player. You can check <a title="XBMC" href="http://xbmc.org/" target="_blank">xbmc.org</a>&nbsp;for more details for this project.</p>
+<h1 style="text-align: justify;">Prerequisites</h1>
+<ol>
+<li><span style="line-height: 14px;">PandaBoard ES. (I used PandaBoard ES B2)</span></li>
+<li>8 GB SD Card</li>
+<li>HDMI Cable</li>
+<li>XBMC binary for Panda Board</li>
+<li>Laptop running Linux, for example Ubuntu</li>
+</ol>
+<h1 style="text-align: justify;">Download XBMC</h1>
+<p style="text-align: justify;">You can download XBMC from the <a title="download.geexbox.org" href="http://download.geexbox.org/" target="_blank">download.geexbox.org</a> site. For this experiment, we have download the following XBMC image.</p>
+<p style="text-align: justify;"><a title="http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/geexbox-devel-20130425-r16110.pandaboard.tar.bz2" href="http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/geexbox-devel-20130425-r16110.pandaboard.tar.bz2">http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/geexbox-devel-20130425-r16110.pandaboard.tar.bz2</a></p>
+<p style="text-align: justify;">In addition to the XBMC image, also download the ‘<strong>make-sdcard</strong>‘ script from the below location.</p>
+<p style="text-align: justify;"><a title="http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/make-sdcard" href="http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/make-sdcard">http://download.geexbox.org/snapshots/geexbox-xbmc-omap4-pandaboard/20130423/binaries.pandaboard/make-sdcard</a></p>
+<h1 style="text-align: justify;">Installing XBMC</h1>
+<p style="text-align: justify;">Follow the below steps for installing 
+XBMC on the SD card. Note that the below procedure is executed on the 
+laptop running Linux.</p>
+<ol>
+<li><span style="line-height: 14px;">Ensure that the make-sdcard script has execution permissions, else execute the following command</span>
+<pre><span style="line-height: 14px;">chmod +x make-sdcard'&nbsp;</span></pre>
+</li>
+<li>Insert the SD card and determine the device node for the same. For example, the device node can be /dev/sdb.</li>
+<li>Make sure the SD card is not mounted. In order to check this, execute the following command:
+<pre>sudo mount</pre>
+</li>
+<li>If you see the /dev/sdb entry in the mount command output, execute the umount command to unmount the card.
+<pre>sudo umount &lt;mount point&gt;</pre>
+</li>
+<li>Now execute the below command to install XDMC on the SD card.
+<pre>sudo ./make-sdcard /dev/sdb geexbox-devel-20130425-r16110.pandaboard.tar.bz2</pre>
+</li>
+<li>Note that /dev/sdb is the device name. You might already have 
+multiple partitions on the SD card. For example, /dev/sdb1, /dev/sdb2. 
+Do not give the individual partition in the ‘make-sdcard’ command.</li>
+</ol>
+<h1>Testing</h1>
+<p>After installing XBMC on the SD card, insert the SD card in the Panda
+ Board and boot the board. You can now play a video / audio to test the 
+installation.</p>
+<h1>Audio Over HDMI</h1>
+<p>If you are interested in audio over HDMI, follow the steps described below to configure audio over HDMI.</p>
+<ol>
+<li>Scroll the right of the main screen</li>
+<li>Select ‘Settings’ under the ‘SYSTEM’ menu</li>
+<li>In the next screen, select ‘System’ option</li>
+<li>In the next screen, select ‘Audio output’ and modify the output to ‘HDMI’</li>
+</ol>
+<p>You can refer to the below images corresponding to the above four steps.</p>
+<p><img alt="Main Screen" src="Linux%20Device%20Drivers_files/PandaXBMC1.jpg"></p>
+<p><img alt="System Settings" src="Linux%20Device%20Drivers_files/PandaXBMC2.jpg"></p>
+<p><img alt="Change the Settings" src="Linux%20Device%20Drivers_files/PandaXBMC3.jpg"></p>
+<p><img alt="System - Settings - Audio Output" src="Linux%20Device%20Drivers_files/PandaXBMC4.jpg"></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=4" title="View all posts in Embedded Linux" rel="category">Embedded Linux</a> on <a href="http://www.embeddedveda.com/wordpress/?p=237" title="10:15 am" rel="bookmark"><time class="entry-date" datetime="2013-04-28T10:15:02+00:00">April 28, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-193" class="post-193 post type-post status-publish format-standard hentry category-embeddedlinux">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=193" title="Permalink to FriendlyARM: Booting Linux over TFTP and Root File System over NFS" rel="bookmark">FriendlyARM: Booting Linux over TFTP and Root File System over NFS</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p style="text-align: justify;">This is a continuation of the <a title="Ubuntu: TFTP and NFS Configuration" href="http://www.embeddedveda.com/wordpress/?p=183" target="_blank">Ubuntu: TFTP and NFS Configuration</a> blog.</p>
+<p style="text-align: justify;">In this blog will we discuss about booting FriendlyARM board over TFTP and mounting the root file system over NFS.</p>
+<h2 style="text-align: justify;">Prerequisites</h2>
+<ol style="text-align: justify;">
+<li>Laptop with Ubuntu, TFTP and NFS installation</li>
+<li>FriendlyARM board</li>
+<li>Ethernet (RJ-45) cross cable</li>
+<li>Serial (RS232) straight cable</li>
+<li>USB to Serial&nbsp;converter&nbsp;if your laptop does not have a serial port</li>
+<li>Linux kernel uBoot image, compiled for FriendlyARM. You can use this reference <a title="uImage" href="http://www.embeddedveda.com/code/images/uImage_3.3.2" target="_blank">uImage</a>.</li>
+<li>Linux root file system, compiled for FriendlyARM. You can use this reference <a title="root file system" href="http://www.embeddedveda.com/code/images/targetfs_3.3.2.tar.bz2" target="_blank">root file system</a>.</li>
+</ol>
+<p style="text-align: justify;"><strong>Note:</strong> The below 
+configuration is for a direct Ubuntu installation. The same may not work
+ if Ubuntu is running as a guest operating system in VMPlayer / VMWare /
+ VirtualBox.</p>
+<h2 style="text-align: justify;">Setup:</h2>
+<ol>
+<li>Connect the Ethernet cable between the FriendlyARM board and the laptop</li>
+<li>Connect the Serial cable between the FriendlyARM board and the laptop</li>
+<li>Launch ‘minicom’ on the laptop</li>
+</ol>
+<p style="text-align: center;"><img alt="FriendlARM Mini2440" src="Linux%20Device%20Drivers_files/friendlyarm_mini2440.png"></p>
+<h2 style="text-align: justify;">Ubuntu Configuration:</h2>
+<ol>
+<li>Ubuntu Static IP configuration</li>
+<li>Copy the Linux kernel image to the TFTP boot directory.</li>
+<li>Extract the Linux root file system to the NFS target root file system directory</li>
+</ol>
+<p style="text-align: justify;">In order to configure Ubuntu for static IP configuration, perform the steps described below:</p>
+<ul>
+<li>Open a terminal</li>
+<li>Execute “sudo ifconfig eth0 192.168.0.1″</li>
+<li>Click on the “System Settings -&gt; Network” options</li>
+<li>Select “Wired”, click on the “Options” button and go to “IPv4 Settings” tab.</li>
+<li>Make sure “Manual” is selected in the “Method” with the IP, Gateway and Mask as shown in the below image.</li>
+</ul>
+<p style="text-align: center;"><img alt="Static IP Configuration" src="Linux%20Device%20Drivers_files/static_ip_config.png"></p>
+<h2 style="text-align: justify;">FriendlyARM uBoot Configuration</h2>
+<ol>
+<li>Power on the FriendlyARM board</li>
+<li>On the “minicom” press a key and stop the FriendlyARM board at the “uBoot” prompt</li>
+</ol>
+<p style="text-align: justify;">Check your uBoot version by executing the “<strong>version</strong>” command.</p>
+<pre>MINI2440 # version
+U-Boot 1.3.2-mini2440 (Mar 12 2013 - 14:27:57)</pre>
+<p style="text-align: justify;">Reset the uBoot environment setting by erasing the <strong>u-boot_env</strong> partition using the “<strong>nand erase u-boot_env</strong>” command followed by the “<strong>reset</strong>” command. Once the board boots up, execute the “<strong>printenv</strong>” command followed by “<strong>saveenv</strong>”
+ command. This is to ensure that we have a fresh start and we don’t have
+ any old configuration that might prevent the TFTP boot or the NFS 
+mount.</p>
+<p style="text-align: justify;"><strong>Note 1:</strong> It is not 
+mandatory to reset the uBoot environment variables. Make sure you follow
+ the configuration explained below and review your uBoot environment 
+variables.</p>
+<p style="text-align: justify;"><strong>Note 2:</strong> If you decide to erase the uBoot environment variables, then the sequence should be “<strong>nand erase u-boot_env</strong>” followed by “<strong>reset</strong>“. Do not execute “<strong>saveenv</strong>” in between the commands.</p>
+<p style="text-align: justify;">Display the environment settings. If you
+ are running the same version of uBoot as listed above, then you should 
+see the below environment settings.</p>
+<pre>MINI2440 # printenv
+ bootargs=root=/dev/mtdblock3 rootfstype=jffs2 console=ttySAC0,115200
+ bootcmd=
+ bootdelay=3
+ baudrate=115200
+ ethaddr=08:08:11:18:12:27
+ ipaddr=10.0.0.111
+ serverip=10.0.0.4
+ netmask=255.255.255.0
+ usbtty=cdc_acm
+ mtdparts=mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)
+ mini2440=mini2440=0tb
+ bootargs_base=console=ttySAC0,115200 noinitrd
+ bootargs_init=init=/sbin/init
+ root_nand=root=/dev/mtdblock3 rootfstype=jffs2
+ root_mmc=root=/dev/mmcblk0p2 rootdelay=2
+ root_nfs=/mnt/nfs
+ set_root_nfs=setenv root_nfs root=/dev/nfs rw nfsroot=${serverip}:${root_nfs}
+ ifconfig_static=run setenv ifconfig ip=${ipaddr}:${serverip}::${netmask}:mini2440:eth0
+ ifconfig_dhcp=run setenv ifconfig ip=dhcp
+ ifconfig=ip=dhcp
+ set_bootargs_mmc=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_mmc}
+ set_bootargs_nand=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nand}
+ set_bootargs_nfs=run set_root_nfs; setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nfs} ${ifconfig}
+ mtdids=nand0=mini2440-nand
+ partition=nand0,0
+ mtddevnum=0
+ mtddevname=u-boot
+
+ Environment size: 1089/131068 bytes</pre>
+<p>Now configure uBoot for TFTP boot and NFS mount by executing the following commands:</p>
+<pre>setenv ethaddr 12:34:56:78:9a:bc
+setenv serverip 192.168.0.1
+setenv gateip 192.168.0.1
+setenv netmask 255.255.255.0
+setenv ipaddr 192.168.0.2
+setenv bootfile uImage
+setenv loadaddr 0x32000000
+
+setenv bootargs console=ttySAC0,115200 ip=192.168.0.2 root=/dev/nfs rw nfsroot=192.168.0.1:/home/training/target_fs
+setenv bootcmd tftp \; bootm 0x32000000
+
+saveenv
+reset</pre>
+<p>After the above configurations, if you display the uBoot environment variables, it should look as follows:</p>
+<pre>MINI2440 # printenv
+bootdelay=3
+baudrate=115200
+usbtty=cdc_acm
+mtdparts=mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)
+mini2440=mini2440=0tb
+bootargs_base=console=ttySAC0,115200 noinitrd
+bootargs_init=init=/sbin/init
+root_nand=root=/dev/mtdblock3 rootfstype=jffs2
+root_mmc=root=/dev/mmcblk0p2 rootdelay=2
+root_nfs=/mnt/nfs
+set_root_nfs=setenv root_nfs root=/dev/nfs rw nfsroot=${serverip}:${root_nfs}
+ifconfig_static=run setenv ifconfig ip=${ipaddr}:${serverip}::${netmask}:mini2440:eth0
+ifconfig_dhcp=run setenv ifconfig ip=dhcp
+ifconfig=ip=dhcp
+set_bootargs_mmc=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_mmc}
+set_bootargs_nand=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nand}
+set_bootargs_nfs=run set_root_nfs; setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nfs} ${ifconfig}
+mtdids=nand0=mini2440-nand
+ethaddr=12:34:56:78:9a:bc
+serverip=192.168.0.1
+gateip=192.168.0.1
+netmask=255.255.255.0
+ipaddr=192.168.0.2
+bootfile=uImage
+loadaddr=0x32000000
+bootargs=console=ttySAC0,115200 ip=192.168.0.2 root=/dev/nfs rw nfsroot=192.168.0.1:/home/training/target_fs
+bootcmd=tftp ; bootm 0x32000000
+partition=nand0,0
+mtddevnum=0
+mtddevname=u-boot
+
+Environment size: 1213/131068 bytes</pre>
+<p style="text-align: justify;">Use the uBoot “<strong>ping 192.168.0.1</strong>” command to check the connection with the server.</p>
+<pre>MINI2440 # ping 192.168.0.1
+ dm9000 i/o: 0x20000300, id: 0x90000a46
+ DM9000: running in 16 bit mode
+ MAC: 12:34:56:78:9a:bc
+ host 192.168.0.1 is alive</pre>
+<p><span style="line-height: 1.714285714; text-align: justify; font-size: 1rem;">Reset the board using the “</span><strong style="line-height: 1.714285714; text-align: justify; font-size: 1rem;">reset</strong><span style="line-height: 1.714285714; text-align: justify; font-size: 1rem;">” command. It should boot up over TFTP and mount the root file system over NFS. Here is a complete boot log for reference.</span></p>
+<pre>MINI2440 # reset
+
+U-Boot 1.3.2-mini2440 (Mar 12 2013 - 14:27:57)
+ I2C: ready
+ DRAM: 64 MB
+ NOR Flash not found. Use hardware switch and 'flinit'
+ Flash: 0 kB
+ NAND: Bad block table not found for chip 0
+ Bad block table not found for chip 0
+ 128 MiB
+ Found Environment offset in OOB..
+ USB: S3C2410 USB Deviced
+ In: serial
+ Out: serial
+ Err: serial
+ MAC: 12:34:56:78:9a:bc
+ Hit any key to stop autoboot: 0
+ dm9000 i/o: 0x20000300, id: 0x90000a46
+ DM9000: running in 16 bit mode
+ MAC: 12:34:56:78:9a:bc
+ TFTP from server 192.168.0.1; our IP address is 192.168.0.2
+ Filename 'uImage'.
+ Load address: 0x32000000
+ Loading: T #################################################################
+ #################################################################
+ ####################################
+ done
+ Bytes transferred = 2426168 (250538 hex)
+ ## Booting kernel from Legacy Image at 32000000 ...
+ Image Name: Linux-3.3.2
+ Created: 2013-04-06 21:00:04 UTC
+ Image Type: ARM Linux Kernel Image (uncompressed)
+ Data Size: 2426104 Bytes = 2.3 MB
+ Load Address: 30008000
+ Entry Point: 30008000
+ Verifying Checksum ... OK
+ Loading Kernel Image ... OK
+ OK
+
+ Starting kernel ...
+ Uncompressing Linux... done, booting the kernel.
+ Booting Linux on physical CPU 0
+ Linux version 3.3.2 (training@ubuntu) (gcc version 4.3.2 (Sourcery G++ Lite 2008q3-72) ) #11 Sun Apr 7 02:28:21 IST 2013
+ CPU: ARM920T [41129200] revision 0 (ARMv4T), cr=c0007177
+ CPU: VIVT data cache, VIVT instruction cache
+ Machine: MINI2440
+ Memory policy: ECC disabled, Data cache writeback
+ CPU S3C2440A (id 0x32440001)
+ S3C24XX Clocks, Copyright 2004 Simtec Electronics
+ S3C244X: core 405.000 MHz, memory 101.250 MHz, peripheral 50.625 MHz
+ CLOCK: Slow mode (1.500 MHz), fast, MPLL on, UPLL on
+ Built 1 zonelists in Zone order, mobility grouping on. Total pages: 16256
+ Kernel command line: console=ttySAC0,115200 ip=192.168.0.2 root=/dev/nfs rw nfsroot=192.168.0.1:/home/training/target_fs
+ PID hash table entries: 256 (order: -2, 1024 bytes)
+ Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+ Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+ Memory: 64MB = 64MB total
+ Memory: 59940k/59940k available, 5596k reserved, 0K highmem
+ Virtual kernel memory layout:
+ vector : 0xffff0000 - 0xffff1000 ( 4 kB)
+ fixmap : 0xfff00000 - 0xfffe0000 ( 896 kB)
+ vmalloc : 0xc4800000 - 0xff000000 ( 936 MB)
+ lowmem : 0xc0000000 - 0xc4000000 ( 64 MB)
+ modules : 0xbf000000 - 0xc0000000 ( 16 MB)
+ .text : 0xc0008000 - 0xc04544b8 (4402 kB)
+ .init : 0xc0455000 - 0xc047a000 ( 148 kB)
+ .data : 0xc047a000 - 0xc04a07e0 ( 154 kB)
+ .bss : 0xc04a0804 - 0xc04dfa00 ( 253 kB)
+ SLUB: Genslabs=13, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+ NR_IRQS:85
+ irq: clearing pending status 02000000
+ irq: clearing subpending status 00000002
+ Console: colour dummy device 80x30
+ Calibrating delay loop... 201.52 BogoMIPS (lpj=503808)
+ pid_max: default: 32768 minimum: 301
+ Mount-cache hash table entries: 512
+ CPU: Testing write buffer coherency: ok
+ Setting up static identity map for 0x30348a78 - 0x30348ad0
+ gpiochip_add: registered GPIOs 0 to 23 on device: GPIOA
+ gpiochip_add: registered GPIOs 32 to 47 on device: GPIOB
+ gpiochip_add: registered GPIOs 64 to 79 on device: GPIOC
+ gpiochip_add: registered GPIOs 96 to 111 on device: GPIOD
+ gpiochip_add: registered GPIOs 128 to 143 on device: GPIOE
+ gpiochip_add: registered GPIOs 160 to 167 on device: GPIOF
+ gpiochip_add: registered GPIOs 192 to 207 on device: GPIOG
+ gpiochip_add: registered GPIOs 224 to 234 on device: GPIOH
+ gpiochip_add: registered GPIOs 256 to 271 on device: GPIOJ
+ NET: Registered protocol family 16
+ MINI2440: Option string mini2440=0tb
+ MINI2440: 't' ignored, touchscreen not compiled in
+ MINI2440: LCD [0:240x320] 1:800x480 2:1024x768 3:320x240
+ S3C2440: Initialising architecture
+ S3C2440: IRQ Support
+ S3C244X: Clock Support, DVS off
+ bio: create slab &lt;bio-0&gt; at 0
+ usbcore: registered new interface driver usbfs
+ usbcore: registered new interface driver hub
+ usbcore: registered new device driver usb
+ s3c-i2c s3c2440-i2c: slave address 0x10
+ s3c-i2c s3c2440-i2c: bus frequency set to 98 KHz
+ s3c-i2c s3c2440-i2c: i2c-0: S3C I2C adapter
+ Advanced Linux Sound Architecture Driver Version 1.0.24.
+ NET: Registered protocol family 2
+ IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+ TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+ TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+ TCP: Hash tables configured (established 2048 bind 2048)
+ TCP reno registered
+ UDP hash table entries: 256 (order: 0, 4096 bytes)
+ UDP-Lite hash table entries: 256 (order: protocol family 1
+ RPC: Registered named UNIX socket transport module.
+ RPC: Registered udp transport module.
+ RPC: Registered tcp transport module.
+ RPC: Registered tcp NFSv4.1 backchannel transport module.
+ JFFS2 version 2.2. (NAND) �© 2001-2006 Red Hat, Inc.
+ ROMFS MTD (C) 2007 Red Hat, Inc.
+ msgmni has been set to 117
+ io scheduler noop registered
+ io scheduler deadline registered
+ io scheduler cfq registered (default)
+ Console: switching to colour frame buffer device 60x53
+ fb0: s3c2410fb frame buffer device
+ s3c2440-uart.0: ttySAC0 at MMIO 0x50000000 (irq = 70) is a S3C2440
+ console [ttySAC0] enabled
+ s3c2440-uart.1: ttySAC1 at MMIO 0x50004000 (irq = 73) is a S3C2440
+ s3c2440-uart.2: ttySAC2 at MMIO 0x50008000 (irq = 76) is a S3C2440
+ brd: module loaded
+ at24 0-0050: 1024 byte 24c08 EEPROM, writable, 16 bytes/write
+ Hello World, Initialized ...
+ S3C24XX NAND Driver, (c) 2004 Simtec Electronics
+ s3c24xx-nand s3c2440-nand: Tacls=1, 9ns Twrph0=3 29ns, Twrph1=2 19ns
+ s3c24xx-nand s3c2440-nand: NAND soft ECC
+ NAND device: Manufacturer ID: 0xec, Chip ID: 0xf1 (Samsung NAND 128MiB 3,3V 8-bit)
+ Creating 4 MTD partitions on "nand":
+ 0x000000000000-0x000000040000 : "u-boot"
+ uncorrectable error :
+ 0x000000040000-0x000000060000 : "u-boot-env"
+ ftl_cs: FTL header not found.
+ 0x000000060000-0x000000560000 : "kernel"
+ ftl_cs: FTL header not found.
+ 0x000000560000-0x000008000000 : "root"
+ ftl_cs: FTL header not found.
+ dm9000 Ethernet Driver, V1.31
+ eth0: dm9000e at c4862300,c4864304 IRQ 51 MAC: 12:34:56:78:9a:bc (chip)
+ ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+ s3c2410-ohci s3c2410-ohci: S3C24XX OHCI
+ s3c2410-ohci s3c2410-ohci: new USB bus registered, assigned bus number 1
+ s3c2410-ohci s3c2410-ohci: irq 42, io mem 0x49000000
+ hub 1-0:1.0: USB hub found
+ hub 1-0:1.0: 2 ports detected
+ usbcore: registered new interface driver libusual
+ mousedev: PS/2 mouse device common for all mice
+ s3c-rtc s3c2410-rtc: rtc disabled, re-enabling
+ s3c-rtc s3c2410-rtc: rtc core: registered s3c as rtc0
+ s3c-rtc s3c2410-rtc: warning: invalid RTC value so initializing it
+ i2c /dev entries driver
+ S3C2410 Watchdog Timer, (c) 2004 Simtec Electronics
+ s3c2410-wdt s3c2410-wdt: watchdog inactive, reset disabled, irq disabled
+ cpuidle: using governor ladder
+ sdhci: Secure Digital Host Controller Interface driver
+ sdhci: Copyright(c) Pierre Ossman
+ s3c-sdi s3c2440-sdi: powered down.
+ s3c-sdi s3c2440-sdi: mmc0 - using pio, sw SDIO IRQ
+ usbcore: registered new interface driver usbhid
+ usbhid: USB HID core driver
+ ALSA device list:
+ No soundcards found.
+ TCP cubic registered
+ NET: Registered protocol family 17
+ Registering the dns_resolver key type
+ input: gpio-keys as /devices/platform/gpio-keys/input/input0
+ s3c-rtc s3c2410-rtc: setting system clock to 2000-01-01 00:00:00 UTC (946684800)
+ dm9000 dm9000: eth0: link down
+ IP-Config: Guessing netmask 255.255.255.0
+ IP-Config: Complete:
+ device=eth0, addr=192.168.0.2, mask=255.255.255.0, gw=255.255.255.255,
+ host=192.168.0.2, domain=, nis-domain=(none),
+ bootserver=255.255.255.255, rootserver=192.168.0.1, rootpath=
+ dm9000 dm9000: eth0: link up, 100Mbps, full-duplex, lpa 0x4DE1
+ VFS: Mounted root (nfs filesystem) on device 0:14.
+ Freeing init memory: 148K
+ ******************************************
+ * Starting System Init for Mini2440
+ * Mounting file systems...
+ * Seting host name...
+ * Setting system time as rtc time...
+ * Create /mnt/usb - for USB stick
+ * Create /mnt/mmc - for MMC/SD card
+ * System Init finished
+ ******************************************
+ Please press Enter to activate this console.
+ #</pre>
+<p><strong>Note:</strong> If you are facing any issues during NFS mount, check the <strong>/var/log/syslog</strong> file on the laptop.</p>
+<h2 style="text-align: justify;">Testing the NFS:</h2>
+<ol>
+<li>Try creating a file in the target root file system folder on your laptop.</li>
+<li>Now if you do an “ls” on the FriendlyARM console, you should see the file that you have created.</li>
+</ol>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=4" title="View all posts in Embedded Linux" rel="category">Embedded Linux</a> on <a href="http://www.embeddedveda.com/wordpress/?p=193" title="5:07 pm" rel="bookmark"><time class="entry-date" datetime="2013-04-18T17:07:28+00:00">April 18, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-183" class="post-183 post type-post status-publish format-standard hentry category-embeddedlinux">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=183" title="Permalink to Ubuntu: TFTP and NFS Configuration" rel="bookmark">Ubuntu: TFTP and NFS Configuration</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p style="text-align: justify;">The following article describes the procedure for</p>
+<ol style="text-align: justify;">
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Installing and configuring TFTP on Ubuntu</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Installing and configuring NFS on Ubuntu</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Installing and configuring DHCP on Ubuntu</span></li>
+</ol>
+<p style="text-align: justify;"><span style="font-size: 1rem; line-height: 1.714285714;">The procedure described here has been tested on Ubuntu 11.10 and 12.04.</span><span style="font-size: 1rem; line-height: 1.714285714;"><strong style="font-size: 1rem; line-height: 1.714285714;"><br>
+</strong></span></p>
+<h2 style="text-align: justify;"><strong> Assumptions</strong></h2>
+<p style="text-align: justify;">This article assumes the following:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 1.714285714; font-size: 1rem;">TFTP boot directory : /home/training/tftpboot</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">NFS directory : /home/training/target_fs</span></li>
+</ul>
+<p style="text-align: justify;">You are free to choose a different directory if required.</p>
+<h2 style="text-align: justify;">Installing TFTP</h2>
+<p style="text-align: justify;">In order to install TFTP, execute the following command on Ubuntu 12.04:</p>
+<pre>sudo apt-get install xinetd tftp-hpa tftpd-hpa</pre>
+<p style="text-align: justify;">If you are using Ubuntu 11.10, then execute the following command:</p>
+<pre>sudo apt-get install xinetd tftp tftpd</pre>
+<p style="text-align: justify;">In order to configure xinetd, edit the /etc/xinetd.conf file and add the following lines:</p>
+<pre>service tftp
+{
+    socket_type = dgram
+    protocol = udp
+    wait = yes
+    user = root
+    server = /usr/sbin/in.tftpd
+    server_args = -s /home/training/tftpboot
+    disable = no
+ }</pre>
+<p style="text-align: justify;">On Ubuntu 12.04, in addition to /etc/xinetd.conf, edit the /etc/default/tftpd-hpa file and modify the TFTP_DIRECTORY as follows:</p>
+<pre># /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_ADDRESS="0.0.0.0:69"
+TFTP_OPTIONS="--secure"
+TFTP_DIRECTORY="/home/training/tftpboot"</pre>
+<h2 style="text-align: justify;">Installing DHCP</h2>
+<p style="text-align: justify;">In order to install DHCP, execute the following command:</p>
+<pre>sudo apt-get install isc-dhcp-server</pre>
+<p style="text-align: justify;"><span style="line-height: 1.714285714; font-size: 1rem;">In order to configure DHCP, edit the /etc/dhcp/dhcpd.conf file and add the following lines:</span></p>
+<pre>subnet 192.168.0.0 netmask 255.255.255.0 {
+    host targetboard {
+        fixed-address 192.168.0.2;
+        hardware ethernet 12:34:56:78:9a:bc;
+        option root-path "/home/training/target_fs";
+        filename uImage;
+    }
+ }</pre>
+<h2 style="text-align: justify;">Installing NFS</h2>
+<p style="text-align: justify;">In order to install NFS, execute the following command:</p>
+<pre>sudo apt-get install rpcbind nfs-kernel-server</pre>
+<p style="text-align: justify;"><span style="line-height: 1.714285714; font-size: 1rem;">In order to configure NFS, edit the /etc/exports file and add the following command:</span></p>
+<pre>/home/training/target_fs 192.168.0.2(rw,sync,no_subtree_check,no_root_squash)
+/home/training/target_fs localhost(rw,sync,no_subtree_check,no_root_squash)</pre>
+<p style="text-align: justify;">Note that we have added the ‘localhost’ line only for testing our NFS configuration.<br>
+You can remove this after you have ensured that NFS is working fine.</p>
+<h2 style="text-align: justify;">Restart the services</h2>
+<p style="text-align: justify;">In order to activate the above configuration changes, restart the services by executing the following commands:</p>
+<pre>sudo service xinetd restart
+sudo service tftpd-hpa restart
+sudo service isc-dhcp-server restart
+sudo service rpcbind-boot stop
+sudo service nfs-kernel-server stop
+sudo service rpcbind-boot start
+sudo service nfs-kernel-server start</pre>
+<p style="text-align: justify;">Ensure that there is no problem in exporting the NFS file system using the following command:</p>
+<pre>sudo exportfs -a</pre>
+<h2 style="text-align: justify;">Testing TFTP</h2>
+<p style="text-align: justify;">You can test TFTP using the following commands</p>
+<pre>echo "hello" &gt; /home/ubuntu/tftpboot\hello.<wbr>txt
+sudo tftp localhost
+tftp&gt; get hello.txt
+Received 7 bytes in 0.1 seconds
+tftp&gt; q</pre>
+<h2 style="text-align: justify;">Testing NFS</h2>
+<p style="text-align: justify;">You can test NFS using the following commands</p>
+<pre>echo "hello" &gt; /home/ubuntu/tftpboot\hello.<wbr>txt
+mkdir test
+sudo mount -t nfs localhost:/home/ubuntu/target_<wbr>fs test
+ls test/
+sudo umount test
+ls test/</pre>
+<h2 style="text-align: justify;">Script</h2>
+<p style="text-align: justify;">You can also use the <a title="tftp_nfs_config.sh" href="http://www.embeddedveda.com/code/scripts/tftp_nfs_config.sh" target="_blank">tftp_nfs_config.sh</a> script for automating the procedure described in the above steps.</p>
+<h2 style="text-align: justify;">What Next?</h2>
+<p style="text-align: justify;">Once the TFTP and NFS configuration is 
+complete, you can use the same for booting an embedded platform. For 
+example, in the article <a title="FriendlyARM: Booting Linux over TFTP and Root File System over NFS" href="http://www.embeddedveda.com/wordpress/?p=193" target="_blank">FriendlyARM: Booting Linux over TFTP and Root File System over NFS</a> we will discuss about configuring uBoot on FriendlyARM to boot Linux over TFTP and mount the root file system over NFS.</p>
+<p style="text-align: justify;">
+					</p></div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=4" title="View all posts in Embedded Linux" rel="category">Embedded Linux</a> on <a href="http://www.embeddedveda.com/wordpress/?p=183" title="5:22 pm" rel="bookmark"><time class="entry-date" datetime="2013-04-15T17:22:44+00:00">April 15, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-141" class="post-141 post type-post status-publish format-standard hentry category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=141" title="Permalink to Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 2" rel="bookmark">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 2</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>This is a continuation of the&nbsp;<a title="Hardware Interrupt, Software Interrupt and Work Queue Handlers - Part 1" href="http://www.embeddedveda.com/wordpress/?p=62" target="_blank">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 1</a> blog.</p>
+<p><strong>Work Queues (Linux Kernel &gt;= 2.6.36)</strong></p>
+<p>Linux provides two type of work queues:</p>
+<ul>
+<li><span style="line-height: 14px;">System work queue</span></li>
+<li>Driver work queue</li>
+</ul>
+<p>If the driver does not need its own ‘work queue’, then it can use the
+ system work queue. When the driver submits a work using the <strong>schedule_work()</strong> function, it will be scheduled for execution in the system work queue.</p>
+<p>During the system boot up, Linux kernel spawns the ‘<strong>kworker</strong>‘ process for handling the work submitted to the system work queue.</p>
+<p>The following listing shows multiple ‘kworker’ on an Intel i5 processor with 4 cores.</p>
+<p>The listing has the following syntax, <strong>[kworker/&lt;CPU&gt;:&lt;INST&gt;]</strong>,
+ where &lt;CPU&gt; is 0, 1, 2 and 3 in the below listing. &lt;INST&gt; 
+is the instance of the kworker process. There can be more than one 
+instance of the kworker process.</p>
+<p>Notice that there is a kworker thread with ‘u’ for the CPU number. 
+This is an unbound (i.e. not bound to any CPU) kworker thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;kworker<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/1:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/3:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:01&nbsp;[kworker/u:6]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;569&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/1:2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;632&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/0:2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;778&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:10&nbsp;[kworker/3:2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2314&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:57&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/2:2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2319&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:02&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/2:1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2322&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:03&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/0:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2323&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:03&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/u:1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2335&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:07&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/2:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2336&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:08&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/0:1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2337&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:09&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/u:0]</p></blockquote>
+<p>In order to determine under which ‘kworker’ context the work is scheduled, you can using the ‘<strong>current</strong>‘ pointer in your work function.</p>
+<p>The following listing shows the usage of the ‘<strong>current</strong>‘ pointer in the work function.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>void&nbsp;simple_char_drv_workqueue_func(struct&nbsp;work_struct&nbsp;*work)<br>
+{<br>
+sprintf(simple_char_drv_buffer,&nbsp;”My&nbsp;current&nbsp;jiffies&nbsp;=&nbsp;%li\n”,&nbsp;jiffies);</p>
+<p>spin_lock(&amp;my_lock);<br>
+buffer_count&nbsp;=&nbsp;strlen(simple_char_drv_buffer);<br>
+spin_unlock(&amp;my_lock);</p>
+<p>printk(<br>
+KERN_ALERT<br>
+“%s:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’%s’&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;%d\n”,<br>
+__FUNCTION__,&nbsp;current-&gt;comm,&nbsp;current-&gt;pid);</p>
+<p>wake_up_interruptible(&amp;my_device_wait);<br>
+}</p></blockquote>
+<p>When you execute the above piece of code in a driver, it will 
+generate an output similar to the one shown below. From the below 
+listing, we can notice that the work was executed by the <strong>[kworker/3:2]</strong> thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>Feb&nbsp;28&nbsp;22:11:56&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;335.726858]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Feb&nbsp;28&nbsp;22:11:59&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;338.730355]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’kworker/3:2′&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;1977</p></blockquote>
+<p>For a complete listing of the above driver source code, refer to the <a title="workqueue_drv_context.c" href="http://www.embeddedveda.com/programming_code.php?example_title=Work%20Queue%20Execution%20Context%20with%20Interrupt%20Handler%20and%20Work%20Queue&amp;example1=code/drivers/99_interesting_programs/workqueue_drv_context.c" target="_blank">workqueue_drv_context.c</a>&nbsp;file.</p>
+<p><strong>Driver Defined Work Queues (Linux Kernel &gt;= 2.6.36)</strong></p>
+<p>A driver can create its own work queue using the create_workqueue() function.</p>
+<p>When you execute the driver with <strong>create_workqueue(“mydrvwq”)</strong>,
+ you will notice an output similar to the one shown below. Notice that 
+there is only one worker thread created irrespective of the number of 
+CPUs.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;mydrvwq<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2630&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:16&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq]</p></blockquote>
+<p>From the below listing, notice that the work is executed by <strong>[kworker/3:2]</strong>.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;tail&nbsp;/var/log/syslog<br>
+Feb&nbsp;28&nbsp;22:16:16&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;595.779004]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Feb&nbsp;28&nbsp;22:16:19&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;598.775037]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’kworker/3:2′&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;1977</p></blockquote>
+<p>When you execute the driver with <strong>create_singlethread_workqueue(“mydrvwq”)</strong>,
+ you will notice an output similar to the one shown below. Notice that 
+there is only one workqueue thread, irrespective of the number of CPUs.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;mydrvwq<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2904&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:17&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq]</p></blockquote>
+<p>From the below listing, notice that the work is executed by <strong>[kworker/u:6]</strong>, i.e. the unbound worker thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;tail&nbsp;/var/log/syslog<br>
+Feb&nbsp;28&nbsp;22:17:36&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;675.985342]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Feb&nbsp;28&nbsp;22:17:39&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;678.983564]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’kworker/u:6′&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;60</p></blockquote>
+<p>For a complete listing of a sample driver using the create_workqueue() function, refer to the <a title="drv_workqueue_drv.c" href="http://www.embeddedveda.com/programming_code.php?example_title=Simple%20Character%20Driver%20with%20Kernel%20Timers%20and%20Driver%20Workqueue&amp;example1=code/drivers/07_workqueue/drv_workqueue_drv.c" target="_blank">drv_workqueue_drv.c</a> file.</p>
+<p><strong>Note:</strong></p>
+<ol>
+<li>Unlike the 2.6.34.14 kernel (or prior to the 2.6.36 kernel), you will not see the <strong>event</strong> thread. You can confirm this using the <strong>ps -ef | grep event</strong> command.</li>
+<li>This change in behavior of the work queues is due to the introduction of <strong>Concurrency Managed Workqueues</strong>.</li>
+<li>The create_workqueue() and create_singlethread_workqueue() functions
+ are obsolete and marked for deletion in future Linux kernels.</li>
+</ol>
+<p><strong>Testing:</strong> Linux Kernel 3.3.2</p>
+<p>&nbsp;</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=141" title="6:26 pm" rel="bookmark"><time class="entry-date" datetime="2013-03-01T18:26:21+00:00">March 1, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-62" class="post-62 post type-post status-publish format-standard hentry category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=62" title="Permalink to Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 1" rel="bookmark">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 1</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p><span style="line-height: 1.714285714; font-size: 1rem;">During Linux Device Driver development, when a driver function is executed, it can be executed in the following context:</span></p>
+<ol>
+<li><span style="line-height: 14px;"><strong>Application Context</strong>, when the application makes open(), read(), write(), close() or any other call.</span></li>
+<li><strong>Hardware Interrupt Context</strong>, when the device generates an interrupt.</li>
+<li><strong>Software Interrupt Context</strong>, when the hardware interrupt schedules a tasklet (or) when the application has kernel timers.</li>
+<li><strong>Work Queue Context</strong> (or) kernel thread context when a
+ work is schedule. Work can be scheduled from an hardware / software 
+interrupt handler (or) from the application context.</li>
+<li><strong>Kernel Threads</strong>, drivers can create additional kernel threads.</li>
+</ol>
+<p>In this blog, we will see the details of the hardware, software and work queue context.</p>
+<p><strong style="line-height: 1.714285714; font-size: 1rem;">Interrupts</strong></p>
+<p>If you have registered a interrupt handler for a particular IRQ, 
+Linux kernel will call your interrupt handler when the device generates 
+an interrupt. If an interrupt handler is not registered, the interrupt 
+is simply acknowledged. Note that Linux kernel supports IRQ sharing.</p>
+<p>When SMP (Symmetric Multi Processing) is enabled, based on the load 
+of the system, interrupts can be handled on any of the CPU’s.</p>
+<p>The following listing shows the output of <strong>/proc/interrupts</strong>
+ entry. Notice that interrupts are mostly handled on CPU0 (due to cache 
+coherency), however, they can also be handled on other CPUs.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;cat&nbsp;/proc/interrupts&nbsp;|&nbsp;head&nbsp;-n15<br>
+CPU0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU3<br>
+0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;47&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timer<br>
+1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5739&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i8042<br>
+8:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rtc0<br>
+9:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1332&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;acpi<br>
+12:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;285287&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i8042<br>
+16:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18695&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;ehci_hcd:usb1,&nbsp;ath9k<br>
+18:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;rts_pstor<br>
+21:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;93&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;ehci_hcd:usb2<br>
+43:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17323&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ahci<br>
+44:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eth0<br>
+45:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mei<br>
+46:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67945&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;53624&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i915<br>
+47:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radeon<br>
+48:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;727&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;PCI-MSI-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snd_hda_intel</p></blockquote>
+<p><strong>Software Interrupt Handlers</strong></p>
+<p>When the driver uses kernel timers (or) schedules a tasklet, this is executed in the software IRQ context.</p>
+<p>During the system boot up, Linux kernel spawns the ‘<strong>ksoftirqd</strong>‘ process for handling software IRQs.</p>
+<p>The following listing shows 4 instances of the ‘ksoftirqd’ on an Intel i5 processor with 4 cores.</p>
+<p>The listing has the following syntax, <strong>[ksoftirqd/&lt;CPU&gt;]</strong>, where &lt;CPU&gt; is 0, 1, 2 and 3 in the below listing.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;ksoftirqd<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/3]</p></blockquote>
+<p><strong>Work Queues (Linux Kernel &lt; 2.6.36)</strong></p>
+<p>Linux provides two type of work queues:</p>
+<ul>
+<li><span style="line-height: 14px;">System work queue</span></li>
+<li>Driver work queue</li>
+</ul>
+<p>If the driver does not need its own ‘work queue’, then it can use the
+ system work queue. When the driver submits a work using the 
+schedule_work() function, it will be scheduled for execution in the 
+system work queue.</p>
+<p>During the system boot up, Linux kernel spawns the ‘<strong>events</strong>‘ process for handling the work submitted to the system work queue.</p>
+<p>The following listing shows multiple ‘events’ on an Intel i5 processor with 4 cores.</p>
+<p>The listing has the following syntax, <strong>[events/&lt;CPU&gt;]</strong>, where &lt;CPU&gt; is 0, 1, 2 and 3 in the below listing.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;events<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:29&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[events/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:29&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[events/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:29&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[events/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:29&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[events/3]</p></blockquote>
+<p>In order to determine under which ‘events’ context the work is scheduled, you can using the ‘<strong>current</strong>‘ pointer in your work function.</p>
+<p>The following listing shows the usage of the ‘<strong>current</strong>‘ pointer in the work function.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>void&nbsp;simple_char_drv_workqueue_func(struct&nbsp;work_struct&nbsp;*work)<br>
+{<br>
+sprintf(simple_char_drv_buffer,&nbsp;”My&nbsp;current&nbsp;jiffies&nbsp;=&nbsp;%li\n”,&nbsp;jiffies);</p>
+<p>spin_lock(&amp;my_lock);<br>
+buffer_count&nbsp;=&nbsp;strlen(simple_char_drv_buffer);<br>
+spin_unlock(&amp;my_lock);</p>
+<p>printk(<br>
+KERN_ALERT<br>
+“%s:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’%s’&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;%d\n”,<br>
+__FUNCTION__,&nbsp;current-&gt;comm,&nbsp;current-&gt;pid);</p>
+<p>wake_up_interruptible(&amp;my_device_wait);<br>
+}</p></blockquote>
+<p>When you execute the above piece of code in a driver, it will 
+generate an output similar to the one shown below. From the below 
+listing, we can notice that the work was executed by the <strong>[events/1]</strong> thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;tail&nbsp;/var/log/syslog<br>
+Mar&nbsp;&nbsp;1&nbsp;22:34:43&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;314.838353]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Mar&nbsp;&nbsp;1&nbsp;22:34:46&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;317.834065]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’events/1′&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;16</p></blockquote>
+<p>For a complete listing of the above driver source code, refer to the <a title="workqueue_drv_context.c" href="http://www.embeddedveda.com/programming_code.php?example_title=Work%20Queue%20Execution%20Context%20with%20Interrupt%20Handler%20and%20Work%20Queue&amp;example1=code/drivers/99_interesting_programs/workqueue_drv_context.c" target="_blank">workqueue_drv_context.c</a>&nbsp;file.</p>
+<p><strong>Driver Defined Work Queues (Linux Kernel &lt; 2.6.36)</strong></p>
+<p>A driver can create its own work queue using the create_workqueue() function.</p>
+<p>When you execute the driver with create_workqueue(“mydrvwq”), you 
+will notice an output similar to the one shown below. Notice that there 
+is one worker thread create per CPU.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;mydrvwq<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3444&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:37&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3445&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:37&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3446&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:37&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3447&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:37&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq/3]</p></blockquote>
+<p>From the below listing, we can notice that the work was executed by the <strong>[mydrvwq/1]</strong> thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;tail&nbsp;/var/log/syslog<br>
+Mar&nbsp;&nbsp;1&nbsp;22:37:43&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;493.932724]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Mar&nbsp;&nbsp;1&nbsp;22:37:46&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;496.925934]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’mydrvwq/1′&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;3445</p></blockquote>
+<p>When you execute the driver with 
+create_singlethread_workqueue(“mydrvwq”), you will notice an output 
+similar to the one shown below. Notice that there is only one workqueue 
+thread, irrespective of the number of CPUs.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;ps&nbsp;-ef&nbsp;|&nbsp;grep&nbsp;mydrvwq<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3743&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;22:38&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[mydrvwq]</p></blockquote>
+<p>When you execute the above piece of code in a driver, it will 
+generate an output similar to the one shown below. From the below 
+listing, we can notice that the work was executed by the [mydrvwq] 
+thread.</p>
+<blockquote style="font-family: Courier New, monospace; font-size: 12px;"><p>training@training-laptop:~/training$&nbsp;tail&nbsp;/var/log/syslog<br>
+Mar&nbsp;&nbsp;1&nbsp;22:38:39&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;550.347605]&nbsp;Inside&nbsp;the&nbsp;simple_char_drv_read&nbsp;function<br>
+Mar&nbsp;&nbsp;1&nbsp;22:38:42&nbsp;training-laptop&nbsp;kernel:&nbsp;[&nbsp;&nbsp;553.341053]&nbsp;simple_char_drv_workqueue_func:&nbsp;The&nbsp;current&nbsp;process&nbsp;that&nbsp;is&nbsp;executing&nbsp;is&nbsp;’mydrvwq’&nbsp;and&nbsp;process&nbsp;id&nbsp;is&nbsp;3743</p></blockquote>
+<p>For a complete listing of a sample driver using the create_workqueue() function, refer to the <a title="drv_workqueue_drv.c" href="http://www.embeddedveda.com/programming_code.php?example_title=Simple%20Character%20Driver%20with%20Kernel%20Timers%20and%20Driver%20Workqueue&amp;example1=code/drivers/07_workqueue/drv_workqueue_drv.c" target="_blank">drv_workqueue_drv.c</a> file.</p>
+<p><strong>Note:</strong> The concept of create_workqueue() discussed 
+above is applicable to Linux kernel version prior to 2.6.36. For the 
+work queue implementation on Linux kernel 2.6.36 and above, refer to <a title="Hardware Interrupt, Software Interrupt and Work Queue Handlers - Part 2" href="http://www.embeddedveda.com/wordpress/?p=141" target="_blank">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 2</a> blog.</p>
+<p><strong>Testing:</strong> Work Queues: 2.6.34.14, Others: 3.7.9</p>
+<p>&nbsp;</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=62" title="6:20 pm" rel="bookmark"><time class="entry-date" datetime="2013-03-01T18:20:53+00:00">March 1, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-91" class="post-91 post type-post status-publish format-standard hentry category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=91" title="Permalink to Multiple Instance Support with Interrupt Handler, Work Queue and Mutex" rel="bookmark">Multiple Instance Support with Interrupt Handler, Work Queue and Mutex</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>This post describes a sample design for handling multiple instances of a device. Here is an outline of the problem:</p>
+<ul>
+<li>There are three instances of the device.</li>
+<li>The device only supports read() functionality.</li>
+<li>When there is no data available, the driver should ensure that the read() function calls blocks for data to become available.</li>
+<li>All the three instances generate interrupt on the same line.</li>
+<li>When the interrupt is generated, a ‘work’ is scheduled.</li>
+<li>The ‘work’ handler function generates some data and wake’s up any read() functions that is blocked for availability of data.</li>
+<li>After ‘n’ read operations, the read() function will return 0 (EOF).</li>
+</ul>
+<p>The following data structures will be used in driver:</p>
+<ul>
+<li><span style="line-height: 14px;">wait_queue_head_t for implementing blocking read.</span></li>
+<li>Same interrupt handler will be registered for all three instances.</li>
+<li>The name of the interrupt handler will be different.</li>
+<li>The parameter to the interrupt handler will be the private_data for the device.</li>
+<li>Interrupt handler will schedule the work based on the private_data parameter.</li>
+<li>A mutex will be used to synchronize between the read() function and the work queue function.</li>
+</ul>
+<p><strong>simple_char_drv_t Structure:</strong></p>
+<p>This the device information structure. This structure contains 
+various data structures required to support a single instance of the 
+device.</p>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>/*<br>
+*&nbsp;Structure&nbsp;to&nbsp;hold&nbsp;the&nbsp;information&nbsp;to&nbsp;support&nbsp;multiple&nbsp;instances&nbsp;of&nbsp;the<br>
+*&nbsp;interrupt&nbsp;handler<br>
+*/<br>
+typedef&nbsp;struct&nbsp;_simple_char_drv_t<br>
+{<br>
+/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;major&nbsp;number&nbsp;and&nbsp;minor&nbsp;information&nbsp;*/<br>
+dev_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device_info;</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;interrupt&nbsp;handler&nbsp;*/<br>
+char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;irq_handler[64];</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;work&nbsp;to&nbsp;be&nbsp;scheduled&nbsp;*/<br>
+struct&nbsp;work_struct&nbsp;&nbsp;&nbsp;work_info;</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;mutex&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;synchronization&nbsp;*/<br>
+struct&nbsp;mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lock;</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;wait&nbsp;queue&nbsp;head&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;blocking&nbsp;read&nbsp;*/<br>
+wait_queue_head_t&nbsp;&nbsp;&nbsp;&nbsp;wait_queue;</p>
+<p>/*<br>
+*&nbsp;To&nbsp;hold&nbsp;the&nbsp;transaction&nbsp;count,&nbsp;after&nbsp;’n'&nbsp;read()&nbsp;calls,&nbsp;the&nbsp;read()&nbsp;API&nbsp;will<br>
+*&nbsp;return&nbsp;0&nbsp;to&nbsp;signal&nbsp;EOF.&nbsp;’n'&nbsp;is&nbsp;initialized&nbsp;in&nbsp;the&nbsp;open()&nbsp;function.<br>
+*/<br>
+int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read_count;</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;buffer&nbsp;to&nbsp;hold&nbsp;the&nbsp;data&nbsp;*/<br>
+char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer[1024];</p>
+<p>/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;buffer&nbsp;count&nbsp;signifying&nbsp;the&nbsp;amount&nbsp;of&nbsp;valid&nbsp;data&nbsp;*/<br>
+int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer_count;</p>
+<p>}&nbsp;simple_char_drv_t;</p></blockquote>
+<p><span style="line-height: 1.714285714; font-size: 1rem;"><b>open() Function:</b></span></p>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">When the device is opened, the following operations are performed:</span></p>
+<ul>
+<li><span style="font-size: 1rem; line-height: 1.714285714;">Memory is allocated for the ‘simple_char_drv_t’ structure. </span></li>
+<li><span style="font-size: 1rem; line-height: 1.714285714;">Various members of the ‘simple_char_drv_t’ structure are initialized.</span></li>
+<li>Interrupt handler for the device is registered.</li>
+<li>The ‘simple_char_drv_t’ variable is stored in the device private_data.</li>
+<li>Notice that the ‘simple_char_drv_t’ pointer is passed as a parameter to the interrupt handler.</li>
+</ul>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>int&nbsp;simple_char_drv_open&nbsp;(struct&nbsp;inode&nbsp;*pi,&nbsp;struct&nbsp;file&nbsp;*pf)<br>
+{<br>
+/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;driver&nbsp;information&nbsp;*/<br>
+simple_char_drv_t&nbsp;*driver_info&nbsp;=&nbsp;NULL;</p>
+<p>printk(KERN_ALERT&nbsp;”Inside&nbsp;the&nbsp;%s&nbsp;function\n”,&nbsp;__FUNCTION__);</p>
+<p>/*&nbsp;Allocate&nbsp;memory&nbsp;for&nbsp;the&nbsp;driver&nbsp;information&nbsp;*/<br>
+driver_info&nbsp;=&nbsp;kmalloc(sizeof(simple_char_drv_t),&nbsp;GFP_ATOMIC);</p>
+<p>/*&nbsp;Initialize&nbsp;the&nbsp;dev_t&nbsp;information&nbsp;*/<br>
+driver_info-&gt;device_info&nbsp;=&nbsp;pi-&gt;i_rdev;</p>
+<p>/*&nbsp;Initialize&nbsp;the&nbsp;work&nbsp;queue&nbsp;*/<br>
+INIT_WORK(&amp;(driver_info-&gt;work_info),&nbsp;simple_char_drv_workqueue_func);</p>
+<p>/*&nbsp;Initialize&nbsp;the&nbsp;spin&nbsp;lock&nbsp;*/<br>
+mutex_init(&amp;(driver_info-&gt;lock));</p>
+<p>/*&nbsp;Initialize&nbsp;the&nbsp;wait&nbsp;queue&nbsp;*/<br>
+init_waitqueue_head(&amp;(driver_info-&gt;wait_queue));</p>
+<p>/*&nbsp;Initialize&nbsp;the&nbsp;read&nbsp;count&nbsp;*/<br>
+driver_info-&gt;read_count&nbsp;=&nbsp;50;</p>
+<p>/*&nbsp;Format&nbsp;the&nbsp;IRQ&nbsp;handler&nbsp;name&nbsp;*/<br>
+sprintf(<br>
+driver_info-&gt;irq_handler,&nbsp;”simple_irq_%d/%d”,&nbsp;imajor(pi),&nbsp;iminor(pi));</p>
+<p>/*&nbsp;Save&nbsp;the&nbsp;driver&nbsp;information&nbsp;in&nbsp;private&nbsp;data&nbsp;*/<br>
+pf-&gt;private_data&nbsp;=&nbsp;driver_info;</p>
+<p>/*&nbsp;Clear&nbsp;the&nbsp;buffer&nbsp;and&nbsp;reset&nbsp;the&nbsp;buffer&nbsp;count&nbsp;*/<br>
+memset(driver_info-&gt;buffer,&nbsp;0,&nbsp;1024);<br>
+driver_info-&gt;buffer_count&nbsp;=&nbsp;0;</p>
+<p>/*&nbsp;request&nbsp;irq&nbsp;*/<br>
+request_irq(simple_irq,&nbsp;simple_irq_handler,&nbsp;IRQF_SHARED,<br>
+driver_info-&gt;irq_handler,&nbsp;driver_info);</p>
+<p>return&nbsp;0;<br>
+}</p></blockquote>
+<p><span style="line-height: 1.714285714; font-size: 1rem;"><b>Interrupt Handler:</b></span></p>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">When the 
+device generates the interrupt, the interrupt handler is invoked with 
+the ‘simple_char_drv_t’ pointer. This was passed during the interrupt 
+registration in the open() function.</span></p>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Based on the ‘simple_char_drv_t’ pointer, a work queue is scheduled.&nbsp;</span></p>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>irqreturn_t&nbsp;simple_irq_handler(int&nbsp;irq,&nbsp;void&nbsp;*data)<br>
+{<br>
+/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;driver&nbsp;information&nbsp;*/<br>
+simple_char_drv_t&nbsp;*driver_info&nbsp;=&nbsp;(simple_char_drv_t&nbsp;*)data;</p>
+<p>/*&nbsp;Schedule&nbsp;the&nbsp;work&nbsp;for&nbsp;the&nbsp;corresponding&nbsp;device&nbsp;based&nbsp;on&nbsp;driver&nbsp;info&nbsp;*/<br>
+schedule_work(&amp;(driver_info-&gt;work_info));</p>
+<p>return&nbsp;IRQ_HANDLED;<br>
+}</p></blockquote>
+<p><strong>Work Queue Function:</strong></p>
+<p>When the work queue function is invoked, the following operations are performed:</p>
+<ul>
+<li>From the ‘work’ parameter, the ‘simple_char_drv_t’ pointer is obtained using the ‘container_of’ function.</li>
+<li>Data is generated for the device.</li>
+<li>Any blocking read() is woken up using the wake_up() function.</li>
+</ul>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>void&nbsp;simple_char_drv_workqueue_func(struct&nbsp;work_struct&nbsp;*work)<br>
+{<br>
+/*&nbsp;To&nbsp;hold&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;driver&nbsp;information&nbsp;*/<br>
+simple_char_drv_t&nbsp;*driver_info;</p>
+<p>/*&nbsp;Based&nbsp;on&nbsp;the&nbsp;’work’&nbsp;parameter&nbsp;obtain&nbsp;the&nbsp;device&nbsp;information&nbsp;*/<br>
+driver_info&nbsp;=&nbsp;container_of(work,&nbsp;simple_char_drv_t,&nbsp;work_info);</p>
+<p>/*&nbsp;Obtain&nbsp;the&nbsp;lock&nbsp;*/<br>
+mutex_lock_interruptible(&amp;(driver_info-&gt;lock));</p>
+<p>/*&nbsp;Generate&nbsp;the&nbsp;data&nbsp;*/<br>
+sprintf(driver_info-&gt;buffer,<br>
+“%li:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;%d&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;%d\n”,<br>
+jiffies,&nbsp;MAJOR(driver_info-&gt;device_info),<br>
+MINOR(driver_info-&gt;device_info));</p>
+<p>driver_info-&gt;buffer_count&nbsp;=&nbsp;strlen(driver_info-&gt;buffer);</p>
+<p>/*&nbsp;Release&nbsp;the&nbsp;lock&nbsp;*/<br>
+mutex_unlock(&amp;(driver_info-&gt;lock));</p>
+<p>wake_up_interruptible(&amp;(driver_info-&gt;wait_queue));<br>
+}</p></blockquote>
+<p><strong>Execution:</strong></p>
+<p>After you have compiled and loaded the module using ‘insmod’ command, perform the following operations:</p>
+<ul>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Create three separate /dev entries to represent three instances of the device.</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">Open three terminals and execute the ‘cat’ command on the corresponding /dev device entries.</span></li>
+<li><span style="line-height: 1.714285714; font-size: 1rem;">You should notice a output similar to the one shown below.&nbsp;</span></li>
+</ul>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>training@training-VirtualBox:~/drivers$&nbsp;cat&nbsp;/dev/simple_char_dev_0<br>
+60679937:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;0<br>
+60680449:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;0<br>
+60680960:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;0<br>
+60681472:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;0<br>
+60681985:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;0</p>
+<p>training@training-VirtualBox:~/drivers$&nbsp;cat&nbsp;/dev/simple_char_dev_1<br>
+60681985:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;1<br>
+60682497:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;1<br>
+60683008:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;1<br>
+60683521:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;1<br>
+60684033:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;1</p>
+<p>training@training-VirtualBox:~/drivers$&nbsp;cat&nbsp;/dev/simple_char_dev_2<br>
+60684033:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;2<br>
+60684544:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;2<br>
+60685056:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;2<br>
+60685570:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;2<br>
+60686083:&nbsp;Data&nbsp;for&nbsp;device&nbsp;with&nbsp;Major&nbsp;Number&nbsp;249&nbsp;and&nbsp;Minor&nbsp;Number&nbsp;2</p></blockquote>
+<p><strong>/proc/interrupts</strong></p>
+<p>While the above ‘cat’ program is still reading the device, if you 
+execute the ‘cat /proc/interrupts’ command, you will notice the 
+following output. Notice that we have three additional interrupt 
+handlers registered (shared) for IRQ 15.</p>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>training@training-VirtualBox:~/drivers$&nbsp;cat&nbsp;/proc/interrupts<br>
+CPU0<br>
+0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;178&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timer<br>
+1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;181902&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i8042<br>
+8:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rtc0<br>
+9:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;acpi<br>
+12:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;36140&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i8042<br>
+14:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ata_piix<br>
+15:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;237696&nbsp;&nbsp;&nbsp;IO-APIC-edge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ata_piix,&nbsp;simple_irq_249/0,&nbsp;simple_irq_249/1,&nbsp;simple_irq_249/2<br>
+19:&nbsp;&nbsp;&nbsp;&nbsp;1389530&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;eth0<br>
+20:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;378357&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;vboxguest<br>
+21:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;167470&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;ahci<br>
+22:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1364&nbsp;&nbsp;&nbsp;IO-APIC-fasteoi&nbsp;&nbsp;&nbsp;ohci_hcd:usb1<br>
+NMI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Non-maskable&nbsp;interrupts<br>
+LOC:&nbsp;&nbsp;&nbsp;13054047&nbsp;&nbsp;&nbsp;Local&nbsp;timer&nbsp;interrupts<br>
+SPU:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Spurious&nbsp;interrupts<br>
+PMI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Performance&nbsp;monitoring&nbsp;interrupts<br>
+IWI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;IRQ&nbsp;work&nbsp;interrupts<br>
+RES:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Rescheduling&nbsp;interrupts<br>
+CAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Function&nbsp;call&nbsp;interrupts<br>
+TLB:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;TLB&nbsp;shootdowns<br>
+TRM:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Thermal&nbsp;event&nbsp;interrupts<br>
+THR:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Threshold&nbsp;APIC&nbsp;interrupts<br>
+MCE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;Machine&nbsp;check&nbsp;exceptions<br>
+MCP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;811&nbsp;&nbsp;&nbsp;Machine&nbsp;check&nbsp;polls<br>
+ERR:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+MIS:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</p></blockquote>
+<p><strong>Program Listing</strong></p>
+<p>For a complete program listing, refer to the <a title="interrupt_multi_inst.c" href="http://www.embeddedveda.com/programming_code.php?example_title=Multiple%20Instance%20Support%20with%20Interrupt%20Handler,%20Work%20Queue%20and%20Semaphores&amp;example1=code/drivers/99_interesting_programs/interrupt_multi_inst.c" target="_blank">interrupt_multi_inst.c</a> file.</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=91" title="5:41 pm" rel="bookmark"><time class="entry-date" datetime="2013-02-26T17:41:31+00:00">February 26, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-58" class="post-58 post type-post status-publish format-standard hentry category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=58" title="Permalink to How to see kernel threads?" rel="bookmark">How to see kernel threads?</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p style="text-align: justify;">If you are developing Linux device 
+drivers, in order to better understand the Linux concepts, you might be 
+interested to know the Linux kernel threads. For example,</p>
+<ol style="text-align: justify;">
+<li><span style="line-height: 14px;">What is the thread that handles the software interrupt handlers?</span></li>
+<li>What is the thread that manages the kernel work queue?</li>
+</ol>
+<p style="text-align: justify;">In order to see the all the threads in the system using the&nbsp;<strong>ps -ef</strong> command. In this options,</p>
+<ul style="text-align: justify;">
+<li>‘e’ option specifies that you want to see all the process using the standard syntax.</li>
+<li>‘f’ option specifies that you want the full listing</li>
+</ul>
+<p style="text-align: justify;">In order to differentiate the regular process from the kernel process, you can use the following trick:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 14px;">If a process was created without a command line, then the ‘ps’ command will display the name of such process within [] brackets.</span></li>
+<li>You can also confirm this by trying to display the /proc/&lt;pid&gt;/cmdline entry using the ‘cat’ command.</li>
+<li>In addition to the command line, /proc/&lt;pid&gt;/exe symbolic will
+ be invalid for a kernel thread. This is because kernel threads do not 
+have an associated executable file on the harddisk.</li>
+</ul>
+<p style="text-align: justify;">For example, here is a sample ‘ps -ef’ output.</p>
+<blockquote style="font-family: Courier New,monospace; font-size: 12px;"><p>UID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PID&nbsp;&nbsp;PPID&nbsp;&nbsp;C&nbsp;STIME&nbsp;TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIME&nbsp;CMD<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:02&nbsp;/sbin/init<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kthreadd]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[migration/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[watchdog/0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[migration/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/1:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[watchdog/1]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[migration/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[watchdog/2]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[migration/3]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kworker/3:0]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[ksoftirqd/3]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[watchdog/3]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[cpuset]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[khelper]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kdevtmpfs]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[netns]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[sync_supers]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;26&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[bdi-default]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kintegrityd]<br>
+root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;0&nbsp;21:52&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00:00:00&nbsp;[kblockd]</p></blockquote>
+<p style="text-align: justify;">In the above listing,</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 14px;">If you execute ‘cat /proc/1/cmdline’ you will see ‘/sbin/init’ as the output</span></li>
+<li>If you execute ‘cat /proc/2/cmdline’ you will not see any output</li>
+<li>If you execute ‘cat /proc/1/exe’ you will see the following output:<br>
+<blockquote><p>training@ubuntu:~/feb2013$ sudo ls -l /proc/1/exe<br>
+lrwxrwxrwx 1 root root 0 2013-02-24 22:54 /proc/1/exe -&gt; /sbin/init</p></blockquote>
+</li>
+<li>If you execute ‘cat /proc/2/exe’ you will see the following output:<br>
+<blockquote><p>training@ubuntu:~/feb2013$ sudo ls -l /proc/2/exe<br>
+ls: cannot read symbolic link /proc/2/exe: No such file or directory<br>
+lrwxrwxrwx 1 root root 0 2013-02-24 22:54 /proc/2/exe</p></blockquote>
+</li>
+</ul>
+<p style="text-align: justify;">Since most of the threads created by the
+ kernel do not have a command line and do not have an associated 
+executable in the harddisk, you can safely assume that the processes 
+displayed within [] brackets are kernel processes.</p>
+<p><span style="line-height: 24px; text-align: justify;">&nbsp;</span></p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=58" title="4:38 pm" rel="bookmark"><time class="entry-date" datetime="2013-02-24T16:38:38+00:00">February 24, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+							
+	<article id="post-46" class="post-46 post type-post status-publish format-standard hentry category-linux_drivers">
+				<header class="entry-header">
+									<h1 class="entry-title">
+				<a href="http://www.embeddedveda.com/wordpress/?p=46" title="Permalink to register_chrdev_region() and cdev_add()" rel="bookmark">register_chrdev_region() and cdev_add()</a>
+			</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p style="text-align: justify;">This article discusses the need for the register_chrdev_region() and cdev_add() interfaces.</p>
+<ul style="text-align: justify;">
+<li>register_chrdev_region() function is used to reserve a range of major, minor number regions.</li>
+<li>cdev_add() is used to make an association of the ‘struct file_operations *’ and the major, minor number region.</li>
+</ul>
+<p style="text-align: justify;"><a href="http://www.embeddedveda.com/programming_code.php?example_title=register_chrdev_correct&amp;example1=./code/drivers/99_interesting_programs/register_chrdev_correct.c">register_chrdev_correct.c</a>&nbsp;demonstrates
+ the correct usage of the above two functions to support two instances 
+of a device. Notice the following points in the driver source code:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 14px;">The second parameter to the 
+register_chrdev_region() function is two, indicating that we want to 
+reserve two major, minor number regions starting from 250, 0.</span></li>
+<li>The third parameter to the cdev_add() function is two, indicating that we want to support to instances of the device.</li>
+</ul>
+<p style="text-align: justify;">The above program will work without any issues and you should be able to test both instances of the device.</p>
+<p style="text-align: justify;"><a href="http://www.embeddedveda.com/programming_code.php?example_title=register_chrdev_wrong&amp;example1=./code/drivers/99_interesting_programs/register_chrdev_wrong.c">register_chrdev_wrong.c</a>&nbsp;demonstrates
+ the wrong usage of the above two functions to support two instances of a
+ device. Notice the following points in the driver source code:</p>
+<ul style="text-align: justify;">
+<li><span style="line-height: 1.714285714; font-size: 1rem;">The second 
+parameter to the register_chrdev_region() function is zero, indicating 
+that we are not interested in reserving any major, minor number region.</span></li>
+<li>The third parameter to the cdev_add() function is two, indicating that we want to support to instances of the device.</li>
+</ul>
+<p style="text-align: justify;"><span style="line-height: 1.714285714; font-size: 1rem;">The above program will work without any issues and you should be able to test both instances of the device.</span></p>
+<p style="text-align: justify;"><strong>Note:</strong></p>
+<ol style="text-align: justify;">
+<li><span style="line-height: 14px;">In the&nbsp;<a href="http://www.embeddedveda.com/programming_code.php?example_title=register_chrdev_wrong&amp;example1=./code/drivers/99_interesting_programs/register_chrdev_wrong.c">register_chrdev_wrong.c</a>&nbsp;program,
+ since we are not interested in reserving any region, the 
+register_chrdev_region() function will return success.&nbsp;</span></li>
+<li>Also note that the kernel will not make any reservation for the 
+major, minor number pairs. This can be verified using the ‘cat 
+/proc/devices’ command. You will notice that there is no driver 
+associated with the 250, 0 major, minor number region.</li>
+<li>The&nbsp;<a href="http://www.embeddedveda.com/programming_code.php?example_title=register_chrdev_wrong&amp;example1=./code/drivers/99_interesting_programs/register_chrdev_wrong.c">register_chrdev_wrong.c</a>&nbsp;program will work as long as no other driver is loaded to the same major, minor number region.</li>
+<li>If another driver is loaded, the check for overlapping regions will 
+return ‘no overlap’, because as a result of 1st step, there is no 
+reservation made.</li>
+<li>After the second driver is loaded, the first driver will be supressed and only the second driver will be active.</li>
+</ol>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://www.embeddedveda.com/wordpress/?cat=3" title="View all posts in Linux Drivers" rel="category">Linux Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=46" title="12:09 pm" rel="bookmark"><time class="entry-date" datetime="2013-02-21T12:09:40+00:00">February 21, 2013</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://www.embeddedveda.com/wordpress/?author=2" title="View all posts by Karthik M" rel="author">Karthik M</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+			
+					<nav id="nav-below" class="navigation" role="navigation">
+			<h3 class="assistive-text">Post navigation</h3>
+			<div class="nav-previous alignleft"><a href="http://www.embeddedveda.com/wordpress/?paged=2"><span class="meta-nav">←</span> Older posts</a></div>
+			<div class="nav-next alignright"></div>
+		</nav><!-- #nav-below .navigation -->
+	
+		
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" action="http://www.embeddedveda.com/wordpress/">
+	<div><label class="screen-reader-text" for="s">Search for:</label>
+	<input name="s" id="s" type="text">
+	<input id="searchsubmit" value="Search" type="submit">
+	</div>
+	</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.embeddedveda.com/wordpress/?p=280" title="Developing Basic USB to Serial Port Driver">Developing Basic USB to Serial Port Driver</a>
+						</li>
+					<li>
+				<a href="http://www.embeddedveda.com/wordpress/?p=244" title="PandaBoard ES with Ubuntu 12.04">PandaBoard ES with Ubuntu 12.04</a>
+						</li>
+					<li>
+				<a href="http://www.embeddedveda.com/wordpress/?p=237" title="PandaBoard ES with XBMC Linux">PandaBoard ES with XBMC Linux</a>
+						</li>
+					<li>
+				<a href="http://www.embeddedveda.com/wordpress/?p=193" title="FriendlyARM: Booting Linux over TFTP and Root File System over NFS">FriendlyARM: Booting Linux over TFTP and Root File System over NFS</a>
+						</li>
+					<li>
+				<a href="http://www.embeddedveda.com/wordpress/?p=183" title="Ubuntu: TFTP and NFS Configuration">Ubuntu: TFTP and NFS Configuration</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><a href="http://www.embeddedveda.com/wordpress/?p=193" rel="external nofollow" class="url">FriendlyARM: Booting Linux over TFTP and Root File System over NFS | Linux Device Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=183#comment-106">Ubuntu: TFTP and NFS Configuration</a></li><li class="recentcomments"><a href="http://www.embeddedveda.com/wordpress/?p=183" rel="external nofollow" class="url">Ubuntu: TFTP and NFS Configuration | Linux Device Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=193#comment-88">FriendlyARM: Booting Linux over TFTP and Root File System over NFS</a></li><li class="recentcomments"><a href="http://www.embeddedveda.com/wordpress/?p=141" rel="external nofollow" class="url">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 2 | Linux Device Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=62#comment-5">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 1</a></li><li class="recentcomments"><a href="http://www.embeddedveda.com/wordpress/?p=62" rel="external nofollow" class="url">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 1 | Linux Device Drivers</a> on <a href="http://www.embeddedveda.com/wordpress/?p=141#comment-4">Hardware Interrupt, Software Interrupt and Work Queue Handlers – Part 2</a></li></ul></aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+			<li><a href="http://www.embeddedveda.com/wordpress/?m=201307" title="July 2013">July 2013</a></li>
+	<li><a href="http://www.embeddedveda.com/wordpress/?m=201304" title="April 2013">April 2013</a></li>
+	<li><a href="http://www.embeddedveda.com/wordpress/?m=201303" title="March 2013">March 2013</a></li>
+	<li><a href="http://www.embeddedveda.com/wordpress/?m=201302" title="February 2013">February 2013</a></li>
+		</ul>
+</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-4"><a href="http://www.embeddedveda.com/wordpress/?cat=4" title="This category lists the posts for embedded linux development involving FriendlyARM, Beagle, Panda and Raspberry Pi board.">Embedded Linux</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.embeddedveda.com/wordpress/?cat=3" title="The blog's under this section describe various Linux Device Drivers concepts.">Linux Drivers</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="http://www.embeddedveda.com/wordpress/?cat=2" title="The blog's under this section describe things that can be done on a Ubuntu machine.">Ubuntu</a>
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="http://www.embeddedveda.com/wordpress/wp-login.php">Log in</a></li>
+			<li><a href="http://www.embeddedveda.com/wordpress/?feed=rss2" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://www.embeddedveda.com/wordpress/?feed=comments-rss2" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>
+						</ul>
+</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type="text/javascript" src="Linux%20Device%20Drivers_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="Linux%20Device%20Drivers_files/navigation.js"></script>
+
+</body></html>

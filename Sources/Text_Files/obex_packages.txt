@@ -1,0 +1,7 @@
+libbfb0
+libmulticobex1
+libobexftp0
+obexftp
+obexfs
+
+

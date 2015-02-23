@@ -1,0 +1,556 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>Installing u-boot on Mini2440 - Wikiface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.4">
+<link rel="shortcut icon" href="http://wiki.iface.ch/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.iface.ch/opensearch_desc.php" title="Wikiface (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.iface.ch/index.php?title=Installing_u-boot_on_Mini2440&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikiface Atom feed" href="http://wiki.iface.ch/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/main-ltr.css" media="screen">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/shared.css" media="screen">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/index_003.css">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/index.css" media="print">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/index_002.css">
+<link rel="stylesheet" href="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/index_004.css">
+<script>
+var skin="vector",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://wiki.iface.ch",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Installing_u-boot_on_Mini2440",
+wgTitle="Installing u-boot on Mini2440",
+wgAction="view",
+wgArticleId=15,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=57,
+wgVersion="1.16.4",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikiface", "5": "Wikiface talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikiface": 4, "wikiface_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="Wikiface",
+wgCategories=["Mini2440", "Linux", "U-boot"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/wikibits.js"></script>
+<script src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/ajax.js"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.htc")}</style><![endif]-->
+<script src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/index.php"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Installing_u-boot_on_Mini2440 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Installing u-boot on Mini2440</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<h3 id="siteSub">From Wikiface</h3>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>This note will describe how to install a pre-built u-boot boot loader on the Mini2440 FriendlyARM board.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Background"><span class="tocnumber">1</span> <span class="toctext">Background</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Needed_tools"><span class="tocnumber">2</span> <span class="toctext">Needed tools</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Hardware"><span class="tocnumber">2.1</span> <span class="toctext">Hardware</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Software"><span class="tocnumber">2.2</span> <span class="toctext">Software</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Preliminary"><span class="tocnumber">3</span> <span class="toctext">Preliminary</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Check_the_NAND_memory_on_your_board"><span class="tocnumber">3.1</span> <span class="toctext">Check the NAND memory on your board</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Preparing_u-boot_and_his_tool"><span class="tocnumber">3.2</span> <span class="toctext">Preparing u-boot and his tool</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Install"><span class="tocnumber">4</span> <span class="toctext">Install</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Loading_u-boot_into_Mini2440_memory"><span class="tocnumber">4.1</span> <span class="toctext">Loading u-boot into Mini2440 memory</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Configuring_and_saving_u-boot_into_flash"><span class="tocnumber">4.2</span> <span class="toctext">Configuring and saving u-boot into flash</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Final_notes"><span class="tocnumber">5</span> <span class="toctext">Final notes</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Background">Background</span></h1>
+<p>Mini2440 comes with SuperVivi bootloader preinstalled. Actually I 
+prefer to use u-boot bootloader because it's flexibility. The official 
+u-boot website is at <a href="http://www.denx.de/wiki/U-Boot/WebHome" class="external free" rel="nofollow">http://www.denx.de/wiki/U-Boot/WebHome</a>.
+</p><p><b>NOTE:</b> u-boot actually is under a massive internal 
+reorganization that invalidate actual setup for ARM based systems; 
+that's prevents u-boot to successfully build for ARM; the community is 
+under pressure to rebuild all the setup for ARM; this - of course - 
+impact also in Mini2440 porting under u-boot; for this reason we will 
+use the pre-built image of u-boot supplied on <a href="http://www.friendlyarm.net/downloads" class="external text" rel="nofollow">Mini2440 website download page</a> site or on original DVD.
+</p>
+<h1> <span class="mw-headline" id="Needed_tools">Needed tools</span></h1>
+<h2> <span class="mw-headline" id="Hardware">Hardware</span></h2>
+<ul><li>FriendlyARM Mini2440 board;
+</li><li>RS232 straight cable (Mini2440 RS232 is configured as DCE - cable provided by vendor);
+</li><li>USB type A to type B cable (provided by vendor);
+</li><li>5Vdc power supply (vendor provides the power supply with US plug);
+</li></ul>
+<h2> <span class="mw-headline" id="Software">Software</span></h2>
+<ul><li><b>u-boot prebuilt</b> version 2010-07-01 (checkout at <a href="http://www.friendlyarm.net/downloads" class="external free" rel="nofollow">http://www.friendlyarm.net/downloads</a>);
+</li><li><b>s3c2410_boot_usb</b> software (provided on the <i>zip file</i> downloaded on FriendlyARM website - see below);
+</li><li><b>Minicom</b> or equivalent (can be installed from your repo);
+</li></ul>
+<h1> <span class="mw-headline" id="Preliminary">Preliminary</span></h1>
+<h2> <span class="mw-headline" id="Check_the_NAND_memory_on_your_board">Check the NAND memory on your board</span></h2>
+<p>Before loading uboot you have to check the size of the NAND memory to
+ decide which version of the pre-built images has to be load.
+</p><p><a href="http://wiki.iface.ch/index.php/File:Mini2440-NAND_detail.png" class="image"><img alt="Mini2440-NAND detail.png" src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/600px-Mini2440-NAND_detail.png" height="428" width="600"></a>
+</p><p>As you can see in the picture above, the actual NAND mounted on 
+the Mini2440 is a 256Mb; check on the NAND manufacturer's website the 
+actual size of the NAND mounted on your board.
+</p>
+<h2> <span class="mw-headline" id="Preparing_u-boot_and_his_tool">Preparing u-boot and his tool</span></h2>
+<ul><li>Open a <i>new</i> shell on host pc, unzip the downloaded u-boot:
+</li></ul>
+<pre>$ <b>unzip u-boot_20100701.zip -d u-boot_20100701</b>
+Archive:  u-boot_20100701.zip
+   creating: u-boot_20100701/tools/
+  inflating: u-boot_20100701/tools/s3c2410_boot_usb  
+  inflating: u-boot_20100701/tools/s3c2410_boot_usb_old  
+  inflating: u-boot_20100701/tools/usbpush  
+  inflating: u-boot_20100701/u-boot-128M.bin  
+  inflating: u-boot_20100701/u-boot-256M.bin  
+  inflating: u-boot_20100701/u-boot-v132.bin  
+$ 
+</pre>
+<p>As shown above with the archive comes three version of u-boot, two of
+ them padded for different NAND sizes; on our case we have to use the 
+image padded for 256Mb memory (file <b>u-boot-256M.bin</b>).
+</p>
+<ul><li>Check the size (in bytes) of proper u-boot image we are about to
+ load; we have installed a 256Mb flash, so we are interested in the size
+ of that image:
+</li></ul>
+<pre>$ <b>cd u-boot_20100701/</b>
+~/qemuarm/u-boot_20100701$ <b>ls -l</b>
+totale 728
+drwxr-xr-x 2 fpiraneo fpiraneo   4096 2010-12-01 19:22 tools
+-rw-r--r-- 1 fpiraneo fpiraneo 242332 2009-11-06 10:12 u-boot-128M.bin
+<b>-rw-r--r-- 1 fpiraneo fpiraneo <i>242360</i> 2010-07-01 15:54 u-boot-256M.bin</b>
+-rw-r--r-- 1 fpiraneo fpiraneo 246164 2010-05-25 19:16 u-boot-v132.bin
+~/qemuarm/u-boot_20100701$ 
+</pre>
+<p>Actual size is 242360 bytes; please remember this data;
+</p>
+<ul><li>With u-boot comes also the utility <b>usbpush</b>; this utility can be used to upload u-boot image into flash with supervivi bootloader. Looking into the <b>u-boot_20100701/tools/</b> check that the <b>usbpush</b> file is executable; make it otherwise:
+</li></ul>
+<pre>$ <b>cd u-boot_20100701/tools/</b>
+~/qemuarm/u-boot_20100701/tools$ <b>ls -l</b>
+totale 44
+-rw-r--r-- 1 fpiraneo fpiraneo 12170 2010-11-27 18:10 s3c2410_boot_usb
+-rw-r--r-- 1 fpiraneo fpiraneo 14086 2009-05-23 09:46 s3c2410_boot_usb_old
+-rw-r--r-- 1 fpiraneo fpiraneo 13246 2009-11-10 19:31 usbpush
+~/qemuarm/u-boot_20100701/tools$ <b>chmod a+x usbpush</b>
+~/qemuarm/u-boot_20100701/tools$ <b>ls -l</b>
+totale 44
+-rw-r--r-- 1 fpiraneo fpiraneo 12170 2010-11-27 18:10 s3c2410_boot_usb
+-rw-r--r-- 1 fpiraneo fpiraneo 14086 2009-05-23 09:46 s3c2410_boot_usb_old
+-rwxr-xr-x 1 fpiraneo fpiraneo 13246 2009-11-10 19:31 usbpush
+~/qemuarm/u-boot_20100701/tools$
+</pre>
+<h1> <span class="mw-headline" id="Install">Install</span></h1>
+<h2> <span class="mw-headline" id="Loading_u-boot_into_Mini2440_memory">Loading u-boot into Mini2440 memory</span></h2>
+<p>Refers to the following picture for all operations.
+</p><p><a href="http://wiki.iface.ch/index.php/File:Mini2440-uBoot_layout.png" class="image"><img alt="Mini2440-uBoot layout.png" src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/700px-Mini2440-uBoot_layout.png" height="441" width="700"></a>
+</p>
+<ul><li>Check that the power switch <b>S1</b> switch is in <b>OFF</b> position; the power led near the switch will be <b>OFF</b> and the switch in the <b>RIGHT</b> position (near the display);
+</li><li>As pictured below connect USB, RS232 and power to your board; obviously connect the other side of the cables to the host PC; <i>if
+ you try to connect the power adapter of the Mini2440 to the host PC, 
+you are not qualified to perform the following procedure, so stop now!</i>
+</li><li>Switch the boot memory selector <b>S2</b> switch to <b>NOR</b> position (<b>LEFT</b> position);
+</li><li>On host computer, start <b>minicom</b>;
+</li><li>Setup minicom with the following communication parameters: <b>115200 8N1</b>;
+</li><li>Powerup your board with the S1 switch and on minicom you'll see the following:
+</li></ul>
+<pre>##### FriendlyARM BIOS 2.0 for 2440 #####
+[x] format NAND FLASH for Linux
+[v] Download vivi 
+[k] Download linux kernel 
+[y] Download root_yaffs image 
+[a] Absolute User Application
+[n] Download Nboot for WinCE 
+[l] Download WinCE boot-logo
+[w] Download WinCE NK.bin 
+[d] Download &amp; Run 
+[z] Download zImage into RAM 
+[g] Boot linux from RAM 
+[f] Format the nand flash 
+[b] Boot the system 
+[s] Set the boot parameters 
+[u] Backup NAND Flash to HOST through USB(upload) 
+[r] Restore NAND Flash from HOST through USB 
+[q] Goto shell of vivi 
+[i] Version: 0945-2K
+Enter your selection: 
+</pre>
+<p><b>NOTE:</b> Actually on the NOR memory we leave the <b>Vivi</b> bootloader that we can use to handle the content of the NAND memory; this to avoid the use of a JTAG interface;
+</p>
+<ul><li>Recall the vivi shell with <b>q</b> command and type the following:
+</li></ul>
+<pre>Supervivi&gt; <b>load ram 0x32000000 <i>242360</i> u-boot</b>
+USB host is connected. Waiting a download.
+</pre>
+<p>(Here I divide the hex digits to easy the reading: 0x3200 0000)
+</p>
+<ul><li>On the host PC, open another console and start the download of u-boot image:
+</li></ul>
+<pre>$ <b>sudo ./usbpush ../u-boot-256M.bin </b>
+csum = 0x3a3e
+send_file: addr = 0x30000000, len = 0x0003b2b8
+$ 
+</pre>
+<ul><li>After issuing the command <i>usbpush</i> the supervivi reacts:
+</li></ul>
+<pre>Now, Downloading [ADDRESS:32000000h,TOTAL:242370]
+RECEIVED FILE SIZE:  242370 (118KB/S, 2S)
+Downloaded file at 0x32000000, size = 242360 bytes
+Supervivi&gt; 
+</pre>
+<p>This confirm that u-boot has been received by your Mini2440;
+</p>
+<ul><li>Now it's time to start the downloaded u-boot; on minicom issue the following:
+</li></ul>
+<pre>Supervivi&gt; <b>go 0x32000000</b>
+go to 0x32000000
+  argument 0 = 0x00000000
+  argument 1 = 0x00000000
+  argument 2 = 0x00000000
+  argument 3 = 0x00000000
+
+U-Boot 1.3.2-mini2440 (Feb 24 2010 - 13:04:49)
+
+I2C:   ready
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  256 MiB
+Found Environment offset in OOB..
+USB:   S3C2410 USB Deviced
+In:    serial
+Out:   serial
+Err:   serial
+MAC: 08:08:11:18:12:27
+Hit any key to stop autoboot:  0 
+MINI2440 # 
+</pre>
+<p>Well, now u-boot has started, so stroke a key <b>before</b> the 3 seconds delay expires to get the prompt;
+</p>
+<h2> <span class="mw-headline" id="Configuring_and_saving_u-boot_into_flash">Configuring and saving u-boot into flash</span></h2>
+<ul><li>The NAND has to be prepared with the <i>scrub</i> command; this 
+actually delete the bad block table of the memory re-issuing a new one; 
+it's safe to rebuild the bad block table without keeping the 
+manufaturer's one:
+</li></ul>
+<pre>MINI2440# <b>nand scrub</b>
+NAND scrub: device 0 whole chip
+Warning: scrub option will erase all factory set bad blocks!
+         There is no reliable way to recover them.
+         Use this command only for testing purposes if you
+         are sure of what you are doing!
+
+Really scrub this NAND flash? &lt;y/N&gt; <b>type "Y" then "Enter" here!</b>
+Erasing at 0x7a0000 --   3% complete.
+NAND 256MiB 3,3V 8-bit: MTD Erase failure: -5
+Erasing at 0xe8e0000 --  91% complete.
+NAND 256MiB 3,3V 8-bit: MTD Erase failure: -5
+Erasing at 0xffe0000 -- 100% complete.
+Bad block table not found for chip 0
+Bad block table not found for chip 0
+OK
+MINI2440 #
+</pre>
+<p><b>NOTE:</b> Remember to confirm the action when required!
+</p>
+<ul><li>Next action is to create the bad block table issuing the following command:
+</li></ul>
+<pre>MINI2440 # <b>nand createbbt</b>
+Create BBT and erase everything&nbsp;? &lt;y/N&gt; <b>type "Y" then "Enter" here!</b>
+Skipping bad block at  0x00940000                                            
+Skipping bad block at  0x0eb60000                                            
+Skipping bad block at  0x0ff80000                                            
+Skipping bad block at  0x0ffa0000                                            
+Skipping bad block at  0x0ffc0000                                            
+Skipping bad block at  0x0ffe0000                                            
+
+Creating BBT. Please wait ...
+MINI2440 # 
+</pre>
+<p>Note that the command should almost quick to complete but it's very likely to fail, so it has to be restarted!
+</p><p>Don't forget to confirm the action when required!
+</p>
+<ul><li>Now save the actual u-boot (just loaded with supervivi) into flash:
+</li></ul>
+<pre>MINI2440# <b>nand write.e 0x32000000 0x0 0x0003b2b8</b>
+
+NAND write: device 0 offset 0x0, size 0x3b2b8
+
+Writing data at 0x3b000 -- 100% complete.
+ 242360 bytes written: OK
+MINI2440 # 
+</pre>
+<p><b>NOTE:</b> The last hex digit is the size of loaded u-boot in hex! You can pick this data on the answer of the <i>usbpush</i> command as above!
+</p>
+<ul><li>Partition the NAND:
+</li></ul>
+<pre>MINI2440# <b>dynpart</b>
+mtdparts mtdparts=mini2440-nand:0x00040000(u-boot),0x00020000(u-boot_env),0x00500000(kernel),0x0faa0000(rootfs)
+MINI2440 # 
+</pre>
+<ul><li>Create the dynamic environment space for u-boot and save it:
+</li></ul>
+<pre>MINI2440# <b>dynenv set u-boot_env</b>
+device 0 offset 0x40000, size 0x20000
+45 4e 56 30 - 00 00 04 00
+MINI2440 # <b>saveenv</b>
+Saving Environment to NAND...
+Erasing Nand...Writing to Nand... done
+MINI2440 #
+</pre>
+<h1> <span class="mw-headline" id="Final_notes">Final notes</span></h1>
+<ul><li>Poweroff your Mini2440;
+</li><li>Move the <b>S2</b> boot switch to NAND position;
+</li><li>Powerup again the Mini2440 and check minicom:
+</li></ul>
+<pre>U-Boot 1.3.2-mini2440 (Feb 24 2010 - 13:04:49)
+
+I2C:   ready
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  256 MiB
+Found Environment offset in OOB..
+USB:   S3C2410 USB Deviced
+In:    serial
+Out:   serial
+Err:   serial
+MAC: 08:08:11:18:12:27
+Hit any key to stop autoboot:  0 
+
+Loading from NAND 256MiB 3,3V 8-bit, offset 0x60000
+** Unknown image type
+Wrong Image Format for bootm command
+ERROR: can't get kernel image!
+MINI2440 # 
+</pre>
+<p>Well, this means that u-boot is looking for a kernel and is not able 
+to find it. Refers to my next note about the creation and the 
+installation of a Mini2440 kernel.
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 43/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikiface:pcache:idhash:15-0!1!0!!en!2!edit=0 and timestamp 20131220004210 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440">http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://wiki.iface.ch/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Mini2440" title="Category:Mini2440">Mini2440</a></span> | <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Linux" title="Category:Linux">Linux</a></span> | <span dir="ltr"><a href="http://wiki.iface.ch/index.php?title=Category:U-boot&amp;action=edit&amp;redlink=1" class="new" title="Category:U-boot (page does not exist)">U-boot</a></span></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li id="pt-login"><a href="http://wiki.iface.ch/index.php?title=Special:UserLogin&amp;returnto=Installing_u-boot_on_Mini2440" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><a href="http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440" title="View the content page [alt-shift-c]" accesskey="c"><span>Page</span></a></li>
+					<li id="ca-talk" class="new"><a href="http://wiki.iface.ch/index.php?title=Talk:Installing_u-boot_on_Mini2440&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t"><span>Discussion</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><a href="http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440"><span>Read</span></a></li>
+					<li id="ca-viewsource"><a href="http://wiki.iface.ch/index.php?title=Installing_u-boot_on_Mini2440&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e"><span>View source</span></a></li>
+					<li id="ca-history" class="collapsible "><a href="http://wiki.iface.ch/index.php?title=Installing_u-boot_on_Mini2440&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h"><span>View history</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" name="search" title="Search Wikiface [alt-shift-f]" accesskey="f" type="text">
+		<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">
+		<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/wikiface-logo.png);" href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+					<li id="n-portal"><a href="http://wiki.iface.ch/index.php/Wikiface:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+					<li id="n-currentevents"><a href="http://wiki.iface.ch/index.php/Wikiface:Current_events" title="Find background information on current events">Current events</a></li>
+					<li id="n-recentchanges"><a href="http://wiki.iface.ch/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+					<li id="n-randompage"><a href="http://wiki.iface.ch/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+					<li id="n-help"><a href="http://wiki.iface.ch/index.php/Help:Contents" title="The place to find out">Help</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://wiki.iface.ch/index.php/Special:WhatLinksHere/Installing_u-boot_on_Mini2440" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="http://wiki.iface.ch/index.php/Special:RecentChangesLinked/Installing_u-boot_on_Mini2440" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="http://wiki.iface.ch/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+									<li id="t-print"><a href="http://wiki.iface.ch/index.php?title=Installing_u-boot_on_Mini2440&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+						<li id="t-permalink"><a href="http://wiki.iface.ch/index.php?title=Installing_u-boot_on_Mini2440&amp;oldid=57" title="Permanent link to this revision of the page">Permanent link</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 19 April 2011, at 09:24.</li>
+																							<li id="footer-info-viewcount">This page has been accessed 12,178 times.</li>
+																							<li id="footer-info-copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" class="external ">Attribution-NonCommercial-NoDerivs 3.0 Unported</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://wiki.iface.ch/index.php/Wikiface:Privacy_policy" title="Wikiface:Privacy policy">Privacy policy</a></li>
+																							<li id="footer-places-about"><a href="http://wiki.iface.ch/index.php/Wikiface:About" title="Wikiface:About">About Wikiface</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://wiki.iface.ch/index.php/Wikiface:General_disclaimer" title="Wikiface:General disclaimer">Disclaimers</a></li>
+															</ul>
+										<ul id="footer-icons" class="noprint">
+								<li id="footer-icon-poweredby"><a href="http://www.mediawiki.org/"><img src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></li>
+												<li id="footer-icon-copyright"><a href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/88x31.png" alt="Attribution-NonCommercial-NoDerivs 3.0 Unported" height="31" width="88"></a></li>
+							</ul>
+			<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Installing%20u-boot%20on%20Mini2440%20-%20Wikiface_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-22891129-1");
+pageTracker._trackPageview();
+</script>		<!-- Served in 0.126 secs. -->			
+
+</body></html>

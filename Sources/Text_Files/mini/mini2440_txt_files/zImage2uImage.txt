@@ -1,0 +1,4 @@
+zImage -> uImage:
+=================
+								      <tagname in details> <src file>     <desired-name>
+mkimage -A arm -O linux -T kernel -C none -a 0x30008000 -e 0x30008000 -n "mini2440-linux"  -d  zImage_X35  uImage

@@ -1,0 +1,99 @@
+Converting .png image to .ppm for mini2440 logo:
+================================================
+
+############
+#METHOD _1 #
+############
+
+# convert veeen.png veeen_lg.ppm
+Create .png image of required size;
+# pngtopnm veeen.png | pnmtoplainpnm > veen_logo.ppm 
+
+############
+#METHOD _2 #		USE IT FOR LOGO CREATION
+############
+
+***************************************************************************************************************************
+************************************************************************************************************************* *
+!USE IT FOR CONVERSION:													* *
+!----------------------													* *
+!	From software center download gimp app, and install it.								* *
+!	open size cropped image by gimp and reduce the pixelsize followd as bellow:					* *
+!															* *
+!															* *
+!	CROPPING AN image AND reducing the pixel size & save to .ppm or .pnm:						* *
+!	=====================================================================						* *
+!		GIMP>													* *
+!			image -> scale image										* *
+!			select 200x103 and select pixels per inch 255							* *
+!			&												* *
+!			file -> export											* *
+!			save it to .ppm file by selecting ASCII format. (RAW formate will encounter an error).		* *
+!															* *
+!	and if u encounter an error that more than 224 colors then:							* *
+!	===========================================================							* *
+!		GIMP> 													* *
+!			image -> mode -> indexed									* *
+!			select color range for mini2440 223;								* *
+!															* *
+!															* *
+************************************************************************************************************************* *
+***************************************************************************************************************************
+
+############
+#METHOD _3:#
+############
+
+Image magic: crop->80x80 save->file.ppm
+
+While compiling uImage u may got bellow errors:
+-----------------------------------------------
+
+ERROR:
+======
+drivers/video/logo/logo_linux_clut224.ppm: Binary PNM is not supported
+Use pnmnoraw(1) to convert it to ASCII PNM
+
+# pnmnoraw error_image_file.ppm > image.ppm			<no need of .ppm extention for temp file image.ppm>
+# mv image.ppm <reqired-name.ppm>
+
+
+ERROR:
+=====
+Image has more than 224 colors
+Use ppmquant(1) to reduce the number of colors
+
+# ppmquant -fs 223 image_file-name > tmp_image	############### You can give 255 	
+		since abv error tells the range shud be 224, ie 0 to 223, u can see those patterns opening file by vim.  			
+
+		Again it may give an error that its a binary image, convert it to ASCII PPM file. Then  
+# pnmnoraw error_image.ppm > image.ppm
+# mv image.ppm <reqired-name.ppm>
+
+#################
+#AFTER CREATION:#
+#################
+
+For mini2440_logo they've given only 2 logos to choose 
+	1. logo_linux_clut224.ppm
+	2. logo_linux_vga16.ppm
+
+While compiling uImage for mini2440, these all images placed in <linux-src>/drivers/video/logo will be compiled and .c files created for 
+all image files in logo directory.
+
+logo.c converted into logo.o
+selected <image-file>.c has been converted into <image-file>.o 
+
+So., inorder to change logo image, and put our image., replace one of the file as abv mentioned.
+Replace created_logo.ppm image to <linux-x.xx>/drivers/video/logo/logo_linux_clut224.ppm
+
+	# cp <path-to-ur-logo.ppm>	<path-to-linux-src>/drivers/video/logo/logo_linux_clut224.ppm
+	# make ARCH=arm menuconfig
+			-> drivers -> graphics support -> bootuplogo -->
+						--- Bootup logo                                                    
+  	    					[ ]   Standard black and white Linux logo                          
+  	    					[ ]   Standard 16-color Linux logo                                 
+  	    					[*]   Standard 224-color Linux logo   
+
+	# make ARCH=arm CROSS_COMPILE=arm-linux- uImage
+

@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":0,"url":"http:\/\/qtinstall.blogspot.com\/2013\/12\/qt-basic-programming.html\/"});

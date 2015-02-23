@@ -1,0 +1,57 @@
+.
+|-- bin
+|   |-- bccmd
+|   |-- bluemoon
+|   |-- bluetoothctl
+|   |-- btmon
+|   |-- ciptool
+|   |-- hciattach
+|   |-- hciconfig
+|   |-- hcidump
+|   |-- hcitool
+|   |-- l2ping
+|   |-- l2test
+|   |-- rctest
+|   |-- rfcomm
+|   `-- sdptool
+|-- include
+|   `-- bluetooth
+|       |-- bluetooth.h
+|       |-- bnep.h
+|       |-- cmtp.h
+|       |-- hci.h
+|       |-- hci_lib.h
+|       |-- hidp.h
+|       |-- l2cap.h
+|       |-- rfcomm.h
+|       |-- sco.h
+|       |-- sdp.h
+|       `-- sdp_lib.h
+|-- lib
+|   |-- libbluetooth.la
+|   |-- libbluetooth.so -> libbluetooth.so.3.17.10
+|   |-- libbluetooth.so.3 -> libbluetooth.so.3.17.10
+|   |-- libbluetooth.so.3.17.10
+|   `-- pkgconfig
+|       `-- bluez.pc
+|-- libexec
+|   `-- bluetooth
+|       |-- bluetoothd
+|       `-- obexd
+`-- share
+    `-- man
+        |-- man1
+        |   |-- bccmd.1
+        |   |-- ciptool.1
+        |   |-- hciattach.1
+        |   |-- hciconfig.1
+        |   |-- hcidump.1
+        |   |-- hcitool.1
+        |   |-- l2ping.1
+        |   |-- rctest.1
+        |   |-- rfcomm.1
+        |   `-- sdptool.1
+        `-- man8
+            `-- bluetoothd.8
+
+11 directories, 43 files

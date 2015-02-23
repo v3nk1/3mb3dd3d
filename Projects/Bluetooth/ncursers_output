@@ -1,0 +1,3579 @@
+.
+|-- bin
+|   |-- captoinfo -> tic
+|   |-- clear
+|   |-- infocmp
+|   |-- infotocap -> tic
+|   |-- ncurses5-config
+|   |-- reset -> tset
+|   |-- tabs
+|   |-- tic
+|   |-- toe
+|   |-- tput
+|   `-- tset
+|-- include
+|   `-- ncurses
+|       |-- cursesapp.h
+|       |-- cursesf.h
+|       |-- curses.h
+|       |-- cursesm.h
+|       |-- cursesp.h
+|       |-- cursesw.h
+|       |-- cursslk.h
+|       |-- eti.h
+|       |-- etip.h
+|       |-- form.h
+|       |-- menu.h
+|       |-- nc_tparm.h
+|       |-- ncurses_dll.h
+|       |-- ncurses.h -> curses.h
+|       |-- panel.h
+|       |-- termcap.h
+|       |-- term_entry.h
+|       |-- term.h
+|       |-- tic.h
+|       `-- unctrl.h
+|-- lib
+|   |-- libform.a
+|   |-- libform_g.a
+|   |-- libmenu.a
+|   |-- libmenu_g.a
+|   |-- libncurses.a
+|   |-- libncurses++.a
+|   |-- libncurses_g.a
+|   |-- libpanel.a
+|   |-- libpanel_g.a
+|   `-- terminfo -> ../share/terminfo
+|-- log
+|-- man
+|   |-- man1
+|   |   |-- adacurses.1.gz -> adacurses-config.1.gz
+|   |   |-- adacurses-config.1.gz
+|   |   |-- captoinfo.1.gz
+|   |   |-- clear.1.gz
+|   |   |-- infocmp.1.gz
+|   |   |-- infotocap.1.gz
+|   |   |-- ncurses5-config.1.gz
+|   |   |-- reset.1.gz -> tset.1.gz
+|   |   |-- tabs.1.gz
+|   |   |-- tic.1.gz
+|   |   |-- toe.1.gz
+|   |   |-- tput.1.gz
+|   |   `-- tset.1.gz
+|   |-- man3
+|   |   |-- acs_map.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- addch.3ncurses.gz
+|   |   |-- addchnstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- addchstr.3ncurses.gz
+|   |   |-- addnstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- addnwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- addstr.3ncurses.gz
+|   |   |-- add_wch.3ncurses.gz
+|   |   |-- add_wchnstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- add_wchstr.3ncurses.gz
+|   |   |-- addwstr.3ncurses.gz
+|   |   |-- assume_default_colors.3ncurses.gz -> default_colors.3ncurses.gz
+|   |   |-- assume_default_colors_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- attr.3ncurses.gz
+|   |   |-- attr_get.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attributes.3menu.gz
+|   |   |-- attr_off.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attroff.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attr_on.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attron.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attr_set.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- attrset.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- baudrate.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- baudrate_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- BC.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- beep.3ncurses.gz
+|   |   |-- beep_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- bkgd.3ncurses.gz
+|   |   |-- bkgdset.3ncurses.gz -> bkgd.3ncurses.gz
+|   |   |-- bkgrnd.3ncurses.gz
+|   |   |-- bkgrndset.3ncurses.gz -> bkgrnd.3ncurses.gz
+|   |   |-- boolcodes.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- boolfnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- boolnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- border.3ncurses.gz
+|   |   |-- border_set.3ncurses.gz
+|   |   |-- bottom_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- box.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- box_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- can_change_color.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- can_change_color_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- cbreak.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- cbreak_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- ceiling_panel.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- chgat.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- clear.3ncurses.gz
+|   |   |-- clearok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- clrtobot.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- clrtoeol.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- color.3ncurses.gz
+|   |   |-- color_content.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- color_content_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- COLOR_PAIR.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- COLOR_PAIRS.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- COLORS.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- color_set.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- COLS.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- copywin.3ncurses.gz -> overlay.3ncurses.gz
+|   |   |-- current_field.3form.gz -> page.3form.gz
+|   |   |-- current_item.3menu.gz -> menu_current.3menu.gz
+|   |   |-- curscr.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- curses_variables.3ncurses.gz
+|   |   |-- curses_version.3ncurses.gz -> extensions.3ncurses.gz
+|   |   |-- cursor.3form.gz
+|   |   |-- cursor.3menu.gz
+|   |   |-- curs_set.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- curs_set_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- cur_term.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- data.3form.gz
+|   |   |-- data_ahead.3form.gz -> data.3form.gz
+|   |   |-- data_behind.3form.gz -> data.3form.gz
+|   |   |-- default_colors.3ncurses.gz
+|   |   |-- define_key.3ncurses.gz
+|   |   |-- define_key_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- def_prog_mode.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- def_prog_mode_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- def_shell_mode.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- def_shell_mode_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- delay_output.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- delay_output_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- delch.3ncurses.gz
+|   |   |-- del_curterm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- del_curterm_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- deleteln.3ncurses.gz
+|   |   |-- del_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- delscreen.3ncurses.gz -> initscr.3ncurses.gz
+|   |   |-- delwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- derwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- doupdate.3ncurses.gz -> refresh.3ncurses.gz
+|   |   |-- doupdate_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- driver.3form.gz
+|   |   |-- driver.3menu.gz
+|   |   |-- dup_field.3form.gz -> field_new.3form.gz
+|   |   |-- dupwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- dynamic_field_info.3form.gz -> field_info.3form.gz
+|   |   |-- echo.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- echochar.3ncurses.gz -> addch.3ncurses.gz
+|   |   |-- echo_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- echo_wchar.3ncurses.gz -> add_wch.3ncurses.gz
+|   |   |-- endwin.3ncurses.gz -> initscr.3ncurses.gz
+|   |   |-- endwin_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- erase.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- erasechar.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- erasechar_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- erasewchar.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- ESCDELAY.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- extensions.3ncurses.gz
+|   |   |-- field.3form.gz
+|   |   |-- field_arg.3form.gz -> field_validation.3form.gz
+|   |   |-- field_attributes.3form.gz
+|   |   |-- field_back.3form.gz -> field_attributes.3form.gz
+|   |   |-- field_buffer.3form.gz
+|   |   |-- field_count.3form.gz -> field.3form.gz
+|   |   |-- field_fore.3form.gz -> field_attributes.3form.gz
+|   |   |-- field_index.3form.gz -> page.3form.gz
+|   |   |-- field_info.3form.gz
+|   |   |-- field_init.3form.gz -> hook.3form.gz
+|   |   |-- field_just.3form.gz
+|   |   |-- field_new.3form.gz
+|   |   |-- field_opts.3form.gz
+|   |   |-- field_opts_off.3form.gz -> field_opts.3form.gz
+|   |   |-- field_opts_on.3form.gz -> field_opts.3form.gz
+|   |   |-- field_pad.3form.gz -> field_attributes.3form.gz
+|   |   |-- field_status.3form.gz -> field_buffer.3form.gz
+|   |   |-- field_term.3form.gz -> hook.3form.gz
+|   |   |-- field_type.3form.gz -> field_validation.3form.gz
+|   |   |-- fieldtype.3form.gz
+|   |   |-- field_userptr.3form.gz
+|   |   |-- field_validation.3form.gz
+|   |   |-- filter.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- filter_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- flash.3ncurses.gz -> beep.3ncurses.gz
+|   |   |-- flash_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- flushinp.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- flushinp_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- form.3form.gz
+|   |   |-- format.3menu.gz
+|   |   |-- form_cursor.3form.gz -> cursor.3form.gz
+|   |   |-- form_data.3form.gz -> data.3form.gz
+|   |   |-- form_driver.3form.gz -> driver.3form.gz
+|   |   |-- form_field.3form.gz -> field.3form.gz
+|   |   |-- form_field_attributes.3form.gz -> field_attributes.3form.gz
+|   |   |-- form_field_buffer.3form.gz -> field_buffer.3form.gz
+|   |   |-- form_field_info.3form.gz -> field_info.3form.gz
+|   |   |-- form_field_just.3form.gz -> field_just.3form.gz
+|   |   |-- form_field_new.3form.gz -> field_new.3form.gz
+|   |   |-- form_field_opts.3form.gz -> field_opts.3form.gz
+|   |   |-- form_fields.3form.gz -> field.3form.gz
+|   |   |-- form_fieldtype.3form.gz -> fieldtype.3form.gz
+|   |   |-- form_field_userptr.3form.gz -> field_userptr.3form.gz
+|   |   |-- form_field_validation.3form.gz -> field_validation.3form.gz
+|   |   |-- form_hook.3form.gz -> hook.3form.gz
+|   |   |-- form_init.3form.gz -> hook.3form.gz
+|   |   |-- form_new.3form.gz -> new.3form.gz
+|   |   |-- form_new_page.3form.gz -> new_page.3form.gz
+|   |   |-- form_opts.3form.gz -> opts.3form.gz
+|   |   |-- form_opts_off.3form.gz -> opts.3form.gz
+|   |   |-- form_opts_on.3form.gz -> opts.3form.gz
+|   |   |-- form_page.3form.gz -> page.3form.gz
+|   |   |-- form_post.3form.gz -> post.3form.gz
+|   |   |-- form_request_by_name.3form.gz -> requestname.3form.gz
+|   |   |-- form_request_name.3form.gz -> requestname.3form.gz
+|   |   |-- form_requestname.3form.gz -> requestname.3form.gz
+|   |   |-- form_sub.3form.gz -> win.3form.gz
+|   |   |-- form_term.3form.gz -> hook.3form.gz
+|   |   |-- form_userptr.3form.gz -> userptr.3form.gz
+|   |   |-- form_variables.3form.gz
+|   |   |-- form_win.3form.gz -> win.3form.gz
+|   |   |-- free_field.3form.gz -> field_new.3form.gz
+|   |   |-- free_fieldtype.3form.gz -> fieldtype.3form.gz
+|   |   |-- free_form.3form.gz -> new.3form.gz
+|   |   |-- free_item.3menu.gz -> menu_new.3menu.gz
+|   |   |-- free_menu.3menu.gz -> new.3menu.gz
+|   |   |-- getattrs.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getbegx.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getbegy.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getbegyx.3ncurses.gz -> getyx.3ncurses.gz
+|   |   |-- getbkgd.3ncurses.gz -> bkgd.3ncurses.gz
+|   |   |-- getbkgrnd.3ncurses.gz -> bkgrnd.3ncurses.gz
+|   |   |-- getcchar.3ncurses.gz
+|   |   |-- getch.3ncurses.gz
+|   |   |-- getcurx.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getcury.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- get_escdelay.3ncurses.gz -> threads.3ncurses.gz
+|   |   |-- get_escdelay_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- getmaxx.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getmaxy.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getmaxyx.3ncurses.gz -> getyx.3ncurses.gz
+|   |   |-- getmouse.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- getmouse_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- getnstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- getn_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- getparx.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getpary.3ncurses.gz -> legacy.3ncurses.gz
+|   |   |-- getparyx.3ncurses.gz -> getyx.3ncurses.gz
+|   |   |-- getstr.3ncurses.gz
+|   |   |-- getsyx.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- get_wch.3ncurses.gz
+|   |   |-- getwin.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- getwin_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- get_wstr.3ncurses.gz
+|   |   |-- getyx.3ncurses.gz
+|   |   |-- ground_panel.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- halfdelay.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- halfdelay_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- has_colors.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- has_colors_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- has_ic.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- has_ic_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- has_il.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- has_il_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- has_key.3ncurses.gz -> getch.3ncurses.gz
+|   |   |-- has_key_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- has_mouse.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- has_mouse_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- hide_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- hline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- hline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- hook.3form.gz
+|   |   |-- hook.3menu.gz
+|   |   |-- idcok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- idlok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- immedok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- inch.3ncurses.gz
+|   |   |-- inchnstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- inchstr.3ncurses.gz
+|   |   |-- init_color.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- init_color_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- init_pair.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- init_pair_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- initscr.3ncurses.gz
+|   |   |-- innstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- innwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- inopts.3ncurses.gz
+|   |   |-- insch.3ncurses.gz
+|   |   |-- insdelln.3ncurses.gz -> deleteln.3ncurses.gz
+|   |   |-- insertln.3ncurses.gz -> deleteln.3ncurses.gz
+|   |   |-- insnstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- ins_nwstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- insstr.3ncurses.gz
+|   |   |-- instr.3ncurses.gz
+|   |   |-- ins_wch.3ncurses.gz
+|   |   |-- ins_wstr.3ncurses.gz
+|   |   |-- intrflush.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- intrflush_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- in_wch.3ncurses.gz
+|   |   |-- in_wchnstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- in_wchstr.3ncurses.gz
+|   |   |-- inwstr.3ncurses.gz
+|   |   |-- is_cleared.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- isendwin.3ncurses.gz -> initscr.3ncurses.gz
+|   |   |-- isendwin_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- is_idcok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_idlok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_immedok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_keypad.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_leaveok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_linetouched.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- is_nodelay.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_notimeout.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_pad.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_scrollok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_subwin.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_syncok.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- is_term_resized.3ncurses.gz -> resizeterm.3ncurses.gz
+|   |   |-- is_term_resized_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- is_wintouched.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- item_count.3menu.gz -> items.3menu.gz
+|   |   |-- item_description.3menu.gz -> menu_name.3menu.gz
+|   |   |-- item_index.3menu.gz -> menu_current.3menu.gz
+|   |   |-- item_init.3menu.gz -> hook.3menu.gz
+|   |   |-- item_name.3menu.gz -> menu_name.3menu.gz
+|   |   |-- item_opts.3menu.gz -> menu_opts.3menu.gz
+|   |   |-- item_opts_off.3menu.gz -> menu_opts.3menu.gz
+|   |   |-- item_opts_on.3menu.gz -> menu_opts.3menu.gz
+|   |   |-- items.3menu.gz
+|   |   |-- item_term.3menu.gz -> hook.3menu.gz
+|   |   |-- item_userptr.3menu.gz -> menu_userptr.3menu.gz
+|   |   |-- item_value.3menu.gz -> menu_value.3menu.gz
+|   |   |-- item_visible.3menu.gz -> menu_visible.3menu.gz
+|   |   |-- kernel.3ncurses.gz
+|   |   |-- keybound.3ncurses.gz
+|   |   |-- keybound_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- key_defined.3ncurses.gz
+|   |   |-- key_defined_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- key_name.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- keyname.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- keyname_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- keyok.3ncurses.gz
+|   |   |-- keyok_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- keypad.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- killchar.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- killchar_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- killwchar.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- leaveok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- legacy.3ncurses.gz
+|   |   |-- legacy_coding.3ncurses.gz
+|   |   |-- LINES.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- link_field.3form.gz -> field_new.3form.gz
+|   |   |-- link_fieldtype.3form.gz -> fieldtype.3form.gz
+|   |   |-- longname.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- mark.3menu.gz
+|   |   |-- mcprint.3ncurses.gz -> print.3ncurses.gz
+|   |   |-- mcprint_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- memleaks.3ncurses.gz
+|   |   |-- menu.3menu.gz
+|   |   |-- menu_attributes.3menu.gz -> attributes.3menu.gz
+|   |   |-- menu_back.3menu.gz -> attributes.3menu.gz
+|   |   |-- menu_current.3menu.gz
+|   |   |-- menu_cursor.3menu.gz -> cursor.3menu.gz
+|   |   |-- menu_driver.3menu.gz -> driver.3menu.gz
+|   |   |-- menu_fore.3menu.gz -> attributes.3menu.gz
+|   |   |-- menu_format.3menu.gz -> format.3menu.gz
+|   |   |-- menu_grey.3menu.gz -> attributes.3menu.gz
+|   |   |-- menu_hook.3menu.gz -> hook.3menu.gz
+|   |   |-- menu_init.3menu.gz -> hook.3menu.gz
+|   |   |-- menu_items.3menu.gz -> items.3menu.gz
+|   |   |-- menu_mark.3menu.gz -> mark.3menu.gz
+|   |   |-- menu_name.3menu.gz
+|   |   |-- menu_new.3menu.gz
+|   |   |-- menu_opts.3menu.gz
+|   |   |-- menu_opts_off.3menu.gz -> opts.3menu.gz
+|   |   |-- menu_opts_on.3menu.gz -> opts.3menu.gz
+|   |   |-- menu_pad.3menu.gz -> attributes.3menu.gz
+|   |   |-- menu_pattern.3menu.gz -> pattern.3menu.gz
+|   |   |-- menu_post.3menu.gz -> post.3menu.gz
+|   |   |-- menu_request_by_name.3menu.gz -> requestname.3menu.gz
+|   |   |-- menu_request_name.3menu.gz -> requestname.3menu.gz
+|   |   |-- menu_requestname.3menu.gz -> requestname.3menu.gz
+|   |   |-- menu_spacing.3menu.gz -> spacing.3menu.gz
+|   |   |-- menu_sub.3menu.gz -> win.3menu.gz
+|   |   |-- menu_term.3menu.gz -> hook.3menu.gz
+|   |   |-- menu_userptr.3menu.gz
+|   |   |-- menu_value.3menu.gz
+|   |   |-- menu_visible.3menu.gz
+|   |   |-- menu_win.3menu.gz -> win.3menu.gz
+|   |   |-- meta.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- mitem_current.3menu.gz -> menu_current.3menu.gz
+|   |   |-- mitem_name.3menu.gz -> menu_name.3menu.gz
+|   |   |-- mitem_new.3menu.gz -> menu_new.3menu.gz
+|   |   |-- mitem_opts.3menu.gz -> menu_opts.3menu.gz
+|   |   |-- mitem_userptr.3menu.gz -> menu_userptr.3menu.gz
+|   |   |-- mitem_value.3menu.gz -> menu_value.3menu.gz
+|   |   |-- mitem_visible.3menu.gz -> menu_visible.3menu.gz
+|   |   |-- mouse.3ncurses.gz
+|   |   |-- mouseinterval.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- mouseinterval_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- mousemask.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- mousemask_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- mouse_trafo.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- move.3ncurses.gz
+|   |   |-- move_field.3form.gz -> field.3form.gz
+|   |   |-- move_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- mvaddch.3ncurses.gz -> addch.3ncurses.gz
+|   |   |-- mvaddchnstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- mvaddchstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- mvaddnstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- mvaddnwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- mvaddstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- mvadd_wch.3ncurses.gz -> add_wch.3ncurses.gz
+|   |   |-- mvadd_wchnstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- mvadd_wchstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- mvaddwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- mvchgat.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- mvcur.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- mvcur_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- mvdelch.3ncurses.gz -> delch.3ncurses.gz
+|   |   |-- mvderwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- mvgetch.3ncurses.gz -> getch.3ncurses.gz
+|   |   |-- mvgetnstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- mvgetn_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- mvgetstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- mvget_wch.3ncurses.gz -> get_wch.3ncurses.gz
+|   |   |-- mvget_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- mvhline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- mvhline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- mvinch.3ncurses.gz -> inch.3ncurses.gz
+|   |   |-- mvinchnstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- mvinchstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- mvinnstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- mvinnwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- mvinsch.3ncurses.gz -> insch.3ncurses.gz
+|   |   |-- mvinsnstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- mvins_nwstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- mvinsstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- mvinstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- mvins_wch.3ncurses.gz -> ins_wch.3ncurses.gz
+|   |   |-- mvins_wstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- mvin_wch.3ncurses.gz -> in_wch.3ncurses.gz
+|   |   |-- mvin_wchnstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- mvin_wchstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- mvinwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- mvprintw.3ncurses.gz -> printw.3ncurses.gz
+|   |   |-- mvscanw.3ncurses.gz -> scanw.3ncurses.gz
+|   |   |-- mvvline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- mvvline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- mvwaddch.3ncurses.gz -> addch.3ncurses.gz
+|   |   |-- mvwaddchnstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- mvwaddchstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- mvwaddnstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- mvwaddnwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- mvwaddstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- mvwadd_wch.3ncurses.gz -> add_wch.3ncurses.gz
+|   |   |-- mvwadd_wchnstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- mvwadd_wchstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- mvwaddwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- mvwchgat.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- mvwdelch.3ncurses.gz -> delch.3ncurses.gz
+|   |   |-- mvwgetch.3ncurses.gz -> getch.3ncurses.gz
+|   |   |-- mvwgetnstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- mvwgetn_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- mvwgetstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- mvwget_wch.3ncurses.gz -> get_wch.3ncurses.gz
+|   |   |-- mvwget_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- mvwhline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- mvwhline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- mvwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- mvwinch.3ncurses.gz -> inch.3ncurses.gz
+|   |   |-- mvwinchnstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- mvwinchstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- mvwinnstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- mvwinnwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- mvwinsch.3ncurses.gz -> insch.3ncurses.gz
+|   |   |-- mvwinsnstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- mvwins_nwstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- mvwinsstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- mvwinstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- mvwins_wch.3ncurses.gz -> ins_wch.3ncurses.gz
+|   |   |-- mvwins_wstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- mvwin_wch.3ncurses.gz -> in_wch.3ncurses.gz
+|   |   |-- mvwin_wchnstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- mvwin_wchstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- mvwinwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- mvwprintw.3ncurses.gz -> printw.3ncurses.gz
+|   |   |-- mvwscanw.3ncurses.gz -> scanw.3ncurses.gz
+|   |   |-- mvwvline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- mvwvline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- napms.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- napms_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- _nc_freeall.3ncurses.gz -> memleaks.3ncurses.gz
+|   |   |-- _nc_free_and_exit.3ncurses.gz -> memleaks.3ncurses.gz
+|   |   |-- _nc_tracebits.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- ncurses.3ncurses.gz
+|   |   |-- new.3form.gz
+|   |   |-- new.3menu.gz
+|   |   |-- new_field.3form.gz -> field_new.3form.gz
+|   |   |-- new_fieldtype.3form.gz -> fieldtype.3form.gz
+|   |   |-- new_form.3form.gz -> new.3form.gz
+|   |   |-- new_form_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- new_item.3menu.gz -> menu_new.3menu.gz
+|   |   |-- new_menu.3menu.gz -> new.3menu.gz
+|   |   |-- new_menu_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- newpad.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- newpad_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- new_page.3form.gz
+|   |   |-- new_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- new_prescr.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- newscr.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- newterm.3ncurses.gz -> initscr.3ncurses.gz
+|   |   |-- newterm_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- newwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- newwin_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- nl.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- nl_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- nocbreak.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- nocbreak_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- nodelay.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- noecho.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- noecho_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- nofilter.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- nofilter_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- nonl.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- nonl_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- noqiflush.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- noqiflush_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- noraw.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- noraw_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- notimeout.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- numcodes.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- numfnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- numnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- opaque.3ncurses.gz
+|   |   |-- opts.3form.gz
+|   |   |-- opts.3menu.gz
+|   |   |-- ospeed.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- outopts.3ncurses.gz
+|   |   |-- overlay.3ncurses.gz
+|   |   |-- overwrite.3ncurses.gz -> overlay.3ncurses.gz
+|   |   |-- pad.3ncurses.gz
+|   |   |-- page.3form.gz
+|   |   |-- pair_content.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- pair_content_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- PAIR_NUMBER.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- panel.3curses.gz
+|   |   |-- panel_above.3curses.gz -> panel.3curses.gz
+|   |   |-- panel_below.3curses.gz -> panel.3curses.gz
+|   |   |-- panel_hidden.3curses.gz -> panel.3curses.gz
+|   |   |-- panel_userptr.3curses.gz -> panel.3curses.gz
+|   |   |-- panel_window.3curses.gz -> panel.3curses.gz
+|   |   |-- pattern.3menu.gz
+|   |   |-- PC.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- pechochar.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- pecho_wchar.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- pnoutrefresh.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- pos_form_cursor.3form.gz -> cursor.3form.gz
+|   |   |-- pos_menu_cursor.3menu.gz -> cursor.3menu.gz
+|   |   |-- post.3form.gz
+|   |   |-- post.3menu.gz
+|   |   |-- post_form.3form.gz -> post.3form.gz
+|   |   |-- post_menu.3menu.gz -> post.3menu.gz
+|   |   |-- prefresh.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- print.3ncurses.gz
+|   |   |-- printw.3ncurses.gz
+|   |   |-- putp.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- putp_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- putwin.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- qiflush.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- qiflush_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- raw.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- raw_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- redrawwin.3ncurses.gz -> refresh.3ncurses.gz
+|   |   |-- refresh.3ncurses.gz
+|   |   |-- replace_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- requestname.3form.gz
+|   |   |-- requestname.3menu.gz
+|   |   |-- reset_prog_mode.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- reset_prog_mode_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- reset_shell_mode.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- reset_shell_mode_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- resetty.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- resetty_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- resize_term.3ncurses.gz -> resizeterm.3ncurses.gz
+|   |   |-- resizeterm.3ncurses.gz
+|   |   |-- resize_term_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- resizeterm_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- restartterm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- restartterm_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- ripoffline.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- ripoffline_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- savetty.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- savetty_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- scale_form.3form.gz -> win.3form.gz
+|   |   |-- scale_menu.3menu.gz -> win.3menu.gz
+|   |   |-- scanw.3ncurses.gz
+|   |   |-- scr_dump.3ncurses.gz
+|   |   |-- scr_init.3ncurses.gz -> scr_dump.3ncurses.gz
+|   |   |-- scr_init_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- scrl.3ncurses.gz -> scroll.3ncurses.gz
+|   |   |-- scroll.3ncurses.gz
+|   |   |-- scrollok.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- scr_restore.3ncurses.gz -> scr_dump.3ncurses.gz
+|   |   |-- scr_restore_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- scr_set.3ncurses.gz -> scr_dump.3ncurses.gz
+|   |   |-- scr_set_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- setcchar.3ncurses.gz -> getcchar.3ncurses.gz
+|   |   |-- set_current_field.3form.gz -> page.3form.gz
+|   |   |-- set_current_item.3menu.gz -> menu_current.3menu.gz
+|   |   |-- set_curterm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- set_curterm_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- set_escdelay.3ncurses.gz -> threads.3ncurses.gz
+|   |   |-- set_escdelay_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- set_field_back.3form.gz -> field_attributes.3form.gz
+|   |   |-- set_field_buffer.3form.gz -> field_buffer.3form.gz
+|   |   |-- set_field_fore.3form.gz -> field_attributes.3form.gz
+|   |   |-- set_field_init.3form.gz -> hook.3form.gz
+|   |   |-- set_field_just.3form.gz -> field_just.3form.gz
+|   |   |-- set_field_opts.3form.gz -> field_opts.3form.gz
+|   |   |-- set_field_pad.3form.gz -> field_attributes.3form.gz
+|   |   |-- set_field_status.3form.gz -> field_buffer.3form.gz
+|   |   |-- set_field_term.3form.gz -> hook.3form.gz
+|   |   |-- set_field_type.3form.gz -> field_validation.3form.gz
+|   |   |-- set_fieldtype_arg.3form.gz -> fieldtype.3form.gz
+|   |   |-- set_fieldtype_choice.3form.gz -> fieldtype.3form.gz
+|   |   |-- set_field_userptr.3form.gz -> field_userptr.3form.gz
+|   |   |-- set_form_fields.3form.gz -> field.3form.gz
+|   |   |-- set_form_init.3form.gz -> hook.3form.gz
+|   |   |-- set_form_opts.3form.gz -> opts.3form.gz
+|   |   |-- set_form_page.3form.gz -> page.3form.gz
+|   |   |-- set_form_sub.3form.gz -> win.3form.gz
+|   |   |-- set_form_term.3form.gz -> hook.3form.gz
+|   |   |-- set_form_userptr.3form.gz -> userptr.3form.gz
+|   |   |-- set_form_win.3form.gz -> win.3form.gz
+|   |   |-- set_item_init.3menu.gz -> hook.3menu.gz
+|   |   |-- set_item_opts.3menu.gz -> menu_opts.3menu.gz
+|   |   |-- set_item_term.3menu.gz -> hook.3menu.gz
+|   |   |-- set_item_userptr.3menu.gz -> menu_userptr.3menu.gz
+|   |   |-- set_item_value.3menu.gz -> menu_value.3menu.gz
+|   |   |-- set_max_field.3form.gz -> field_buffer.3form.gz
+|   |   |-- set_menu_back.3menu.gz -> attributes.3menu.gz
+|   |   |-- set_menu_fore.3menu.gz -> attributes.3menu.gz
+|   |   |-- set_menu_format.3menu.gz -> format.3menu.gz
+|   |   |-- set_menu_grey.3menu.gz -> attributes.3menu.gz
+|   |   |-- set_menu_init.3menu.gz -> hook.3menu.gz
+|   |   |-- set_menu_items.3menu.gz -> items.3menu.gz
+|   |   |-- set_menu_mark.3menu.gz -> mark.3menu.gz
+|   |   |-- set_menu_opts.3menu.gz -> opts.3menu.gz
+|   |   |-- set_menu_pad.3menu.gz -> attributes.3menu.gz
+|   |   |-- set_menu_pattern.3menu.gz -> pattern.3menu.gz
+|   |   |-- set_menu_spacing.3menu.gz -> spacing.3menu.gz
+|   |   |-- set_menu_sub.3menu.gz -> win.3menu.gz
+|   |   |-- set_menu_term.3menu.gz -> hook.3menu.gz
+|   |   |-- set_menu_userptr.3menu.gz -> userptr.3menu.gz
+|   |   |-- set_menu_win.3menu.gz -> win.3menu.gz
+|   |   |-- set_new_page.3form.gz -> new_page.3form.gz
+|   |   |-- set_panel_userptr.3curses.gz -> panel.3curses.gz
+|   |   |-- setscrreg.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- setsyx.3ncurses.gz -> kernel.3ncurses.gz
+|   |   |-- set_tabsize.3ncurses.gz -> threads.3ncurses.gz
+|   |   |-- set_tabsize_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- set_term.3ncurses.gz -> initscr.3ncurses.gz
+|   |   |-- setterm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- set_top_row.3menu.gz -> menu_current.3menu.gz
+|   |   |-- setupterm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- show_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- slk.3ncurses.gz
+|   |   |-- slk_attr.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attr_off.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attroff.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attroff_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_attr_on.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attron.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attron_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_attr_set.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attrset.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_attr_set_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_attrset_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_attr_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_clear.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_clear_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_color.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_color_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_init.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_init_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_label.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_label_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_noutrefresh.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_noutrefresh_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_refresh.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_refresh_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_restore.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_restore_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_set.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_set_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_touch.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- slk_touch_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- slk_wset.3ncurses.gz -> slk.3ncurses.gz
+|   |   |-- SP.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- spacing.3menu.gz
+|   |   |-- sp_funcs.3ncurses.gz
+|   |   |-- standend.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- standout.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- start_color.3ncurses.gz -> color.3ncurses.gz
+|   |   |-- start_color_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- stdscr.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- strcodes.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- strfnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- strnames.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- subpad.3ncurses.gz -> pad.3ncurses.gz
+|   |   |-- subwin.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- syncok.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- TABSIZE.3ncurses.gz -> curses_variables.3ncurses.gz
+|   |   |-- term_attrs.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- termattrs.3ncurses.gz
+|   |   |-- term_attrs_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- termattrs_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- termcap.3ncurses.gz
+|   |   |-- terminfo.3ncurses.gz
+|   |   |-- terminfo_variables.3ncurses.gz
+|   |   |-- termname.3ncurses.gz -> termattrs.3ncurses.gz
+|   |   |-- termname_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tgetent.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- tgetent_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tgetflag.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- tgetflag_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tgetnum.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- tgetnum_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tgetstr.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- tgetstr_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tgoto.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- threads.3ncurses.gz
+|   |   |-- tigetflag.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- tigetflag_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tigetnum.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- tigetnum_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- tigetstr.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- tigetstr_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- timeout.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- tiparm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- top_panel.3curses.gz -> panel.3curses.gz
+|   |   |-- top_row.3menu.gz -> menu_current.3menu.gz
+|   |   |-- touch.3ncurses.gz
+|   |   |-- touchline.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- touchwin.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- tparm.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- tputs.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- tputs_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- trace.3ncurses.gz
+|   |   |-- _traceattr2.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _traceattr.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracecchar_t2.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracecchar_t.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracechar.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracechtype2.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracechtype.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracedump.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracef.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- _tracemouse.3ncurses.gz -> trace.3ncurses.gz
+|   |   |-- ttytype.3ncurses.gz -> terminfo_variables.3ncurses.gz
+|   |   |-- typeahead.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- typeahead_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- TYPE_ALNUM.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_ALPHA.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_ENUM.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_INTEGER.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_IPV4.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_NUMERIC.3form.gz -> form_variables.3form.gz
+|   |   |-- TYPE_REGEXP.3form.gz -> form_variables.3form.gz
+|   |   |-- unctrl.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- unctrl_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- ungetch.3ncurses.gz -> getch.3ncurses.gz
+|   |   |-- ungetch_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- ungetmouse.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- ungetmouse_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- unget_wch.3ncurses.gz -> get_wch.3ncurses.gz
+|   |   |-- unget_wch_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- unpost_form.3form.gz -> post.3form.gz
+|   |   |-- unpost_menu.3menu.gz -> post.3menu.gz
+|   |   |-- untouchwin.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- UP.3ncurses.gz -> termcap.3ncurses.gz
+|   |   |-- update_panels.3curses.gz -> panel.3curses.gz
+|   |   |-- update_panels_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- use_default_colors.3ncurses.gz -> default_colors.3ncurses.gz
+|   |   |-- use_default_colors_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- use_env.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- use_env_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- use_extended_names.3ncurses.gz -> extensions.3ncurses.gz
+|   |   |-- use_legacy_coding.3ncurses.gz -> legacy_coding.3ncurses.gz
+|   |   |-- use_legacy_coding_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- userptr.3form.gz
+|   |   |-- userptr.3menu.gz
+|   |   |-- use_screen.3ncurses.gz -> threads.3ncurses.gz
+|   |   |-- use_window.3ncurses.gz -> threads.3ncurses.gz
+|   |   |-- util.3ncurses.gz
+|   |   |-- vid_attr.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- vidattr.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- vid_attr_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- vidattr_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- vid_puts.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- vidputs.3ncurses.gz -> terminfo.3ncurses.gz
+|   |   |-- vid_puts_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- vidputs_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- vline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- vline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- vw_printw.3ncurses.gz -> printw.3ncurses.gz
+|   |   |-- vwprintw.3ncurses.gz -> printw.3ncurses.gz
+|   |   |-- vw_scanw.3ncurses.gz -> scanw.3ncurses.gz
+|   |   |-- vwscanw.3ncurses.gz -> scanw.3ncurses.gz
+|   |   |-- waddch.3ncurses.gz -> addch.3ncurses.gz
+|   |   |-- waddchnstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- waddchstr.3ncurses.gz -> addchstr.3ncurses.gz
+|   |   |-- waddnstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- waddnwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- waddstr.3ncurses.gz -> addstr.3ncurses.gz
+|   |   |-- wadd_wch.3ncurses.gz -> add_wch.3ncurses.gz
+|   |   |-- wadd_wchnstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- wadd_wchstr.3ncurses.gz -> add_wchstr.3ncurses.gz
+|   |   |-- waddwstr.3ncurses.gz -> addwstr.3ncurses.gz
+|   |   |-- wattr_get.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattr_off.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattroff.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattr_on.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattron.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattr_set.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wattrset.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wbkgd.3ncurses.gz -> bkgd.3ncurses.gz
+|   |   |-- wbkgdset.3ncurses.gz -> bkgd.3ncurses.gz
+|   |   |-- wbkgrnd.3ncurses.gz -> bkgrnd.3ncurses.gz
+|   |   |-- wbkgrndset.3ncurses.gz -> bkgrnd.3ncurses.gz
+|   |   |-- wborder.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- wborder_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- wchgat.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wclear.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- wclrtobot.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- wclrtoeol.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- wcolor_set.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wcursyncup.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- wdelch.3ncurses.gz -> delch.3ncurses.gz
+|   |   |-- wdeleteln.3ncurses.gz -> deleteln.3ncurses.gz
+|   |   |-- wechochar.3ncurses.gz -> addch.3ncurses.gz
+|   |   |-- wecho_wchar.3ncurses.gz -> add_wch.3ncurses.gz
+|   |   |-- wenclose.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- werase.3ncurses.gz -> clear.3ncurses.gz
+|   |   |-- wgetbkgrnd.3ncurses.gz -> bkgrnd.3ncurses.gz
+|   |   |-- wgetch.3ncurses.gz -> getch.3ncurses.gz
+|   |   |-- wgetnstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- wgetn_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- wgetparent.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- wgetscrreg.3ncurses.gz -> opaque.3ncurses.gz
+|   |   |-- wgetstr.3ncurses.gz -> getstr.3ncurses.gz
+|   |   |-- wget_wch.3ncurses.gz -> get_wch.3ncurses.gz
+|   |   |-- wget_wstr.3ncurses.gz -> get_wstr.3ncurses.gz
+|   |   |-- whline.3ncurses.gz -> border.3ncurses.gz
+|   |   |-- whline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |   |-- win.3form.gz
+|   |   |-- win.3menu.gz
+|   |   |-- winch.3ncurses.gz -> inch.3ncurses.gz
+|   |   |-- winchnstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- winchstr.3ncurses.gz -> inchstr.3ncurses.gz
+|   |   |-- window.3ncurses.gz
+|   |   |-- winnstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- winnwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- winsch.3ncurses.gz -> insch.3ncurses.gz
+|   |   |-- winsdelln.3ncurses.gz -> deleteln.3ncurses.gz
+|   |   |-- winsertln.3ncurses.gz -> deleteln.3ncurses.gz
+|   |   |-- winsnstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- wins_nwstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- winsstr.3ncurses.gz -> insstr.3ncurses.gz
+|   |   |-- winstr.3ncurses.gz -> instr.3ncurses.gz
+|   |   |-- wins_wch.3ncurses.gz -> ins_wch.3ncurses.gz
+|   |   |-- wins_wstr.3ncurses.gz -> ins_wstr.3ncurses.gz
+|   |   |-- win_wch.3ncurses.gz -> in_wch.3ncurses.gz
+|   |   |-- win_wchnstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- win_wchstr.3ncurses.gz -> in_wchstr.3ncurses.gz
+|   |   |-- winwstr.3ncurses.gz -> inwstr.3ncurses.gz
+|   |   |-- wmouse_trafo.3ncurses.gz -> mouse.3ncurses.gz
+|   |   |-- wmove.3ncurses.gz -> move.3ncurses.gz
+|   |   |-- wnoutrefresh.3ncurses.gz -> refresh.3ncurses.gz
+|   |   |-- wprintw.3ncurses.gz -> printw.3ncurses.gz
+|   |   |-- wredrawln.3ncurses.gz -> refresh.3ncurses.gz
+|   |   |-- wrefresh.3ncurses.gz -> refresh.3ncurses.gz
+|   |   |-- wresize.3ncurses.gz
+|   |   |-- wscanw.3ncurses.gz -> scanw.3ncurses.gz
+|   |   |-- wscrl.3ncurses.gz -> scroll.3ncurses.gz
+|   |   |-- wsetscrreg.3ncurses.gz -> outopts.3ncurses.gz
+|   |   |-- wstandend.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wstandout.3ncurses.gz -> attr.3ncurses.gz
+|   |   |-- wsyncdown.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- wsyncup.3ncurses.gz -> window.3ncurses.gz
+|   |   |-- wtimeout.3ncurses.gz -> inopts.3ncurses.gz
+|   |   |-- wtouchln.3ncurses.gz -> touch.3ncurses.gz
+|   |   |-- wunctrl.3ncurses.gz -> util.3ncurses.gz
+|   |   |-- wunctrl_sp.3ncurses.gz -> sp_funcs.3ncurses.gz
+|   |   |-- wvline.3ncurses.gz -> border.3ncurses.gz
+|   |   `-- wvline_set.3ncurses.gz -> border_set.3ncurses.gz
+|   |-- man5
+|   |   |-- term.5.gz
+|   |   `-- terminfo.5.gz
+|   `-- man7
+|       `-- term.7.gz
+`-- share
+    |-- tabset
+    |   |-- std
+    |   |-- stdcrt
+    |   |-- vt100
+    |   `-- vt300
+    `-- terminfo
+        |-- 1
+        |   |-- 1178 -> ../a/adm1178
+        |   `-- 1730-lm -> ../d/diablo1740-lm
+        |-- 2
+        |   |-- 2621 -> ../h/hp2621
+        |   |-- 2621a -> ../h/hp2621
+        |   |-- 2621A -> ../h/hp2621
+        |   `-- 2621-wl -> ../h/hp2621
+        |-- 3
+        |   |-- 386at -> ../a/att6386
+        |   `-- 3b1 -> ../a/att7300
+        |-- 4
+        |   |-- 4025ex -> ../t/tek4025ex
+        |   |-- 4027ex -> ../t/tek4025ex
+        |   `-- 4410-w -> ../a/att5410-w
+        |-- 5
+        |   |-- 5051 -> ../i/ibm-pc
+        |   |-- 5410-w -> ../a/att5410-w
+        |   |-- 5620 -> ../a/att5620
+        |   |-- 5630-24 -> ../a/att630-24
+        |   `-- 5630DMD-24 -> ../a/att630-24
+        |-- 6
+        |   |-- 6053 -> ../d/dg6053
+        |   |-- 6053-dg -> ../d/dg6053
+        |   |-- 605x -> ../d/dg6053
+        |   |-- 605x-dg -> ../d/dg6053
+        |   |-- 630-lm -> ../d/diablo1740-lm
+        |   `-- 630MTG-24 -> ../a/att630-24
+        |-- 7
+        |   |-- 730MTG-24 -> ../a/att730-24
+        |   |-- 730MTG-41 -> ../a/att730-41
+        |   |-- 730MTG-41r -> ../a/att730r-41
+        |   |-- 730MTGr -> ../a/att730r
+        |   `-- 730MTGr-24 -> ../a/att730r-24
+        |-- 8
+        |   `-- 8510 -> ../c/citoh
+        |-- 9
+        |   |-- 955-hb -> ../t/tvi955-hb
+        |   |-- 955-w -> ../t/tvi955-w
+        |   `-- 9term
+        |-- a
+        |   |-- a210 -> ampex210
+        |   |-- a80 -> ampex80
+        |   |-- a980 -> adds980
+        |   |-- aa4080 -> annarbor4080
+        |   |-- aaa
+        |   |-- aaa-18
+        |   |-- aaa-18-rv
+        |   |-- aaa-20
+        |   |-- aaa-22
+        |   |-- aaa-24
+        |   |-- aaa-24-rv
+        |   |-- aaa-26
+        |   |-- aaa-28
+        |   |-- aaa-30 -> aaa
+        |   |-- aaa-30-ctxt
+        |   |-- aaa-30-rv
+        |   |-- aaa-30-rv-ctxt
+        |   |-- aaa-30-s
+        |   |-- aaa-30-s-ctxt -> aaa-s-ctxt
+        |   |-- aaa-30-s-rv
+        |   |-- aaa-30-s-rv-ct -> aaa-s-rv-ctxt
+        |   |-- aaa-36
+        |   |-- aaa-36-rv
+        |   |-- aaa-40
+        |   |-- aaa-40-rv
+        |   |-- aaa-48
+        |   |-- aaa-48-rv
+        |   |-- aaa-60
+        |   |-- aaa-60-dec-rv
+        |   |-- aaa-60-rv
+        |   |-- aaa-60-s
+        |   |-- aaa-60-s-rv
+        |   |-- aaa-ctxt -> aaa-30-ctxt
+        |   |-- aaa-db
+        |   |-- aaa+dec
+        |   |-- aaa-rv -> aaa-30-rv
+        |   |-- aaa+rv
+        |   |-- aaa-rv-ctxt -> aaa-30-rv-ctxt
+        |   |-- aaa-rv-unk
+        |   |-- aaa-s -> aaa-30-s
+        |   |-- aaa-s-ctxt
+        |   |-- aaa-s-rv -> aaa-30-s-rv
+        |   |-- aaa-s-rv-ctxt
+        |   |-- aaa-unk -> aaa+unk
+        |   |-- aaa+unk
+        |   |-- aas1901
+        |   |-- abm80
+        |   |-- abm85
+        |   |-- abm85e
+        |   |-- abm85h
+        |   |-- abm85h-old
+        |   |-- act4
+        |   |-- act5
+        |   |-- addrinfo
+        |   |-- adds980
+        |   |-- addsviewpoint -> ../v/viewpoint
+        |   |-- addsvp60 -> ../v/vp60
+        |   |-- adm1 -> adm1a
+        |   |-- adm11
+        |   |-- adm1178
+        |   |-- adm12
+        |   |-- adm1a
+        |   |-- adm2
+        |   |-- adm20
+        |   |-- adm21
+        |   |-- adm22
+        |   |-- adm3
+        |   |-- adm31
+        |   |-- adm31-old
+        |   |-- adm36
+        |   |-- adm3a
+        |   |-- adm3a+
+        |   |-- adm42
+        |   |-- adm42-ns
+        |   |-- adm5
+        |   |-- adm+sgr
+        |   |-- aepro
+        |   |-- aixterm
+        |   |-- aixterm-16color
+        |   |-- aixterm-m
+        |   |-- aixterm-m-old
+        |   |-- aj -> aj830
+        |   |-- aj510
+        |   |-- aj830
+        |   |-- aj832 -> aj830
+        |   |-- alt2 -> altos2
+        |   |-- alt3 -> altos3
+        |   |-- alt4 -> altos4
+        |   |-- alt5 -> altos3
+        |   |-- alt7 -> altos7
+        |   |-- alt7pc -> altos7pc
+        |   |-- altoh19 -> alto-h19
+        |   |-- alto-h19
+        |   |-- altoheath -> alto-h19
+        |   |-- alto-heath -> alto-h19
+        |   |-- altos2
+        |   |-- altos-2 -> altos2
+        |   |-- altos3
+        |   |-- altos-3 -> altos3
+        |   |-- altos4
+        |   |-- altos-4 -> altos4
+        |   |-- altos5 -> altos3
+        |   |-- altos-5 -> altos3
+        |   |-- altos7
+        |   |-- altos7pc
+        |   |-- ambas -> aaa
+        |   |-- ambassador -> aaa
+        |   |-- amiga
+        |   |-- amiga-8bit
+        |   |-- amiga-h
+        |   |-- amiga-vnc
+        |   |-- amp219 -> ampex219
+        |   |-- amp219w -> ampex219w
+        |   |-- ampex175
+        |   |-- ampex175-b
+        |   |-- ampex210
+        |   |-- ampex219
+        |   |-- ampex-219 -> ampex219
+        |   |-- ampex219w
+        |   |-- ampex-219w -> ampex219w
+        |   |-- ampex232
+        |   |-- ampex-232 -> ampex232
+        |   |-- ampex232w
+        |   |-- ampex80
+        |   |-- annarbor4080
+        |   |-- ansi
+        |   |-- ansi43m -> ../p/pcansi-43-m
+        |   |-- ansi77
+        |   |-- ansi80x25 -> ../c/cons25
+        |   |-- ansi80x25-mono -> ../c/cons25-m
+        |   |-- ansi80x25-raw -> ../c/cons25w
+        |   |-- ansi80x30 -> ../c/cons30
+        |   |-- ansi80x30-mono -> ../c/cons30-m
+        |   |-- ansi80x43 -> ../c/cons43
+        |   |-- ansi80x43-mono -> ../c/cons43-m
+        |   |-- ansi80x50 -> ../c/cons50
+        |   |-- ansi80x50-mono -> ../c/cons50-m
+        |   |-- ansi80x60 -> ../c/cons60
+        |   |-- ansi80x60-mono -> ../c/cons60-m
+        |   |-- ansi+arrows
+        |   |-- ansi-color-2-emx
+        |   |-- ansi-color-3-emx
+        |   |-- ansi+csr
+        |   |-- ansi+cup
+        |   |-- ansi-emx
+        |   |-- ansi+enq
+        |   |-- ansi+erase
+        |   |-- ansi-generic
+        |   |-- ansi+idc
+        |   |-- ansi+idl
+        |   |-- ansi+idl1
+        |   |-- ansi+inittabs
+        |   |-- ansil -> ../c/cons50
+        |   |-- ansil-mono -> ../c/cons50-m
+        |   |-- ansi+local
+        |   |-- ansi+local1
+        |   |-- ansi-m
+        |   |-- ansi-mini
+        |   |-- ansi-mono -> ansi-m
+        |   |-- ansi-mr
+        |   |-- ansi-mtabs
+        |   |-- ansi-nt
+        |   |-- ansi+pp
+        |   |-- ansi+rca
+        |   |-- ansi+rep
+        |   |-- ansis -> ../c/cons25
+        |   |-- ansi+sgr
+        |   |-- ansi+sgrbold
+        |   |-- ansi+sgrdim
+        |   |-- ansi+sgrso
+        |   |-- ansi+sgrul
+        |   |-- ansis-mono -> ../c/cons25-m
+        |   |-- ansi.sys
+        |   |-- ansisysk -> ansi.sysk
+        |   |-- ansi.sysk
+        |   |-- ansi.sys-old
+        |   |-- ansi+tabs
+        |   |-- ansiw -> ../c/cons25w
+        |   |-- apl -> ../i/ibm-apl
+        |   |-- apollo
+        |   |-- apollo_15P
+        |   |-- apollo_19L
+        |   |-- apollo_color
+        |   |-- apple2e
+        |   |-- apple2e-p
+        |   |-- apple-80
+        |   |-- apple80p
+        |   |-- apple-ae
+        |   |-- appleII
+        |   |-- appleIIc -> appleIIgs
+        |   |-- appleIIe -> appleIIgs
+        |   |-- appleIIgs
+        |   |-- apple-soroc
+        |   |-- apple-uterm
+        |   |-- apple-uterm-vb
+        |   |-- apple-videx
+        |   |-- apple-videx2
+        |   |-- apple-videx3
+        |   |-- apple-vm80
+        |   |-- ap-vm80 -> apple-vm80
+        |   |-- arm100
+        |   |-- arm100-am -> arm100
+        |   |-- arm100-w
+        |   |-- arm100-wam -> arm100-w
+        |   |-- at -> ../s/st52
+        |   |-- at386 -> att6386
+        |   |-- atari -> ../s/st52
+        |   |-- atari-color -> ../s/st52-color
+        |   |-- atari-m -> ../s/st52
+        |   |-- atari-old
+        |   |-- atari_st -> ../s/st52
+        |   |-- atari_st-color -> ../s/st52-color
+        |   |-- atarist-m -> ../s/st52
+        |   |-- at-color -> ../s/st52-color
+        |   |-- aterm
+        |   |-- at-m -> ../s/st52
+        |   |-- att2300
+        |   |-- att2350
+        |   |-- att4410
+        |   |-- att4410v1 -> att5410v1
+        |   |-- att4410v1-w
+        |   |-- att4410-w -> att5410-w
+        |   |-- att4415
+        |   |-- att4415-nl
+        |   |-- att4415+nl
+        |   |-- att4415-rv
+        |   |-- att4415-rv-nl
+        |   |-- att4415-w
+        |   |-- att4415-w-nl
+        |   |-- att4415-w-rv
+        |   |-- att4415-w-rv-n
+        |   |-- att4418
+        |   |-- att4418-w
+        |   |-- att4420
+        |   |-- att4424
+        |   |-- att4424-1
+        |   |-- att4424m
+        |   |-- att4425 -> att5425
+        |   |-- att4425-nl -> att5425-nl
+        |   |-- att4425-w -> att5425-w
+        |   |-- att4426
+        |   |-- att500
+        |   |-- att505
+        |   |-- att505-24
+        |   |-- att510a
+        |   |-- att510d
+        |   |-- att513 -> att500
+        |   |-- att5310
+        |   |-- att5320 -> att5310
+        |   |-- att5410 -> att4410
+        |   |-- att5410v1
+        |   |-- att5410v1-w -> att4410v1-w
+        |   |-- att5410-w
+        |   |-- att5418 -> att4418
+        |   |-- att5418-w -> att4418-w
+        |   |-- att5420 -> att4415
+        |   |-- att5420_2
+        |   |-- att5420_2-w
+        |   |-- att5420-nl -> att4415-nl
+        |   |-- att5420+nl -> att4415+nl
+        |   |-- att5420-rv -> att4415-rv
+        |   |-- att5420-rv-nl -> att4415-rv-nl
+        |   |-- att5420-w -> att4415-w
+        |   |-- att5420-w-nl -> att4415-w-nl
+        |   |-- att5420-w-rv -> att4415-w-rv
+        |   |-- att5420-w-rv-n -> att4415-w-rv-n
+        |   |-- att5425
+        |   |-- att5425-nl
+        |   |-- att5425-w
+        |   |-- att5430 -> att505
+        |   |-- att5620
+        |   |-- att5620-1
+        |   |-- att5620-24
+        |   |-- att5620-34
+        |   |-- att5620-s
+        |   |-- att605
+        |   |-- att605-pc
+        |   |-- att605-w
+        |   |-- att610
+        |   |-- att610-103k
+        |   |-- att610-103k-w
+        |   |-- att610-w
+        |   |-- att615
+        |   |-- att615-103k
+        |   |-- att615-103k-w
+        |   |-- att615-w
+        |   |-- att620
+        |   |-- att620-103k
+        |   |-- att620-103k-w
+        |   |-- att620-w
+        |   |-- att630
+        |   |-- att630-24
+        |   |-- att6386
+        |   |-- att700
+        |   |-- att730
+        |   |-- att7300
+        |   |-- att730-24
+        |   |-- att730-41
+        |   |-- att730r
+        |   |-- att730r-24
+        |   |-- att730r-41
+        |   |-- avatar
+        |   |-- avatar0
+        |   |-- avatar0+
+        |   |-- avatar1 -> avatar
+        |   |-- avt
+        |   |-- avt-ns
+        |   |-- avt-rv
+        |   |-- avt-rv-ns
+        |   |-- avt-rv-s -> avt-rv
+        |   |-- avt-s -> avt
+        |   |-- avt+s
+        |   |-- avt-w
+        |   |-- avt-w-ns
+        |   |-- avt-w-rv
+        |   |-- avt-w-rv-ns
+        |   |-- avt-w-rv-s -> avt-w-rv
+        |   |-- avt-w-s -> avt-w
+        |   |-- aws
+        |   `-- awsc
+        |-- A
+        |   `-- Apple_Terminal -> ../n/nsterm
+        |-- b
+        |   |-- b-128 -> ../c/commodore
+        |   |-- bantam
+        |   |-- basic4 -> ../m/mai
+        |   |-- basis
+        |   |-- bct510a -> ../a/att510a
+        |   |-- bct510d -> ../a/att510d
+        |   |-- beacon
+        |   |-- bee -> beehive
+        |   |-- beehive
+        |   |-- beehive3
+        |   |-- beehive4
+        |   |-- beehiveIIIm -> beehive3
+        |   |-- beterm
+        |   |-- bg1.25
+        |   |-- bg1.25nv
+        |   |-- bg1.25rv
+        |   |-- bg2.0
+        |   |-- bg2.0nv -> bitgraph
+        |   |-- bg2.0rv
+        |   |-- bg3.10 -> bg2.0
+        |   |-- bg3.10nv -> bitgraph
+        |   |-- bg3.10rv -> bg2.0rv
+        |   |-- bh3m -> beehive3
+        |   |-- bh4 -> beehive4
+        |   |-- bitgraph
+        |   |-- blit
+        |   |-- bobcat
+        |   |-- bq300
+        |   |-- bq300-8
+        |   |-- bq300-8-pc
+        |   |-- bq300-8-pc-rv
+        |   |-- bq300-8-pc-w
+        |   |-- bq300-8-pc-w-rv
+        |   |-- bq300-8rv
+        |   |-- bq300-8w
+        |   |-- bq300-pc
+        |   |-- bq300-pc-rv
+        |   |-- bq300-pc-w
+        |   |-- bq300-pc-w-rv
+        |   |-- bq300-rv
+        |   |-- bq300-w
+        |   |-- bq300-w-8rv
+        |   |-- bq300-w-rv
+        |   |-- bsdos-pc
+        |   |-- bsdos-pc-m
+        |   |-- bsdos-pc-mono -> bsdos-pc-m
+        |   |-- bsdos-pc-nobold
+        |   |-- bsdos-ppc
+        |   |-- bsdos-sparc
+        |   `-- bterm
+        |-- c
+        |   |-- c100
+        |   |-- c100-1p -> ../o/oc100
+        |   |-- c100-4p -> c100
+        |   |-- c100-rv
+        |   |-- c100-rv-4p -> c100-rv
+        |   |-- c104 -> c100
+        |   |-- c108
+        |   |-- c108-4p
+        |   |-- c108-8p -> c108
+        |   |-- c108-rv
+        |   |-- c108-rv-4p
+        |   |-- c108-rv-8p -> c108-rv
+        |   |-- c108-w
+        |   |-- c108-w-8p -> c108-w
+        |   |-- c300 -> contel300
+        |   |-- c301 -> contel301
+        |   |-- c321 -> contel301
+        |   |-- ca22851
+        |   |-- cad68-2
+        |   |-- cad68-3
+        |   |-- cbblit
+        |   |-- cbunix
+        |   |-- cci
+        |   |-- cci1 -> cci
+        |   |-- cdc456
+        |   |-- cdc721
+        |   |-- cdc721-esc
+        |   |-- cdc721ll
+        |   |-- cdc752
+        |   |-- cdc756
+        |   |-- cg7900
+        |   |-- cgc2 -> cad68-2
+        |   |-- cgc3 -> cad68-3
+        |   |-- chromatics -> cg7900
+        |   |-- ci8510 -> citoh
+        |   |-- cit101
+        |   |-- cit101e
+        |   |-- cit101e-132
+        |   |-- cit101e-n
+        |   |-- cit101e-n132
+        |   |-- cit101e-rv
+        |   |-- cit500
+        |   |-- cit80
+        |   |-- cit-80 -> cit80
+        |   |-- citc -> cit101
+        |   |-- citoh
+        |   |-- citoh-6lpi
+        |   |-- citoh-8lpi
+        |   |-- citoh-comp
+        |   |-- citoh-elite
+        |   |-- citoh-pica
+        |   |-- citoh-prop
+        |   |-- citoh-ps -> citoh-prop
+        |   |-- coco3
+        |   |-- coherent -> ../p/pc-coherent
+        |   |-- colorscan -> cs10
+        |   |-- color_xterm
+        |   |-- commodore
+        |   |-- concept -> c100
+        |   |-- concept100 -> c100
+        |   |-- concept100-rv -> c100-rv
+        |   |-- concept108 -> c108
+        |   |-- concept108-4p -> c108-4p
+        |   |-- concept108-8p -> c108
+        |   |-- concept108rv4p -> c108-rv-4p
+        |   |-- concept108-w-8 -> c108-w
+        |   |-- concept108-w8p -> c108-w
+        |   |-- concept-avt -> ../a/avt
+        |   |-- cons25
+        |   |-- cons25-debian
+        |   |-- cons25-iso8859 -> cons25l1
+        |   |-- cons25-iso-m -> cons25l1-m
+        |   |-- cons25-koi8-r -> cons25r
+        |   |-- cons25-koi8r-m -> cons25r-m
+        |   |-- cons25l1
+        |   |-- cons25l1-m
+        |   |-- cons25-m
+        |   |-- cons25r
+        |   |-- cons25r-m
+        |   |-- cons25w
+        |   |-- cons30
+        |   |-- cons30-m
+        |   |-- cons43
+        |   |-- cons43-m
+        |   |-- cons50
+        |   |-- cons50-iso8859 -> cons50l1
+        |   |-- cons50-iso-m -> cons50l1-m
+        |   |-- cons50-koi8r -> cons50r
+        |   |-- cons50-koi8r-m -> cons50r-m
+        |   |-- cons50l1
+        |   |-- cons50l1-m
+        |   |-- cons50-m
+        |   |-- cons50r
+        |   |-- cons50r-m
+        |   |-- cons60
+        |   |-- cons60-iso -> cons60l1
+        |   |-- cons60-iso-m -> cons60l1-m
+        |   |-- cons60-koi8r -> cons60r
+        |   |-- cons60-koi8r-m -> cons60r-m
+        |   |-- cons60l1
+        |   |-- cons60l1-m
+        |   |-- cons60-m
+        |   |-- cons60r
+        |   |-- cons60r-m
+        |   |-- contel300
+        |   |-- contel301
+        |   |-- contel320 -> contel300
+        |   |-- contel321 -> contel301
+        |   |-- cops -> cops10
+        |   |-- cops10
+        |   |-- cops-10 -> cops10
+        |   |-- crt
+        |   |-- crt-vt220 -> crt
+        |   |-- cs10
+        |   |-- cs10-w
+        |   |-- ct82 -> ../s/swtp
+        |   |-- ct8500
+        |   |-- ctrm
+        |   |-- cx -> color_xterm
+        |   |-- cx100 -> color_xterm
+        |   |-- cyb110
+        |   |-- cyb83
+        |   |-- cygwin
+        |   |-- cygwinB19
+        |   `-- cygwinDBG
+        |-- d
+        |   |-- d132
+        |   |-- d2 -> dg6053
+        |   |-- d200
+        |   |-- d200-dg -> d200
+        |   |-- d210
+        |   |-- d210-dg
+        |   |-- d211
+        |   |-- d211-7b
+        |   |-- d211-dg
+        |   |-- d214 -> d210
+        |   |-- d214-dg -> d210-dg
+        |   |-- d215 -> d211
+        |   |-- d215-7b -> d211-7b
+        |   |-- d215-dg -> d211-dg
+        |   |-- d216+ -> d216-unix
+        |   |-- d216+25 -> d216-unix-25
+        |   |-- d216-dg
+        |   |-- d216+dg -> d216-dg
+        |   |-- d216e+ -> d216-unix
+        |   |-- d216e-dg -> d216-dg
+        |   |-- d216e+dg -> d216-dg
+        |   |-- d216e-unix -> d216-unix
+        |   |-- d216-unix
+        |   |-- d216-unix-25
+        |   |-- d217-dg -> d216-dg
+        |   |-- d217-unix
+        |   |-- d217-unix-25
+        |   |-- d220
+        |   |-- d220-7b
+        |   |-- d220-dg
+        |   |-- d230 -> d230c
+        |   |-- d230c
+        |   |-- d230c-dg
+        |   |-- d230-dg -> d230c-dg
+        |   |-- d2-dg -> dg6053
+        |   |-- d400
+        |   |-- d400-dg -> d400
+        |   |-- d410
+        |   |-- d410-7b
+        |   |-- d410-7b-w
+        |   |-- d410-dg
+        |   |-- d410-w
+        |   |-- d411 -> d410
+        |   |-- d411-7b -> d410-7b
+        |   |-- d411-7b-w -> d410-7b-w
+        |   |-- d411-dg -> d410-dg
+        |   |-- d411-w -> d410-w
+        |   |-- d412+ -> d412-unix
+        |   |-- d412+25 -> d412-unix-25
+        |   |-- d412-dg
+        |   |-- d412+dg -> d412-dg
+        |   |-- d412+s -> d412-unix-s
+        |   |-- d412+sr -> d412-unix-sr
+        |   |-- d412-unix
+        |   |-- d412-unix-25
+        |   |-- d412-unix-s
+        |   |-- d412-unix-sr
+        |   |-- d412-unix-w
+        |   |-- d412+w -> d412-unix-w
+        |   |-- d413-dg -> d412-dg
+        |   |-- d413-unix
+        |   |-- d413-unix-25
+        |   |-- d413-unix-s
+        |   |-- d413-unix-sr
+        |   |-- d413-unix-w
+        |   |-- d414-unix
+        |   |-- d414-unix-25
+        |   |-- d414-unix-s
+        |   |-- d414-unix-sr
+        |   |-- d414-unix-w
+        |   |-- d430c-dg
+        |   |-- d430c-dg-ccc
+        |   |-- d430c-unix
+        |   |-- d430c-unix-25
+        |   |-- d430c-unix-25-ccc
+        |   |-- d430c-unix-ccc
+        |   |-- d430c-unix-s
+        |   |-- d430c-unix-s-ccc
+        |   |-- d430c-unix-sr
+        |   |-- d430c-unix-sr-ccc
+        |   |-- d430c-unix-w
+        |   |-- d430c-unix-w-ccc
+        |   |-- d430-dg -> d430c-dg
+        |   |-- d430-dg-ccc -> d430c-dg-ccc
+        |   |-- d430-unix -> d430c-unix
+        |   |-- d430-unix-25 -> d430c-unix-25
+        |   |-- d430-unix-25-ccc -> d430c-unix-25-ccc
+        |   |-- d430-unix-ccc -> d430c-unix-ccc
+        |   |-- d430-unix-s -> d430c-unix-s
+        |   |-- d430-unix-s-ccc -> d430c-unix-s-ccc
+        |   |-- d430-unix-sr -> d430c-unix-sr
+        |   |-- d430-unix-sr-ccc -> d430c-unix-sr-ccc
+        |   |-- d430-unix-w -> d430c-unix-w
+        |   |-- d430-unix-w-ccc -> d430c-unix-w-ccc
+        |   |-- d450 -> d400
+        |   |-- d450-dg -> d400
+        |   |-- d460 -> d410
+        |   |-- d460-7b -> d410-7b
+        |   |-- d460-7b-w -> d410-7b-w
+        |   |-- d460-dg -> d410-dg
+        |   |-- d460-w -> d410-w
+        |   |-- d461 -> d410
+        |   |-- d461-7b -> d410-7b
+        |   |-- d461-7b-w -> d410-7b-w
+        |   |-- d461-dg -> d410-dg
+        |   |-- d461-w -> d410-w
+        |   |-- d462+ -> d412-unix
+        |   |-- d462+25 -> d412-unix-25
+        |   |-- d462-dg -> d412-dg
+        |   |-- d462+dg -> d412-dg
+        |   |-- d462e-dg -> d412-dg
+        |   |-- d462+s -> d412-unix-s
+        |   |-- d462+sr -> d412-unix-sr
+        |   |-- d462-unix -> d412-unix
+        |   |-- d462-unix-25 -> d412-unix-25
+        |   |-- d462-unix-s -> d412-unix-s
+        |   |-- d462-unix-sr -> d412-unix-sr
+        |   |-- d462-unix-w -> d412-unix-w
+        |   |-- d462+w -> d412-unix-w
+        |   |-- d463-dg -> d412-dg
+        |   |-- d463-unix -> d413-unix
+        |   |-- d463-unix-25 -> d413-unix-25
+        |   |-- d463-unix-s -> d413-unix-s
+        |   |-- d463-unix-sr -> d413-unix-sr
+        |   |-- d463-unix-w -> d413-unix-w
+        |   |-- d464-unix -> d414-unix
+        |   |-- d464-unix-25 -> d414-unix-25
+        |   |-- d464-unix-s -> d414-unix-s
+        |   |-- d464-unix-sr -> d414-unix-sr
+        |   |-- d464-unix-w -> d414-unix-w
+        |   |-- d470 -> d470c
+        |   |-- d470-7b -> d470c-7b
+        |   |-- d470c
+        |   |-- d470c-7b
+        |   |-- d470c-dg
+        |   |-- d470-dg -> d470c-dg
+        |   |-- d555
+        |   |-- d555-7b
+        |   |-- d555-7b-w
+        |   |-- d555-dg
+        |   |-- d555-w
+        |   |-- d577
+        |   |-- d577-7b
+        |   |-- d577-7b-w
+        |   |-- d577-dg
+        |   |-- d577-w
+        |   |-- d578
+        |   |-- d578-7b
+        |   |-- d578-dg -> d577-dg
+        |   |-- d80 -> ../a/ampex80
+        |   |-- d800
+        |   |-- darwin -> ../x/xnuppc
+        |   |-- darwin-100x37 -> ../x/xnuppc-100x37
+        |   |-- darwin-100x37-m -> ../x/xnuppc-100x37-m
+        |   |-- darwin-112x37 -> ../x/xnuppc-112x37
+        |   |-- darwin-112x37-m -> ../x/xnuppc-112x37-m
+        |   |-- darwin-128x40 -> ../x/xnuppc-128x40
+        |   |-- darwin-128x40-m -> ../x/xnuppc-128x40-m
+        |   |-- darwin-128x48 -> ../x/xnuppc-128x48
+        |   |-- darwin-128x48-m -> ../x/xnuppc-128x48-m
+        |   |-- darwin-144x48 -> ../x/xnuppc-144x48
+        |   |-- darwin-144x48-m -> ../x/xnuppc-144x48-m
+        |   |-- darwin-160x64 -> ../x/xnuppc-160x64
+        |   |-- darwin-160x64-m -> ../x/xnuppc-160x64-m
+        |   |-- darwin-200x64 -> ../x/xnuppc-200x64
+        |   |-- darwin-200x64-m -> ../x/xnuppc-200x64-m
+        |   |-- darwin-200x75 -> ../x/xnuppc-200x75
+        |   |-- darwin-200x75-m -> ../x/xnuppc-200x75-m
+        |   |-- darwin-256x96 -> ../x/xnuppc-256x96
+        |   |-- darwin-256x96-m -> ../x/xnuppc-256x96-m
+        |   |-- darwin-80x25 -> ../x/xnuppc-80x25
+        |   |-- darwin-80x25-m -> ../x/xnuppc-80x25-m
+        |   |-- darwin-80x30 -> ../x/xnuppc-80x30
+        |   |-- darwin-80x30-m -> ../x/xnuppc-80x30-m
+        |   |-- darwin-90x30 -> ../x/xnuppc-90x30
+        |   |-- darwin-90x30-m -> ../x/xnuppc-90x30-m
+        |   |-- darwin-b -> ../x/xnuppc-b
+        |   |-- darwin-f -> ../x/xnuppc-f
+        |   |-- darwin-f2 -> ../x/xnuppc-f2
+        |   |-- darwin-m -> ../x/xnuppc-m
+        |   |-- darwin-m-b -> ../x/xnuppc-m-b
+        |   |-- darwin-m-f -> ../x/xnuppc-m-f
+        |   |-- darwin-m-f2 -> ../x/xnuppc-m-f2
+        |   |-- datagraphix -> d132
+        |   |-- datamedia2500 -> dm2500
+        |   |-- datapoint -> dp3360
+        |   |-- dataspeed40 -> ../t/tty40
+        |   |-- dd5000 -> delta
+        |   |-- ddr
+        |   |-- ddr3180 -> ddr
+        |   |-- decansi
+        |   |-- decpro -> ../p/pro350
+        |   |-- dec-vt100
+        |   |-- dec-vt220
+        |   |-- dec-vt330 -> ../v/vt340
+        |   |-- dec-vt340 -> ../v/vt340
+        |   |-- dec-vt400 -> ../v/vt400
+        |   |-- decwriter -> dw2
+        |   |-- delta
+        |   |-- dg100 -> dg6053-old
+        |   |-- dg200
+        |   |-- dg210
+        |   |-- dg211
+        |   |-- dg450
+        |   |-- dg460-ansi
+        |   |-- dg6053
+        |   |-- dg6053-old
+        |   |-- dg605x -> dg6053
+        |   |-- dg6134 -> dg450
+        |   |-- dg-ansi -> dg210
+        |   |-- dg+ccc
+        |   |-- dg+color
+        |   |-- dg+color8
+        |   |-- dg+fixed
+        |   |-- dg-generic
+        |   |-- dgkeys+11
+        |   |-- dgkeys+15
+        |   |-- dgkeys+7b
+        |   |-- dgkeys+8b
+        |   |-- dgmode+color
+        |   |-- dgmode+color8
+        |   |-- dgunix+ccc
+        |   |-- dgunix+fixed
+        |   |-- diablo -> diablo1640
+        |   |-- diablo1620
+        |   |-- diablo1620-m8
+        |   |-- diablo1640
+        |   |-- diablo1640-lm
+        |   |-- diablo1640-m8 -> diablo1620-m8
+        |   |-- diablo1720 -> diablo1620
+        |   |-- diablo1730 -> diablo1640
+        |   |-- diablo1740 -> diablo1640
+        |   |-- diablo1740-lm
+        |   |-- diablo450 -> diablo1620
+        |   |-- diablo630 -> diablo1640
+        |   |-- diablo-lm -> diablo1640-lm
+        |   |-- dialogue -> ../a/ampex80
+        |   |-- dialogue80 -> ../a/ampex80
+        |   |-- digilog
+        |   |-- djgpp
+        |   |-- djgpp203
+        |   |-- djgpp204
+        |   |-- dku7003
+        |   |-- dku7003-dumb
+        |   |-- dku7102 -> ../t/tws-generic
+        |   |-- dku7102-old
+        |   |-- dku7102-sna -> ../t/tws2102-sna
+        |   |-- dku7103-sna -> ../t/tws2103-sna
+        |   |-- dku7202
+        |   |-- dm1520
+        |   |-- dm1521 -> dm1520
+        |   |-- dm2500
+        |   |-- dm3025
+        |   |-- dm3045
+        |   |-- dm80
+        |   |-- dm80w
+        |   |-- dmchat
+        |   |-- dmd -> ../a/att5620
+        |   |-- dmd1 -> ../a/att5620-1
+        |   |-- dmd-24 -> ../a/att5620-24
+        |   |-- dmd-34 -> ../a/att5620-34
+        |   |-- dmdt80 -> dm80
+        |   |-- dmdt80w -> dm80w
+        |   |-- dmterm
+        |   |-- dp3360
+        |   |-- dp8242
+        |   |-- ds40 -> ../t/tty40
+        |   |-- ds40-2 -> ../t/tty40
+        |   |-- dt100
+        |   |-- dt-100 -> dt100
+        |   |-- dt100w
+        |   |-- dt-100w -> dt100w
+        |   |-- dt110
+        |   |-- dt80 -> dm80
+        |   |-- dt80-sas
+        |   |-- dt80w -> dm80w
+        |   |-- dtc300s
+        |   |-- dtc382
+        |   |-- dtterm
+        |   |-- dumb
+        |   |-- dw -> dw2
+        |   |-- dw1
+        |   |-- dw2
+        |   |-- dw3
+        |   |-- dw4
+        |   |-- dwk
+        |   `-- dwk-vt -> dwk
+        |-- e
+        |   |-- ecma+color
+        |   |-- ecma+sgr
+        |   |-- elks
+        |   |-- elks-ansi
+        |   |-- elks-glasstty
+        |   |-- elks-vt52
+        |   |-- emots -> ../g/gs6300
+        |   |-- emu
+        |   |-- emu-220
+        |   |-- emx-base
+        |   |-- env230
+        |   |-- envision230 -> env230
+        |   |-- ep40
+        |   |-- ep4000 -> ep40
+        |   |-- ep4080 -> ep48
+        |   |-- ep48
+        |   |-- ergo4000
+        |   |-- esprit
+        |   |-- esprit-am
+        |   |-- eterm
+        |   |-- eterm-color
+        |   |-- ex155
+        |   |-- excel62
+        |   |-- excel62-rv
+        |   |-- excel62-w
+        |   |-- excel64 -> excel62
+        |   |-- excel64-rv -> excel62-rv
+        |   |-- excel64-w -> excel62-w
+        |   `-- exec80 -> ../h/hazel
+        |-- E
+        |   |-- Eterm
+        |   |-- Eterm-256color
+        |   |-- Eterm-88color
+        |   `-- Eterm-color -> Eterm
+        |-- f
+        |   |-- f100
+        |   |-- f100-rv
+        |   |-- f110
+        |   |-- f110-14
+        |   |-- f110-14w
+        |   |-- f110-w
+        |   |-- f1720
+        |   |-- f1720a -> f1720
+        |   |-- f200
+        |   |-- f200vi
+        |   |-- f200vi-w
+        |   |-- f200-w
+        |   |-- falco
+        |   |-- falco-p
+        |   |-- fenix -> ../p/pt100
+        |   |-- fenixw -> ../p/pt100w
+        |   |-- fixterm -> ../c/cbblit
+        |   |-- fortune -> fos
+        |   |-- fos
+        |   |-- fox
+        |   |-- freedom -> f100
+        |   |-- freedom100 -> f100
+        |   |-- freedom110 -> f110
+        |   |-- freedom200 -> f200
+        |   `-- freedom-rv -> f100-rv
+        |-- g
+        |   |-- gator
+        |   |-- gator-52
+        |   |-- gator-52t
+        |   |-- gator-t
+        |   |-- gigi
+        |   |-- glasstty
+        |   |-- gnome
+        |   |-- gnome-2007
+        |   |-- gnome-2008
+        |   |-- gnome-256color
+        |   |-- gnome-fc5
+        |   |-- gnome+pcfkeys
+        |   |-- gnome-rh62
+        |   |-- gnome-rh72
+        |   |-- gnome-rh80
+        |   |-- gnome-rh90
+        |   |-- go140
+        |   |-- go140w
+        |   |-- go225
+        |   |-- go-225 -> go225
+        |   |-- graphos
+        |   |-- graphos-30
+        |   |-- gs5430 -> ../a/att505
+        |   |-- gs5430-22 -> ../t/tt505-22
+        |   |-- gs5430-24 -> ../a/att505-24
+        |   |-- gs6300
+        |   |-- gsi
+        |   |-- gt100 -> ../i/i100
+        |   |-- gt100a -> ../i/i100
+        |   |-- gt40
+        |   |-- gt42
+        |   |-- guru
+        |   |-- guru-24
+        |   |-- guru-33 -> guru
+        |   |-- guru-33-rv -> guru-rv
+        |   |-- guru-33-s -> guru-s
+        |   |-- guru-44
+        |   |-- guru-44-s
+        |   |-- guru-76
+        |   |-- guru-76-lp
+        |   |-- guru-76-s
+        |   |-- guru-76-w
+        |   |-- guru-76-wm
+        |   |-- guru-76-w-s
+        |   |-- guru-lp -> guru-76-lp
+        |   |-- guru-nctxt
+        |   |-- guru-rv
+        |   |-- guru+rv
+        |   |-- guru-s
+        |   |-- guru+s
+        |   `-- guru+unk -> guru
+        |-- h
+        |   |-- h100 -> ../z/z100
+        |   |-- h-100 -> ../z/z100
+        |   |-- h100bw -> ../z/z100bw
+        |   |-- h-100bw -> ../z/z100bw
+        |   |-- h19
+        |   |-- h19a -> h19-a
+        |   |-- h19-a
+        |   |-- h19-b -> h19
+        |   |-- h19-bs
+        |   |-- h19g -> h19-g
+        |   |-- h19-g
+        |   |-- h19k
+        |   |-- h19kermit -> h19k
+        |   |-- h19-smul -> h19-us
+        |   |-- h19-u
+        |   |-- h19us -> h19-us
+        |   |-- h19-us
+        |   |-- h29a-kc-bc -> ../z/z29a
+        |   |-- h29a-kc-uc -> ../z/z29a-kc-uc
+        |   |-- h29a-nkc-bc -> ../z/z29a-nkc-bc
+        |   |-- h29a-nkc-uc -> ../z/z29a-nkc-uc
+        |   |-- h80 -> hazel
+        |   |-- ha8675
+        |   |-- ha8686
+        |   |-- hazel
+        |   |-- hds200
+        |   |-- he80 -> hazel
+        |   |-- heath -> h19
+        |   |-- heath-19 -> h19
+        |   |-- heath-ansi -> h19-a
+        |   |-- heathkit -> h19
+        |   |-- heathkit-a -> h19-a
+        |   |-- hft -> ../i/ibm5081
+        |   |-- hft-c
+        |   |-- hft-c-old
+        |   |-- hft-old
+        |   |-- hirez100
+        |   |-- hirez100-w
+        |   |-- hmod1
+        |   |-- hp -> hpgeneric
+        |   |-- hp110
+        |   |-- hp150
+        |   |-- hp2
+        |   |-- hp236
+        |   |-- hp2382 -> hp2382a
+        |   |-- hp2382a
+        |   |-- hp2392
+        |   |-- hp2397 -> hp2397a
+        |   |-- hp2397a
+        |   |-- hp2621
+        |   |-- hp2621-48
+        |   |-- hp2621a -> hp2621
+        |   |-- hp2621-a
+        |   |-- hp2621A -> hp2621
+        |   |-- hp2621a-a -> hp2621-a
+        |   |-- hp2621b
+        |   |-- hp2621-ba
+        |   |-- hp2621b-kx
+        |   |-- hp2621b-kx-p
+        |   |-- hp2621b-p
+        |   |-- hp2621-fl
+        |   |-- hp2621k45 -> hp2621-k45
+        |   |-- hp2621-k45
+        |   |-- hp2621-nl
+        |   |-- hp2621-nt
+        |   |-- hp2621p
+        |   |-- hp2621p-a
+        |   |-- hp2621-wl -> hp2621
+        |   |-- hp2622
+        |   |-- hp2622a -> hp2622
+        |   |-- hp2623
+        |   |-- hp2623a -> hp2623
+        |   |-- hp2624
+        |   |-- hp2624-10p
+        |   |-- hp2624a -> hp2624
+        |   |-- hp2624a-10p -> hp2624-10p
+        |   |-- hp2624b -> hp2624
+        |   |-- hp2624b-10p -> hp2624-10p
+        |   |-- hp2624b-10p-p
+        |   |-- hp2624b-4p -> hp2624
+        |   |-- hp2624b-4p-p -> hp2624b-p
+        |   |-- hp2624b-p
+        |   |-- hp2626
+        |   |-- hp2626-12
+        |   |-- hp2626-12-s
+        |   |-- hp2626-12x40
+        |   |-- hp2626a -> hp2626
+        |   |-- hp2626-ns
+        |   |-- hp2626p -> hp2626
+        |   |-- hp2626-s
+        |   |-- hp2626-x40
+        |   |-- hp2627a
+        |   |-- hp2627a-rev
+        |   |-- hp2627c
+        |   |-- hp262x
+        |   |-- hp2640a
+        |   |-- hp2640b
+        |   |-- hp2641a
+        |   |-- hp2644a -> hp2640b
+        |   |-- hp2645
+        |   |-- hp2645a -> hp2641a
+        |   |-- hp2647a -> hp2641a
+        |   |-- hp2648
+        |   |-- hp2648a -> hp2648
+        |   |-- hp300h
+        |   |-- hp45 -> hp2645
+        |   |-- hp700 -> hpansi
+        |   |-- hp70092
+        |   |-- hp70092a -> hp70092
+        |   |-- hp70092A -> hp70092
+        |   |-- hp700-wy
+        |   |-- hp9837
+        |   |-- hp9845
+        |   |-- hp98550
+        |   |-- hp98550a -> hp98550
+        |   |-- hp98720 -> hp9837
+        |   |-- hp98721 -> hp9837
+        |   |-- hpansi
+        |   |-- hp+arrows
+        |   |-- hp+color
+        |   |-- hpex
+        |   |-- hpex2 -> hp2
+        |   |-- hpgeneric
+        |   |-- hp+labels
+        |   |-- hp+pfk+arrows
+        |   |-- hp+pfk-cr
+        |   |-- hp+pfk+cr
+        |   |-- hp+printer
+        |   |-- hpsub
+        |   |-- hpterm
+        |   |-- hpterm-color
+        |   |-- htx11 -> ../z/ztx
+        |   |-- hurd
+        |   |-- hz1000
+        |   |-- hz1420
+        |   |-- hz1500
+        |   |-- hz1510
+        |   |-- hz1520
+        |   |-- hz1520-noesc
+        |   |-- hz1552
+        |   |-- hz1552-rv
+        |   `-- hz2000
+        |-- i
+        |   |-- i100
+        |   |-- i3101 -> ibm3101
+        |   |-- i3164 -> ibm3164
+        |   |-- i400
+        |   |-- ibcs2
+        |   |-- ibm+16color
+        |   |-- ibm3101
+        |   |-- ibm3151
+        |   |-- ibm3161
+        |   |-- ibm3161-C
+        |   |-- ibm3162
+        |   |-- ibm3163 -> ibm3161
+        |   |-- ibm3164
+        |   |-- ibm327x
+        |   |-- ibm5051 -> ibm-pc
+        |   |-- ibm5081
+        |   |-- ibm5081-c
+        |   |-- ibm5151
+        |   |-- ibm5154
+        |   |-- ibm5154-c -> ibmega-c
+        |   |-- ibm6153
+        |   |-- ibm6153-40
+        |   |-- ibm6153-90
+        |   |-- ibm6154
+        |   |-- ibm6154-c -> ibmapa8c-c
+        |   |-- ibm6155
+        |   |-- ibm8503
+        |   |-- ibm8507 -> ibm8503
+        |   |-- ibm8512
+        |   |-- ibm8513 -> ibm8512
+        |   |-- ibm8514
+        |   |-- ibm8514-c
+        |   |-- ibm8604 -> ibm8503
+        |   |-- ibmaed
+        |   |-- ibmapa16 -> ../r/rtpc
+        |   |-- ibmapa8 -> ibmapa8c
+        |   |-- ibmapa8c
+        |   |-- ibmapa8c-c
+        |   |-- ibm-apl
+        |   |-- ibm+color
+        |   |-- ibmega
+        |   |-- ibmega-c
+        |   |-- ibmmono
+        |   |-- ibmmpel-c -> ibm5081-c
+        |   |-- ibmpc
+        |   |-- ibm-pc
+        |   |-- ibmpc3
+        |   |-- ibmpc3r -> ../c/cons25r
+        |   |-- ibmpc3r-mono -> ../c/cons25r-m
+        |   |-- ibmpcx
+        |   |-- ibm-system1
+        |   |-- ibmvga
+        |   |-- ibmvga-c
+        |   |-- ibmx -> ibmpcx
+        |   |-- icl6402 -> icl6404
+        |   |-- icl6404
+        |   |-- icl6404-w
+        |   |-- ifmr
+        |   |-- ims950
+        |   |-- ims950-b
+        |   |-- ims950-rv
+        |   |-- ims-ansi
+        |   |-- infoton
+        |   |-- interix
+        |   |-- interix-nti
+        |   |-- intertec -> intertube
+        |   |-- intertube
+        |   |-- intertube2
+        |   |-- intext
+        |   |-- intext2
+        |   |-- intextii -> intext2
+        |   |-- ips -> ../c/citoh-prop
+        |   |-- ipsi -> ../d/diablo1620
+        |   |-- iq120 -> ../s/soroc120
+        |   |-- iq140 -> ../s/soroc140
+        |   |-- iris40 -> ../w/wsiris
+        |   |-- iris-ansi
+        |   |-- iris-ansi-ap
+        |   |-- iris-ansi-net -> iris-ansi
+        |   |-- iris-color
+        |   `-- iTerm.app
+        |-- j
+        |   |-- jaixterm
+        |   |-- jaixterm-m
+        |   |-- jerq -> ../b/blit
+        |   `-- jfbterm -> ../k/kon
+        |-- k
+        |   |-- k45 -> ../h/hp2621-k45
+        |   |-- kaypro
+        |   |-- kaypro2 -> kaypro
+        |   |-- kds6402 -> ../i/icl6404
+        |   |-- kds7372 -> ../i/icl6404
+        |   |-- kds7372-w -> ../i/icl6404-w
+        |   |-- kermit
+        |   |-- kermit-am
+        |   |-- klone+acs
+        |   |-- klone+color
+        |   |-- klone+koi8acs
+        |   |-- klone+sgr
+        |   |-- klone+sgr8
+        |   |-- klone+sgr-dumb
+        |   |-- kon
+        |   |-- kon2 -> kon
+        |   |-- konsole
+        |   |-- konsole-16color
+        |   |-- konsole-256color
+        |   |-- konsole-base
+        |   |-- konsole-linux
+        |   |-- konsole+pcfkeys
+        |   |-- konsole-solaris
+        |   |-- konsole-vt100
+        |   |-- konsole-vt420pc
+        |   |-- konsole-xf3x
+        |   |-- konsole-xf4x
+        |   |-- kt7
+        |   |-- kt7ix
+        |   |-- kterm
+        |   |-- kterm-co -> kterm-color
+        |   |-- kterm-color
+        |   |-- ktm -> ../s/synertek
+        |   `-- kvt
+        |-- l
+        |   |-- la120 -> ../d/dw3
+        |   |-- layer -> ../a/att5620-s
+        |   |-- lft
+        |   |-- lft-pc850 -> lft
+        |   |-- linux
+        |   |-- linux-16color
+        |   |-- linux2.6.26
+        |   |-- linux-basic
+        |   |-- linux-c
+        |   |-- linux-c-nc
+        |   |-- linux-koi8
+        |   |-- linux-koi8r
+        |   |-- linux-lat
+        |   |-- linux-m
+        |   |-- linux-nic
+        |   |-- linux-vt
+        |   |-- lisa
+        |   |-- lisaterm
+        |   |-- lisaterm-w
+        |   |-- liswb
+        |   |-- ln03
+        |   |-- ln03-w
+        |   |-- lpr
+        |   |-- luna
+        |   `-- luna68k -> luna
+        |-- L
+        |   `-- LFT-PC850 -> ../l/lft
+        |-- m
+        |   |-- m2-nam
+        |   |-- mac
+        |   |-- mach
+        |   |-- mach-bold
+        |   |-- mach-color
+        |   |-- macintosh -> mac
+        |   |-- macterminal-w -> mac-w
+        |   |-- mac-w
+        |   |-- mai
+        |   |-- masscomp
+        |   |-- masscomp1
+        |   |-- masscomp2
+        |   |-- mdl110 -> ../c/cyb110
+        |   |-- megatek
+        |   |-- memhp
+        |   |-- mgr
+        |   |-- mgr-linux
+        |   |-- mgr-sun
+        |   |-- mgt
+        |   |-- mgterm
+        |   |-- microb
+        |   |-- microbee -> microb
+        |   |-- microterm -> ../a/act4
+        |   |-- microterm5 -> ../a/act5
+        |   |-- mime
+        |   |-- mime1 -> mime
+        |   |-- mime2 -> mime
+        |   |-- mime2a
+        |   |-- mime2a-s
+        |   |-- mime2a-v -> mime2a
+        |   |-- mime314
+        |   |-- mime340 -> mm340
+        |   |-- mime3a
+        |   |-- mime3ax
+        |   |-- mime-3ax -> mime3ax
+        |   |-- mime-fb
+        |   |-- mime-hb
+        |   |-- mimei -> mime
+        |   |-- mimeii -> mime
+        |   |-- minitel -> m2-nam
+        |   |-- minitel1
+        |   |-- minitel1b
+        |   |-- minitel1b-80
+        |   |-- minitel-2 -> m2-nam
+        |   |-- minitel-2-nam -> m2-nam
+        |   |-- minix
+        |   |-- minix-1.5 -> minix-old
+        |   |-- minix-1.7
+        |   |-- minix-old
+        |   |-- minix-old-am
+        |   |-- mlterm
+        |   |-- mlterm-256color
+        |   |-- mlterm+pcfkeys
+        |   |-- mm314 -> mime314
+        |   |-- mm340
+        |   |-- mod -> modgraph48
+        |   |-- mod24 -> modgraph
+        |   |-- modgraph
+        |   |-- modgraph2
+        |   |-- modgraph48
+        |   |-- mono-emx
+        |   |-- morphos
+        |   |-- mouse-sun -> mterm
+        |   |-- mrxvt
+        |   |-- mrxvt-256color
+        |   |-- msk227
+        |   |-- msk22714
+        |   |-- msk227am
+        |   |-- mskermit227 -> msk227
+        |   |-- mskermit22714 -> msk22714
+        |   |-- mskermit227am -> msk227am
+        |   |-- ms-vt100
+        |   |-- ms-vt100+
+        |   |-- ms-vt100-color
+        |   |-- ms-vt-utf8
+        |   |-- mt4520-rv
+        |   |-- mt70
+        |   |-- mt-70 -> mt70
+        |   |-- mterm
+        |   |-- mterm-ansi
+        |   `-- mvterm
+        |-- M
+        |   |-- MtxOrb
+        |   |-- MtxOrb162
+        |   `-- MtxOrb204
+        |-- n
+        |   |-- nansisys -> nansi.sys
+        |   |-- nansi.sys
+        |   |-- nansisysk -> nansi.sysk
+        |   |-- nansi.sysk
+        |   |-- ncr160vppp
+        |   |-- ncr160vpwpp
+        |   |-- ncr160vt100an
+        |   |-- ncr160vt100pp
+        |   |-- ncr160vt100wan
+        |   |-- ncr160vt100wpp
+        |   |-- ncr160vt200an
+        |   |-- ncr160vt200pp
+        |   |-- ncr160vt200wan
+        |   |-- ncr160vt200wpp
+        |   |-- ncr160vt300an
+        |   |-- ncr160vt300pp
+        |   |-- ncr160vt300wan
+        |   |-- ncr160vt300wpp
+        |   |-- ncr160wy50+pp
+        |   |-- ncr160wy50+wpp
+        |   |-- ncr160wy60pp
+        |   |-- ncr160wy60wpp
+        |   |-- ncr260intan
+        |   |-- ncr260intpp
+        |   |-- ncr260intwan
+        |   |-- ncr260intwpp
+        |   |-- ncr260vppp
+        |   |-- ncr260vpwpp
+        |   |-- ncr260vt100an
+        |   |-- ncr260vt100pp
+        |   |-- ncr260vt100wan
+        |   |-- ncr260vt100wpp
+        |   |-- ncr260vt200an
+        |   |-- ncr260vt200pp
+        |   |-- ncr260vt200wan
+        |   |-- ncr260vt200wpp
+        |   |-- ncr260vt300an
+        |   |-- ncr260vt300pp
+        |   |-- ncr260vt300wan
+        |   |-- ncr260vt300wpp -> ../N/NCR260VT300WPP
+        |   |-- ncr260wy325pp
+        |   |-- ncr260wy325wpp
+        |   |-- ncr260wy350pp
+        |   |-- ncr260wy350wpp
+        |   |-- ncr260wy50+pp
+        |   |-- ncr260wy50+wpp
+        |   |-- ncr260wy60pp
+        |   |-- ncr260wy60wpp
+        |   |-- ncr7900 -> ncr7900i
+        |   |-- ncr7900i
+        |   |-- ncr7900iv
+        |   |-- ncr7901
+        |   |-- ncrvt100an
+        |   |-- ncrvt100pp -> ncrvt100an
+        |   |-- ncrvt100wan
+        |   |-- ncrvt100wpp -> ncrvt100wan
+        |   |-- ncsa
+        |   |-- ncsa-m
+        |   |-- ncsa-m-ns
+        |   |-- ncsa-ns
+        |   |-- ncsa-vt220
+        |   |-- ncsa-vt220-8 -> ncsa-m
+        |   |-- nd9500 -> ndr9500
+        |   |-- ndr9500
+        |   |-- ndr9500-25
+        |   |-- ndr9500-25-mc
+        |   |-- ndr9500-25-mc-nl
+        |   |-- ndr9500-25-nl
+        |   |-- ndr9500-mc
+        |   |-- ndr9500-mc-nl
+        |   |-- ndr9500-nl
+        |   |-- nec -> nec5520
+        |   |-- nec5520
+        |   |-- newhp
+        |   |-- newhpkeyboard
+        |   |-- news -> nwp512
+        |   |-- news28
+        |   |-- news28-a -> news29
+        |   |-- news29
+        |   |-- news-29
+        |   |-- news-29-euc
+        |   |-- news-29-sjis
+        |   |-- news31 -> nwp513
+        |   |-- news31-a -> nwp513-a
+        |   |-- news31-o -> nwp513-o
+        |   |-- news33 -> nwp513-a
+        |   |-- news-33
+        |   |-- news-33-euc
+        |   |-- news-33-sjis
+        |   |-- news40 -> nwp512
+        |   |-- news40-a -> nwp512-a
+        |   |-- news40-o -> nwp512-o
+        |   |-- news42 -> nwp512-a
+        |   |-- news-42
+        |   |-- news-42-euc
+        |   |-- news-42-sjis
+        |   |-- news-a -> nwp512-a
+        |   |-- newscbm -> nwp513
+        |   |-- newscbm33 -> nwp513-a
+        |   |-- newscbm-a -> nwp513-a
+        |   |-- newscbm-o -> nwp513-o
+        |   |-- news-o -> nwp512-o
+        |   |-- news-old-unk
+        |   |-- news-unk
+        |   |-- next
+        |   |-- nextshell
+        |   |-- northstar
+        |   |-- nsterm
+        |   |-- nsterm-16color
+        |   |-- nsterm-7
+        |   |-- nsterm+7
+        |   |-- nsterm-7-c
+        |   |-- nsterm-7-c-s -> nsterm-c-s-7
+        |   |-- nsterm-7-m -> nsterm-m-7
+        |   |-- nsterm-7-m-s -> nsterm-m-s-7
+        |   |-- nsterm-7-s -> nsterm-s-7
+        |   |-- nsterm-acs
+        |   |-- nsterm+acs
+        |   |-- nsterm-acs-c -> nsterm-c-acs
+        |   |-- nsterm-acs-c-s -> nsterm-c-s-acs
+        |   |-- nsterm-acs-m -> nsterm-m-acs
+        |   |-- nsterm-acs-m-s -> nsterm-m-s-acs
+        |   |-- nsterm-acs-s -> nsterm-s-acs
+        |   |-- nsterm-bce
+        |   |-- nsterm-c
+        |   |-- nsterm+c
+        |   |-- nsterm+c41
+        |   |-- nsterm-c-7 -> nsterm-7-c
+        |   |-- nsterm-c-acs
+        |   |-- nsterm-c-s
+        |   |-- nsterm-c-s-7
+        |   |-- nsterm-c-s-acs
+        |   |-- nsterm-m
+        |   |-- nsterm-m-7
+        |   |-- nsterm+mac
+        |   |-- nsterm-m-acs
+        |   |-- nsterm-m-s
+        |   |-- nsterm-m-s-7
+        |   |-- nsterm-m-s-acs
+        |   |-- nsterm-old
+        |   |-- nsterm-s
+        |   |-- nsterm+s
+        |   |-- nsterm-s-7
+        |   |-- nsterm-s-acs
+        |   |-- ntconsole -> ../i/interix
+        |   |-- ntconsole-100 -> ../o/opennt-100
+        |   |-- ntconsole-100-nti -> ../o/opennt-100-nti
+        |   |-- ntconsole-25 -> ../i/interix
+        |   |-- ntconsole-25-nti -> ../i/interix-nti
+        |   |-- ntconsole-25-w -> ../o/opennt-w
+        |   |-- ntconsole-25-w-vt -> ../o/opennt-w-vt
+        |   |-- ntconsole-35 -> ../o/opennt-35
+        |   |-- ntconsole-35-nti -> ../o/opennt-35-nti
+        |   |-- ntconsole-35-w -> ../o/opennt-35-w
+        |   |-- ntconsole-50 -> ../o/opennt-50
+        |   |-- ntconsole-50-nti -> ../o/opennt-50-nti
+        |   |-- ntconsole-50-w -> ../o/opennt-50-w
+        |   |-- ntconsole-60 -> ../o/opennt-60
+        |   |-- ntconsole-60-nti -> ../o/opennt-60-nti
+        |   |-- ntconsole-60-w -> ../o/opennt-60-w
+        |   |-- ntconsole-w -> ../o/opennt-w
+        |   |-- ntconsole-w-vt -> ../o/opennt-w-vt
+        |   |-- nwe501 -> nwp513
+        |   |-- nwe501-a -> nwp513-a
+        |   |-- nwe501-o -> nwp513-o
+        |   |-- nwp251-a -> nwp513-a
+        |   |-- nwp251-o -> nwp513-o
+        |   |-- nwp511
+        |   |-- nwp-511 -> nwp511
+        |   |-- nwp512
+        |   |-- nwp512-a
+        |   |-- nwp512-o
+        |   |-- nwp513
+        |   |-- nwp513-a
+        |   |-- nwp513-o
+        |   |-- nwp514 -> nwp512
+        |   |-- nwp514-a -> nwp512-a
+        |   |-- nwp514-o -> nwp512-o
+        |   |-- nwp517
+        |   |-- nwp-517 -> nwp517
+        |   |-- nwp-517-w -> nwp517-w
+        |   |-- nwp517-w
+        |   |-- nwp518 -> nwp513
+        |   |-- nwp518-a -> nwp513-a
+        |   |-- nwp518-o -> nwp513-o
+        |   `-- nxterm -> ../x/xterm-color
+        |-- N
+        |   |-- NCR260VT300WPP
+        |   `-- NCRVT100WPP -> ../n/ncrvt100wan
+        |-- o
+        |   |-- o31 -> ../a/adm31-old
+        |   |-- o4112-nd -> otek4112
+        |   |-- o85h -> ../a/abm85h-old
+        |   |-- oabm85h -> ../a/abm85h-old
+        |   |-- oblit
+        |   |-- oc100
+        |   |-- oconcept -> oc100
+        |   |-- ofcons
+        |   |-- ojerq -> oblit
+        |   |-- oldibmpc3 -> oldpc3
+        |   |-- oldpc3
+        |   |-- oldsun
+        |   |-- omron
+        |   |-- opennt -> ../i/interix
+        |   |-- opennt-100
+        |   |-- opennt-100-nti
+        |   |-- opennt-25 -> ../i/interix
+        |   |-- opennt-25-nti -> ../i/interix-nti
+        |   |-- opennt-25-w -> opennt-w
+        |   |-- opennt-25-w-vt -> opennt-w-vt
+        |   |-- opennt-35
+        |   |-- opennt-35-nti
+        |   |-- opennt-35-w
+        |   |-- opennt-50
+        |   |-- opennt-50-nti
+        |   |-- opennt-50-w
+        |   |-- opennt-60
+        |   |-- opennt-60-nti
+        |   |-- opennt-60-w
+        |   |-- opennt-nti -> ../i/interix-nti
+        |   |-- opennt-w
+        |   |-- opennt-w-vt
+        |   |-- opus3n1+
+        |   |-- origibmpc3 -> origpc3
+        |   |-- origpc3
+        |   |-- os9LII -> ../c/coco3
+        |   |-- osborne
+        |   |-- osborne1 -> osborne
+        |   |-- osborne1-w -> osborne-w
+        |   |-- osborne-w
+        |   |-- osexec
+        |   |-- otek4112
+        |   |-- otek4113 -> otek4112
+        |   |-- otek4114 -> otek4112
+        |   |-- otek4115
+        |   `-- owl
+        |-- p
+        |   |-- p12 -> prism12
+        |   |-- p12-m -> prism12-m
+        |   |-- p12-m-w -> prism12-m-w
+        |   |-- p12-w -> prism12-w
+        |   |-- p14 -> prism14
+        |   |-- p14-m -> prism14-m
+        |   |-- p14-m-w -> prism14-m-w
+        |   |-- p14-w -> prism14-w
+        |   |-- p19
+        |   |-- p4 -> prism4
+        |   |-- p5 -> prism5
+        |   |-- p7 -> prism7
+        |   |-- p8 -> prism8
+        |   |-- p8gl
+        |   |-- p8-w -> prism8-w
+        |   |-- p9 -> prism9
+        |   |-- p9-8 -> prism9-8
+        |   |-- p9-8-w -> prism9-8-w
+        |   |-- p9-w -> prism9-w
+        |   |-- pc3
+        |   |-- pc3-bold -> ../i/ibmpc3
+        |   |-- pc3r -> ../c/cons25r
+        |   |-- pc3r-m -> ../c/cons25r-m
+        |   |-- pc6300plus
+        |   |-- pc7300 -> ../a/att7300
+        |   |-- pcansi
+        |   |-- pcansi25 -> pcansi-25
+        |   |-- pcansi-25
+        |   |-- pcansi25m -> pcansi-25-m
+        |   |-- pcansi-25-m
+        |   |-- pcansi33 -> pcansi-33
+        |   |-- pcansi-33
+        |   |-- pcansi33m -> pcansi-33-m
+        |   |-- pcansi-33-m
+        |   |-- pcansi43 -> pcansi-43
+        |   |-- pcansi-43
+        |   |-- pcansi-43-m
+        |   |-- pcansi-m
+        |   |-- pcansi-mono -> pcansi-m
+        |   |-- pc-coherent
+        |   |-- pccons
+        |   |-- pcconsole -> pccons
+        |   |-- pcix
+        |   |-- pckermit
+        |   |-- pckermit12 -> pckermit
+        |   |-- pckermit120
+        |   |-- pc-minix
+        |   |-- pcmw
+        |   |-- pcplot
+        |   |-- pc-venix
+        |   |-- pcvt25
+        |   |-- pcvt25-color
+        |   |-- pcvt25w
+        |   |-- pcvt28
+        |   |-- pcvt28w
+        |   |-- pcvt35
+        |   |-- pcvt35w
+        |   |-- pcvt40
+        |   |-- pcvt40w
+        |   |-- pcvt43
+        |   |-- pcvt43w
+        |   |-- pcvt50
+        |   |-- pcvt50w
+        |   |-- pcvtXX
+        |   |-- pcz19 -> pc-coherent
+        |   |-- pe1100 -> ../f/fox
+        |   |-- pe1200 -> ../o/owl
+        |   |-- pe1251
+        |   |-- pe550 -> ../b/bantam
+        |   |-- pe6100 -> ../b/bantam
+        |   |-- pe6300 -> pe1251
+        |   |-- pe6312 -> pe1251
+        |   |-- pe7000c
+        |   |-- pe7000m
+        |   |-- pilot
+        |   |-- pmcons
+        |   |-- pmconsole -> pmcons
+        |   |-- printer -> ../l/lpr
+        |   |-- prism12
+        |   |-- prism12-m
+        |   |-- prism12-m-w
+        |   |-- prism12-w
+        |   |-- prism14
+        |   |-- prism14-m
+        |   |-- prism14-m-w
+        |   |-- prism14-w
+        |   |-- prism2
+        |   |-- prism4
+        |   |-- prism5
+        |   |-- prism7
+        |   |-- prism8
+        |   |-- prism8gl -> p8gl
+        |   |-- prism8-w
+        |   |-- prism9
+        |   |-- prism9-8
+        |   |-- prism9-8-w
+        |   |-- prism9-w
+        |   |-- pro350
+        |   |-- ps300
+        |   |-- psterm
+        |   |-- psterm-80x24
+        |   |-- psterm-90x28
+        |   |-- psterm-96x48
+        |   |-- psterm-basic -> psterm
+        |   |-- psterm-fast
+        |   |-- psx_ansi -> ../a/ansi-nt
+        |   |-- pt100
+        |   |-- pt100w
+        |   |-- pt200 -> pt100
+        |   |-- pt200w -> pt100w
+        |   |-- pt210
+        |   |-- pt250
+        |   |-- pt250w
+        |   |-- pt505 -> ../a/att505
+        |   |-- pt505-22 -> ../t/tt505-22
+        |   |-- pt505-24 -> ../a/att505-24
+        |   |-- pty
+        |   |-- putty
+        |   |-- putty-256color
+        |   `-- putty-vt100
+        |-- P
+        |   |-- P12 -> ../p/prism12
+        |   |-- P12-M -> ../p/prism12-m
+        |   |-- P12-M-W -> ../p/prism12-m-w
+        |   |-- P12-W -> ../p/prism12-w
+        |   |-- P14 -> ../p/prism14
+        |   |-- P14-M -> ../p/prism14-m
+        |   |-- P14-M-W -> ../p/prism14-m-w
+        |   |-- P14-W -> ../p/prism14-w
+        |   |-- P4 -> ../p/prism4
+        |   |-- P5 -> ../p/prism5
+        |   |-- P7 -> ../p/prism7
+        |   |-- P8 -> ../p/prism8
+        |   |-- P8-W -> ../p/prism8-w
+        |   |-- P9 -> ../p/prism9
+        |   |-- P9-8 -> ../p/prism9-8
+        |   |-- P9-8-W -> ../p/prism9-8-w
+        |   `-- P9-W -> ../p/prism9-w
+        |-- q
+        |   |-- qansi
+        |   |-- qansi-g
+        |   |-- qansi-m
+        |   |-- qansi-t
+        |   |-- qansi-w
+        |   |-- qdcons -> qdss
+        |   |-- qdss
+        |   |-- qnx
+        |   |-- qnx4 -> qnx
+        |   |-- qnxm
+        |   |-- qnxt
+        |   |-- qnxt2
+        |   |-- qnxt4 -> qnxt
+        |   |-- qnxtmono
+        |   |-- qnxw
+        |   |-- qume -> qume5
+        |   |-- qume5
+        |   |-- qvt101
+        |   |-- qvt101+
+        |   |-- qvt101p -> qvt101+
+        |   |-- qvt102
+        |   |-- qvt103
+        |   |-- qvt103-w
+        |   |-- qvt108 -> qvt101
+        |   |-- qvt119 -> qvt119+
+        |   |-- qvt119+
+        |   |-- qvt119+-25
+        |   |-- qvt119-25-w -> qvt119+-25-w
+        |   |-- qvt119+-25-w
+        |   |-- qvt119p -> qvt119+
+        |   |-- qvt119p-25 -> qvt119+-25
+        |   |-- qvt119p-25-w -> qvt119+-25-w
+        |   |-- qvt119p-w -> qvt119+-w
+        |   |-- qvt119-w -> qvt119+-w
+        |   |-- qvt119+-w
+        |   |-- qvt203
+        |   |-- qvt203+ -> qvt203
+        |   |-- qvt203-25
+        |   |-- qvt203-25-w
+        |   |-- qvt203-w
+        |   `-- qvt203-w-am -> qvt203-w
+        |-- Q
+        |   |-- Q306-8-pc -> ../b/bq300-8-pc
+        |   |-- Q310-vip-H -> ../v/vip-H
+        |   |-- Q310-vip-H-am -> ../v/vip-H
+        |   |-- Q310-vip-Hw -> ../v/vip-Hw
+        |   |-- Q310-vip-w -> ../v/vip-w
+        |   `-- Q310-vip-w-am -> ../v/vip-w
+        |-- r
+        |   |-- rbcomm
+        |   |-- rbcomm-nam
+        |   |-- rbcomm-w
+        |   |-- rca
+        |   |-- rcons
+        |   |-- rcons-color
+        |   |-- rebus3180 -> ../d/ddr
+        |   |-- regent
+        |   |-- regent100
+        |   |-- regent20
+        |   |-- regent200 -> regent60
+        |   |-- regent25
+        |   |-- regent40
+        |   |-- regent40+
+        |   |-- regent60
+        |   |-- rt6221
+        |   |-- rt6221-w
+        |   |-- rtpc
+        |   |-- rxvt
+        |   |-- rxvt-16color
+        |   |-- rxvt-256color
+        |   |-- rxvt-88color
+        |   |-- rxvt-basic
+        |   |-- rxvt-color
+        |   |-- rxvt-cygwin
+        |   |-- rxvt-cygwin-native
+        |   |-- rxvt+pcfkeys
+        |   `-- rxvt-xpm
+        |-- s
+        |   |-- s4 -> ../a/att7300
+        |   |-- sb1
+        |   |-- sb2
+        |   |-- sb3 -> sb2
+        |   |-- sbi
+        |   |-- sbobcat -> ../b/bobcat
+        |   |-- sc410 -> scanset
+        |   |-- sc415 -> scanset
+        |   |-- scanset
+        |   |-- scoansi
+        |   |-- scoansi-new
+        |   |-- scoansi-old
+        |   |-- screen
+        |   |-- screen-16color
+        |   |-- screen-16color-bce
+        |   |-- screen-16color-bce-s
+        |   |-- screen-16color-s
+        |   |-- screen2
+        |   |-- screen-256color
+        |   |-- screen-256color-bce
+        |   |-- screen-256color-bce-s
+        |   |-- screen-256color-s
+        |   |-- screen3
+        |   |-- screen-bce
+        |   |-- screen-bce.Eterm
+        |   |-- screen-bce.gnome
+        |   |-- screen-bce.konsole
+        |   |-- screen-bce.linux
+        |   |-- screen-bce.mlterm
+        |   |-- screen-bce.mrxvt
+        |   |-- screen-bce.rxvt
+        |   |-- screen-bce.xterm-new
+        |   |-- screen.Eterm
+        |   |-- screen+fkeys
+        |   |-- screen.gnome
+        |   |-- screen.konsole
+        |   |-- screen.linux
+        |   |-- screen.mlterm
+        |   |-- screen.mrxvt
+        |   |-- screen.rxvt
+        |   |-- screen-s
+        |   |-- screen.teraterm
+        |   |-- screen.vte
+        |   |-- screen-w
+        |   |-- screen.xterm-new -> screen.xterm-xfree86
+        |   |-- screen.xterm-r6
+        |   |-- screen.xterm-xfree86
+        |   |-- screwpoint
+        |   |-- scrhp
+        |   |-- sibo
+        |   |-- simterm
+        |   |-- soroc -> soroc120
+        |   |-- soroc120
+        |   |-- soroc140
+        |   |-- spinwriter -> ../n/nec5520
+        |   |-- st52
+        |   |-- st52-color
+        |   |-- st52-m -> st52
+        |   |-- st52-old
+        |   |-- stv52
+        |   |-- stv52pc
+        |   |-- sun
+        |   |-- sun1 -> sun
+        |   |-- sun-1
+        |   |-- sun-12
+        |   |-- sun-17
+        |   |-- sun2 -> sun
+        |   |-- sun-24
+        |   |-- sun-34
+        |   |-- sun-48
+        |   |-- sun-c
+        |   |-- sun-cgsix
+        |   |-- sun-cmd -> sun-c
+        |   |-- sun-color
+        |   |-- sune -> sun-e
+        |   |-- sun-e
+        |   |-- sun-e-s
+        |   |-- sun-il
+        |   |-- sun-nic -> sun-e
+        |   |-- sun-s
+        |   |-- sun-s-e -> sun-e-s
+        |   |-- sun-ss5 -> sun-cgsix
+        |   |-- sun-type4
+        |   |-- superbee -> sbi
+        |   |-- superbeeic
+        |   |-- superbee-xsb
+        |   |-- superbrain
+        |   |-- sv80 -> ../a/att2300
+        |   |-- swtp
+        |   |-- synertek
+        |   |-- synertek380 -> synertek
+        |   `-- system1 -> ../i/ibm-system1
+        |-- t
+        |   |-- t10
+        |   |-- t1061
+        |   |-- t1061f
+        |   |-- t16
+        |   |-- t3700
+        |   |-- t3800
+        |   |-- t653x -> tandem653
+        |   |-- tab -> tab132
+        |   |-- tab132
+        |   |-- tab132-15 -> tab132
+        |   |-- tab132-rv
+        |   |-- tab132-w
+        |   |-- tab132-w-rv
+        |   |-- tandem6510
+        |   |-- tandem653
+        |   |-- tek
+        |   |-- tek4012 -> tek
+        |   |-- tek4013
+        |   |-- tek4014
+        |   |-- tek4014-sm
+        |   |-- tek4015
+        |   |-- tek4015-sm
+        |   |-- tek4023
+        |   |-- tek4024
+        |   |-- tek4025 -> tek4024
+        |   |-- tek4025-17
+        |   |-- tek4025-17-ws
+        |   |-- tek4025a
+        |   |-- tek4025-cr
+        |   |-- tek4025ex
+        |   |-- tek4025-ex
+        |   |-- tek4027 -> tek4024
+        |   |-- tek4027-ex -> tek4025-ex
+        |   |-- tek4105
+        |   |-- tek4105-30
+        |   |-- tek4105a
+        |   |-- tek4106brl
+        |   |-- tek4107
+        |   |-- tek4107brl -> tek4106brl
+        |   |-- tek4109 -> tek4107
+        |   |-- tek4109brl -> tek4106brl
+        |   |-- tek4112
+        |   |-- tek4112-5
+        |   |-- tek4112-nd
+        |   |-- tek4113
+        |   |-- tek4113-34
+        |   |-- tek4113-nd
+        |   |-- tek4114 -> tek4112
+        |   |-- tek4115
+        |   |-- tek4125
+        |   |-- tek4205
+        |   |-- tek4207
+        |   |-- tek4207-s
+        |   |-- tek4404
+        |   |-- teleray -> t1061
+        |   |-- teletec
+        |   |-- teraterm
+        |   |-- teraterm2.3
+        |   |-- teraterm4.59
+        |   |-- terminet -> terminet1200
+        |   |-- terminet1200
+        |   |-- terminet300 -> terminet1200
+        |   |-- tgtelnet -> ../p/pilot
+        |   |-- ti700
+        |   |-- ti733 -> ti700
+        |   |-- ti735 -> ti700
+        |   |-- ti745 -> ti700
+        |   |-- ti800 -> ti700
+        |   |-- ti916
+        |   |-- ti916-132
+        |   |-- ti916-220-7 -> ti916
+        |   |-- ti916-220-8 -> ti916-8
+        |   |-- ti916-8
+        |   |-- ti916-8-132
+        |   |-- ti924
+        |   |-- ti924-8
+        |   |-- ti924-8w
+        |   |-- ti924w
+        |   |-- ti926
+        |   |-- ti926-8
+        |   |-- ti928
+        |   |-- ti928-8
+        |   |-- ti931
+        |   |-- ti_ansi
+        |   |-- tkterm -> tt
+        |   |-- tn1200 -> terminet1200
+        |   |-- tn300 -> terminet1200
+        |   |-- trs16
+        |   |-- trs2
+        |   |-- trs80II -> trs2
+        |   |-- trsII -> trs2
+        |   |-- ts1 -> ../f/falco
+        |   |-- ts-1 -> ../f/falco
+        |   |-- ts100
+        |   |-- ts100-ctxt
+        |   |-- ts100-sp -> ts100
+        |   |-- ts1p -> ../f/falco-p
+        |   |-- ts-1p -> ../f/falco-p
+        |   |-- tt
+        |   |-- tt505-22
+        |   |-- tt52
+        |   |-- tty33
+        |   |-- tty35 -> tty33
+        |   |-- tty37
+        |   |-- tty40
+        |   |-- tty43
+        |   |-- tty4420 -> ../a/att4420
+        |   |-- tty4424 -> ../a/att4424
+        |   |-- tty4424-1 -> ../a/att4424-1
+        |   |-- tty4424m -> ../a/att4424m
+        |   |-- tty4426 -> ../a/att4426
+        |   |-- tty5410 -> ../a/att4410
+        |   |-- tty5410v1 -> ../a/att5410v1
+        |   |-- tty5410v1-w -> ../a/att4410v1-w
+        |   |-- tty5410-w -> ../a/att5410-w
+        |   |-- tty5420 -> ../a/att4415
+        |   |-- tty5420-nl -> ../a/att4415-nl
+        |   |-- tty5420+nl -> ../a/att4415+nl
+        |   |-- tty5420-rv -> ../a/att4415-rv
+        |   |-- tty5420-rv-nl -> ../a/att4415-rv-nl
+        |   |-- tty5420-w -> ../a/att4415-w
+        |   |-- tty5420-w-nl -> ../a/att4415-w-nl
+        |   |-- tty5420-w-rv -> ../a/att4415-w-rv
+        |   |-- tty5420-w-rv-n -> ../a/att4415-w-rv-n
+        |   |-- tty5425 -> ../a/att5425
+        |   |-- tty5425-nl -> ../a/att5425-nl
+        |   |-- tty5425-w -> ../a/att5425-w
+        |   |-- tty5620 -> ../a/att5620
+        |   |-- tty5620-1 -> ../a/att5620-1
+        |   |-- tty5620-24 -> ../a/att5620-24
+        |   |-- tty5620-34 -> ../a/att5620-34
+        |   |-- tty5620-s -> ../a/att5620-s
+        |   |-- ttydmd -> ../a/att5620
+        |   |-- tvi803
+        |   |-- tvi9065
+        |   |-- tvi910
+        |   |-- tvi910+
+        |   |-- tvi912
+        |   |-- tvi912b
+        |   |-- tvi912b-2p
+        |   |-- tvi912b+2p
+        |   |-- tvi912b-2p-mc
+        |   |-- tvi912b-2p-p
+        |   |-- tvi912b-2p-unk
+        |   |-- tvi912b+dim
+        |   |-- tvi912b-mc
+        |   |-- tvi912b+mc
+        |   |-- tvi912b-mc-2p -> tvi912b-2p-mc
+        |   |-- tvi912b-mc-vb -> tvi912b-vb-mc
+        |   |-- tvi912b-p
+        |   |-- tvi912b-p-2p -> tvi912b-2p-p
+        |   |-- tvi912b+printer
+        |   |-- tvi912b-p-vb -> tvi912b-vb-p
+        |   |-- tvi912b-unk
+        |   |-- tvi912b-unk-2p -> tvi912b-2p-unk
+        |   |-- tvi912b-unk-vb -> tvi912b-vb-unk
+        |   |-- tvi912b-vb
+        |   |-- tvi912b+vb
+        |   |-- tvi912b-vb-mc
+        |   |-- tvi912b-vb-p
+        |   |-- tvi912b-vb-unk
+        |   |-- tvi912c -> tvi912b
+        |   |-- tvi912c-2p -> tvi912b-2p
+        |   |-- tvi912c-2p-mc -> tvi912b-2p-mc
+        |   |-- tvi912c-2p-p -> tvi912b-2p-p
+        |   |-- tvi912c-2p-unk -> tvi912b-2p-unk
+        |   |-- tvi912cc
+        |   |-- tvi912c-mc -> tvi912b-mc
+        |   |-- tvi912c-mc-2p -> tvi912b-2p-mc
+        |   |-- tvi912c-mc-vb -> tvi912b-vb-mc
+        |   |-- tvi912c-p -> tvi912b-p
+        |   |-- tvi912c-p-2p -> tvi912b-2p-p
+        |   |-- tvi912c-p-vb -> tvi912b-vb-p
+        |   |-- tvi912c-unk -> tvi912b-unk
+        |   |-- tvi912c-unk-2p -> tvi912b-2p-unk
+        |   |-- tvi912c-unk-vb -> tvi912b-vb-unk
+        |   |-- tvi912c-vb -> tvi912b-vb
+        |   |-- tvi912c-vb-mc -> tvi912b-vb-mc
+        |   |-- tvi912c-vb-p -> tvi912b-vb-p
+        |   |-- tvi912c-vb-unk -> tvi912b-vb-unk
+        |   |-- tvi914 -> tvi912
+        |   |-- tvi920 -> tvi912
+        |   |-- tvi920b
+        |   |-- tvi920b-2p
+        |   |-- tvi920b-2p-mc
+        |   |-- tvi920b-2p-p
+        |   |-- tvi920b-2p-unk
+        |   |-- tvi920b+fn
+        |   |-- tvi920b-mc
+        |   |-- tvi920b-mc-2p -> tvi920b-2p-mc
+        |   |-- tvi920b-mc-vb -> tvi920b-vb-mc
+        |   |-- tvi920b-p
+        |   |-- tvi920b-p-2p -> tvi920b-2p-p
+        |   |-- tvi920b-p-vb -> tvi920b-vb-p
+        |   |-- tvi920b-unk
+        |   |-- tvi920b-unk-2p -> tvi920b-2p-unk
+        |   |-- tvi920b-unk-vb -> tvi920b-vb-unk
+        |   |-- tvi920b-vb
+        |   |-- tvi920b-vb-mc
+        |   |-- tvi920b-vb-p
+        |   |-- tvi920b-vb-unk
+        |   |-- tvi920c -> tvi920b
+        |   |-- tvi920c-2p -> tvi920b-2p
+        |   |-- tvi920c-2p-mc -> tvi920b-2p-mc
+        |   |-- tvi920c-2p-p -> tvi920b-2p-p
+        |   |-- tvi920c-2p-unk -> tvi920b-2p-unk
+        |   |-- tvi920c-mc -> tvi920b-mc
+        |   |-- tvi920c-mc-2p -> tvi920b-2p-mc
+        |   |-- tvi920c-mc-vb -> tvi920b-vb-mc
+        |   |-- tvi920c-p -> tvi920b-p
+        |   |-- tvi920c-p-2p -> tvi920b-2p-p
+        |   |-- tvi920c-p-vb -> tvi920b-vb-p
+        |   |-- tvi920c-unk -> tvi920b-unk
+        |   |-- tvi920c-unk-2p -> tvi920b-2p-unk
+        |   |-- tvi920c-unk-vb -> tvi920b-vb-unk
+        |   |-- tvi920c-vb -> tvi920b-vb
+        |   |-- tvi920c-vb-mc -> tvi920b-vb-mc
+        |   |-- tvi920c-vb-p -> tvi920b-vb-p
+        |   |-- tvi920c-vb-unk -> tvi920b-vb-unk
+        |   |-- tvi921
+        |   |-- tvi924
+        |   |-- tvi925
+        |   |-- tvi925-hi
+        |   |-- tvi92B
+        |   |-- tvi92D
+        |   |-- tvi950
+        |   |-- tvi950-2p
+        |   |-- tvi950-4p
+        |   |-- tvi950-rv
+        |   |-- tvi950-rv-2p
+        |   |-- tvi950-rv-4p
+        |   |-- tvi955
+        |   |-- tvi955-hb
+        |   |-- tvi955-w
+        |   |-- tvi970
+        |   |-- tvi970-2p
+        |   |-- tvi970-vb
+        |   |-- tvipt
+        |   |-- tw100
+        |   |-- tw52
+        |   |-- tw52-color -> tw52
+        |   |-- tw52-m
+        |   |-- tws2102-sna
+        |   |-- tws2103
+        |   |-- tws2103-sna
+        |   `-- tws-generic
+        |-- u
+        |   |-- ultima2 -> ../i/ims-ansi
+        |   |-- ultimaII -> ../i/ims-ansi
+        |   |-- uniterm
+        |   |-- uniterm49 -> uniterm
+        |   |-- unixpc -> ../a/att7300
+        |   |-- unknown
+        |   |-- uts30
+        |   `-- uwin
+        |-- v
+        |   |-- v200-nam -> vt220-nam
+        |   |-- v320n -> vt320nam
+        |   |-- v3220
+        |   |-- v5410
+        |   |-- vanilla
+        |   |-- vapple -> ../a/apple-videx3
+        |   |-- vc103 -> vc303
+        |   |-- vc203 -> vc303
+        |   |-- vc303
+        |   |-- vc303a
+        |   |-- vc403a -> vc303a
+        |   |-- vc404
+        |   |-- vc404-s
+        |   |-- vc414
+        |   |-- vc414h -> vc414
+        |   |-- vc415
+        |   |-- venix -> ../p/pc-venix
+        |   |-- versaterm
+        |   |-- vi200
+        |   |-- vi200-f
+        |   |-- vi200-rv
+        |   |-- vi300
+        |   |-- vi300-old
+        |   |-- vi50
+        |   |-- vi500
+        |   |-- vi50adm
+        |   |-- vi55
+        |   |-- vi550
+        |   |-- vi603
+        |   |-- viewpoint
+        |   |-- viewpoint3a+ -> vp3a+
+        |   |-- viewpoint60 -> vp60
+        |   |-- viewpoint90 -> vp90
+        |   |-- vip
+        |   |-- vip7800-H -> vip-H
+        |   |-- vip7800-Hw -> vip-Hw
+        |   |-- vip7800-w -> vip-w
+        |   |-- vip-H
+        |   |-- vip-Hw
+        |   |-- vip-w
+        |   |-- visa50
+        |   |-- visual603 -> vi603
+        |   |-- vitty -> ../a/att5620-s
+        |   |-- vk100 -> ../g/gigi
+        |   |-- vp3a+
+        |   |-- vp60
+        |   |-- vp90
+        |   |-- vremote
+        |   |-- vs100 -> ../x/xterm-24
+        |   |-- vs100-x10 -> ../x/x10term
+        |   |-- vsc
+        |   |-- vt100
+        |   |-- vt100+ -> ../m/ms-vt100+
+        |   |-- vt100-am -> vt100
+        |   |-- vt100-bm -> ../n/nwp512
+        |   |-- vt100-bm-o -> ../n/nwp512-o
+        |   |-- vt100-bot-s -> vt100-s-bot
+        |   |-- vt100+enq
+        |   |-- vt100+fnkeys
+        |   |-- vt100+keypad
+        |   |-- vt100nam
+        |   |-- vt100-nam -> vt100nam
+        |   |-- vt100-nam-w -> vt100-w-nam
+        |   |-- vt100-nav
+        |   |-- vt100-nav-w
+        |   |-- vt100+pfkeys
+        |   |-- vt100-putty
+        |   |-- vt100-s
+        |   |-- vt100-s-bot
+        |   |-- vt100-s-top -> vt100-s
+        |   |-- vt100-top-s -> vt100-s
+        |   |-- vt100-vb
+        |   |-- vt100-w
+        |   |-- vt100-w-am -> vt100-w
+        |   |-- vt100-w-nam
+        |   |-- vt100-w-nav -> vt100-nav-w
+        |   |-- vt102
+        |   |-- vt102+enq
+        |   |-- vt102-nsgr
+        |   |-- vt102-w
+        |   |-- vt125
+        |   |-- vt131
+        |   |-- vt132
+        |   |-- vt200 -> vt220
+        |   |-- vt200-8 -> vt220-8bit
+        |   |-- vt200-8bit -> vt220-8bit
+        |   |-- vt200-js
+        |   |-- vt200-old -> vt220-old
+        |   |-- vt200-w -> vt220-w
+        |   |-- vt220
+        |   |-- vt220-8 -> vt220-8bit
+        |   |-- vt220-8bit
+        |   |-- vt220d
+        |   |-- vt220-js -> vt200-js
+        |   |-- vt220+keypad
+        |   |-- vt220-nam
+        |   |-- vt220-old
+        |   |-- vt220-w
+        |   |-- vt300 -> vt320
+        |   |-- vt300-nam -> vt320-nam
+        |   |-- vt300-w -> vt320-w
+        |   |-- vt300-w-nam -> vt320-w-nam
+        |   |-- vt320
+        |   |-- vt320-k3
+        |   |-- vt320-k311
+        |   |-- vt320nam
+        |   |-- vt320-nam
+        |   |-- vt320-w
+        |   |-- vt320-w-nam
+        |   |-- vt330 -> vt340
+        |   |-- vt340
+        |   |-- vt400
+        |   |-- vt400-24 -> vt400
+        |   |-- vt420
+        |   |-- vt420f
+        |   |-- vt420pc
+        |   |-- vt420pcdos
+        |   |-- vt50
+        |   |-- vt50h
+        |   |-- vt510
+        |   |-- vt510pc
+        |   |-- vt510pcdos
+        |   |-- vt52
+        |   |-- vt520
+        |   |-- vt525
+        |   |-- vt61
+        |   |-- vt-61 -> vt61
+        |   |-- vt61.5 -> vt61
+        |   |-- vte
+        |   |-- vte-2007
+        |   |-- vte-2008
+        |   |-- vte-256color
+        |   |-- vte+pcfkeys
+        |   |-- vtnt -> ../m/ms-vt100-color
+        |   |-- vt-utf8 -> ../m/ms-vt-utf8
+        |   |-- vv100 -> ../m/mvterm
+        |   `-- vwmterm
+        |-- w
+        |   |-- wren -> ../p/pt100
+        |   |-- wrenw -> ../p/pt100w
+        |   |-- wsiris
+        |   |-- wsvt25
+        |   |-- wsvt25m
+        |   |-- wy100
+        |   |-- wy100q
+        |   |-- wy120
+        |   |-- wy120-25
+        |   |-- wy120-25-w
+        |   |-- wy120-vb
+        |   |-- wy120-w
+        |   |-- wy120-wvb -> wy120-w-vb
+        |   |-- wy120-w-vb
+        |   |-- wy150 -> wy120
+        |   |-- wy150-25 -> wy120-25
+        |   |-- wy150-25-w -> wy120-25-w
+        |   |-- wy150-vb -> wy120-vb
+        |   |-- wy150-w -> wy120-w
+        |   |-- wy150-w-vb -> wy120-w-vb
+        |   |-- wy160
+        |   |-- wy160-25
+        |   |-- wy160-25-w
+        |   |-- wy160-42
+        |   |-- wy160-42-w
+        |   |-- wy160-43
+        |   |-- wy160-43-w
+        |   |-- wy160-tek
+        |   |-- wy160-vb
+        |   |-- wy160-w
+        |   |-- wy160-wvb -> wy160-w-vb
+        |   |-- wy160-w-vb
+        |   |-- wy185
+        |   |-- wy185-24
+        |   |-- wy185-vb
+        |   |-- wy185-w
+        |   |-- wy185-wvb
+        |   |-- wy30
+        |   |-- wy30-mc
+        |   |-- wy30-vb
+        |   |-- wy325
+        |   |-- wy325-25
+        |   |-- wy325-25w
+        |   |-- wy325-42
+        |   |-- wy325-42w
+        |   |-- wy325-42wvb -> wy325-42w-vb
+        |   |-- wy325-42w-vb
+        |   |-- wy325-43
+        |   |-- wy325-43w
+        |   |-- wy325-43wvb -> wy325-43w-vb
+        |   |-- wy325-43w-vb
+        |   |-- wy325-80 -> wy325-25
+        |   |-- wy325-vb
+        |   |-- wy325-w
+        |   |-- wy325w-24 -> wy325-w
+        |   |-- wy325-wvb -> wy325-w-vb
+        |   |-- wy325-w-vb
+        |   |-- wy350
+        |   |-- wy350-vb
+        |   |-- wy350-w
+        |   |-- wy350-wvb
+        |   |-- wy370
+        |   |-- wy370-101k -> wy370
+        |   |-- wy370-105k
+        |   |-- wy370-EPC
+        |   |-- wy370-nk
+        |   |-- wy370-rv
+        |   |-- wy370-tek
+        |   |-- wy370-vb
+        |   |-- wy370-w
+        |   |-- wy370-wvb
+        |   |-- wy50
+        |   |-- wy50-mc
+        |   |-- wy50-vb
+        |   |-- wy50-w
+        |   |-- wy50-wvb
+        |   |-- wy520
+        |   |-- wy520-24
+        |   |-- wy520-36
+        |   |-- wy520-36pc
+        |   |-- wy520-36w
+        |   |-- wy520-36wpc
+        |   |-- wy520-48
+        |   |-- wy520-48pc
+        |   |-- wy520-48w
+        |   |-- wy520-48wpc
+        |   |-- wy520-epc
+        |   |-- wy520-epc-24
+        |   |-- wy520-epc-vb
+        |   |-- wy520-epc-w
+        |   |-- wy520-epc-wvb
+        |   |-- wy520-vb
+        |   |-- wy520-w
+        |   |-- wy520-wvb
+        |   |-- wy60
+        |   |-- wy60-25
+        |   |-- wy60-25-w
+        |   |-- wy60-316X -> ../i/ibm3161
+        |   |-- wy60-42
+        |   |-- wy60-42-w
+        |   |-- wy60-43
+        |   |-- wy60-43-w
+        |   |-- wy60-AT -> ../i/ibm5151
+        |   |-- wy60-PC -> ../i/ibmpc
+        |   |-- wy60-vb
+        |   |-- wy60-w
+        |   |-- wy60-wvb -> wy60-w-vb
+        |   |-- wy60-w-vb
+        |   |-- wy75
+        |   |-- wy75ap
+        |   |-- wy-75ap -> wy75ap
+        |   |-- wy75-mc
+        |   |-- wy75-vb
+        |   |-- wy75-w
+        |   |-- wy75-wvb
+        |   |-- wy85
+        |   |-- wy85-8bit
+        |   |-- wy85-vb
+        |   |-- wy85-w
+        |   |-- wy85-wvb
+        |   |-- wy99a-ansi
+        |   |-- wy99-ansi
+        |   |-- wy99f
+        |   |-- wy99fa
+        |   |-- wy99fgt -> wy99f
+        |   |-- wy-99fgt -> wy99f
+        |   |-- wy99fgta -> wy99fa
+        |   |-- wy-99fgta -> wy99fa
+        |   |-- wy99gt
+        |   |-- wy99gt-25
+        |   |-- wy99gt-25-w
+        |   |-- wy99gt-tek
+        |   |-- wy99gt-vb
+        |   |-- wy99gt-w
+        |   |-- wy99gt-wvb -> wy99gt-w-vb
+        |   |-- wy99gt-w-vb
+        |   |-- wyse120 -> wy120
+        |   |-- wyse120-25 -> wy120-25
+        |   |-- wyse120-25-w -> wy120-25-w
+        |   |-- wyse120-vb -> wy120-vb
+        |   |-- wyse120-w -> wy120-w
+        |   |-- wyse120-wvb -> wy120-w-vb
+        |   |-- wyse150 -> wy120
+        |   |-- wyse150-25 -> wy120-25
+        |   |-- wyse150-25-w -> wy120-25-w
+        |   |-- wyse150-vb -> wy120-vb
+        |   |-- wyse150-w -> wy120-w
+        |   |-- wyse150-w-vb -> wy120-w-vb
+        |   |-- wyse160 -> wy160
+        |   |-- wyse160-25 -> wy160-25
+        |   |-- wyse160-25-w -> wy160-25-w
+        |   |-- wyse160-42 -> wy160-42
+        |   |-- wyse160-42-w -> wy160-42-w
+        |   |-- wyse160-43 -> wy160-43
+        |   |-- wyse160-43-w -> wy160-43-w
+        |   |-- wyse160-vb -> wy160-vb
+        |   |-- wyse160-w -> wy160-w
+        |   |-- wyse160-wvb -> wy160-w-vb
+        |   |-- wyse185 -> wy185
+        |   |-- wyse185-24 -> wy185-24
+        |   |-- wyse185-vb -> wy185-vb
+        |   |-- wyse185-w -> wy185-w
+        |   |-- wyse185-wvb -> wy185-wvb
+        |   |-- wyse30 -> wy30
+        |   |-- wyse30-mc -> wy30-mc
+        |   |-- wyse30-vb -> wy30-vb
+        |   |-- wyse325 -> wy325
+        |   |-- wyse-325 -> wy325-25
+        |   |-- wyse325-25 -> wy325-25
+        |   |-- wyse325-25w -> wy325-25w
+        |   |-- wyse325-42 -> wy325-42
+        |   |-- wyse325-42w -> wy325-42w
+        |   |-- wyse325-43 -> wy325-43
+        |   |-- wyse325-43w -> wy325-43w
+        |   |-- wyse325-vb -> wy325-vb
+        |   |-- wyse325-w -> wy325-w
+        |   |-- wyse325-wvb -> wy325-w-vb
+        |   |-- wyse350 -> wy350
+        |   |-- wyse350-vb -> wy350-vb
+        |   |-- wyse350-w -> wy350-w
+        |   |-- wyse350-wvb -> wy350-wvb
+        |   |-- wyse370 -> wy370
+        |   |-- wyse50 -> wy50
+        |   |-- wyse50-mc -> wy50-mc
+        |   |-- wyse50-vb -> wy50-vb
+        |   |-- wyse50-w -> wy50-w
+        |   |-- wyse50-wvb -> wy50-wvb
+        |   |-- wyse520 -> wy520
+        |   |-- wyse520-24 -> wy520-24
+        |   |-- wyse520-36 -> wy520-36
+        |   |-- wyse520-36pc -> wy520-36pc
+        |   |-- wyse520-36w -> wy520-36w
+        |   |-- wyse520-36wpc -> wy520-36wpc
+        |   |-- wyse520-48 -> wy520-48
+        |   |-- wyse520-48pc -> wy520-48pc
+        |   |-- wyse520-48w -> wy520-48w
+        |   |-- wyse520-48wpc -> wy520-48wpc
+        |   |-- wyse520-epc -> wy520-epc
+        |   |-- wyse520-epc-w -> wy520-epc-w
+        |   |-- wyse520-pc-24 -> wy520-epc-24
+        |   |-- wyse520-pc-vb -> wy520-epc-vb
+        |   |-- wyse520-p-wvb -> wy520-epc-wvb
+        |   |-- wyse520-vb -> wy520-vb
+        |   |-- wyse520-w -> wy520-w
+        |   |-- wyse520-wvb -> wy520-wvb
+        |   |-- wyse60 -> wy60
+        |   |-- wyse60-25 -> wy60-25
+        |   |-- wyse60-25-w -> wy60-25-w
+        |   |-- wyse60-316X -> ../i/ibm3161
+        |   |-- wyse60-42 -> wy60-42
+        |   |-- wyse60-42-w -> wy60-42-w
+        |   |-- wyse60-43 -> wy60-43
+        |   |-- wyse60-43-w -> wy60-43-w
+        |   |-- wyse60-AT -> ../i/ibm5151
+        |   |-- wyse60-PC -> ../i/ibmpc
+        |   |-- wyse60-vb -> wy60-vb
+        |   |-- wyse60-w -> wy60-w
+        |   |-- wyse60-wvb -> wy60-w-vb
+        |   |-- wyse75 -> wy75
+        |   |-- wyse75ap -> wy75ap
+        |   |-- wyse-75ap -> wy75ap
+        |   |-- wyse75-mc -> wy75-mc
+        |   |-- wyse75-vb -> wy75-vb
+        |   |-- wyse75-w -> wy75-w
+        |   |-- wyse75-wvb -> wy75-wvb
+        |   |-- wyse85 -> wy85
+        |   |-- wyse85-8bit -> wy85-8bit
+        |   |-- wyse85-vb -> wy85-vb
+        |   |-- wyse85-w -> wy85-w
+        |   |-- wyse85-wvb -> wy85-wvb
+        |   |-- wyse99gt -> wy99gt
+        |   |-- wyse99gt-25 -> wy99gt-25
+        |   |-- wyse99gt-25-w -> wy99gt-25-w
+        |   |-- wyse99gt-vb -> wy99gt-vb
+        |   |-- wyse99gt-w -> wy99gt-w
+        |   |-- wyse99gt-wvb -> wy99gt-w-vb
+        |   `-- wyse-vp
+        |-- x
+        |   |-- x10term
+        |   |-- x1700 -> ../d/diablo1640
+        |   |-- x1700-lm -> ../d/diablo1740-lm
+        |   |-- x1720 -> xerox1720
+        |   |-- x1750 -> xerox1720
+        |   |-- x68k
+        |   |-- x68k-ite -> x68k
+        |   |-- x820 -> xerox820
+        |   |-- xdku -> ../t/tws2103
+        |   |-- xenix -> ../i/ibmpcx
+        |   |-- xerox -> ../d/diablo1640
+        |   |-- xerox1720
+        |   |-- xerox820
+        |   |-- xerox-lm -> ../d/diablo1640-lm
+        |   |-- xfce
+        |   |-- xiterm
+        |   |-- xl83 -> ../c/cyb83
+        |   |-- xnuppc
+        |   |-- xnuppc-100x37
+        |   |-- xnuppc+100x37
+        |   |-- xnuppc-100x37-m
+        |   |-- xnuppc-112x37
+        |   |-- xnuppc+112x37
+        |   |-- xnuppc-112x37-m
+        |   |-- xnuppc-128x40
+        |   |-- xnuppc+128x40
+        |   |-- xnuppc-128x40-m
+        |   |-- xnuppc-128x48
+        |   |-- xnuppc+128x48
+        |   |-- xnuppc-128x48-m
+        |   |-- xnuppc-144x48
+        |   |-- xnuppc+144x48
+        |   |-- xnuppc-144x48-m
+        |   |-- xnuppc-160x64
+        |   |-- xnuppc+160x64
+        |   |-- xnuppc-160x64-m
+        |   |-- xnuppc-200x64
+        |   |-- xnuppc+200x64
+        |   |-- xnuppc-200x64-m
+        |   |-- xnuppc-200x75
+        |   |-- xnuppc+200x75
+        |   |-- xnuppc-200x75-m
+        |   |-- xnuppc-256x96
+        |   |-- xnuppc+256x96
+        |   |-- xnuppc-256x96-m
+        |   |-- xnuppc-80x25
+        |   |-- xnuppc+80x25
+        |   |-- xnuppc-80x25-m
+        |   |-- xnuppc-80x30
+        |   |-- xnuppc+80x30
+        |   |-- xnuppc-80x30-m
+        |   |-- xnuppc-90x30
+        |   |-- xnuppc+90x30
+        |   |-- xnuppc-90x30-m
+        |   |-- xnuppc-b
+        |   |-- xnuppc+b
+        |   |-- xnuppc+basic
+        |   |-- xnuppc+c
+        |   |-- xnuppc-f
+        |   |-- xnuppc+f
+        |   |-- xnuppc-f2
+        |   |-- xnuppc+f2
+        |   |-- xnuppc-m
+        |   |-- xnuppc-m-b
+        |   |-- xnuppc-m-f
+        |   |-- xnuppc-m-f2
+        |   |-- xtalk
+        |   |-- xterm
+        |   |-- xterm1
+        |   |-- xterm-1002
+        |   |-- xterm-1003
+        |   |-- xterm-16color
+        |   |-- xterm-24
+        |   |-- xterm-256color
+        |   |-- xterm+256color
+        |   |-- xterm-88color
+        |   |-- xterm+88color
+        |   |-- xterm-8bit
+        |   |-- xterm+app
+        |   |-- xterm-basic
+        |   |-- xterm-bold
+        |   |-- xtermc
+        |   |-- xterm-color
+        |   |-- xterm+edit
+        |   |-- xterm-hp
+        |   |-- xtermm
+        |   |-- xterm-new
+        |   |-- xterm-nic
+        |   |-- xterm-noapp
+        |   |-- xterm+noapp
+        |   |-- xterm-old -> xterm-r6
+        |   |-- xterm+pcc0
+        |   |-- xterm+pcc1
+        |   |-- xterm+pcc2
+        |   |-- xterm+pcc3
+        |   |-- xterm+pce2
+        |   |-- xterm+pc+edit
+        |   |-- xterm+pcf0
+        |   |-- xterm+pcf2
+        |   |-- xterm+pcfkeys
+        |   |-- xterm-pcolor
+        |   |-- xterm-r5
+        |   |-- xterm-r6
+        |   |-- xterm+r6f2
+        |   |-- xterms -> xterm-24
+        |   |-- xterm-sco
+        |   |-- xterm+sl
+        |   |-- xterm+sl-twm
+        |   |-- xterms-sun
+        |   |-- xterm-sun
+        |   |-- xterm-utf8
+        |   |-- xterm-vt220
+        |   |-- xterm-vt52
+        |   |-- xterm+vt+edit
+        |   |-- xterm-xf86-v32
+        |   |-- xterm-xf86-v33
+        |   |-- xterm-xf86-v333
+        |   |-- xterm-xf86-v40
+        |   |-- xterm-xf86-v43
+        |   |-- xterm-xf86-v44
+        |   |-- xterm-xfree86
+        |   |-- xterm-xi
+        |   `-- xwsh -> ../i/iris-color
+        |-- X
+        |   `-- X-hpterm -> ../h/hpterm
+        `-- z
+            |-- z100
+            |-- z-100 -> z100
+            |-- z100bw
+            |-- z-100bw -> z100bw
+            |-- z110 -> z100
+            |-- z110bw -> z100bw
+            |-- z19 -> ../h/h19
+            |-- z29
+            |-- z29a
+            |-- z29a-kc-bc -> z29a
+            |-- z29a-kc-uc
+            |-- z29a-nkc-bc
+            |-- z29a-nkc-uc
+            |-- z29b -> z29
+            |-- z30 -> zen30
+            |-- z340
+            |-- z340-nam
+            |-- z39a -> z39-a
+            |-- z39-a
+            |-- z50 -> zen50
+            |-- z8001 -> ../c/cci
+            |-- zen30
+            |-- zen50
+            |-- zen8001 -> ../c/cci
+            |-- zenith -> ../h/h19
+            |-- zenith29 -> z29
+            |-- zenith39-a -> z39-a
+            |-- zenith39-ansi -> z39-a
+            |-- zt-1 -> ztx
+            |-- ztx
+            |-- ztx11 -> ztx
+            `-- ztx-1-a -> ztx
+
+55 directories, 3521 files

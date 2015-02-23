@@ -1,0 +1,165 @@
+Toolchain:
+==========
+	# cd buildroot2014.x.x
+	# make ARCH=arm panda_defconfig
+	# make ARCH=arm menuconfig
+		select 
+			static binaries, libraries.. etc..
+	# make
+
+u-boot:
+=======
+	# cd u-boot-src
+	# make ARCH=arm omap4_panda_config
+	# make ARCH=arm CROSS_COMPILE=/prefix/path/to/croos-compile/arm-linux-
+	# ls
+	MLO u-boot.bin u-boot.img ...
+
+	# vi mmc_boot.txt
+
+		setenv bootargs 'root=/dev/mmcblk0p2 rw rootwait rootfstype=ext3 console=ttyO2,115200n8  vram=16M'
+		fatload mmc 0 82000000 uImage
+		fatload mmc 0 88000000 omap4-panda-es.dtb
+		bootm 82000000 - 88000000
+
+	Save and exit.
+	
+	Generating auto bootup script file:
+	-----------------------------------
+	# mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Panda SD Boot" -d boot_mmc.txt boot.scr
+
+
+uEnv.txt:
+=========
+	Use either boot.scr or uEnv.txt, i prefer uEnv.txt since without mkimage tool we can achive it.
+
+	# vi uEnv.txt
+		
+bootargs=root=/dev/mmcblk0p2 rw rootwait rootfstype=ext3 console=ttyO2,115200n8 vram=16M omapfb.vram=0:16M
+bootcmd=mmc rescan ; setenv bootargs ${bootargs} omapdss.debug=1 setmac.set_mac_addr="${usbethaddr}" setmac.set_iface=eth0; fatload mmc 0:1 0x80000000 boot/uImage; fatload mmc 0:1 0x81600000 boot/uInitrd; bootm 0x80000000 0x81600000
+uenvcmd=boot
+
+
+	:wq
+
+	Place it in /boot partition of ur sdcard
+Rootfs:
+=======
+	# cd busybox.x.x.x
+	# make menuconfig
+	Select "static binaries", required options.
+	# make CROSS_COMPILE=/prefix/path/to/croos-compile/arm-linux-
+	# make CROSS_COMPILE=/prefix/path/to/croos-compile/arm-linux- install
+	
+	# cp _install/* -Rfp /path/2/rootfs/
+	# cp /path/2/buildroot.x.x.x/output/host/usr/arm{tab}/lib -Rfp /path/2/rootfs/
+	# cp /path/2/buildroot.x.x.x/output/host/usr/arm{tab}/sysroot/lib/* -Rfp /path/2/rootfs/lib/
+
+	# vi /path/2/rootfs/etc/inittab
+		
+		#!/bin/sh
+
+		# executing rcS script
+		null::sysinit:/etc/init.d/rcS
+
+		# initalize console
+		ttyO2::respawn:-/bin/sh
+
+
+	# vi /path/2/rootfs/etc/init.d/rcS
+
+		#!/bin/sh
+
+		mount -t proc   null    /proc
+		mount -t sysfs  null    /sys
+		mount -t devtmpfs null  /dev
+		mount -t mqueue null    /mq
+		mount -t tmpfs  mdev    /dev
+
+		echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+
+		/sbin/mdev -s
+
+		export PATH=\
+        		/bin:\
+        		/sbin:\
+        		/usr/bin:\
+        		/usr/sbin
+	
+	# chmod +x /path/2/rootfs/etc/init.d/rcS
+
+	# vi /path/2/rootfs/etc/profile
+
+		PATH=/bin:/sbin:/usr/bin:/usr/sbin
+
+	# mknod /path/2/rootfs/dev/console c 5 1
+	# mknod /path/2/rootfs/dev/null c 1 3
+	# mknod /path/2/rootfs/dev/ttyO2 c 252 2 
+		Or
+	  mknod /path/2/rootfs/dev/ttyO2 c 250 2
+ 
+uImage:
+=======
+	# cd linux-3.13.5
+	# make ARCH=arm omap4_plus_defconfig
+	# make ARCH=arm menuconfig
+	Select the things you required. and then build
+	# make ARCH=arm CROSS_COMPILE=/prefix/path/to/croos-compile/arm-linux- LOADADDR=0x80008000 uImage
+	
+			OR
+	{	
+	# make ARCH=arm CROSS_COMPILE=/prefix/path/to/croos-compile/arm-linux- 
+		Take the zImage and convert in into uImage by supplying address as 0x80008000 uisng mkimage tool.
+
+	Converint zImage to uImage:
+	---------------------------
+	# cd arch/arm/boot
+	# mkimage -A arm -O linux -T kernel -C none -a 0x80008000 -e 0x80008000 -n "panda-linux"  -d  zImage  uImage
+
+	}
+
+SD-Card(MMC):
+=============
+	Insert sdcard into host.
+	
+	# fdisk -l
+	Make sure on which device node it has mounted.
+	# fdisk /dev/sdx		x=1,2,3..
+	command: m
+	command: n
+		 p
+		{enter-key}
+		+128M
+	command: n
+		{enter-key}
+		{enter-key}
+		{enter-key}
+
+	command: t
+		 1		{partition number}
+		 L
+		 c
+		
+	command: a
+		 1
+	command: p
+		Make sure the 1st partition has star in boot-named coloumn.
+	command: w
+
+writing filesystem:
+-------------------
+	Make sure that 2 partitions are unmounted.
+	# mount -l
+	
+	If mounted:
+	-----------
+	# umount /media/boot /media/rootfs
+	# mkfs.vfat -F 32 -n "boot" /dev/sdb1
+	# mkfs.ext3 -L rootfs /dev/sdb2
+
+Copying content to SDCARD:
+==========================
+
+	# cp -Rfp /path/2/uImage /path/2/MLO /path/2/u-boot.bin 	/media/boot
+	# cp -Rfp /path/2/linux-3.13.5/arch/arm/boot/dts/omap4-panda-es.dtb /media/boot
+	# cp -Rfp /path/2/rootfs/* 	/media/rootfs/

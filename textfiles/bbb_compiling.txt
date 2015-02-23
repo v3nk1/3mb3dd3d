@@ -1,0 +1,30 @@
+Toolchain Compilation:
+======================
+
+	# make ARCH=arm beaglebone_defconfig
+	# make -j8
+	
+Kernel Compilation:
+===================
+
+	# make ARCH=arm omap2plus_defconfig
+	# make ARCH=arm menuconfig
+		System Type  --->
+			TI OMAP/AM/DM/DRA Family  --->
+				[ ] TI OMAP2                                                                          
+  		             	[ ] TI OMAP3                                                                          
+				[ ] TI OMAP4				(For Panda es)
+  			        [ ] TI OMAP5                                                                          
+				[*] TI AM33XX				(For BeagleBoneBlack)
+				[ ] TI AM43x  
+  				[ ] TI DRA7XX
+
+	# make ARCH=arm CROSS_COMPILE=arm-linux- LOADADDR=80008000
+
+u-boot Compilation:
+===================
+
+	# make ARCH=arm am335x_boneblack_config
+	# make ARCH=arm CROSS_COMPILE=arm-linux- 
+
+		cp MLO,u-boot.img

@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <title>Help me about arm-linux-gcc cross compiler and tslib ! - FriendlyARM</title>
+  <meta name="title" content="Help me about arm-linux-gcc cross compiler and tslib ! - FriendlyARM">
+  <meta name="description" content="">
+  <meta name="author" content="FriendlyARM">
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  <meta http-equiv="content-style-type" content="text/css">
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.friendlyarm.net/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/style.css">
+  <script type="text/javascript" src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/lightbox.js"></script>
+  <script type="text/javascript" src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/jquery_002.js"></script> 
+  <script type="text/javascript" src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/jquery.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function($){
+      if($('#socialshareprivacy').length > 0){
+        $('#socialshareprivacy').socialSharePrivacy({
+          services : {
+            gplus    : { 'status' : 'on', 'perma_option' : 'on' },
+            facebook : { 'status' : 'on', 'perma_option' : 'on' },
+            twitter  : { 'status' : 'on', 'perma_option' : 'on' }
+          }
+        });
+      }
+    });
+  </script>
+<link rel="stylesheet" type="text/css" href="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/socialshareprivacy.css"></head>
+<body><div style="display: none; position: absolute; top: 0px; left: 0px;" id="overlay"><a href="#"><img style="display: none; position: absolute;" id="overlayImage" src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/lightbox.gif"></a></div><div style="display: none; position: absolute;" id="lightbox"><a title="Click to close" href="#"><img id="lightboxImage"></a><div id="lightboxDetails"></div></div>
+  <div id="page">
+    <div id="head">
+      <span id="langmenu">
+        <div id="socialshareprivacy"><ul class="social_share_privacy_area"><li class="gplus help_info"><span class="info">Click to enable the Google +1 button.</span><span class="switch off"></span><div class="gplusone dummy_btn"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/socialshareprivacy_gplus.png" alt="&quot;Google+1&quot;-Dummy" class="gplus_one_dummy"></div></li><li class="facebook help_info"><span class="info">Click to enable the Facebook Like button.</span><span class="switch off"></span><div class="fb_like dummy_btn"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/socialshareprivacy_facebook.png" alt="Facebook &quot;Like&quot;-Dummy" class="fb_like_privacy_dummy"></div></li><li class="twitter help_info"><span class="info">Click to enable the Twitter Tweet button.</span><span class="switch off"></span><div class="tweet dummy_btn"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/socialshareprivacy_twitter.png" alt="&quot;Tweet this&quot;-Dummy" class="tweet_this_dummy"></div></li><li class="settings_info"><div class="settings_info_menu off"><span style="cursor: pointer;" class="settings">Einstellungen</span><form><fieldset><legend>Permanently activate social plugins:</legend><input name="perma_status_facebook" id="perma_status_facebook" type="checkbox"><label for="perma_status_facebook">Facebook</label><input name="perma_status_twitter" id="perma_status_twitter" type="checkbox"><label for="perma_status_twitter">Twitter</label><input name="perma_status_gplus" id="perma_status_gplus" type="checkbox"><label for="perma_status_gplus">Google+</label></fieldset></form></div></li></ul></div>
+      </span>
+    </div>
+
+    <div id="menu"><ul><li><a href="http://www.friendlyarm.net/">Home</a></li><li><a href="http://www.friendlyarm.net/products">Products</a></li><li><a href="http://www.friendlyarm.net/downloads">Downloads</a></li><li class="currentmenu"><a href="http://www.friendlyarm.net/forum">Forum</a></li><li><a href="http://www.friendlyarm.net/development">Development</a></li><li><a href="http://www.friendlyarm.net/sales">Sales</a></li></ul></div>
+
+    <div id="main">
+      <div id="submenu"><ul><li><a href="http://www.friendlyarm.net/forum/0">All Forums</a></li><li><a href="http://www.friendlyarm.net/forum/7">News</a></li><li><a href="http://www.friendlyarm.net/forum/1">General</a></li><li><a href="http://www.friendlyarm.net/forum/5">Bootloader</a></li><li><a href="http://www.friendlyarm.net/forum/2">Linux</a></li><li><a href="http://www.friendlyarm.net/forum/9">Android</a></li><li><a href="http://www.friendlyarm.net/forum/3">WinCE</a></li><li><a href="http://www.friendlyarm.net/forum/6">No OS</a></li><li><a href="http://www.friendlyarm.net/forum/4">Hardware</a></li><li><a href="http://www.friendlyarm.net/forum/8">Offtopic</a></li></ul></div>
+      <div id="content" class="withsubmenu">
+        <h1>Help me about arm-linux-gcc cross compiler and tslib !</h1>
+<div class="foruminfo"><a href="http://www.friendlyarm.net/forum/2">Forum: Linux</a></div>
+<div id="forummenu"><a href="http://www.friendlyarm.net/forum/topic/5373#postform">Reply</a> | <a rel="nofollow" href="http://www.friendlyarm.net/forum/search">Search</a> | <a rel="nofollow" href="http://www.friendlyarm.net/forum/register">Register</a> | <a rel="nofollow" href="http://www.friendlyarm.net/forum/login">Login</a></div>
+<a name="25538"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25538">
+  <div class="posthead">
+    <span class="author" itemprop="creator">kdich <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-22T13:08:18+02:00">2013-07-22 13:08:18</time> <a itemprop="url" href="#25538"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Hi everybody !
+
+I'm newbie in Embedded System and FriendlyARM !
+
+I using Tiny6410 board and cross-compiler in DVD (arm-linux-gcc v4.5.1).. I
+extract arm-linux-gcc to /opt/FriendlyARM/... I build hello-world program
+and run ok in board.
+
+But, I try to compile tslib-1.0 and run in board, terminal report :
+Segmentation fault. 
+[root@FriendlyARM bin]# ./ts_calibrate
+Segmentation fault
+[root@FriendlyARM bin]# gdb ./ts_calibrate
+GNU gdb 6.8
+Copyright (C) 2008 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a rel="nofollow" href="http://gnu.org/licenses/gpl.html%3E">http://gnu.org/licenses/gpl.html&gt;</a>;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "arm-none-linux-gnueabi"...
+(gdb) run
+Starting program: /sdcard/navit/bin/ts_calibrate 
+
+Program received signal SIGSEGV, Segmentation fault.
+0x403f40a0 in ?? ()
+(gdb) bt
+#0  0x403f40a0 in ?? ()
+(gdb) list
+1      
+/opt/FriendlyARM/mini2440/build-toolschain/working/src/gcc-4.5.1/libgcc/../gcc/c
+onfig/arm/lib1funcs.asm:
+No such file or directory.
+        in
+/opt/FriendlyARM/mini2440/build-toolschain/working/src/gcc-4.5.1/libgcc/../gcc/c
+onfig/arm/lib1funcs.asm
+
+After, I download arm-linux-gcc v4.4.3 and re-cross compile tslib-1.0, same
+probem happen :
+
+[root@FriendlyARM bin]# ./ts_calibrate
+Segmentation fault
+[root@FriendlyARM bin]# gdb ./ts_calibrate
+GNU gdb 6.8
+Copyright (C) 2008 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later
+&lt;<a rel="nofollow" href="http://gnu.org/licenses/gpl.html%3E">http://gnu.org/licenses/gpl.html&gt;</a>;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "arm-none-linux-gnueabi"...
+(gdb) run
+Starting program: /sdcard/navit/bin/ts_calibrate 
+
+Program received signal SIGSEGV, Segmentation fault.
+0x403f40a0 in ?? ()
+(gdb) bt
+#0  0x403f40a0 in ?? ()
+(gdb) list
+1      
+/opt/FriendlyARM/mini2440/build-toolschain/working/src/gcc-4.4.3/libgcc/../gcc/c
+onfig/arm/lib1funcs.asm:
+No such file or directory.
+        in
+/opt/FriendlyARM/mini2440/build-toolschain/working/src/gcc-4.4.3./libgcc/../gcc/
+config/arm/lib1funcs.asm
+
+But, I run ts_calibrate of kernel is very good. I don't understand why
+ts_calibarate need lib1funcs.asm which saved in arm-linux-gcc program on
+computer.
+Even through I set binary mode in gftp. I try to both save my pre-tslib in
+SDCARD and send to board via gftp in binary mode.
+
+Please, tell me why ? Thanks you very much !</pre>
+  </div>
+</div><br>
+
+<a name="25539"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25539">
+  <div class="posthead">
+    <span class="author" itemprop="creator">kdich <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-22T13:25:03+02:00">2013-07-22 13:25:03</time> <a itemprop="url" href="#25539"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>My cross-compile v4.5.1:
+
+root@kdich:/home/kdich# arm-linux-gcc -v
+Using built-in specs.
+COLLECT_GCC=arm-linux-gcc
+COLLECT_LTO_WRAPPER=/opt/FriendlyARM/toolschain/4.5.1/libexec/gcc/arm-none-linux
+-gnueabi/4.5.1/lto-wrapper
+Target: arm-none-linux-gnueabi
+Configured with: /work/toolchain/build/src/gcc-4.5.1/configure
+--build=i686-build_pc-linux-gnu --host=i686-build_pc-linux-gnu
+--target=arm-none-linux-gnueabi --prefix=/opt/FriendlyARM/toolschain/4.5.1
+--with-sysroot=/opt/FriendlyARM/toolschain/4.5.1/arm-none-linux-gnueabi/sys-root
+
+--enable-languages=c,c++ --disable-multilib --with-cpu=arm1176jzf-s
+--with-tune=arm1176jzf-s --with-fpu=vfp --with-float=softfp
+--with-pkgversion=ctng-1.8.1-FA --with-bugurl=<a rel="nofollow" href="http://www.arm9.net/">http://www.arm9.net/</a>
+--disable-sjlj-exceptions --enable-__cxa_atexit --disable-libmudflap
+--with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm'
+--with-gmp=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--with-mpfr=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--with-ppl=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--with-cloog=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--with-mpc=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--with-libelf=/work/toolchain/build/arm-none-linux-gnueabi/build/static
+--enable-threads=posix
+--with-local-prefix=/opt/FriendlyARM/toolschain/4.5.1/arm-none-linux-gnueabi/sys
+-root
+--disable-nls --enable-symvers=gnu --enable-c99 --enable-long-long
+Thread model: posix
+gcc version 4.5.1 (ctng-1.8.1-FA)
+
+
+
+v4.4.3
+
+root@kdich:/home/kdich# arm-linux-gcc -v
+Using built-in specs.
+Target: arm-none-linux-gnueabi
+Configured with:
+/opt/FriendlyARM/mini2440/build-toolschain/working/src/gcc-4.4.3/configure
+--build=i386-build_redhat-linux-gnu --host=i386-build_redhat-linux-gnu
+--target=arm-none-linux-gnueabi --prefix=/opt/FriendlyARM/toolschain/4.4.3
+--with-sysroot=/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi//sys-roo
+t
+--enable-languages=c,c++ --disable-multilib --with-arch=armv4t
+--with-cpu=arm920t --with-tune=arm920t --with-float=soft
+--with-pkgversion=ctng-1.6.1 --disable-sjlj-exceptions
+--enable-__cxa_atexit --with-gmp=/opt/FriendlyARM/toolschain/4.4.3
+--with-mpfr=/opt/FriendlyARM/toolschain/4.4.3
+--with-ppl=/opt/FriendlyARM/toolschain/4.4.3
+--with-cloog=/opt/FriendlyARM/toolschain/4.4.3
+--with-mpc=/opt/FriendlyARM/toolschain/4.4.3
+--with-local-prefix=/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi//sy
+s-root
+--disable-nls --enable-threads=posix --enable-symvers=gnu --enable-c99
+--enable-long-long --enable-target-optspace
+Thread model: posix
+gcc version 4.4.3 (ctng-1.6.1)</pre>
+  </div>
+</div><br>
+
+<a name="25543"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25543">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-22T21:32:34+02:00">2013-07-22 21:32:34</time> <a itemprop="url" href="#25543"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre><a rel="nofollow" href="http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440.html">http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440....</a>
+
+Maybe, step 1 will help.  Or tell us how you cross-compiled tslib.</pre>
+  </div>
+</div><br>
+
+<a name="25544"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25544">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-22T21:34:58+02:00">2013-07-22 21:34:58</time> <a itemprop="url" href="#25544"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Also, check your tslib binary with:
+
+readelf -a &lt;filename&gt; and ensure that near the end it says armv4t
+or
+readelf -A &lt;filename&gt;</pre>
+  </div>
+</div><br>
+
+<a name="25546"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25546">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Juergen Beisert <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-22T22:52:02+02:00">2013-07-22 22:52:02</time> <a itemprop="url" href="#25546"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>davef,
+the Tiny6410 comes with a different processor than the Mini2440. The
+Tiny6410 SoC's CPU core is a "ARM1176jzf-s". This is an "armv6". A
+correspondig compiler should create code where "readelf" should report
+"armv6zk". But also "armv4t" code will run on this CPU.
+I guess it is a library issue. The compiler links the code to a different
+libc than it is installed on the target.
+Once again we are at the point a developer needs a reliable build system to
+create a consistent root filesystem.</pre>
+  </div>
+</div><br>
+
+<a name="25551"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25551">
+  <div class="posthead">
+    <span class="author" itemprop="creator">kdich <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-23T08:02:17+02:00">2013-07-23 08:02:17</time> <a itemprop="url" href="#25551"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Thanks all !
+
+davef :
+
+Yes, I build tslib by same way. I think my problem isn't due to my way
+which I use to build tslib.
+
+Juergen Beisert :
+
+I thinks so. Build for armv4 good run in armv6. But "Once again we are at
+the point a developer needs a reliable build system to
+create a consistent root filesystem." Can you tell me clear ?</pre>
+  </div>
+</div><br>
+
+<a name="25552"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25552">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Juergen Beisert <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-23T08:53:13+02:00">2013-07-23 08:53:13</time> <a itemprop="url" href="#25552"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>"Can you tell me clear ?"
+
+Mixing binaries from different and/or unknown sources is a pain. Sometimes
+it works, most of the time it fails (and no hope for help, because nobody
+can reproduce the setting).
+
+Google for buildroot, PTXdist and so on. These environments will help you
+to get a consistent root filesystem.</pre>
+  </div>
+</div><br>
+
+<a name="25553"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25553">
+  <div class="posthead">
+    <span class="author" itemprop="creator">kdich <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-07-23T09:18:29+02:00">2013-07-23 09:18:29</time> <a itemprop="url" href="#25553"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Juergen Beisert . Thanks you !</pre>
+  </div>
+</div><br>
+
+<a name="25655"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25655">
+  <div class="posthead">
+    <span class="author" itemprop="creator">kdich <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-08-04T10:38:07+02:00">2013-08-04 10:38:07</time> <a itemprop="url" href="#25655"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Hi Juergen Beisert !
+
+I using buildroot to build root file system and toolschain. But, When I use
+toolschain to build a hello_project and run, terminal report : file not
+found! Show me what's wrong ? I test file hello which I cross-compile in PC
+no problem.
+
+Thanks you !</pre>
+  </div>
+</div><br>
+
+<a name="25662"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="25662">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Juergen Beisert <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2013-08-05T09:02:46+02:00">2013-08-05 09:02:46</time> <a itemprop="url" href="#25662"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Run the "readelf" tool with the option -d on your binary. What libaries it
+reports as required (keyword is (NEEDED))? If one of the listed libraries
+is missing on your target (at run-time) you will get this annyoing error
+message). Just provide all shared libraries on your target which your
+binary requires.</pre>
+  </div>
+</div><br>
+
+<a name="27236"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27236">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Ravikumar <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T09:04:11+02:00">2014-02-18 09:04:11</time> <a itemprop="url" href="#27236"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Hi,
+
+Can I get a complete procedure to do the cross compilation of Qt4.8.0 for
+mini2440 in ubuntu 12.04.
+
+Thank you!</pre>
+  </div>
+</div><br>
+
+<a name="27238"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27238">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T09:41:45+02:00">2014-02-18 09:41:45</time> <a itemprop="url" href="#27238"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre><a rel="nofollow" href="http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440.html">http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440....</a>
+
+Should be a good start.</pre>
+  </div>
+</div><br>
+
+<a name="27239"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27239">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T09:43:46+02:00">2014-02-18 09:43:46</time> <a itemprop="url" href="#27239"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>:)  I should have looked further up the thread!</pre>
+  </div>
+</div><br>
+
+<a name="27241"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27241">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Ravikumar <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T10:21:07+02:00">2014-02-18 10:21:07</time> <a itemprop="url" href="#27241"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Dear davef,
+
+Thanks for your reply.
+
+I have already tried with this,
+
+<a rel="nofollow" href="http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440.html">http://mini2440vietnam.blogspot.co.nz/2011/04/upgrade-qt462-in-mini2440....</a>
+
+But i am getting error during the 'make'. Also this is the procedure for Qt
+4.6.2. I am using Qt4.8.0
+
+Please help me..</pre>
+  </div>
+</div><br>
+
+<a name="27243"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27243">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Ravikumar <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T11:15:04+02:00">2014-02-18 11:15:04</time> <a itemprop="url" href="#27243"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Hi davef,
+
+Im getting below error,
+
+The tslib functionality test failed!
+ You might need to modify the include and library search paths by editing
+ QMAKE_INCDIR and QMAKE_LIBDIR in
+ /usr/local/qt-everywhere-opensource-src-4.6.2/mkspecs/qws/linux-arm-g++.</pre>
+  </div>
+</div><br>
+
+<a name="27244"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27244">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-18T11:55:36+02:00">2014-02-18 11:55:36</time> <a itemprop="url" href="#27244"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Seems like a lot of people had this problem in the loooong list of comments
+at the bottom of the tutorial.
+
+I recall posting a Howto after I battled with this, somewhere on this site.
+ There are some quite long Qt threads over the last few years.  
+
+Sorry, it is midnight here so if you don't find anything bump the thread
+and I'll have another look tomorrow.</pre>
+  </div>
+</div><br>
+
+<a name="27269"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27269">
+  <div class="posthead">
+    <span class="author" itemprop="creator">Ravikumar <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-20T12:14:41+02:00">2014-02-20 12:14:41</time> <a itemprop="url" href="#27269"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Hi davef,
+
+Still not able to solve the problem. Expecting your guidance at the
+earliest.
+
+Thanks</pre>
+  </div>
+</div><br>
+
+<a name="27274"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27274">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-20T19:39:40+02:00">2014-02-20 19:39:40</time> <a itemprop="url" href="#27274"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Ok, I have had a good search but can not find what I think I am looking
+for.  I can tell you I had lots of grief doing this myself and then about 
+years ago discovered the Pengutronix BSP.  Qt, which I only use to run a
+web browser on my target became quite easy.
+
+I did find my HowTo for that:  search PTXdist_Qt and Browser.zip
+
+It is not going to help with your problem.
+
+I would suggest you create another thread titled something like :
+
+tslib search paths
+
+and copy your error message.
+
+You did try throwing the whole error message into Google?
+
+Good luck.</pre>
+  </div>
+</div><br>
+
+<a name="27293"></a><a name="lastpost"></a>
+<div class="post" itemscope="" itemtype="http://schema.org/Comment" id="27293">
+  <div class="posthead">
+    <span class="author" itemprop="creator">davef <img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_nouser.gif"></span>
+    <span class="date"><time itemprop="dateCreated" datetime="2014-02-25T10:11:34+02:00">2014-02-25 10:11:34</time> <a itemprop="url" href="#27293"><img src="Help%20me%20about%20arm-linux-gcc%20cross%20compiler%20and%20tslib%20%21%20-%20FriendlyARM_files/forum_post.gif" alt="Link"></a> </span>
+  </div>
+  <div class="posttext" itemprop="text">
+    
+    <pre>Did you see this:
+<a rel="nofollow" href="http://www.friendlyarm.net/forum/topic/4853">http://www.friendlyarm.net/forum/topic/4853</a>
+
+I found the thread that might give you an idea of the process:
+<a rel="nofollow" href="http://www.friendlyarm.net/forum/topic/906">http://www.friendlyarm.net/forum/topic/906</a></pre>
+  </div>
+</div><br>
+<a name="postform"></a><h2>Reply</h2>
+<form action="#postform" method="post">
+  <input name="do" value="new" type="hidden"><input name="forumID" value="2" type="hidden"><input name="topicID" value="5373" type="hidden">
+  <div class="tablewr"><table border="0">
+    <tbody><tr><td align="right">Name</td><td align="left"><input name="name" size="40" maxlength="64" type="text"></td></tr>
+    <tr><td align="right">eMail</td><td align="left"><input name="mail" size="40" maxlength="64" type="text"> <span class="foruminfo">(not visible)</span></td></tr>
+    <tr><td align="right">Subject</td><td align="left"><input name="topic" size="40" maxlength="64" value="Help me about arm-linux-gcc cross compiler and tslib !" readonly="readonly" type="text"> <span class="foruminfo">(no text only in upper case; no HELP, URGENT...)</span></td></tr>
+    
+    <tr><td align="right" valign="top">Text</td><td align="left"><textarea cols="75" rows="20" name="text" style="overflow-y: scroll;"></textarea><div class="foruminfo">HTML tags are <b>not</b> supported and links are generated automatically if they start with <i>http</i> or <i>ftp</i>.<br>Please submit long <b>source code</b> or <b>log files</b> as <b>attachment</b> (only registered users).</div></td></tr>
+    <tr><td align="right"></td><td align="left"><input name="street" size="10" maxlength="10" type="text"> Please enter the number without blanks: 8 6 7 2</td></tr>
+    <tr><td align="right"></td><td align="left"><input name="submit" value="Submit" type="submit"></td></tr>
+  </tbody></table></div>
+</form>
+
+      </div>
+    </div>
+
+    <div id="footer"><a href="http://www.friendlyarm.net/map">Sitemap</a> | <a href="http://www.friendlyarm.net/contact">Contact</a></div>
+  </div>
+
+  <script type="text/javascript">
+    window.onload = initLightbox;
+    initLightbox();
+  </script>
+
+
+</body></html>

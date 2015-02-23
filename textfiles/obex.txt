@@ -1,0 +1,44 @@
+
+
+
+obexd:
+======
+
+
+
+obexfs:
+=======
+ftp://ftp.nl.netbsd.org/vol/2/metalab/distributions/tinycorelinux/3.x/tcz/src/obexfs/obexfs-0.12.tar.gz
+http://sourceforge.net/projects/openobex/files/latest/download?source=files
+	fuse:
+	=====
+	downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.2/fuse-2.9.2.tar.gz?r=&ts=1405866608&use_mirror=kaz
+	
+
+	obexftp:
+	========
+	http://pkgs.fedoraproject.org/repo/pkgs/obexftp/obexftp-0.23.tar.bz2/
+	triq.net/obexftp/obexftp-0.23.tar.bz2
+
+		openobex:
+		=========
+		http://downloads.sourceforge.net/openobex/openobex-1.7.1-Source.tar.gz
+		tar xvf openobex*
+		cd openobex*
+		mkdir build && cd build
+		export CC=arm-linux-gcc
+		export CXX=arm-linux-g++
+		cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+		ccmake -DCMAKE_INSTALL_PREFIX=/usr ..
+			press 't'
+
+			
+		make PKG_CONFIG_PATH=/usr/local/mini2440/bluez/lib/pkgconfig/
+		make DESTDIR=/usr/local/mini2440/bluez install
+
+
+	./configure --host=arm-linux --prefix=/usr OPENOBEX_CFLAGS="-I/usr/local/mini2440/bluez/usr/include" OPENOBEX_LIBS="-L/usr/local/mini2440/bluez/usr/lib" BLUEZ_CFLAGS="-I/usr/local/mini2440/bluez/usr/include/" BLUEZ_LIBS="-L/usr/local/mini2440/bluez/usr/lib"
+	
+	make DESTDIR=/usr/local/mini2440/bluez
+
+	

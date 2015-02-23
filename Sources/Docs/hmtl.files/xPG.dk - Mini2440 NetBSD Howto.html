@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Change lang="en" to the language of your site -->
+<head>
+<title>xPG.dk - Mini2440 NetBSD Howto</title>
+<!-- The sitename is changed in Site Admin/Global settings. Mini2440 NetBSD Howto is the name of each page -->
+<base href="http://xpg.dk/"/>
+<meta name="Generator" content="CMS Made Simple - Copyright (C) 2004-6 Ted Kulp. All rights reserved."/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!-- Don't remove this! Metadata is entered in Site Admin/Global settings. -->
+<link rel="stylesheet" type="text/css" href="http://xpg.dk/tmp/cache/A.stylesheet_combined_628d716f0faf34351393799428cc7ed1.css.pagespeed.cf.1GylNBDfHg.css" media="print"/>
+<link rel="stylesheet" type="text/css" href="http://xpg.dk/tmp/cache/A.stylesheet_combined_413f29013193a175e78538013502bf1f.css.pagespeed.cf.kv1Ug8sqvq.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="http://xpg.dk/tmp/cache/A.stylesheet_combined_6a1201fff3f209910b1a9ffca7aa45a0.css.pagespeed.cf.LATP2PEeyr.css" media="handheld"/>
+<!-- This is how all the stylesheets attached to this template are linked to -->
+<link rel="start" title="Home Page, shortcut key=1" href="http://xpg.dk/"/>
+<link rel="prev" title="NetBSD support for the Mini2440" href="http://xpg.dk/projects/netbsd-support-for-the-mini2440"/>
+<link rel="next" title="MSP430" href="http://xpg.dk/projects/msp430"/>
+<!-- Relational links for interconnections between pages, good for accessibility and Search Engine Optmization -->
+<!-- The min and max page width for Internet Explorer is set here. For other browsers it's in the stylesheet "Layout: Left sidebar + 1 column" -->
+</head><body>
+<script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-38602983-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
+<div id="pagewrapper">
+<!-- start accessibility skip links -->
+<ul class="accessibility">
+<li><a href="http://xpg.dk/projects/netbsd-support-for-the-mini2440/nb-mini2440-ht#menu_vert" title="Skip to navigation" accesskey="n">Skip to navigation</a></li>
+<li><a href="http://xpg.dk/projects/netbsd-support-for-the-mini2440/nb-mini2440-ht#main" title="Skip to content" accesskey="s">Skip to content</a></li>
+</ul>
+<!-- end accessibility skip links -->
+<hr class="accessibility"/>
+<!-- Horizontal ruler that is hidden for visual browsers by CSS -->
+<!-- Start Header, with logo image that links to the default start page. Logo image is changed in the stylesheet  "For template: Left menu + 1 column" -->
+<div id="header">
+<h1> <a href="http://xpg.dk/" title="Home Page, shortcut key=1">xPG.dk</a></h1>
+<hr class="accessibility"/>
+</div>
+<!-- End Header -->
+<!-- Start Search-->
+<!--   <div id="search">
+          <form id="cntnt01moduleform_1" method="get" action="http://xpg.dk/projects/netbsd-support-for-the-mini2440/nb-mini2440-ht" class="cms_form">
+<div class="hidden">
+<input type="hidden" name="mact" value="Search,cntnt01,dosearch,0" />
+<input type="hidden" name="cntnt01returnid" value="70" />
+</div>
+
+
+    <label for="cntnt01searchinput">Enter Search...</label>:&nbsp;<input type="text" name="cntnt01searchinput" size="20" maxlength="50" onfocus="if(this.value==this.defaultValue) this.value='';" onblur="if(this.value=='') this.value=this.defaultValue;"/><input name="submit" value="Submit" type="submit" />
+
+</form>
+
+   </div>-->
+<!-- End Search -->
+<!-- Start Breadcrumbs -->
+<!--
+   <div class="breadcrumbs">
+        You are here: <a href="http://xpg.dk/">Home</a> &raquo; <a href="http://xpg.dk/projects">Projects</a> &raquo; <a href="http://xpg.dk/projects/netbsd-support-for-the-mini2440">NetBSD support for the Mini2440</a> &raquo; <span class="lastitem">Mini2440 NetBSD Howto</span>
+   <hr class="accessibility" />
+   </div>-->
+<!-- End Breadcrumbs -->
+<!-- Start Content (Navigation and Content columns) -->
+<div id="content">
+<!-- Start Sidebar -->
+<div id="sidebar">
+<!-- Start Navigation -->
+<div id="menu_vert">
+<h2 class="accessibility">Navigation</h2>
+<ul>
+<li><a href="http://xpg.dk/"><span>Home</span></a>
+</li>
+<li class="menuactive menuparent parent"><a class="menuactive menuparent parent" href="http://xpg.dk/projects"><span>Projects</span></a>
+<ul>
+<li><a href="http://xpg.dk/projects/cracksh"><span>CrackSH</span></a>
+</li>
+<li><a href="http://xpg.dk/projects/linux-ipv6-flow-label-mangement-api"><span>Linux IPv6 Flow Label Mangement API</span></a>
+</li>
+<li><a href="http://xpg.dk/projects/optware-packages"><span>Optware Packages</span></a>
+</li>
+<li><a href="http://xpg.dk/projects/dg100ctl"><span>DG100 Control</span></a>
+</li>
+<li class="menuactive menuparent parent"><a class="menuactive menuparent parent" href="http://xpg.dk/projects/netbsd-support-for-the-mini2440"><span>NetBSD support for the Mini2440</span></a>
+<ul>
+<li class="menuactive"><a class="menuactive" href="http://xpg.dk/projects/netbsd-support-for-the-mini2440/nb-mini2440-ht"><span>Mini2440 NetBSD Howto</span></a>
+</li></ul>
+</li>
+<li class="parent"><a class="parent" href="http://xpg.dk/projects/msp430"><span>MSP430</span></a>
+<ul>
+<li><a href="http://xpg.dk/projects/msp430/msp430-gcc-uniarch-build-script"><span>MSP430 GCC Uniarch build script</span></a>
+</li>
+<li><a href="http://xpg.dk/projects/msp430/msp430-eclipse"><span>MSP430 Eclipse</span></a>
+</li></ul></li></ul>
+</li>
+<li><a href="http://gallery.xpg.dk/v/misc"><span>Photo Gallery</span></a>
+</li>
+<li><a href="http://xpg.dk/news-archive"><span>News Archive</span></a>
+</li>
+<li><a href="http://xpg.dk/contact"><span>Contact</span></a>
+</li>
+</ul>
+</div>
+<!-- End Navigation -->
+<br/>
+<div class="one-image">
+<a href="http://gallery.xpg.dk/v/misc/_igp8907-pp1.jpg.html">
+<img src="http://gallery.xpg.dk/d/711-4/_igp8907-pp1.jpg" width="150" height="101" class="giThumbnail" alt="Lost Flowers"/>
+</a> </div>
+<br/>
+</div>
+<!-- End Sidebar -->
+<!-- Start Content Area -->
+<div id="main">
+<div style="float: right;"><a href="http://xpg.dk/index.php?mact=CMSPrinting,cntnt01,output,0&amp;cntnt01url=aHR0cDovL3hwZy5kay9wcm9qZWN0cy9uZXRic2Qtc3VwcG9ydC1mb3ItdGhlLW1pbmkyNDQwL25iLW1pbmkyNDQwLWh0Lz9zaG93dGVtcGxhdGU9ZmFsc2U%3D&amp;cntnt01pageid=70&amp;cntnt01script=1&amp;cntnt01returnid=70" class="noprint" rel="nofollow"> <img src="data:image/gif;base64,R0lGODlhEAAQANUAAPr6+6enqL3AxdPm/fD0+UuGxXSInrjT8MLc+Mvi+4mVolGNyGSWyoOv3IGp03+kyneSrt3o8+vy+PLy8ujo6N7e3tbW1svLy8TExL+/v7u7u7m5ubW1tZiYmI6OjoiIiIeHh4GBgX9/f35+fn19fXd3d3Nzc3FxcWVlZUpKSicnJ////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACsALAAAAAAQABAAAAakwJVQ8VgYjRChUlmQSAgESaTBMC2FC0JiiwAMHIbrKpsYJBARZ+Eqyg7MicNBUggpR58C4W1GIOgoICseHRdub1x0GCeEFhQkkJGSFIsfAAAXE5qbmhiXJySXARUXpaYVAZcoJBYWHRYZsbIWH60pJxoatRu8vbS5KiccHB2RJygpycIcwQEcJAEC0tMBKsQqJMcMAE5OEREEDCopJUoM5+jpSkEAOw==" title="Print this page" alt="Print this page"/>
+</a>
+</div>
+<h2>Mini2440 NetBSD Howto</h2>
+<h2>Kernel Output</h2>
+<pre>
+Copyright (c) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+2006, 2007, 2008, 2009, 2010, 2011, 2012
+The NetBSD Foundation, Inc.  All rights reserved.
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+The Regents of the University of California.  All rights reserved.
+NetBSD 5.99.64 (MINI2440) #22: Mon Feb  6 21:29:36 CET 2012
+pf@pf-desktop:/usr/local/src/netbsd-current/obj/sys/arch/evbarm/compile/MINI2440
+total memory = 65536 KB
+avail memory = 60176 KB
+mainbus0 (root)
+cpu0 at mainbus0: ARM920T rev 0 (ARM9TDMI core)
+cpu0: DC enabled IC enabled WB enabled EABT
+cpu0: 16KB/32B 64-way Instruction cache
+cpu0: 16KB/32B 64-way write-back-locking-A Data cache
+ssio0 at mainbus0: fclk 405 MHz hclk 101 MHz pclk 50 MHz
+ohci0 at ssio0 intr 26
+ohci0: OHCI version 1.0
+usb0 at ohci0: USB revision 1.0
+sscom0 at ssisscom0: console (major=104)
+ssextio0 at ssio0
+dme0 at ssextio0 addr 0x20000300 intr 7
+lcd0 at ssio0
+wsdisplay0 at lcd0
+lcd0: Allocating LCD frame buffer of size 153600
+sssdi0 at ssio0
+sdmmc0 at sssdi0
+ssiis0 at ssio0
+udassio0 at ssiis0
+audio0 at udassio0: half duplex, playback, capture
+sstouch0 at ssio0
+wsmouse0 at sstouch0 mux 0
+ssrtc0 at ssio0: RTC 
+clock: hz=100 stathz = 64 PCLK=50625000 prescaler=2 tc=24719
+uhub0 at usb0: Samsung OHCI root hub, class 9/0, rev 1.00/1.00, addr 1
+ld0 at sdmmc0: &lt;     &gt;
+ld0: 1962 MB, 996 cyl, 64 head, 63 sec, 512 bytes/sect x 4019200 sectors
+ld0: 4-bit width, bus clock 25.000 MHz
+boot device: ld0
+root on ld0a dumps on ld0b
+root file system type: ffs
+</pre>
+<h2>Network Install to SD-card</h2>
+<p>
+In order to install the NetBSD MINI2440 on an SD-card follow the steps below. These instructions assume that DHCP is used to configure IPv4 addresses, and that a TFTP server is running at 10.0.0.1. All binary files needed can either be build directly from the CVS repository or obtained from the daily snapshot directory at nyftp.netbsd.org (use newest with evbarm in pub/NetBSD-daily/HEAD).
+</p>
+<ul>
+<li> The dhcp-server must be configured with a proper “next-server” option, as in the following example /etc/dhcpd.conf:
+<blockquote>
+host mini2440 {<br/>
+hardware ethernet 08:08:11:18:12:27; <span style="white-space: pre" class="Apple-tab-span">	<br/>
+</span>  fixed-address 10.0.0.20;<br/>
+next-server 10.0.0.1;<br/>
+}
+</blockquote>
+</li>
+<li> TFTP must be setup, such that the bootmini2440-bootloader and netbsd-MINI2440_INSTALL kernel are downloadable:
+<ul>
+<li>a. Start TFTP service by uncommenting “'#tftp&quot; line in /etc/inetd.conf, and restart inetd invoking '/etc/rc.d/inetd restart'</li>
+<li>b. Populate the TFTP-directory (usually /tftpboot) with two files:
+<p>
+1. bootmini2440 found at evbarm/installation/ directory of ISO image.<br/>
+2. netbsd-MINI2440_INSTALL found at evbarm/installation/instkernel/ directory as netbsd-MINI2440_INSTALL.gz. gunzip it and copy it to the TFTp-directory as netbsd-MINI2440_INSTALL.
+</p>
+Make sure to have READ permission for files, or TFTP daemon will not be able to serve them to the MINI2440-board.</li>
+</ul>
+</li>
+<li> From the U-Boot prompt, request an address via DHCP with autoloading disabled:
+<blockquote>
+MINI2440 # setenv autoload n<br/>
+U-Boot&gt; dhcp <br/>
+dm9000 i/o: 0x20000300, id: 0x90000a46 <br/>
+DM9000: running in 16 bit mode <br/>
+MAC: 08:08:11:18:12:27<br/>
+BOOTP broadcast 1 <br/>
+BOOTP broadcast 2<br/>
+DHCP client bound to address 10.0.0.20
+</blockquote>
+‘printenv’ can be used to see the settings obtained from the DHCP request:
+<blockquote>
+autoload=n<br/>
+gatewayip=10.0.0.1<br/>
+netmask=255.255.255.0<br/>
+rootpath=/export/mini2440<br/>
+ipaddr=10.0.0.20<br/>
+serverip=10.0.0.1<br/>
+dnsip=10.0.0.1
+</blockquote>
+</li>
+<li>Load &quot;bootmini2440&quot; at address 0x30a00000 over tftp by utilizing U-Boots tftp capabilities:
+<blockquote>
+U-Boot&gt; tftp 30a00000 bootmini2440
+</blockquote>
+</li>
+<li> Launch the bootmini2440-bootloader and ask it to fetch the install image over the network:
+<blockquote>
+U-Boot&gt; go 30a00000 tftp:netbsd-MINI2440_INSTALL
+</blockquote>
+</li>
+<li>The installer should now launch.</li>
+<li> When the distribution-selection screen shows, select &quot;d: Custom installation&quot;. Select &quot;e: Kernel (MINI2440)&quot; and continue installation. </li>
+<li> Setup the disk-partitioning as desired and continue installation.<br/>
+Please note, that SD-cards do not behave as regular harddrive. In order to get the best performance, care should be taken that partitions start on 8192-byte boundaries and end at them. Also, it is adviced that the block size of UFS is set to 8192 (other values might be more optimal). For more details see [1].<br/>
+In order to avoid loading bootmini2440 over the network, or store it in NAND, it might be a good idea to have a FAT-partition on the SD-card which can be accessed by U-Boot.</li>
+<li>Choose &quot;HTTP&quot; as installation source, configuring the dme0 manually if needed.</li>
+<li>A local server can be used as source,or the releng server can be used:
+<blockquote>
+Host: nyftp.netbsd.org<br/>
+Base directory: pub/NetBSD-daily/HEAD/201202011750Z/
+</blockquote>
+</li>
+<li>Once installation completes,  bootmini2440 is again loaded over the network:
+<blockquote>
+U-Boot&gt; nfs 30a00000 tftp:bootmini2440
+</blockquote>
+</li>
+<li>The NetBSD system is then booted from the SD-card:
+<blockquote>
+U-Boot&gt; go 30a00000 ld0a:netbsd 
+</blockquote>
+</li>
+</ul>
+<h2>Setup as Diskless Node</h2>It is possible to run MINI2440 as an NFS diskless node. In that case a root-directory for the MINI2440 is create on a server, and exported via NFS.
+<p>
+In this example /export/mini2440 is exported, and will be mounted as root file system by the MINI2440.
+</p>
+<ul>
+<li>First, /export/mini2440 needs to be exported, this is done by having the following line in  /etc/exports:</li>
+</ul>
+<blockquote>
+/export/mini2440 -maproot=0
+</blockquote>
+<ul>
+<li>Restart the NFS-server:
+<blockquote>
+# /etc/rc.d/mountd restart
+</blockquote>
+</li>
+<li>Two files, base.tgz and etc.tgz, are to be inflated at the NFS exported directory. These files are found at evbarm/binary/sets/ directory of ISO image.</li>
+<li>Run MAKEDEV script to populate dev/ directory:
+<blockquote>
+# cd /export/mini2440/dev <br/>
+# sh ./MAKEDEV all
+</blockquote>
+</li>
+<li>Gunzip netbsd-MINI2440.gz, found in evbarm/binary/kernel/, and copy it as &quot;netbsd&quot; to the NFS exported directory.</li>
+<li>From the U-Boot prompt, request an address via DHCP with autoloading disabled:
+<blockquote>
+U-Boot&gt; setenv autoload n <br/>
+U-Boot&gt; dhcp
+</blockquote>
+</li>
+<li>Run TFTP to load bootmini2440 and starts NetBSD kernel
+<blockquote>
+U-Boot&gt; tftp 30a00000 bootmini2440<br/>
+dm9000 i/o: 0x20000300, id: 0x90000a46<br/>
+DM9000: running in 16 bit mode<br/>
+MAC: 08:08:11:18:12:27 <br/>
+TFTP from server 192.168.24.24; our IP address is 192.168.24.69 <br/>
+Filename 'bootmini2440'. <br/>
+Load address: 0x30a00000 <br/>
+Loading: T ######### <br/>
+done&lt; <br/>
+Bytes transferred = 117628 (1cb7c hex) <br/>
+U-Boot&gt; go 30a00000 nfs:netbsd
+</blockquote>
+bootmini2440 loads NetBSD kernel with NFS protocol.<br/>
+MINI2440 runs as NFS diskless node.</li>
+</ul>
+<h2>Enable second and third UARTs</h2>
+<p>
+The Mini2440 has three UARTs. By default only UART0 is used. UART 1 and 2 are supported, and can be used as consoles by performing the following procedures:
+</p>
+<ul>
+<li>Add two lines in /etc/ttys
+<blockquote>
+sscom1 &quot;/usr/libexec/getty std.115200&quot; unknown on secure<br/>
+sscom2 &quot;/usr/libexec/getty std.115200&quot; unknown on secure
+</blockquote>
+</li>
+<li>Create two character devices
+<blockquote>
+# /sbin/mknod /dev/sscom1 c 104 1 <br/>
+# /sbin/mknod /dev/sscom2 c 104 2
+</blockquote>
+</li>
+<li>Invoke getty(8) for them by running:
+<blockquote>
+# kill -1 1 
+</blockquote>
+</li>
+</ul>
+<h2>Run U-Boot without flashing it to NAND</h2>
+<p>
+U-Boot can be run from RAM, without flashing it into the boards NAND-memory. In order to do that power on the MINI2440 in NOR switch position (toward board edge).
+</p>
+<p>
+Once the Mini2440 BIOS shows a prompt follow the following instructions: 
+</p>
+<blockquote>
+[q] Goto shell of vivi [i] Version: 0945-2K<br/>
+Enter your selection: q<br/>
+Supervivi&gt; load ram 0x31000000 242360 u<br/>
+USB host is connected. <br/>
+Waiting a download.
+</blockquote>
+<p>
+The decimal 242360 is the 'u-boot-256MB.bin' file size, which will be transfered via the USB cable by Windows DNW tool.
+</p>
+<p>
+The u-boot image is ZIP'ed in u-boot_20100701.zip which can be found at http://www.friendlyarm.net/downloads. u-boot-256MB.bin is known ok for 1GB model as well as 128M model.
+</p>
+<p>
+Now, U-Boot can be started:
+</p>
+<blockquote>
+Supervivi&gt; go 0x31000000 
+</blockquote>
+<p>
+&nbsp;
+</p>
+<h2>Flashing U-Boot to NAND</h2>
+Power on the MINI2440 in NOR switch position (toward board edge), and wait for prompt.
+<p>
+As when running U-Boot from memory, the DNW-Windows tool is used to transfer the 'u-boot-256MB.bin'-file via USB to the MINI2440-board. This time no file size needs to be specified, and the file is written directly to NAND-flash: 
+</p>
+<blockquote>
+[q] Goto shell of vivi [i] Version: 0945-2K<br/>
+Enter your selection: q<br/>
+Supervivi&gt; load flash vivi u<br/>
+USB host is connected. <br/>
+Waiting a download.
+</blockquote>
+<p>
+Change the slide-switch to NAND position, and reset the board. A U-boot prompt is now displayed. 
+</p>
+<br/>
+<!-- Start relational links -->
+<div class="hr"></div>
+<div class="left49">
+<p>Modified: Mon 13-Feb-12 13:55:32 PST<br/>
+</p>
+</div>
+<!-- The label parameter doesn't need to be there if you're using English, but is here to show how it's used if you don't want the English text "Previous page" -->
+<!-- End relational links -->
+<hr class="accessibility"/>
+</div>
+<!-- End Content Area -->
+</div>
+<!-- End Content -->
+<!-- Start Footer. Edit the footer in the Global Content Block called "footer" -->
+<div id="footer">
+<p>© Copyright 2000-2014 - Paul Fleischer (paul at xpg dot dk)<br/><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" style="border: 0pt none " width="88" height="31"/></a> <!-- <a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!" style="border: 0pt none ; width: 88px; height: 31px" /></a> --> </p>
+</div>
+<!-- End Footer  -->
+</div><!-- end pagewrapper -->
+</body>
+</html>

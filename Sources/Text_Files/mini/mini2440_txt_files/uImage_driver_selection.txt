@@ -1,0 +1,11 @@
+In kernel source:
+=================
+
+	make ARCH=arm mini2440_defconfig
+	make ARCH=arm menuconfig
+
+		& then select ur required driver modules and then save and exit.
+
+	make ARCH=arm CROSS_COMPILE=arm-linux- uImage
+
+

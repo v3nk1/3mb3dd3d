@@ -1,0 +1,65 @@
+Making u-boot.bin:
+==================
+
+1.Download ubootxxx.tar file(version of ur wish)
+2.Untar it.
+3.See README file (Building the Software:) section for any furuther details:
+
+# CROSS_COMPILE=arm-linux-
+# make mini2440_config
+# make all
+# ls  --> you'll find some uboot* images. we require u-boot.bin
+
+Writing data into RAM of mini2440:
+================================
+
+using dnw:
+----------
+1.Download source from fiendly-arm site: http://www.friendlyarm.net/downloads 
+	software section:
+		DNW-Linux USB-Push Boot-USB Download Tool (Linux)
+2.Untar it.
+	# cd usbpush/dnw/
+	# make
+	# sudo make install
+
+3.First configure Destination(target_mini2440):
+  Plug usb A to B cable to host and target
+	
+   ====>INCASE OF u-boot.bin transfering to target SUPERVIVI PROMPT:
+	------------------------------------------------------------
+
+	switch to NOR flash. <since in nor flash defaultlly supervivi has deployed>
+	poweron board
+	Open minicom
+	press q to enter supervivi terminal
+	
+	supervivi> load ram <address_of_loading> <exact_size_in_bytes> u		{u for telling through usb}
+	
+	Ex:
+	=== 
+		supervivi> load ram 0x31000000 213456 u
+
+	Then minicom will be in waiting state...
+	
+	In host: {send through USB from host}
+	--------
+		dnw <path_of_the_file>
+ 
+   ====>INCASE OF NORMAL FILE TRANSFERING TO UBOOT PROMPT:
+	--------------------------------------------------
+		WE WILL SEE
+
+using usbpush:
+--------------
+	LEGACY PROCEDURE
+
+
+AFTER U DONE ABOVE ALL USING ANY PROCEDURE THE DATA FILE HAS TRANSMITTED TO RAM OF TARGET.
+
+
+Using it from RAM:
+==================
+
+	supervivi> go <data_copied_address>
+		it will loaded "MINI2440# " u-boot prompt;

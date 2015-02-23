@@ -1,0 +1,16 @@
+
+GIVING COMMANDS THROUGH USB_KEYBOARD:
+=====================================
+
+HOST# vi /etc/inittab
+	COMMENT THIS LINE
+	#ttySAC0::respawn:/sbin/getty -L  ttySAC0 115200 vt100 # GENERIC_SERIAL
+
+HOST# vi /etc/init.d/rcS
+	At last append
+		/bin/sh		Since we r not using serial port ie., dnt want to redict ouput to console & dnt want to give commands through 					serial port from host. So we r intializing user interaction through by starting shell propmt
+
+
+	MINI2440# setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x32000000 uImage_logo1; setenv bootargs  ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/minifs; bootm 0x32000000
+
+		OR give "init=/bin/sh" followed by booting command.

@@ -1,0 +1,8 @@
+Nand CRC_ERRORS:
+================
+
+MINI2440# nand scrub
+MINI2440# nand createbbt
+MINI2440# dynpart
+MINI2440# dynenv set 40000
+MINI2440# saveenv

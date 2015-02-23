@@ -1,0 +1,15 @@
+1. see creatin_a_blockdev&init_with_fs.txt
+
+2. After create a vertual block device, and write a filesystem in that virtual block device:
+	mount it like
+	
+	# mount <path-to-virtual-block-device-file> <mount-point> -o loop
+	Ex:
+		mount /media/bdevv/myfs /mnt/myfs -o loop
+
+3. Then it will be mounted on /mnt
+	So copy what ever the rootfs heirarchy you have build to that /mnt.
+	# rsync -av <rootfs>/* /mnt/myfs
+	# umount /mnt/myfs
+
+4. When u see your virtual blockdevice file it shows as a single file, but when u mount it to /mnt/myfs & see how much of data will be there.

@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>Openembedded basic setup - Wikiface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.4">
+<link rel="shortcut icon" href="http://wiki.iface.ch/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.iface.ch/opensearch_desc.php" title="Wikiface (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.iface.ch/index.php?title=Openembedded_basic_setup&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikiface Atom feed" href="http://wiki.iface.ch/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/main-ltr.css" media="screen">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/shared.css" media="screen">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/index_003.css">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/index.css" media="print">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/index_002.css">
+<link rel="stylesheet" href="Openembedded%20basic%20setup%20-%20Wikiface_files/index_004.css">
+<script>
+var skin="vector",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://wiki.iface.ch",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Openembedded_basic_setup",
+wgTitle="Openembedded basic setup",
+wgAction="view",
+wgArticleId=27,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=142,
+wgVersion="1.16.4",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikiface", "5": "Wikiface talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikiface": 4, "wikiface_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="Wikiface",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="Openembedded%20basic%20setup%20-%20Wikiface_files/wikibits.js"></script>
+<script src="Openembedded%20basic%20setup%20-%20Wikiface_files/ajax.js"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.htc")}</style><![endif]-->
+<script src="Openembedded%20basic%20setup%20-%20Wikiface_files/index.php"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Openembedded_basic_setup skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Openembedded basic setup</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<h3 id="siteSub">From Wikiface</h3>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#What_is_it"><span class="tocnumber">1</span> <span class="toctext">What is it</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Why_another_guide.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why another guide?</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Structure"><span class="tocnumber">1.2</span> <span class="toctext">Structure</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Bitbake"><span class="tocnumber">1.2.1</span> <span class="toctext">Bitbake</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Recipes"><span class="tocnumber">1.2.2</span> <span class="toctext">Recipes</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#local.conf"><span class="tocnumber">1.2.3</span> <span class="toctext">local.conf</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Install"><span class="tocnumber">2</span> <span class="toctext">Install</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Packages_to_install"><span class="tocnumber">2.1</span> <span class="toctext">Packages to install</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Creating_the_working_directory"><span class="tocnumber">2.2</span> <span class="toctext">Creating the working directory</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Installing_bitbake"><span class="tocnumber">2.3</span> <span class="toctext">Installing bitbake</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Installing_openembedded"><span class="tocnumber">2.4</span> <span class="toctext">Installing openembedded</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Notes_about_git_and_openembedded"><span class="tocnumber">2.4.1</span> <span class="toctext">Notes about git and openembedded</span></a>
+<ul>
+<li class="toclevel-4 tocsection-13"><a href="#Checking_the_remote_available_branches"><span class="tocnumber">2.4.1.1</span> <span class="toctext">Checking the remote available branches</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="#Using_a_particular_branch"><span class="tocnumber">2.4.1.2</span> <span class="toctext">Using a particular branch</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="#Updating_openembedded"><span class="tocnumber">2.5</span> <span class="toctext">Updating openembedded</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Create_the_local.conf_file_for_openembedded"><span class="tocnumber">2.6</span> <span class="toctext">Create the local.conf file for openembedded</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#Look_for_a_supported_machine"><span class="tocnumber">2.6.1</span> <span class="toctext">Look for a supported machine</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Edit_the_file"><span class="tocnumber">2.6.2</span> <span class="toctext">Edit the file</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Configure"><span class="tocnumber">3</span> <span class="toctext">Configure</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Test"><span class="tocnumber">4</span> <span class="toctext">Test</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="What_is_it">What is it</span></h1>
+<p>Openembedded ("OE" for short) is a tool usable to cross-compile Linux
+ distributions on your PC. The typical target of the system is - as the 
+name suggests - the embedded world.
+</p><p>The official site is at <a href="http://www.openembedded.org/" class="external free" rel="nofollow">http://www.openembedded.org/</a> where plenty of documentation can be found.
+</p>
+<h2> <span class="mw-headline" id="Why_another_guide.3F"><i>Why</i> another guide?</span></h2>
+<p>On the net you can find plenty of guides on how to install and setup OE; some of them are outdated, some <i>tricky</i>, some referring to other distros, some runs only on 32 bits systems not on 64 bits.
+</p>
+<h2> <span class="mw-headline" id="Structure">Structure</span></h2>
+<p>OE is built on three pillars:
+</p>
+<ul><li>Bitbake;
+</li><li>The recipes;
+</li><li><b>local.conf</b> configuration file.
+</li></ul>
+<h3> <span class="mw-headline" id="Bitbake">Bitbake</span></h3>
+<p>Taking from the <a href="http://bitbake.berlios.de/" class="external text" rel="nofollow">official website</a>, <i>BitBake is, at its simplest, a tool for executing tasks and managing metadata</i>, so it's the responsible who makes the dirty job; this tool written in <a href="http://en.wikipedia.org/wiki/Python_%28programming_language%29" class="external text" rel="nofollow">Python</a>.
+</p>
+<h3> <span class="mw-headline" id="Recipes">Recipes</span></h3>
+<p>A collection of file with a <b>.bb</b> extension that describes what 
+BitBake has to do; in this case where to find what's needed to build, 
+how to configure it, build it and install it.
+</p>
+<h3> <span class="mw-headline" id="local.conf"><i>local.conf</i></span></h3>
+<p>This is actually <i>the</i> configuration file describing the target 
+board, the release of the distro to compiles, the directory to store the
+ source files, to compile, to install, the root image type to generate.
+</p>
+<h1> <span class="mw-headline" id="Install">Install</span></h1>
+<p>We start from a basic <i>debian 6.0 (Squeeze)</i> installation and we
+ will use a 64 bit system. The installation procedure doesn't change a 
+lot except for the installation of 32-bit compatibility libraries that 
+are not needed on a native 32 bit system.
+</p>
+<h2> <span class="mw-headline" id="Packages_to_install">Packages to install</span></h2>
+<pre># <b>apt-get install build-essential git-core help2man diffstat texi2html texinfo cvs gawk subversion gawk</b>
+
+<b>Addendum for i386:</b>
+# <b>apt-get install python-psyco</b>
+
+<b>Addendum for amd64:</b>
+# <b>apt-get install ia32-libs</b>
+</pre>
+<p>As the prompt will suggest, this command has to be executed as <i>root</i>; here's a description of the needed packages:
+</p>
+<ul><li>build-essential;
+</li><li>git-core;
+</li><li>help2man;
+</li><li>diffstat;
+</li><li>texi2html;
+</li><li>texinfo;
+</li><li>cvs;
+</li><li>gawk;
+</li><li>python-psyco;
+</li><li>subversion;
+</li><li>gawk;
+</li><li>ia32-libs.
+</li></ul>
+<p>The package manager will suggest to install extra needed packages: just confirm with <b>Y</b> and wait for the job to complete.
+</p>
+<h2> <span class="mw-headline" id="Creating_the_working_directory">Creating the working directory</span></h2>
+<p>On your hard disk, choose a convenient place to store all your working environment; a directory with a short name like <b>oe</b> on your root directory may be convenient:
+</p>
+<pre>$ <b>cd ~</b>
+$ <b>mkdir oe</b>
+$ <b>cd oe</b>
+</pre>
+<h2> <span class="mw-headline" id="Installing_bitbake">Installing <i>bitbake</i></span></h2>
+<p>We install bitbake (BB for short) under the directory <b>bitbake</b> 
+on your working directory; it's convenient to install BB from it's git 
+repository to avoid outdated releases; at the time writing (April 22 
+2011) the stable release is <i>1.12.0</i>.
+</p>
+<pre>~/oe$ <b>wget <a href="http://download.berlios.de/bitbake/bitbake-1.12.0.tar.gz" class="external free" rel="nofollow">http://download.berlios.de/bitbake/bitbake-1.12.0.tar.gz</a></b>
+--2011-04-22 16:11:43--  <a href="http://download.berlios.de/bitbake/bitbake-1.12.0.tar.gz" class="external free" rel="nofollow">http://download.berlios.de/bitbake/bitbake-1.12.0.tar.gz</a>
+Resolving download.berlios.de... 195.37.77.141
+Connecting to download.berlios.de|195.37.77.141|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 206241 (201K) [application/x-download]
+Saving to: “bitbake-1.12.0.tar.gz”
+
+100%[==========================================================================================&gt;] 206,241      552K/s   in 0.4s
+
+2011-04-22 16:11:44 (552 KB/s) - “bitbake-1.12.0.tar.gz” saved [206241/206241]
+~/oe$ <b>tar -xf bitbake-1.12.0.tar.gz</b>
+~/oe$ <b>mv bitbake-1.12.0 bitbake</b>
+</pre>
+<p>So, with the actions as above:
+</p>
+<ul><li>We download bitbake from it's website;
+</li><li>We <i>untar</i> it;
+</li><li>We move the actual bitbake into a standard named <b>bitbake</b> folder.
+</li></ul>
+<h2> <span class="mw-headline" id="Installing_openembedded">Installing <i>openembedded</i></span></h2>
+<p>OE can be downloaded using <i>git</i>:
+</p>
+<pre>~/oe$ <b>git clone git://git.openembedded.net/openembedded</b>
+Cloning into openembedded...
+remote: Counting objects: 426642, done.
+remote: Compressing objects: 100% (121779/121779), done.
+remote: Total 426642 (delta 295902), reused 425368 (delta 294960)
+Receiving objects: 100% (426642/426642), 149.53 MiB | 645 KiB/s, done.
+Resolving deltas: 100% (295902/295902), done.
+</pre>
+<h3> <span class="mw-headline" id="Notes_about_git_and_openembedded">Notes about <i>git</i> and <i>openembedded</i></span></h3>
+<p>The command as above download the development branch of OE; if you 
+want more control over the downloading process, consider as follows:
+</p>
+<h4> <span class="mw-headline" id="Checking_the_remote_available_branches">Checking the remote available branches</span></h4>
+<p>Once downloaded the development branch, you can issue the following command:
+</p>
+<pre>~/oe$ <b>cd openembedded</b>
+~/oe$ <b>git branch -r</b>
+  origin/2011.03-maintenance
+  origin/HEAD -&gt; origin/master
+  <i>...cut...</i>
+  origin/master
+  <i>...cut...</i>
+  origin/stable/2009
+  <i>...cut...</i>
+  origin/testing
+  origin/testing-next
+  origin/testing-next-test
+  <i>...cut...</i>
+</pre>
+<p><b>NOTE:</b> Some cut has been performed to underline just the more interesting results.
+This will list all remotely available branches.
+</p>
+<h4> <span class="mw-headline" id="Using_a_particular_branch">Using a particular branch</span></h4>
+<pre>~/oe$ <b>cd openembedded/</b>
+~/oe/openembedded$ <b>git checkout origin/stable/2009 -b stable/2009</b>
+Branch stable/2009 set up to track remote branch stable/2009 from origin.
+Switched to a new branch 'stable/2009'
+</pre>
+<h2> <span class="mw-headline" id="Updating_openembedded">Updating <i>openembedded</i></span></h2>
+<p>From the moment you cloned OE on your system, some updates may occurs; to update your OE tree:
+</p>
+<pre>~/oe$ <b>cd openembedded/</b>
+~/oe/openembedded$ <b>git pull</b>
+</pre>
+<h2> <span class="mw-headline" id="Create_the_local.conf_file_for_openembedded">Create the <i>local.conf</i> file for openembedded</span></h2>
+<h3> <span class="mw-headline" id="Look_for_a_supported_machine">Look for a supported machine</span></h3>
+<p>Before editing your <i>local.conf</i> file, you have to discover if 
+your machine is supported or not; actually (April 22, 2011) more than 
+200 machines are supported; I'm developing for a FriendlyARM Mini2440 
+and actually this machine is not present so I have to make some extra 
+efforts to build for it.
+</p>
+<h3> <span class="mw-headline" id="Edit_the_file">Edit the file</span></h3>
+<p>A starting point for the <i>local.conf</i> file is already available; just made a copy into your build directory:
+</p>
+<pre>fpiraneo@debian:~/oe/openembedded$ cd ~/oe
+fpiraneo@debian:~/oe$ mkdir -p build/conf
+fpiraneo@debian:~/oe$ cp openembedded/conf/local.conf.sample build/conf/local.conf
+</pre>
+<p>Edit the target file in <b>~/oe/build/conf/</b> to:
+</p>
+<ul><li>Define the source directory - Where BB will store all downloaded source;
+</li></ul>
+<pre># Use this to specify where BitBake should place the downloaded sources into
+DL_DIR = "${HOME}/sources"
+</pre>
+<p>A good directory may be: <b>${HOME}/oe/build/sources</b>; so:
+</p>
+<pre>DL_DIR = "${HOME}/oe/build/sources"
+</pre>
+<ul><li>Define the recipe directory:
+</li></ul>
+<pre># Delete the line below. Then specify which .bb files to consider for
+# your build. Typically this will be something like BBFILES = "/path/to/openembedded/recipes/*/*.bb"
+BBFILES&nbsp;:= "${@bb.fatal('Edit your conf/local.conf: BBFILES')}"
+</pre>
+<p>As indicated the string between the quotes and replace with the directory containing the recipes, ie:
+</p>
+<pre>BBFILES&nbsp;:= "${HOME}/oe/openembedded/recipes/*/*.bb"
+</pre>
+<ul><li>Here you can specify for which machine you're building for; 
+enter the machine name you discovered on the precedent step; this will 
+take care of all building options;
+</li></ul>
+<pre># Uncomment this to specify a machine to build for. See the conf directory
+# for machines currently known to OpenEmbedded. This will automatically take care
+# of TARGET_ARCH
+MACHINE = "mini2440"
+</pre>
+<ul><li>The generation of binary locales takes lot of time, so I prefer to compile just the needed locales:
+</li></ul>
+<pre># If ENABLE_BINARY_LOCALE_GENERATION is set to "1", you can limit locales
+# generated to the list provided by GLIBC_GENERATE_LOCALES. This is huge
+# time-savior for developmental builds. Format: list of locale.encoding pairs
+# with spaces as separators.
+GLIBC_GENERATE_LOCALES = "en_GB.UTF-8"
+</pre>
+<ul><li>Again to save disk space and time, the generation of just a <b>.tar</b> image is suggested; a file system image can be generated later;
+</li></ul>
+<pre># Add the required image file system types below. Valid are
+# jffs2, tar(.gz|bz2), cpio(.gz), cramfs, ext2(.gz), ext3(.gz)
+# squashfs, squashfs-lzma
+IMAGE_FSTYPES = "tar"
+</pre>
+<ul><li>On multiple core machine enable the parallel make may be a time saving feature; you can disable it in case of problems:
+</li></ul>
+<pre># Uncomment this to enable parallel make.
+# This allows make to spawn mutliple processes to take advantage of multiple
+# processors. Useful on SMP machines. This may break some packages - we're
+# in the process of marking these so let us know if you find any.
+PARALLEL_MAKE = "-j 4"
+</pre>
+<ul><li><i>remove</i> the last two lines; this shows that you edited your <b>local.conf</b> file.
+</li></ul>
+<pre># EDIT THIS FILE and then remove the line below before using! <b>[REMOVE]</b>
+REMOVE_THIS_LINE:="${@bb.fatal('Read the comments in your conf/local.conf')}" <b>[REMOVE]</b>
+</pre>
+<h1> <span class="mw-headline" id="Configure">Configure</span></h1>
+<h1> <span class="mw-headline" id="Test">Test</span></h1>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 78/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikiface:pcache:idhash:27-0!1!0!!en!2!edit=0 and timestamp 20131220125112 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wiki.iface.ch/index.php/Openembedded_basic_setup">http://wiki.iface.ch/index.php/Openembedded_basic_setup</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id="catlinks" class="catlinks catlinks-allhidden"></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li id="pt-login"><a href="http://wiki.iface.ch/index.php?title=Special:UserLogin&amp;returnto=Openembedded_basic_setup" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><a href="http://wiki.iface.ch/index.php/Openembedded_basic_setup" title="View the content page [alt-shift-c]" accesskey="c"><span>Page</span></a></li>
+					<li id="ca-talk" class="new"><a href="http://wiki.iface.ch/index.php?title=Talk:Openembedded_basic_setup&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t"><span>Discussion</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><a href="http://wiki.iface.ch/index.php/Openembedded_basic_setup"><span>Read</span></a></li>
+					<li id="ca-viewsource"><a href="http://wiki.iface.ch/index.php?title=Openembedded_basic_setup&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e"><span>View source</span></a></li>
+					<li id="ca-history" class="collapsible "><a href="http://wiki.iface.ch/index.php?title=Openembedded_basic_setup&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h"><span>View history</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" name="search" title="Search Wikiface [alt-shift-f]" accesskey="f" type="text">
+		<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">
+		<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/wikiface-logo.png);" href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+					<li id="n-portal"><a href="http://wiki.iface.ch/index.php/Wikiface:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+					<li id="n-currentevents"><a href="http://wiki.iface.ch/index.php/Wikiface:Current_events" title="Find background information on current events">Current events</a></li>
+					<li id="n-recentchanges"><a href="http://wiki.iface.ch/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+					<li id="n-randompage"><a href="http://wiki.iface.ch/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+					<li id="n-help"><a href="http://wiki.iface.ch/index.php/Help:Contents" title="The place to find out">Help</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://wiki.iface.ch/index.php/Special:WhatLinksHere/Openembedded_basic_setup" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="http://wiki.iface.ch/index.php/Special:RecentChangesLinked/Openembedded_basic_setup" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="http://wiki.iface.ch/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+									<li id="t-print"><a href="http://wiki.iface.ch/index.php?title=Openembedded_basic_setup&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+						<li id="t-permalink"><a href="http://wiki.iface.ch/index.php?title=Openembedded_basic_setup&amp;oldid=142" title="Permanent link to this revision of the page">Permanent link</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 22 April 2011, at 16:56.</li>
+																							<li id="footer-info-viewcount">This page has been accessed 3,627 times.</li>
+																							<li id="footer-info-copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" class="external ">Attribution-NonCommercial-NoDerivs 3.0 Unported</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://wiki.iface.ch/index.php/Wikiface:Privacy_policy" title="Wikiface:Privacy policy">Privacy policy</a></li>
+																							<li id="footer-places-about"><a href="http://wiki.iface.ch/index.php/Wikiface:About" title="Wikiface:About">About Wikiface</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://wiki.iface.ch/index.php/Wikiface:General_disclaimer" title="Wikiface:General disclaimer">Disclaimers</a></li>
+															</ul>
+										<ul id="footer-icons" class="noprint">
+								<li id="footer-icon-poweredby"><a href="http://www.mediawiki.org/"><img src="Openembedded%20basic%20setup%20-%20Wikiface_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></li>
+												<li id="footer-icon-copyright"><a href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img src="Openembedded%20basic%20setup%20-%20Wikiface_files/88x31.png" alt="Attribution-NonCommercial-NoDerivs 3.0 Unported" height="31" width="88"></a></li>
+							</ul>
+			<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Openembedded%20basic%20setup%20-%20Wikiface_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-22891129-1");
+pageTracker._trackPageview();
+</script>		<!-- Served in 0.146 secs. -->			
+
+</body></html>

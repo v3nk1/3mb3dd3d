@@ -1,0 +1,24 @@
+Nand CRC_ERRORS:
+================
+
+MINI2440# nand scrub
+MINI2440# nand createbbt
+
+Switch to nor, load u-boot.bin
+
+Supervivi> q
+Supervivi> load flash 0x0 <size> u
+
+Send from host
+
+root# dnw u-boot-v132.bin
+
+Switch to Nand jumper,
+To set default partitions
+MINI2440# dynpart
+To set saving position of env
+MINI2440# dynenv set 40000			or
+MINI2440# dynenv set u-boot_env{2nd partition name in mtdparts}
+
+MINI2440# saveenv
+MINI2440# reset

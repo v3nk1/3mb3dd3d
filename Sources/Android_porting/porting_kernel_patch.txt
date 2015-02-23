@@ -1,0 +1,52 @@
+This video shows a complete procedure of Porting Android on FriendlyARM
+
+below code is used to make changes during porting
+
+----------------------------------------­----------------------------------
+
+android/kernel/drivers/video/Kconfig
+
+
+
+
+//line 19xx
+
+config FB_S3C2410_X240320
+boolean "3.5 inch 240X320 SONY LCD"
+depends on FB_S3C2410
+help
+3.5 inch 240x320 SONY LCD
+
+
+android/kernel/arch/arm/mach-s3c2440/mac­h-mini2440.c
+
+//line 2xx
+
+#elif defined(CONFIG_FB_S3C2410_X240320)
+#define LCD_WIDTH 240
+#define LCD_HEIGHT 320
+#define LCD_PIXCLOCK 170000
+
+#define LCD_RIGHT_MARGIN 25
+#define LCD_LEFT_MARGIN 0
+#define LCD_HSYNC_LEN 4
+
+#define LCD_UPPER_MARGIN 0
+#define LCD_LOWER_MARGIN 4
+#define LCD_VSYNC_LEN 9
+#define LCD_CON5 (S3C2410_LCDCON5_FRM565 | S3C2410_LCDCON5_INVVDEN | S3C2410_LCDCON5_INVVFRAME | S3C2410_LCDCON5_INVVLINE | S3C2410_LCDCON5_INVVCLK | S3C2410_LCDCON5_HWSWP | S3C2410_LCDCON5_PWREN)
+
+//line 343
+
+s3c2410_gpio_cfgpin(S3C2410_GPG4, S3C2410_GPG4_OUTP);
+s3c2410_gpio_setpin(S3C2410_GPG4, 1);
+
+
+android/kernel/Makefile
+
+//line 442 & 1601
+	make those 2 lines start with % by delete some charecters.
+
+
+
+

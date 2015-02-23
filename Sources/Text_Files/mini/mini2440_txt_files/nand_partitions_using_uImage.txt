@@ -1,0 +1,4 @@
+Nand partitions using uImage:
+	edit arch/arm/mach-s3c24xx/mach-mini2440.c
+
+		And search for nand partitions.

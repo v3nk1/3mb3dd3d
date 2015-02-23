@@ -1,0 +1,67 @@
+For latest u-boot sources:
+==========================
+
+Standalone load address been maintained in
+check those given address are valid for your target board using vendor datasheet
+of the board(memory map).
+	# vi u-boot-2014.04/arch/arm/config.mk
+
+For old sources/board specific uboot-sources:
+=============================================
+
+	# vi u-boot/examples/Makefile
+
+
+Here case:
+----------
+
+	arm mini2440 board address c100000 changed to 31000000
+
+
+Download u-boot source code:
+============================
+
+	# cd <u-boot-source>/examples
+	# vi Makefile
+		
+include $(TOPDIR)/config.mk
+
+ELF     = hello_world
+SREC    = hello_world.srec
+BIN     = hello_world.bin
+## Add your files to be compiled along with u-boot
+
+ELF     += mytest
+SREC    += mytest.srec
+BIN     += mytest.bin
+
+ELF     += led
+SREC    += led.srec
+BIN     += led.bin
+
+
+
+	# cd ..
+	# make ARCH=arm CROSS_COMPILE=arm-linux-
+	# ls examples
+		Able to see your given files are compiled along with u-boot
+	
+
+Here 
+	ELF=hello_world			XXXXXXXXXXXXX
+	SREC=hello_world.srec		For serial transmission of the file.
+	BIN=hello_world.bin		Is to transer through tftp protocal.
+
+
+Serial transmission of the file:
+================================
+	Using minicom:
+	--------------
+		
+		To initiate serial transmission give 'loads' command, it will be in waiting state.
+		MINI2440 # loads 
+
+		Connect all cables to b/w HOST and TARGET
+		(Ctrl+A)+S for serial transmission.
+		Select ascii mode of transmission.
+		Specify the file name.

@@ -1,0 +1,18 @@
+Manual Loading from mmc:
+========================
+fatload mmc0 0:1 80000000 uImage
+fatload mmc0 0:1 81000000 omap4-panda-es.dtb
+setenv bootargs root=/dev/mmcblk0p2 console=ttyO2,115200
+bootm 80000000 - 81000000
+
+
+Integrating uImage into zImage:
+===============================
+cd <linux>/arch/arm/boot
+cat zImage dts/omap4-panda-es.dtb > zImage-dtb
+mkimage -A arm -O linux -T kernel -C none -a 0x80008000 -e 0x80008000 -n "panda-linux"  -d  zImage-dtb  uImage-dtb
+cp uImage-dtb /path/to/mmc/boot
+
+fatload mmc0 0:1 80000000 uImage-dtb
+setenv bootargs root=/dev/mmcblk0p2 console=ttyO2,115200
+bootm 80000000

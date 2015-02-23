@@ -1,0 +1,92 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides: dbus
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: Starts or stops the sshd daemon.
+### END INIT INFO
+
+NAME=dbus-daemon
+DAEMON=/usr/bin/$NAME
+PIDFILE=/var/run/dbus/$NAME.pid
+
+# It restrict dbus-daemon to create pid file in /var/run/dbus/pid
+OPS=--nopidfile
+
+if ! test -x "$DAEMON" ;then 
+	echo $DAEMON": Not found or no execution permission"
+	exit 0
+fi
+
+gen_group_passwd () {
+
+	touch /etc/group /etc/passwd
+	mkdir -p /home/messagebus /root
+
+	if ! grep -q root "/etc/group"; then
+		echo "Creating /etc/group and adding entries ... "
+		addgroup -S root
+	fi
+
+	if ! grep -q messagebus "/etc/group"; then
+		echo "Adding group messagebus to /etc/group .."
+		addgroup -S messagebus
+	fi
+
+	if ! grep -q root "/etc/passwd"; then
+		echo "Creating /etc/passwd and adding entries ... "
+		adduser root -G root -u 0 -D -h /root
+		echo "Enter Passwd for root: "
+		passwd
+	fi
+
+	if ! grep -q messagebus "/etc/passwd"; then
+		echo "Adding user messagebus to /etc/passwd .."	
+		adduser -S messagebus -G messagebus
+	fi
+}
+
+case "$1" in
+    start)
+	rm -rf $PIDFILE
+	if [ ! -e $PIDFILE ]; then
+	        echo "Starting daemon" "$NAME"
+		gen_group_passwd
+		#rm -rf /var/run/dbus/pid
+		start-stop-daemon --start --quiet --oknodo -m --pidfile "$PIDFILE" --exec $DAEMON -- --system ${OPS}
+		#dbus-daemon --system
+	else
+		echo "$NAME-deamon is running."
+	fi
+        ;;
+    stop)
+	if [ -e $PIDFILE ]; 
+	then
+	        echo "Stopping daemon" "$NAME"
+		# Here i'm using name for stopping b'coz its been a garbage value in pid file created by
+		# start-stop-daemon
+		start-stop-daemon --stop --quiet --oknodo --name "dbus-daemon"
+		#rm -fr /var/run/dbus/pid
+		rm -rf $PIDFILE
+	else 
+		echo "$NAME-daemon is not running."
+	fi
+        ;;
+    restart|force-reload)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        if [ -e $PIDFILE ] ; then
+		echo "dbus-daemon is upon running"
+	else
+		echo "dbus-daemon is not running"
+        fi
+        ;;
+    *)
+        echo "Usage: /etc/init.d/dbus {start|stop|restart|force-reload|status}"
+        exit 1
+        ;;
+esac
+
+exit 0

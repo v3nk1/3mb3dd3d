@@ -1,0 +1,46 @@
+Initramfs is inbuilded within kenel while building, so by loading uImage,and set console args only we can boot the target.
+initramfs initally searches for init file in / directory of given rootfs. so we hav to create that.
+
+We can build this 2 ways:
+	1. using initrd.img 
+#####	2. using normal rootfs herarchy
+##1##
+#####
+- mount your rootfs.img to loopback device as done in initrd.img.
+
+
+    # cd /mnt
+/mnt# write below lines in init file created in /mnt {vi init}
+		#!/bin/sh 
+		#/sbin/init does not get automounted for initramfs 	
+		/bin/echo "/sbin/init start now." 
+		exec /sbin/init
+		
+/mnt# chmod +x init
+
+/mnt# find . | cpio -ovH newc > /output/path/to/rootfs.cpio
+
+================================================================================================================
+
+#####
+##2##
+#####
+
+- go to rootfs directory;
+# cd <rootfs-path>
+
+#  Create a init file in <rootfs># vi init
+
+	#!/bin/sh 
+	#/sbin/init does not get automounted for initramfs 	
+	/bin/echo "/sbin/init start now." 
+	exec /sbin/init
+
+give the executable permissons
+# chmod +x init
+give the bellow command in the rootfs directory
+# find . | cpio -ovH newc > /output/path/to/rootfs.cpio
+
+=================================================================================================================
+
+- while building kernel image give path to initramfs.cpio.

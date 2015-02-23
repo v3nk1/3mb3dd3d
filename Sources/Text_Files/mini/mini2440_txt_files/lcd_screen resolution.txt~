@@ -1,0 +1,44 @@
+CHANGING SCREEN RESOLUTION OF MINI2440:
+=======================================
+
+METHOD1:
+--------
+
+	Edit mini2440.c file in follwing PATH
+	# vi <linux-src>/arch/arm/mach-s3c24xx/mach-mini2440.c 
+
+Change the struct [0] member "x timing, y timing" to as bellow:
+---------------------------------------------------------------
+
+	static struct s3c2410fb_display mini2440_lcd_cfg[] __initdata = {
+        [0] = { /* mini2440 + 3.5" TFT + touchscreen */
+                _LCD_DECLARE(
+                        7,                      /* The 3.5 is quite fast */
+                        240, 1, 26, 5,  	/* x timing */
+                        320, 1, 5, 9,           /* y timing */
+                        60),                    /* refresh rate */
+                .lcdcon5        = (S3C2410_LCDCON5_FRM565 |
+                                   S3C2410_LCDCON5_INVVLINE |
+                                   S3C2410_LCDCON5_INVVFRAME |
+                                   S3C2410_LCDCON5_INVVDEN |
+                                   S3C2410_LCDCON5_PWREN),
+        },
+
+
+We are changing only [0] bcoz, the mini2440 file defaultly associated to [0] offset.
+The member holding this is:
+---------------------------
+
+/*
+ * mini2440_features string
+ *
+ * t = Touchscreen present
+ * b = backlight control
+ * c = camera [TODO]
+ * 0-9 LCD configuration
+ *
+ */
+
+static char mini2440_features_str[12] __initdata = "0tb";
+
+

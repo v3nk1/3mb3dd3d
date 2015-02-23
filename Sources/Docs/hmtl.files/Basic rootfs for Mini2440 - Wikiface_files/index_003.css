@@ -1,0 +1,10 @@
+/* CSS placed here will be applied to all skins */
+/* - Geshi - draw dotted border */
+div.mw-geshi {
+  padding: 1em; 
+  margin: 1em 0; 
+  border: 1px dashed #2f6fab;
+}
+
+/* Don't show title on main page */
+body.page-Main_Page h1.firstHeading { display:none; }

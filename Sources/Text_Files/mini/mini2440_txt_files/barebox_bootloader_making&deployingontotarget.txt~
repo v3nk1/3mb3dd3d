@@ -1,0 +1,136 @@
+BAREBOX.bin CREATION:
+=====================
+
+-Download latest barebox from below site
+	
+	http://barebox.org/download/barebox-2014.03.0.tar.bz2
+
+# tar xvf barebox-2014.03.0.tar.bz2
+# cd barebox-2014.03.0
+# ls arch/arm/configs/
+	you'll find your board's default configuration.
+
+# make ARCH=arm friendlyarm_mini2440_defconfig
+# make ARCH=arm menuconfig
+# make ARCH=arm CROSS_COMPILE=arm-linux- 
+
+# ls barebox.bin
+
+DEPLOYING IT INTO NAND FLASH BY SUPERVIVI:
+==========================================
+
+Loading it into ram by 'dnw' tool:
+----------------------------------
+ Switch on mini2440 board by selecting NOR memory
+ 
+Supervivi> load ram 0x31000000 <sizeinbytes> u
+	   It will wait for downloading...	So open another tab give command: 'dnw <path-to-barebox.bin>'
+Supervivi> go 0x31000000
+
+	   Then u'll bootup withh barebox bootloader.
+
+mini2440:/
+
+
+Deploying barebox.bin to NAND:
+------------------------------
+
+Barebox commands:
+ 
+- Give help in the barebox command prompt to get supported commands.
+	
+mini2440:/ help
+
+- it also supports some basic linux commands and shell commands
+ Ex: cat, ls, cp, cd, echo, mkdir, pwd, rm, rmdir, sleep, sh, clear, export, . . . etc
+
+- Apart of those some needed commands are
+
+	addpart		- adds a partition table to a device
+	delpart 		- delete partition(s)
+	bootm 		- boot an application image
+	devinfo		- Show information about devices and drivers
+	erase 			- erase FLASH memory
+	go			- start application at address or file
+	ping 			- ping <destination> 
+	printenv 		- Print value of one or all environment variables
+	saveenv 		- save environment to persistent storage
+	edit 			- Usage: (s)edit <file>
+	sedit 			- alias for edit 
+	tftp 			- (up-)Load file using tftp protocol 
+
+- bearbox initially run  /env/bin/init script
+- By default it does not have ram memory partitions
+- For that we have to change the script
+- Modify the script as showing below.
+
+PATCHING:
+*********
+
+mini2440:/ edit /env/bin/init 
+
+	append 2-lines after 4th if bolck:
+
+	addpart /dev/mem 16M@0x31000000(kernel)
+	addpart /dev/mem 16M@0x32000000(rootfs)
+
+B'coz:
+------
+In uboot bootloader tftp 1st copies into ram & then we write it into nand partition.
+
+But here barebox.bin bootloader directly copies into nand. The problem here is what if the target has no nandflash memory(PANDA_BOARD). then we shud use RAM(64M) of target for all purposes. But the problem here is tftp command of barebox bootloader.
+
+tftp of barebox we are not giving address like 0x31000000 as in uboot, we shud give device-nodes that are in /dev/.
+
+mini2440:/ ls /dev		To display available device nodes
+mini2440:/ devinfo		To display what dev-nodes are representing what?
+There is one node that is mem corresponding to ram.
+We cannot identify where to copy and where to execute or read since we cannot know staring and ending address of a file loaded into RAM.
+So the above 'addpart' commands are patched to overcome the problem.
+
+mini2440:/ edit /env/config	AFTER LOADED barebox.bin and if u are in barebox prompt.
+	or u can (PATCH)change it while building barebox.bin via..
+	"vi barebox-2014.03.0/arch/arm/boards/friendlyarm-mini2440/env/config"
+
+	modify the fields bellow, by seeing host's "ifconfig eth0" & remove # at starting
+eth0.ipaddr=10.0.0.111
+eth0.netmask=255.255.255.0
+eth0.gateway=10.0.0.254
+eth0.serverip=10.0.0.4
+eth0.ethaddr=see in ifconfig	"sudo ifconfig eth0|grep HWaddr"		{MAC addr; may or maynt be needed}
+
+execute below commands if u change above 5 from barebox prompt.
+mini2440:/ saveenv
+mini2440:/ . /env/bin/init
+
+
+Buring to nand:
+---------------
+In uboot bootloader tftp 1st copies into ram & then we write it into nand partition.
+But here barebox.bin bootloader directly copies into nand. The problem here is what if the target has no nandflash memory. then we shud use ram.
+So the above 'addpart' commands are patched to overcome the problem. For problem see above patching.
+
+	mini2440:/ tftp barebox.bin /dev/nand0.barebox.bb		OR
+		   tftp barebox.bin /dev/nand0.barebox
+
+uImage to nand:
+--------------
+
+mini2440:/ tftp uImage_ /dev/nand0.kernel.bb 
+100Mbps full duplex link detected
+        #################################################################
+        ###############################write: No space left on device
+
+Since by default the size is 1.8M for kernel. Here we can modify to 5M by edit bellow file "WHILE BUILDING BAREBOX.BIN"
+
+PATCHING:
+*********
+vi barebox-2014.03.0/arch/arm/boards/friendlyarm-mini2440/env/config
+
+	nand_parts="256k(barebox),128k(bareboxenv),5M(kernel),-(root)"		This type of modification in source code calld patching.
+
+	And then build barebox.bin.
+	This barebox.bin will give access to write into nand upto 5M of kernel partion.
+
+mini2440:/ tftp uImage_ /dev/nand0.kernel.bb
+	   tftp uImage_ /dev/nand0.kernel

@@ -1,0 +1,157 @@
+1).
+	vi include/linux/interrupt.h
+	Add your softirq-name "MY_SOFTIRQ" to enum
+
+enum
+{
+        HI_SOFTIRQ=0,
+        TIMER_SOFTIRQ,
+        NET_TX_SOFTIRQ,
+        NET_RX_SOFTIRQ,
+        BLOCK_SOFTIRQ,
+        BLOCK_IOPOLL_SOFTIRQ,
+        TASKLET_SOFTIRQ,
+        SCHED_SOFTIRQ,
+        HRTIMER_SOFTIRQ,
+        RCU_SOFTIRQ,    /* Preferable RCU should always be the last softirq */
+        MY_SOFTIRQ,
+
+        NR_SOFTIRQS
+};
+
+
+2).
+
+	vi kernel/softirq.c
+ 	Add your softirq entry here also.
+	
+const char * const softirq_to_name[NR_SOFTIRQS] = {
+        "HI", "TIMER", "NET_TX", "NET_RX", "BLOCK", "BLOCK_IOPOLL",
+        "TASKLET", "SCHED", "HRTIMER", "RCU", "MY"
+};
+
+
+3).	
+	vi kernel/softirq.c
+	Export symbols "open_softirq(), raise_softirq(), raise_softirq_irqoff()" 
+	right after their definitions.
+
+void open_softirq(int nr, void (*action)(struct softirq_action *))
+{
+        softirq_vec[nr].action = action;
+}
+EXPORT_SYMBOL(open_softirq);
+
+void raise_softirq(unsigned int nr)
+{
+        unsigned long flags;
+
+        local_irq_save(flags);
+        raise_softirq_irqoff(nr);
+        local_irq_restore(flags);
+}
+EXPORT_SYMBOL(raise_softirq);
+
+
+inline void raise_softirq_irqoff(unsigned int nr)
+{
+        __raise_softirq_irqoff(nr);
+
+        /*
+         * If we're in an interrupt or softirq, we're done
+         * (this also catches softirq-disabled code). We will
+         * actually run the softirq once we return from
+         * the irq or softirq.
+         *
+         * Otherwise we wake up ksoftirqd to make sure we
+         * schedule the softirq soon.
+         */
+        if (!in_interrupt())
+                wakeup_softirqd();
+}
+EXPORT_SYMBOL(raise_softirq_irqoff);
+
+	
+
+4). cat /proc/softirq
+	
+	The file resposible for this is here. Just obeserve it. No modifications here.
+
+vi fs/proc/softirqs.c
+
+5). 
+	Compile the entire kernel.
+	# make -j8 && make modules && make modules_install && make install
+
+	Then the changes you've done will be appeare.
+
+6).
+
+	vi /lib/modules/3.16.1/build/Module.symvers
+
+	Search (/) for exported symbols. "open_softirq(), raise_softirq(), raise_softirq_irqoff()".
+	These symbols should be available b'coz we are invoking these in our program.
+	The symbols will be available here only if you exported them and compile the kernel and install it on system.
+	And boot with the newly installed kernel.
+
+7) Writing a program for our softirq.
+
+	vi softirq.c
+	
+//Its a shared interrupt line (IRQ) registration..
+
+#include<linux/kernel.h>
+#include<linux/version.h>
+#include<linux/module.h>
+#include<linux/moduleparam.h>
+#include<linux/interrupt.h>
+#include<linux/irq.h>
+#include<linux/init.h>
+
+#define SH_IRQ	1			/*Its a shared irq for eth0*/
+
+int irq=SH_IRQ,intrr_cnt,devid;
+module_param(irq,int,0644);
+
+void softhand(struct softirq_action *sa){
+
+	pr_info("%s: Invoked\n",__func__);
+
+}
+
+irqreturn_t my_intrrupt_hand(int irq,void *devid){
+
+	intrr_cnt++;
+	pr_info("ISR: called %d times\n",intrr_cnt);
+	//pr_info("@%d\n",MY_SOFTIRQ);
+	open_softirq(MY_SOFTIRQ,softhand);
+	raise_softirq(MY_SOFTIRQ);
+	return IRQ_NONE;	
+
+}	
+
+int __init init_module(void){
+
+	if(request_irq(irq,my_intrrupt_hand,IRQF_SHARED,"my_shared_intrr",&devid)){
+							pr_info("req_irq: Failed\n");
+							return -1;
+							}
+	pr_info("Registered interrupt module for irq %d\n",irq);
+	return 0;
+
+}
+
+void __exit cleanup_module(void){
+
+	synchronize_irq(irq);
+	raise_softirq_irqoff(MY_SOFTIRQ);
+	free_irq(irq,&devid);
+		/*devid is used to identify when removing(must needed when shared irq line)*/
+	pr_info("UnRegistered interrupt module for irq %d\n",irq);
+
+}
+
+MODULE_LICENSE("GPL");
+
+
+

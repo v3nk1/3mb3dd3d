@@ -1,0 +1,1 @@
+fatload mmc 0:1 81000000 uImage-bw;fatload mmc 0:1 82000000 panda-bw.dtb;setenv bootargs console=ttyO2,115200 root=/dev/mmcblk0p2;bootm 81000000 - 82000000

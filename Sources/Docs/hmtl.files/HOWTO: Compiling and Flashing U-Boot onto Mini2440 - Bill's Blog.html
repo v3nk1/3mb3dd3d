@@ -1,0 +1,1257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<meta name="ROBOTS" content="INDEX, FOLLOW" />
+<title>HOWTO: Compiling and Flashing U-Boot onto Mini2440 - Bill's Blog</title>
+<meta name="description" lang="en" content="The bootloader that comes factory installed on the Micro2440 and the Mini2440 board is called Supervivi. I don't personally like it. It has very limited support and requires a" />
+<meta name="copyright" content="" />
+<meta name="author" content="Bill" />
+<meta name="date" scheme="W3CDTF" content="2010-01-16T13:41:00+01:00" />
+<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
+<meta name="dc.title" content="HOWTO: Compiling and Flashing U-Boot onto Mini2440" />
+<meta name="dc.description" lang="en" content="The bootloader that comes factory installed on the Micro2440 and the Mini2440 board is called Supervivi. I don't personally like it. It has very limited support and requires a" />
+<meta name="dc.creator" content="Bill" />
+<meta name="dc.language" content="en" />
+<meta name="dc.publisher" content="Bill" />
+<meta name="dc.rights" content="" />
+<meta name="dc.date" scheme="W3CDTF" content="2010-01-16T13:41:00+01:00" />
+<meta name="dc.type" content="text" />
+<meta name="dc.format" content="text/html" />
+<link rel="top" href="http://bill.station51.net/index.php?" title="Home" />
+<link rel="contents" href="http://bill.station51.net/index.php?archive" title="Archives" />
+<link rel="next" href="http://bill.station51.net/index.php?post/2010/01/17/Openembedded-and-Bitbake-Stupidity-and-Odd-results-from-Openembedded" title="Openembedded and Bitbake Stupidity and Odd results from Openembedded" />
+<link rel="previous" href="http://bill.station51.net/index.php?post/2010/01/16/Welcome-to-my-FriendlyARM-Mini2440-Micro2440-Blog" title="Welcome to my FriendlyARM Mini2440 - Micro2440 Blog" />
+<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="http://bill.station51.net/index.php?feed/atom" />
+  
+<style type="text/css" media="screen">
+@import url(/themes/BlueSky/style.css);
+</style>
+<style type="text/css" media="print">
+@import url(/themes/BlueSky/../default/print.css);
+</style>
+
+<!--[if IE]>
+<style type="text/css">
+#navigation {
+  width: 100%;
+  text-align: center;
+}
+#navigation .nav-centered {
+ display: inline-block;
+}
+#navigation ul a {
+  float: left;
+  display: block;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript" src="/themes/BlueSky/js/jquery.js"></script>
+<script type="text/javascript" src="/themes/BlueSky/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#sidebar div div ul li").click(function(){  
+		window.location=$(this).find("a").attr("href");
+		return false;
+	});
+});
+</script>
+
+
+  
+<script type="text/javascript" src="/themes/BlueSky/js/post.js"></script>
+<script type="text/javascript">
+  //<![CDATA[
+  var post_remember_str = 'Remember me on this blog';
+  //]]>
+</script>
+</head>
+
+<body class="dc-post">
+<div id="page">
+<![CDATA[>
+<!--[
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+  rdf:about="http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440"
+  dc:identifier="http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440"
+  dc:title="HOWTO: Compiling and Flashing U-Boot onto Mini2440"
+  trackback:ping="http://bill.station51.net/index.php?trackback/910" />
+</rdf:RDF>
+<!]]><!---->
+
+
+<div id="top">
+  <h1><span><a href="http://bill.station51.net/index.php?"><img src="/public/site_logo.png" alt="" /></a></span>
+<!-- added by bill -->
+<div style="height:100px; width;550px; position: absolute; top:15px; right:15px">
+ <!-- Begin BidVertiser code 
+<SCRIPT LANGUAGE="JavaScript1.1" 
+SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=2137&bid=762031" 
+type="text/javascript"></SCRIPT>
+<noscript><a href="http://www.bidvertiser.com">internet 
+advertising</a></noscript> -->
+<!-- End BidVertiser code --> 
+</div>
+<!-- end of code added by bill -->
+
+</h1>
+
+    
+  <div id="navigation">
+      <del class="nav-centered">
+        <ul>
+            <li><a href="http://bill.station51.net/index.php?"><img src="/themes/BlueSky/img/icon_home.png" alt="" /></a></li>
+            <li><a href="http://billforums.station51.net">Forums</a></li>
+            <li><a href="http://bill.station51.net/index.php?archive">Archives</a></li>
+            <li><a href="http://bill.station51.net/index.php?feed/atom"><img src="/themes/BlueSky/img/icon_feed.png" alt="" /></a></li>
+        </ul>
+      </del>
+  </div>
+</div>
+
+<div id="wrapper">
+
+<div id="main">
+  <div id="content">
+  
+  <div id="p910" class="post">
+    <h2 class="post-title"><a href="http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440">HOWTO: Compiling and Flashing U-Boot onto Mini2440</a></h2>
+    
+    <p class="post-info">By Bill    &raquo; Saturday, January 16 2010, 13:41        </p>
+
+    
+          <div class="post-excerpt"><p>The bootloader that comes factory installed on the Micro2440 and the Mini2440 board is called Supervivi. I don't personally like it. It has very limited support and requires a YAFFS filesystem for the root filesystem. So when I bought my board I began to immediately search out an alternative. The bootloader by choice, it seems, is a modified version of U-Boot with modifications for the Mini2440 board's hardware</p></div>
+        
+    <div class="post-content"><p>The code is maintained by a guy named buserror. I'll provide his information at the end of this howto.</p>
+
+
+<p>At the time of writing this, I had some issues with getting Buserror's U-Boot working correctly.</p>
+
+
+<p>The code that is in his git repository, doesn't run from RAM without a modification to the source. So here are the instructions that I gathered for altering and compiling it, and getting it going on the Mini2440 and Micro2440 board.</p>
+
+
+<p>For this to work, I'm going to assume that you have a crosscompiler set up. Later on, I will probably write an entry here about setting that up, but not now. I'm also assuming you have git installed.</p>
+
+
+<p><strong>Step 1</strong>: Get the source</p>
+
+
+<pre>mkdir uboot ; cd uboot
+git clone git://repo.or.cz/u-boot-openmoko/mini2440.git</pre>
+
+
+<p><strong>Step 2</strong>: Set your cross compiler prefix so you don't end up compiling this for x86.</p>
+
+
+<pre>export CROSS_COMPILE=arm-none-linux-gnueabi-</pre>
+
+
+<p><strong>Step 3</strong>:  Modify the source to disable CONFIG_USE_IRQ. Open include/configs/mini2440.h.</p>
+
+
+<pre>#define USE_920T_MMU
+//#define CONFIG_USE_IRQ                    1       /* Needed for USB device! */</pre>
+
+
+<p>Disabling this obviously disables the use of USB During boot.  You can fix this by reflashing a normal copy of u-boot from within u-boot once this is up and running. In the above example, I commented it out but you can
+probably just change the 1 to a 0.</p>
+
+
+<p><strong>Step 4</strong>:  Make and compile.</p>
+
+<pre> cd ../../
+ make mini2440_config
+ make</pre>
+
+
+<p>Assuming this all compiles correctly, you will have a u-boot.bin file in your directory now as well as a 2k and 16k block size bin file. Those two are for flashing inside of U-Boot. The normal .bin is for flashing from ram from within supervivi.</p>
+
+
+<p><strong>Step 5</strong>: Flashing u-boot to the mini2440. In this example, we'll be using DMW for Windows to transfer the binary over to the board with the supplied USB cable.</p>
+
+
+<p><strong>5a</strong>. Set boot switch to NOR.</p>
+
+
+<p><strong>5b</strong>. When supervivi pops up, hit <a href="q" title="q">q</a> for supervivi shell.</p>
+
+
+<p><strong>5c</strong>. Load the image in to ram at 0x32000000 (6 zeros) memory location.</p>
+
+
+<pre> shell&gt; load ram 0x32000000 &lt;uboot bin size in bytes&gt; u-boot</pre>
+
+<p><strong>5d</strong>. Use DNW to transfer the u-boot.bin from your computer to the board.</p>
+
+
+<p><strong>5e</strong>. Execute the loaded bin file you loaded in to RAM.</p>
+
+<pre>shell&gt; go 0x32000000</pre>
+
+<p><strong>5f</strong>. You should now be inside u-boot at a MINI24440# prompt. Now we prepare the NAND.</p>
+
+<pre>MINI2440# nand scrub</pre>
+
+<p><strong>5g.</strong> Create the bad block table.</p>
+
+<pre>MINI2440# nand createbbt</pre>
+
+<p><strong>5h</strong>. Write the u-boot that we're running at 0x32000000, to the NAND.</p>
+
+<pre>MINI2440# nand write.e 0x32000000 0x0 &lt;u-boot bin size in hex&gt;</pre>
+
+<p><strong>5i.</strong> Partition the NAND.</p>
+
+<pre>MINI2440# dynpart</pre>
+
+<p><strong>5j</strong> Create the dynamic environment space for u-boot.</p>
+
+<pre>MINI2440# dynenv set u-boot_env</pre>
+
+<p><strong>5k</strong>. Save the environment to NAND.</p>
+
+<pre>MINI2440# saveenv</pre>
+
+
+<p>You can now set the boot switch back to NAND and reboot the system. It should pop up with U-Boot and give you a MINI2440# uboot prompt. From this point on you can do all your work inside U-boot for loading images for the kernel and for the filesystem. I would like to note though, that in the above examples, you need to know your u-boot bin file size in both bytes and in hex. You can use google to convert the file size in bytes to hex. (i.e. "233907 to hex" in the google search box). I recommend trying to run u-boot without the source modification first before disabling IRQ because I'm guessing at some point, buserror or someone else will figure out why it won't run from RAM with that enabled. If it fails, and you can always modify the source and recompile.</p>
+
+
+<p>I'd like to note that I collected these instructions from various sites and I've re-worded and explained them some to help. I hope that this helps you.</p>
+
+
+<p>Here are some useful links for u-boot and other things:</p>
+
+
+<p><a href="http://bliterness.blogspot.com/">http://bliterness.blogspot.com/</a>  - Busseror's blog</p>
+
+
+<p><a href="http://code.google.com/p/mini2440/ http://code.google.com/p/mini2440/" title="http://code.google.com/p/mini2440/ http://code.google.com/p/mini2440/">http://code.google.com/p/mini2440/ ...</a> - Buserror's Google code page.</p>
+
+
+<p><a href="http://repo.or.cz/w/openembedded/mini2440.git" title="http://repo.or.cz/w/openembedded/mini2440.git">http://repo.or.cz/w/openembedded/mi...</a> - Git repository for the modified Openembedded</p>
+
+
+<p><a href="http://repo.or.cz/w/u-boot-openmoko/mini2440.git" title="http://repo.or.cz/w/u-boot-openmoko/mini2440.git">http://repo.or.cz/w/u-boot-openmoko...</a> - Git repository for u-boot</p>
+
+
+<p>UPDATE: MAY 8th, 2010: As of writing this update, the code in the git repository already has the above modification to the code. If you for any reason require USB support on your bootloader, you will need to uncomment the line that is commented out above and recompile.</p>
+
+
+<p>UPDATE MAY 31st, 2010: There have been some problems with the current repository code and it won't run from RAM for some devices. So here's a quick workaround.</p>
+
+<ul>
+<li>1. Switch the system to NOR and boot with supervivi.</li>
+<li>2. hit v in supervivi</li>
+<li>3. i uploaded the u-boot.bin file</li>
+<li>4. switch the system to NAND and boot up with u-boot. You'll get some errors.</li>
+<li>5. Run nand scrubs and createbbt</li>
+<li>6. switch back to NOR</li>
+<li>7. hit v again and upload U-boot since you just erased it.</li>
+<li>8. switch back to nand and it should boot up with minimal errors using u-boot.</li>
+<li>9. run the dynpart and dynenv and saveenv as mentioned above.</li>
+<li></li>
+</ul>
+<p>You should have a working u-boot... I'm currently getting an error about it not seeing my nand but it seems to be able to access it. Maybe you guys can let me know if you see anything wrong. I am suspecting there is a problem with the new u-boot code. Maybe buserror can shed some light on this.</p>
+
+
+
+
+<p>//Bill Sargent</p>
+
+
+<p>Questions? Comments? Need Help? <a href="http://billforums.station51.net/viewtopic.php?f=1&amp;t=2">Go to my forum and ask there.</a></p></div>
+
+      </div>
+
+  
+  
+  <p class="pagination">
+  <a href="http://bill.station51.net/index.php?post/2010/01/16/Welcome-to-my-FriendlyARM-Mini2440-Micro2440-Blog"
+  title="Welcome to my FriendlyARM Mini2440 - Micro2440 Blog" class="prev">&#171; Welcome to my FriendlyARM Mini2440 - Micro2440</a>
+   <span>-</span> <a href="http://bill.station51.net/index.php?post/2010/01/17/Openembedded-and-Bitbake-Stupidity-and-Odd-results-from-Openembedded"
+  title="Openembedded and Bitbake Stupidity and Odd results from Openembedded" class="next">Openembedded and Bitbake Stupidity and Odd results &#187;</a>
+  </p>
+
+                <div id="comments">
+        <h3>Comments</h3>
+      <dl>
+          <dt id="c888" class=" odd first"><a
+      href="#c888" class="comment-number">1.</a>
+      On Sunday, January 17 2010, 19:48      by <span class="commentAuthor" id="atreply_888" title="regnirps"><a href="http://www.andahammer.com" rel="nofollow">regnirps</a></span></dt>
+      
+      <dd class=" odd first">
+
+            
+      <p>Bill, where are you getting your information? I'm puzzled by your choices of where to start and what to use. Why not Angstrom, or the Chinese 2.6.32? Are you using the mainstream sources? www.bliternes.blogspot.com? Email me and I'll send you some stuff.</p>
+            </dd>
+                  <dt id="c915" class="  "><a
+      href="#c915" class="comment-number">2.</a>
+      On Monday, February  1 2010, 05:11      by <span class="commentAuthor" id="atreply_915" title="Amit">Amit</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi<br />
+Are there any changes required to build u-boot for 128MB boards.</p>
+
+
+<p>regards<br />
+Amit</p>
+            </dd>
+                  <dt id="c916" class=" odd "><a
+      href="#c916" class="comment-number">3.</a>
+      On Monday, February  1 2010, 07:42      by <span class="commentAuthor" id="atreply_916" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>No, it should work with the instructions I've given above without special modifications for 128MB Boards. The new code for u-boot from Buserror has auto-detection for 128MB. The only alteration is the disabling of IRQ mentioned above but thats for both 64 and 128MB.</p>
+            </dd>
+                  <dt id="c917" class="  "><a
+      href="#c917" class="comment-number">4.</a>
+      On Wednesday, February 10 2010, 11:02      by <span class="commentAuthor" id="atreply_917" title="Amit">Amit</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi<br />
+I have a 128Mb board. I was successful in compiling &amp; installing u-boot to the and as suggested in you blog. I also loaded up the the kernel and the root fs as generated by openembedded. On reset u-boot loads the kernel but is not able to execute it .</p>
+
+
+<p>Any pointers is as to what is happening ???</p>
+
+
+<p>regards<br />
+--Amit<br />
+Listed is the capture of boot sequence also listed are<br />
+capture  of mtdparts &amp; printenv<br />
+===============================================================<br />
+MINI2440 # resetþ<br />
+U-Boot 1.3.2-mini2440 (Feb  8 2010 - 10:59:13)<br />
+I2C:   ready<br />
+DRAM:  64 MB<br />
+Flash:  2 MB<br />
+NAND:  128 MiB<br />
+Found Environment offset in OOB..<br />
+USB:   S3C2410 USB Deviced<br />
+In:    serial<br />
+Out:   serial<br />
+Err:   serial<br />
+MAC: 08:08:11:18:12:27<br />
+Hit any key to stop autoboot:  0</p>
+
+
+<p>Loading from NAND 128MiB 3,3V 8-bit, offset 0x60000<br />
+Image Name:<br />
+Created:      2010-02-09  12:25:48 UTC<br />
+Image Type:   ARM Linux Kernel Image (uncompressed)<br />
+Data Size:    2041256 Bytes =  1.9 MB<br />
+Load Address: 30008000<br />
+Entry Point:  30008000<br />
+## Booting kernel from Legacy Image at 32000000 ...<br />
+Image Name:<br />
+Created:      2010-02-09  12:25:48 UTC<br />
+Image Type:   ARM Linux Kernel Image (uncompressed)<br />
+Data Size:    2041256 Bytes =  1.9 MB<br />
+Load Address: 30008000<br />
+Entry Point:  30008000<br />
+Verifying Checksum ... OK<br />
+Loading Kernel Image ... OK<br />
+OK<br />
+===============================================================</p>
+
+
+<p>Capture of mtdparts &amp; printenv<br />
+===============================================================<br />
+MINI2440 # mtdparts<br />
+device nand0 &lt;mini2440-nand&gt;, # parts = 4<br />
+#: name			size		offset		mask_flags<br />
+0: u-boot              0x00040000	0x00000000	0<br />
+1: env                 0x00020000	0x00040000	0<br />
+2: kernel              0x00500000	0x00060000	0<br />
+3: root                0x07aa0000	0x00560000	0</p>
+
+
+<p>active partition: nand0,0 - (u-boot) 0x00040000 @ 0x00000000<br />
+defaults:<br />
+mtdids  : nand0=mini2440-nand<br />
+mtdparts: &lt;NULL&gt;</p>
+
+
+<p>===============================================================<br />
+===============================================================<br />
+MINI2440 # printenv<br />
+baudrate=115200<br />
+ethaddr=08:08:11:18:12:27<br />
+usbtty=cdc_acm<br />
+mtdparts=mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)<br />
+mini2440=mini2440=0tb<br />
+bootargs_base=console=ttySAC0,115200 noinitrd<br />
+bootargs_init=init=/sbin/init<br />
+root_nand=root=/dev/mtdblock3 rootfstype=jffs2<br />
+root_mmc=root=/dev/mmcblk0p2 rootdelay=2<br />
+root_nfs=/mnt/nfs<br />
+set_root_nfs=setenv root_nfs root=/dev/nfs rw nfsroot=${serverip}:${root_nfs}<br />
+ifconfig_static=run setenv ifconfig ip=${ipaddr}:${serverip}::${netmask}:mini2440:eth0<br />
+ifconfig_dhcp=run setenv ifconfig ip=dhcp<br />
+ifconfig=ip=dhcp<br />
+set_bootargs_mmc=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_mmc}<br />
+set_bootargs_nand=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nand}<br />
+set_bootargs_nfs=run set_root_nfs; setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nfs} ${ifconfig}<br />
+mtdids=nand0=mini2440-nand<br />
+autostart=no<br />
+autoload=no<br />
+dnsip=10.0.0.1<br />
+filesize=980000<br />
+fileaddr=31000000<br />
+gatewayip=10.0.0.10<br />
+netmask=255.255.0.0<br />
+ipaddr=10.0.243.222<br />
+serverip=10.0.0.1<br />
+bootcmd=nboot.e kernel ; bootm<br />
+bootargs=console=ttySAC0,115200 mini2440=3tb root=/dev/mtdblock3 rootfstype=jffs2</p>
+
+
+<p>bootdelay=0<br />
+partition=nand0,0<br />
+mtddevnum=0<br />
+mtddevname=u-boot<br />
+Environment size: 1271/131068 bytes</p>
+
+
+<p>===============================================================</p>
+            </dd>
+                  <dt id="c927" class=" odd "><a
+      href="#c927" class="comment-number">5.</a>
+      On Monday, February 15 2010, 11:21      by <span class="commentAuthor" id="atreply_927" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Well Amit, to begin with your bootargs is wrong. Your root device shouldnt be mtdBLOCK3.... it should be mtdblk0p3</p>
+
+
+<p>Please try to correct that and see what happens. It should work per my instructions. I've just now following my own instructions using the latest uboot from the mini2440 git repository and it's working fine.</p>
+
+
+<p>My apologies for not responding sooner, I just didn't see this comment.</p>
+            </dd>
+                  <dt id="c963" class="  "><a
+      href="#c963" class="comment-number">6.</a>
+      On Monday, March  1 2010, 15:08      by <span class="commentAuthor" id="atreply_963" title="say2paul">say2paul</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>You have not specified the OS you are using to compile and flash u-boot to mini2440</p>
+
+
+<p>Also certain information is unclear like where to set cross comiler prefix, etc.</p>
+            </dd>
+                  <dt id="c965" class=" odd "><a
+      href="#c965" class="comment-number">7.</a>
+      On Monday, March  1 2010, 15:17      by <span class="commentAuthor" id="atreply_965" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hello say2paul... I didn't mention those things because it's a given. Not to be like every other linux dork out there, but if you don't know some of this stuff already, this particular tutorial is already out of your ability and learning some basic stuff about Linux is necessary. Teaching people to use linux goes beyond the scope of this documentation. I used Debian Linux for this, 64bit. And the cross compiler prefix setting is done at the command prompt. Please let me know if you have any further questions :)</p>
+            </dd>
+                  <dt id="c999" class="  "><a
+      href="#c999" class="comment-number">8.</a>
+      On Sunday, April 25 2010, 10:15      by <span class="commentAuthor" id="atreply_999" title="max2440">max2440</span></dt>
+      
+      <dd class="  ">
+
+            
+      Hi Bill<br />Am new to linux , i bought micro2440 too and i want to port Uboot to it , The source code that i got with DVD does not have "mini2440.h" in "configs " folder  am having problem in porting .
+Could you please send me the Source code and the U-boot image for Micro2440 my id is muthuk03@gmail.com.
+<br />thank U<br /><br />Max2440
+            </dd>
+                  <dt id="c1000" class=" odd "><a
+      href="#c1000" class="comment-number">9.</a>
+      On Sunday, April 25 2010, 11:53      by <span class="commentAuthor" id="atreply_1000" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>@<a href="#c999" rel="nofollow">max2440</a> : I'm sending you an email but I really don't recommend you use the source from the DVD. It's old. You should instead follow my directions above for obtaining the newest source and compiling it.</p>
+            </dd>
+                  <dt id="c1002" class="  "><a
+      href="#c1002" class="comment-number">10.</a>
+      On Monday, April 26 2010, 10:14      by <span class="commentAuthor" id="atreply_1002" title="Max2440">Max2440</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi Bill</p>
+<p>thanks a lot for your support .  i can not  access internet on my linux pc coz i use my phone to connect to internet that's why i asked for Uboot  source code.</p>
+<p>Let me see if i have any other option</p>
+            </dd>
+                  <dt id="c1032" class=" odd "><a
+      href="#c1032" class="comment-number">11.</a>
+      On Monday, May 10 2010, 21:08      by <span class="commentAuthor" id="atreply_1032" title="Bloggins666">Bloggins666</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Bill,</p>
+
+
+<p>I've been posting on the FriendlyArm Forum under the "Linux" topic and have added a sub-topic "Linux, u-boot, 256M NAND and rootfs".</p>
+
+
+<p>I just wanted to see if you could look it over please. I was able to flash u-boot into NAND using your instructions and using u-boot that was the git repository at the time. As you can see with my post I suspect that something has changed in the repository. In fact my friend did a diff between what I had and what is current and there are some changes. Bottom line, the repository does not seem to work.</p>
+
+
+<p>Do you have time to check this out? For selfish reasons I would like to find out if I'm insane or not.</p>
+
+
+<p>Cheers!!</p>
+            </dd>
+                  <dt id="c1033" class="  "><a
+      href="#c1033" class="comment-number">12.</a>
+      On Monday, May 10 2010, 22:06      by <span class="commentAuthor" id="atreply_1033" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi,</p>
+
+
+<p>I replied over there. I'll repeat my request here too. I'd like to see the log of what the kernel is doing and your environment variables as well. :)</p>
+
+
+<p>Thanks,<br />
+Bill</p>
+            </dd>
+                  <dt id="c1034" class=" odd "><a
+      href="#c1034" class="comment-number">13.</a>
+      On Tuesday, May 11 2010, 18:16      by <span class="commentAuthor" id="atreply_1034" title="flux000">flux000</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hello All,</p>
+
+
+<p>How do i use u-boot with zImage_T35 and root_qtopia-64M.img (i.e. i loaded zImage_T35 and root_qtopia-64M.img but when i reboot, i got error msg "bootcmd: wrong image").</p>
+
+
+<p>1. fatload mmc 0:1 0x31000000 zImage_T35<br />
+2. nand write 0x31000000 kernel<br />
+3. nand erase root<br />
+4. fatload mmc 0:1 0x31000000 root_qtopia-64M.img<br />
+5. nand write 0x31000000 root ${filesize}<br />
+6. setenv bootcmd nboot.e kernel \; bootm<br />
+7. saveenv</p>
+
+
+<p>Thanks,</p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1036" class="  "><a
+      href="#c1036" class="comment-number">14.</a>
+      On Tuesday, May 11 2010, 18:21      by <span class="commentAuthor" id="atreply_1036" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi flux000,</p>
+
+
+<p>U-Boot uses uImage files, not zImage. You'll need to use the utility that comes with u-boot called mkimage to convert it. You'll need to google for how to use mkimage. I don't have the exact usage of it on hand right now.</p>
+
+
+<p>Also you don't need to cross-post your questions in multiple entries on the blog here :) This isn't a public forum, it's just me.</p>
+            </dd>
+                  <dt id="c1037" class=" odd "><a
+      href="#c1037" class="comment-number">15.</a>
+      On Tuesday, May 11 2010, 22:18      by <span class="commentAuthor" id="atreply_1037" title="flux000">flux000</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi Bill,</p>
+
+
+<p>Thanks for the rapid reply. I will google the tool and test it out... I will post my findings...</p>
+
+
+<p>My apology for the multiple entries.</p>
+
+
+<p>Thanks,</p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1038" class="  "><a
+      href="#c1038" class="comment-number">16.</a>
+      On Wednesday, May 12 2010, 03:25      by <span class="commentAuthor" id="atreply_1038" title="flux000">flux000</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hello All,</p>
+
+
+<p>1. To install mkimage type "apt-get install uboot-mkimage" in Ubuntu terminal.<br />
+2. To convert zImage to uImage type "mkimage -A arm -O linux -T kernel -C none -a 0x30008000 -e 0x30008000 -d zImage uImage" at the terminal or "mkimage --help"  to see what argument to pass to mkimage</p>
+
+
+<p>After the conversion, i loaded uImage and root_qtopia-64M.img and the environment variables are set as followed:</p>
+
+
+<p>bootdelay=3<br />
+baudrate=115200<br />
+ethaddr=08:08:11:18:12:27<br />
+ipaddr=10.0.0.111<br />
+serverip=10.0.0.4<br />
+netmask=255.255.255.0<br />
+usbtty=cdc_acm<br />
+mtdparts=mtdparts=mini2440-nand:256k@0(u-boot),128k(env),5m(kernel),-(root)<br />
+mini2440=mini2440=0tb<br />
+bootargs_base=console=ttySAC0,115200 noinitrd<br />
+bootargs_init=init=/sbin/init<br />
+root_mmc=root=/dev/mmcblk0p2 rootdelay=2<br />
+root_nfs=/mnt/nfs<br />
+set_root_nfs=setenv root_nfs root=/dev/nfs rw nfsroot=${serverip}:${root_nfs}<br />
+ifconfig_static=run setenv ifconfig ip=${ipaddr}:${serverip}::${netmask}:mini2440:eth0<br />
+ifconfig_dhcp=run setenv ifconfig ip=dhcp<br />
+ifconfig=ip=dhcp<br />
+set_bootargs_mmc=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_mmc}<br />
+set_bootargs_nand=setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nand}<br />
+set_bootargs_nfs=run set_root_nfs; setenv bootargs ${bootargs_base} ${bootargs_init} ${mini2440} ${root_nfs} ${ifconfig}<br />
+mtdids=nand0=mini2440-nand<br />
+filesize=3477000<br />
+bootcmd=nboot.e kernel ; bootm<br />
+root_nand=root=/dev/mtdblock3 rootfstype=yaffs<br />
+partition=nand0,0<br />
+mtddevnum=0<br />
+mtddevname=u-boot<br />
+bootargs=root=/dev/mtdblock3 rootfstype=yaffs console=ttySAC0,115200 mini2440=0tb</p>
+
+
+<p>However after reset, i got the following msges.<br />
+....<br />
+.....<br />
+s3c2410-rtc s3c2410-rtc: setting system clock to 2010-09-09 01:31:53 UTC (1283995913)<br />
+yaffs: dev is 32505859 name is "mtdblock3"<br />
+yaffs: passed flags ""<br />
+yaffs: Attempting MTD mount on 31.3, "mtdblock3"<br />
+yaffs_read_super: isCheckpointed 0<br />
+VFS: Mounted root (yaffs filesystem) on device 31:3.<br />
+Freeing init memory: 160K<br />
+Warning: unable to open an initial console.<br />
+Kernel panic - not syncing: No init found.  Try passing init= option to kernel.<br />
+Backtrace:<br />
+<a href="&lt;c0035270&gt;" title="&lt;c0035270&gt;" rel="nofollow">&lt;c0035270&gt;</a> (dump_backtrace+0x0/0x10c) from <a href="&lt;c03958f0&gt;" title="&lt;c03958f0&gt;" rel="nofollow">&lt;c03958f0&gt;</a> (dump_stack+0x18/0x1c)</p>
+
+<pre>r7:00000000 r6:c0503ed0 r5:c0503660 r4:c04c61a0</pre>
+
+<p><a href="&lt;c03958d8&gt;" title="&lt;c03958d8&gt;" rel="nofollow">&lt;c03958d8&gt;</a> (dump_stack+0x0/0x1c) from <a href="&lt;c0395940&gt;" title="&lt;c0395940&gt;" rel="nofollow">&lt;c0395940&gt;</a> (panic+0x4c/0x134)<br />
+<a href="&lt;c03958f4&gt;" title="&lt;c03958f4&gt;" rel="nofollow">&lt;c03958f4&gt;</a> (panic+0x0/0x134) from <a href="&lt;c00305a4&gt;" title="&lt;c00305a4&gt;" rel="nofollow">&lt;c00305a4&gt;</a> (init_post+0xec/0x178)</p>
+
+<pre>r3:00000000 r2:c3949200 r1:c0539000 r0:c045348c</pre>
+
+<p><a href="&lt;c00304b8&gt;" title="&lt;c00304b8&gt;" rel="nofollow">&lt;c00304b8&gt;</a> (init_post+0x0/0x178) from <a href="&lt;c00084c4&gt;" title="&lt;c00084c4&gt;" rel="nofollow">&lt;c00084c4&gt;</a> (kernel_init+0xf4/0x124)</p>
+
+<pre>r5:c00205d4 r4:c00205d4</pre>
+
+
+<p>Any possible solution?</p>
+
+
+<p>Thanks,</p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1040" class=" odd "><a
+      href="#c1040" class="comment-number">17.</a>
+      On Friday, May 14 2010, 19:47      by <span class="commentAuthor" id="atreply_1040" title="stereo_m">stereo_m</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hello! Do I need to make any changes for building u-boot for the 1GB NAND mini2440 board? I can't get u-boot to work when I load it into ram, only if I load it into nand flash. I have compiled u-boot myself and also tried the bianry on this page, with the exact same results.</p>
+
+
+<p>If I load the u-boot.bin with "load ram 0x32000000 239636 u" and then "go 0x32000000". Then I<br />
+get the following output:</p>
+
+
+<p>Supervivi&gt; go 0x32000000<br />
+go to 0x32000000</p>
+
+<pre> argument 0 = 0x00000000
+ argument 1 = 0x00000000
+ argument 2 = 0x00000000
+ argument 3 = 0x00000000</pre>
+
+
+<p>and it just stops there until I reset the board. I don't get the "MINI2440#" prompt like in the guide.</p>
+
+
+<p>I have also tried the guide at <a href="http://wiki.linuxmce.org/index.php/Mini2440" title="http://wiki.linuxmce.org/index.php/Mini2440" rel="nofollow">http://wiki.linuxmce.org/index.php/...</a><br />
+Using the "load flash 0 239636 u" works, but I need to switch the NOR-switch to off-position (away from the edge of the board) to get to the MINI2440# prompt. In NOR-mode I get to the supervivi-prompt. That would be okay, but if I try to do the nand scrub and nand createbbt, I think it erases itself from NAND, because it doesn't work after reset after doing scrub and createbbt.</p>
+
+
+<p>Is there any solution? What could I be doing wrong?</p>
+            </dd>
+                  <dt id="c1041" class="  "><a
+      href="#c1041" class="comment-number">18.</a>
+      On Friday, May 14 2010, 19:52      by <span class="commentAuthor" id="atreply_1041" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi Stereo_m,</p>
+
+
+<p>I don't have a 1gB NAND board to try it on, but other people have been telling me that they're getting the same issue with the 256MB board as well. So I can only assume theres a problem with u-boot on those boards right now. I don't really have a solution for you at this point. If someone is willing to send me a 1GB NAND board, I'd be happy to try and diagnose it ;-)</p>
+
+
+<p>And yes, you are flashing it to the NAND and then erasing it by scrubbing the NAND and creating the bbt.. It needs to be able to run from RAM, so you can create the bad block table, and THEN write it to the NAND.</p>
+
+
+<p>Thanks,<br />
+Bill</p>
+            </dd>
+                  <dt id="c1042" class=" odd "><a
+      href="#c1042" class="comment-number">19.</a>
+      On Friday, May 14 2010, 20:01      by <span class="commentAuthor" id="atreply_1042" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi flux000,</p>
+
+
+<p>Try changing</p>
+
+
+<p>bootargs_init=init=/sbin/init</p>
+
+
+<p>to</p>
+
+
+<p>bootargs_init=init=/linuxrc</p>
+
+
+<p>Let me know if that works :)</p>
+
+
+<p>Bill</p>
+            </dd>
+                  <dt id="c1043" class="  "><a
+      href="#c1043" class="comment-number">20.</a>
+      On Friday, May 14 2010, 20:03      by <span class="commentAuthor" id="atreply_1043" title="flux000">flux000</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Bill,</p>
+
+
+<p>Any solution to my problem posted on May 12 2010, 03:25:</p>
+
+
+<p>Warning: unable to open an initial console.<br />
+Kernel panic - not syncing: No init found. Try passing init= option to kernel.</p>
+
+
+<p>flux0000</p>
+            </dd>
+                  <dt id="c1044" class=" odd "><a
+      href="#c1044" class="comment-number">21.</a>
+      On Friday, May 14 2010, 20:04      by <span class="commentAuthor" id="atreply_1044" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Yes flux000,</p>
+
+
+<p>See above :)</p>
+
+
+<p>Thakns</p>
+            </dd>
+                  <dt id="c1045" class="  "><a
+      href="#c1045" class="comment-number">22.</a>
+      On Friday, May 14 2010, 20:44      by <span class="commentAuthor" id="atreply_1045" title="flux000">flux000</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Bill,</p>
+
+
+<p>I set bootargs_init=init=/linuxrc however i still get the same msg</p>
+
+
+<p>yaffs: dev is 32505859 name is "mtdblock3"<br />
+yaffs: passed flags ""<br />
+yaffs: Attempting MTD mount on 31.3, "mtdblock3"<br />
+yaffs_read_super: isCheckpointed 0<br />
+VFS: Mounted root (yaffs filesystem) on device 31:3.<br />
+Freeing init memory: 128K<br />
+Warning: unable to open an initial console.<br />
+Kernel panic - not syncing: No init found.  Try passing init= option to kernel.</p>
+
+
+<p>Previous post was 2 min apart :)</p>
+
+
+<p>Thanks,</p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1046" class=" odd "><a
+      href="#c1046" class="comment-number">23.</a>
+      On Friday, May 14 2010, 20:47      by <span class="commentAuthor" id="atreply_1046" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi flux000,</p>
+
+
+<p>Well I'm out of ideas. Why do you want to run u-boot if you're going to use the yaffs image of qtopia? Supervivi does that just fine. I use u-boot because I don't want to use yaffs, and because I was to boot from SD card. If I didn't need to do those things, I'd just keep supervivi on there.</p>
+
+
+<p>Thanks</p>
+            </dd>
+                  <dt id="c1047" class="  "><a
+      href="#c1047" class="comment-number">24.</a>
+      On Friday, May 14 2010, 21:02      by <span class="commentAuthor" id="atreply_1047" title="stereo_m">stereo_m</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi Bill,<br />
+How important is it to create the bbt if I run everything from a SD card? I mean, if I put the kernel and debian on a SD card, could I get it running well without the scrub and bbt? It's actually easier for me if I could have everything on a SD card.<br />
+Can u-boot be used from the NAND without  the scrub+bbt, or would it be too unreliable? If that would work I would be really happy. Like you have done here: <a href="http://bill.station51.net/index.php?post/2010/01/30/HOWTO%3A-Booting-from-SD-card-using-U-Boot" title="http://bill.station51.net/index.php?post/2010/01/30/HOWTO%3A-Booting-from-SD-card-using-U-Boot" rel="nofollow">http://bill.station51.net/index.php...</a></p>
+            </dd>
+                  <dt id="c1048" class=" odd "><a
+      href="#c1048" class="comment-number">25.</a>
+      On Friday, May 14 2010, 21:42      by <span class="commentAuthor" id="atreply_1048" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi Stereo_m,</p>
+
+
+<p>I'm pretty sure you need to run createbbt for u-boot to reliably save it's environment variables. but you can try to do it without. It is worth a try :)</p>
+
+
+<p>Let me know how it turns out.<br />
+Thanks,<br />
+Bill</p>
+            </dd>
+                  <dt id="c1052" class="  "><a
+      href="#c1052" class="comment-number">26.</a>
+      On Sunday, May 16 2010, 11:44      by <span class="commentAuthor" id="atreply_1052" title="bob">bob</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Scrubbing a nandflash is a VERY risky thing to do.</p>
+
+
+<p>If U-Boot does not save the manufacturers  bad block data before scrubbing<br />
+and if it does not replace it correctly</p>
+
+
+<p>Then you are setting yourself up for all sorts of random errors later.</p>
+            </dd>
+                  <dt id="c1053" class=" odd "><a
+      href="#c1053" class="comment-number">27.</a>
+      On Sunday, May 16 2010, 17:47      by <span class="commentAuthor" id="atreply_1053" title="flux000">flux000</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Bill,</p>
+
+
+<p>You have a valid point.  So i have decided to install u-boot and GPE. Now i am facing a different issue.</p>
+
+
+<p>When a Qt application (e.g fluidlauncher)  is started and i touch the screen, sometimes application in the background or desktop is activated. Is there a way to prevent the background apps from activating when running Qt application?</p>
+
+
+<p>My environment variables are shown below.</p>
+
+
+<p>export TSLIB_TSEVENTTYPE=INPUT<br />
+export TSLIB_CONSOLEDEVICE=none<br />
+export TSLIB_FBDEVICE=/dev/fb0<br />
+export TSLIB_TSDEVICE=/dev/input/touchscreen0<br />
+export TSLIB_CALIBFILE=/usr/local/tslib/etc/pointercal<br />
+export TSLIB_CONFFILE=/usr/local/tslib/etc/ts.conf<br />
+export TSLIB_PLUGINDIR=/usr/local/tslib/lib/ts<br />
+export QWS_MOUSE_PROTO=tslib:/dev/input/touchscreen0</p>
+
+
+<p>Thanks,</p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1054" class="  "><a
+      href="#c1054" class="comment-number">28.</a>
+      On Monday, May 17 2010, 13:12      by <span class="commentAuthor" id="atreply_1054" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi "Bob",</p>
+
+
+<p>Actually, instructions all over the net tell you to do this. I think you're misinformed. I'm nearly positive you are. While I'm not an expert with NAND, I do tend to follow the masses on this and when everything says its fine, and only you say it's not....  If you can provide proof, or a link suggesting what you say is true, I'd be happy to look at it...</p>
+
+
+<p>Bill</p>
+            </dd>
+                  <dt id="c1055" class=" odd "><a
+      href="#c1055" class="comment-number">29.</a>
+      On Monday, May 17 2010, 13:14      by <span class="commentAuthor" id="atreply_1055" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi flux000,</p>
+
+
+<p>I don't know. I've not messed with Qt very much. Might be a question for the mailing list. :) I plan to mess with Qt more this summer if I can get things in order here.</p>
+
+
+<p>Thanks,<br />
+Bill</p>
+            </dd>
+                  <dt id="c1056" class="  "><a
+      href="#c1056" class="comment-number">30.</a>
+      On Tuesday, May 18 2010, 21:52      by <span class="commentAuthor" id="atreply_1056" title="Tara">Tara</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi stereo_m,</p>
+
+
+<p>I'm having the same problem with my 256 MB mini2440.  I compiled the latest uboot source and after I load it to RAM, I do not get beyond:<br />
+Supervivi&gt; go 0x32000000<br />
+go to 0x32000000</p>
+
+<pre> argument 0 = 0x00000000
+ argument 1 = 0x00000000
+ argument 2 = 0x00000000
+ argument 3 = 0x00000000</pre>
+
+
+<p>Do you or anybody have any solution/workaround to this?</p>
+
+
+<p>Thanks,<br />
+Tara</p>
+            </dd>
+                  <dt id="c1061" class=" odd "><a
+      href="#c1061" class="comment-number">31.</a>
+      On Thursday, May 20 2010, 19:21      by <span class="commentAuthor" id="atreply_1061" title="stereo_m">stereo_m</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>hi Tara,<br />
+I think I got it working with the u-boot-nand2k.bin file posted in this thread at 18.5.2010: <a href="http://www.friendlyarm.net/forum/topic/1103" title="http://www.friendlyarm.net/forum/topic/1103" rel="nofollow">http://www.friendlyarm.net/forum/to...</a></p>
+
+
+<p>Starting u-boot from ram still gave the "argument 0 = 0x00....." errors, but after that it continued normally, and I was able to do the nand scrub and nand createbbt, and save it to flash. It also starts from NAND as it should. You could try that and report if it works.</p>
+            </dd>
+                  <dt id="c1062" class="  "><a
+      href="#c1062" class="comment-number">32.</a>
+      On Saturday, May 22 2010, 10:38      by <span class="commentAuthor" id="atreply_1062" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hello everyone,</p>
+
+
+<p>After finally getting around to testing this myself, I'm getting the same errors you are.</p>
+
+
+<p>Bill</p>
+            </dd>
+                  <dt id="c1063" class=" odd "><a
+      href="#c1063" class="comment-number">33.</a>
+      On Saturday, May 22 2010, 11:36      by <span class="commentAuthor" id="atreply_1063" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Alright everyone, here's what I did to fix it.</p>
+
+
+<p>1. Switch the system to NOR and boot with supervivi.<br />
+2. hit v in supervivi<br />
+3. i uploaded the u-boot.bin file<br />
+4. switch the system to NAND and boot up with u-boot. You'll get some errors.<br />
+5. Run nand scrubs and createbbt<br />
+6. switch back to NOR<br />
+7. hit v again and upload U-boot since you just erased it.<br />
+8. switch back to nand and it should boot up with minimal errors using u-boot.<br />
+9. run the dynpart and dynenv and saveenv as mentioned above.</p>
+
+
+<p>You should have a working u-boot... I'm currently getting an error about it not seeing my nand but it seems to be able to access it. Maybe you guys can let me know if you see anything wrong. I am suspecting there is a problem with the new u-boot code. Maybe buserror can shed some light on this.</p>
+
+
+<p>Bill</p>
+            </dd>
+                  <dt id="c1067" class="  "><a
+      href="#c1067" class="comment-number">34.</a>
+      On Wednesday, May 26 2010, 16:05      by <span class="commentAuthor" id="atreply_1067" title="flux000">flux000</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Info for anothers: Answer to May 16 2010 post.</p>
+
+
+<p>I had to commented out "/bin/qtopia" in the file "rcS" located here<br />
+"/etc/init.d/rcS" and i was able to start my app without touchscreen<br />
+issues.</p>
+
+
+<p>It turns out that we cannot run qtopia desktop with our apps otherwise we<br />
+will get touchscreen interference with qtopia desktop.</p>
+
+
+<p>Credit: Paolo @ <a href="http://www.sereno-online.com/site/2010/05/01/qt-4-6-2-installation-proce" title="http://www.sereno-online.com/site/2010/05/01/qt-4-6-2-installation-proce" rel="nofollow">http://www.sereno-online.com/site/2...</a></p>
+
+
+<p>flux000</p>
+            </dd>
+                  <dt id="c1068" class=" odd "><a
+      href="#c1068" class="comment-number">35.</a>
+      On Wednesday, May 26 2010, 23:39      by <span class="commentAuthor" id="atreply_1068" title="Belina76"><a href="https://sites.google.com/site/belina76/android-booting" rel="nofollow">Belina76</a></span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>I have also made a guide for installing android in the Mini2440. I was able, after some effort, to install in the 1gb version. I have published it to help others who could not.</p>
+
+
+<p>If you think it will help, please send this link to others.</p>
+
+
+<p><a href="https://sites.google.com/site/belina76/android-booting" title="https://sites.google.com/site/belina76/android-booting" rel="nofollow">https://sites.google.com/site/belin...</a></p>
+
+
+<p>Thanks</p>
+            </dd>
+                  <dt id="c1078" class="  "><a
+      href="#c1078" class="comment-number">36.</a>
+      On Tuesday, June  1 2010, 01:31      by <span class="commentAuthor" id="atreply_1078" title="digital wiz"><a href="http://www.intellimetrix.us" rel="nofollow">digital wiz</a></span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi Bill,</p>
+
+
+<p>You seem to have one of the most active Mini2440 forums out there on the web.  Thanks for doing this.</p>
+
+
+<p>I have a Mini2440 with 128 MB of flash.  I have two problems:<br />
+1.  When I build u-boot from buserror's git repository, it hangs as some others have reported here.  The pre-built binary works fine so that's what I'm using and I can defer this problem until later.<br />
+2.  Mounting the root file system from flash is not working under any of several circumstances that I've tried.  Trying to mount a JFFS2 file image reports that it can't open root device "mtdblock3".  The root_qtopia-128M.img YAFFS image mounts but then reports that it can't open the console and can't find /sbin/init.  I get essentially the same result from the yaffs file system image that I built.  Here is the relevant boot up output:</p>
+
+
+<p>yaffs: dev is 32505859 name is "mtdblock3"<br />
+yaffs: passed flags ""<br />
+yaffs: Attempting MTD mount on 31.3, "mtdblock3"<br />
+yaffs: auto selecting yaffs2<br />
+block 575 is bad<br />
+yaffs_read_super: isCheckpointed 0<br />
+VFS: Mounted root (yaffs filesystem) on device 31:3.<br />
+Freeing init memory: 128K<br />
+Warning: unable to open an initial console.<br />
+Failed to execute /sbin/init.  Attempting defaults...<br />
+Kernel panic - not syncing: No init found.  Try passing init= option to kernel.</p>
+
+
+<p>Any words of wisdom?  TIA</p>
+            </dd>
+                  <dt id="c1079" class=" odd "><a
+      href="#c1079" class="comment-number">37.</a>
+      On Tuesday, June  1 2010, 01:53      by <span class="commentAuthor" id="atreply_1079" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi Everyone,</p>
+
+
+<p>If you could all move over to the forums and register, I'd like to answer questions there from now on. It's too hard to follow the questions here. Please visit <a href="http://billforums.station51.net" title="http://billforums.station51.net" rel="nofollow">http://billforums.station51.net</a> and you will find all of these HOWTO posts on the forum and can ask your questions there. Thanks</p>
+
+
+<p>Bill</p>
+            </dd>
+                  <dt id="c1089" class="  "><a
+      href="#c1089" class="comment-number">38.</a>
+      On Tuesday, June  8 2010, 02:26      by <span class="commentAuthor" id="atreply_1089" title="jalal">jalal</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>hi bill and thank you very much. your weblog is very useful for me.</p>
+
+
+<p>i have a problem making uboot. i get buserror uboot from git repository and set PATH and CROSS_COMPILE i make mini2440_config successfully but when i run "make all" i get this error</p>
+
+
+<p>for dir in tools examples api_examples ; do make -C $dir _depend ; done<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Entering directory `/home/jalal/uboot/mini2440/tools'<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Nothing to be done for `_depend'.<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Leaving directory `/home/jalal/uboot/mini2440/tools'<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Entering directory `/home/jalal/uboot/mini2440/examples'<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Nothing to be done for `_depend'.<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Leaving directory `/home/jalal/uboot/mini2440/examples'<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Entering directory `/home/jalal/uboot/mini2440/api_examples'<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Nothing to be done for `_depend'.<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Leaving directory `/home/jalal/uboot/mini2440/api_examples'<br />
+Generating include/autoconf.mk<br />
+make -C tools all<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Entering directory `/home/jalal/uboot/mini2440/tools'<br />
+ln -s ../libfdt/libfdt_internal.h libfdt_internal.h<br />
+make<a href="1" title="1" rel="nofollow">1</a>: execvp: ln: Too many levels of symbolic links<br />
+make<a href="1" title="1" rel="nofollow">1</a>: *** <a href="libfdt_internal.h" title="libfdt_internal.h" rel="nofollow">libfdt_internal.h</a> Error 127<br />
+make<a href="1" title="1" rel="nofollow">1</a>: Leaving directory `/home/jalal/uboot/mini2440/tools'<br />
+make: *** <a href="tools" title="tools" rel="nofollow">tools</a> Error 2</p>
+
+
+<p>could you help me please?<br />
+thanks and sorry for my poor english!!</p>
+            </dd>
+                  <dt id="c1093" class=" odd "><a
+      href="#c1093" class="comment-number">39.</a>
+      On Tuesday, June  8 2010, 22:46      by <span class="commentAuthor" id="atreply_1093" title="Bill">Bill</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi Jalal,</p>
+
+
+<p>I will need to know more about your environment before I can answer. What distro are you using, and are you running as root or as a regular user (like you should)?</p>
+
+
+<p>I would recommend erasing the stuff you downloaded and starting over, without being able to see it, it sounds like something has gotten screwed up when you grabbed the files from the git repository. There shouldn't be that many levels of sym links.</p>
+
+
+<p>Thanks,<br />
+Bill</p>
+            </dd>
+                  <dt id="c1112" class="  "><a
+      href="#c1112" class="comment-number">40.</a>
+      On Saturday, June 19 2010, 11:47      by <span class="commentAuthor" id="atreply_1112" title="alex">alex</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Can we run u-boot from Nor flash in mini2440(friendly arm)</p>
+            </dd>
+                  <dt id="c1113" class=" odd "><a
+      href="#c1113" class="comment-number">41.</a>
+      On Saturday, June 19 2010, 11:50      by <span class="commentAuthor" id="atreply_1113" title="alex">alex</span></dt>
+      
+      <dd class=" odd ">
+
+            
+      <p>Hi<br />
+if we want to run u-boot-1.1.6 from NOR falsh in mini2440,what  chages are required?<br />
+could you please help me?</p>
+
+
+<p>Thanks<br />
+Alex</p>
+            </dd>
+                  <dt id="c1114" class="  "><a
+      href="#c1114" class="comment-number">42.</a>
+      On Saturday, June 19 2010, 21:25      by <span class="commentAuthor" id="atreply_1114" title="Bill">Bill</span></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Hi Alex, please ask your question in the forum. The top of the page has a link to it.</p>
+            </dd>
+          </dl>
+      </div>
+            
+  
+      <div id="pings">
+    <h3>They posted on the same topic</h3>
+        </div>
+    
+      <p id="ping-url">Trackback URL&nbsp;: http://bill.station51.net/index.php?trackback/910</p>
+    
+    <p id="comments-feed"><a class="feed" href="http://bill.station51.net/index.php?feed/atom/comments/910"
+  title="This post's comments Atom feed">This post's comments feed</a></p>
+    </div>
+</div> <!-- End #main -->
+
+<div id="sidebar">
+  <div id="blognav">
+    <div class="partager2"><h2>Share to</h2><div class="partager2_content"><a style="display : block;float : left;height : 16px;width : 16px;margin : 2px;padding : 0;background: transparent url(http://bill.station51.net/index.php?pf=partager2/img/sprite_partager2.png) no-repeat 0 -131px;" href="http://del.icio.us/post?url=http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440&amp;title=HOWTO%3A+Compiling+and+Flashing+U-Boot+onto+Mini2440" title="Del.icio.us"></a> <a style="display : block;float : left;height : 16px;width : 16px;margin : 2px;padding : 0;background: transparent url(http://bill.station51.net/index.php?pf=partager2/img/sprite_partager2.png) no-repeat 0 -173px;" href="http://digg.com/submit?phase=2&amp;url=http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440&amp;title=HOWTO%3A+Compiling+and+Flashing+U-Boot+onto+Mini2440" title="Digg"></a> <a style="display : block;float : left;height : 16px;width : 16px;margin : 2px;padding : 0;background: transparent url(http://bill.station51.net/index.php?pf=partager2/img/sprite_partager2.png) no-repeat 0 -656px;" href="http://www.facebook.com/share.php?u=http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440" title="Facebook"></a> <a style="display : block;float : left;height : 16px;width : 16px;margin : 2px;padding : 0;background: transparent url(http://bill.station51.net/index.php?pf=partager2/img/sprite_partager2.png) no-repeat 0 -677px;" href="http://twitthis.com/twit?url=http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440&amp;title=HOWTO%3A+Compiling+and+Flashing+U-Boot+onto+Mini2440" title="Twitter"></a> </div><br style="clear : left;" /><br /></div><div id="search"><h2><label for="q">Search</label></h2><form action="http://bill.station51.net/index.php?" method="get"><fieldset><p><input type="text" size="10" maxlength="255" id="q" name="q" value="" /> <input class="submit" type="submit" value="ok" /></p></fieldset></form></div><div class="pages"><ul><li><a href="http://bill.station51.net/index.php?pages/About-Me">*About Me*</a></li></ul></div><div id="topnav"><h2>Navigation</h2><ul><li class="topnav-home"><a href="http://bill.station51.net/index.php?">Home</a><span> - </span></li><li class="topnav-arch"><a href="http://bill.station51.net/index.php?archive">Archives</a></li></ul></div><div class="selected"><h2>Selected Entries</h2><ul> <li><a href="http://bill.station51.net/index.php?post/2010/01/16/U-Boot-on-Mini2440">HOWTO: Compiling and Flashing U-Boot onto Mini2440</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/01/17/Using-U-Boot">HOWTO: Using U-Boot</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/01/26/HOWTO%3A-Getting-Started-With-OpenEmbedded">HOWTO: Getting Started With OpenEmbedded</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/01/30/HOWTO%3A-Booting-from-SD-card-using-U-Boot">HOWTO: Booting from SD card using U-Boot</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/02/04/HOWTO%3A-Bootstrapping-Gentoo-on-the-Mini2440">HOWTO: Bootstrapping Gentoo on the Mini2440</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/03/31/HOWTO%3A-Using-the-USB-Cable-in-Linux">HOWTO: Using the USB Cable in Linux</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/04/27/Binary-Links-to-U-Boot">Binary Links to U-Boot</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/05/08/HOWTO%3A-Setting-up-an-ARM-toolchain">HOWTO: Setting up an ARM toolchain</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/06/13/New-forum-entryon-compiling-Android-for-the-Mini2440">HOWTO: Compiling Android for the Mini2440</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/06/13/HOWTO%3A-Compiling-Qt-and-tslib-for-the-mini2440">HOWTO: Compiling Qt and tslib for the mini2440</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/06/16/HOWTO%3A-Booting-from-NFS-using-U-Boot">HOWTO: Booting from NFS using U-Boot</a></li>  <li><a href="http://bill.station51.net/index.php?post/2010/07/14/HOWTO%3A-Cross-Compiling-the-Kernel-for-The-Mini2440">HOWTO: Cross Compiling the Kernel for The Mini2440</a></li>  <li><a href="http://bill.station51.net/index.php?post/2011/06/05/Mailing-List">Mailing List</a></li> </ul></div><div class="tags"><h2>Tags</h2><ul><li><a href="http://bill.station51.net/index.php?tag/android" class="tag10" rel="tag">android</a> </li><li><a href="http://bill.station51.net/index.php?tag/bitbake" class="tag20" rel="tag">bitbake</a> </li><li><a href="http://bill.station51.net/index.php?tag/boot" class="tag10" rel="tag">boot</a> </li><li><a href="http://bill.station51.net/index.php?tag/boot%20from%20SD" class="tag20" rel="tag">boot from SD</a> </li><li><a href="http://bill.station51.net/index.php?tag/compile" class="tag30" rel="tag">compile</a> </li><li><a href="http://bill.station51.net/index.php?tag/embedded" class="tag20" rel="tag">embedded</a> </li><li><a href="http://bill.station51.net/index.php?tag/embedded%20linux" class="tag20" rel="tag">embedded linux</a> </li><li><a href="http://bill.station51.net/index.php?tag/gentoo" class="tag10" rel="tag">gentoo</a> </li><li><a href="http://bill.station51.net/index.php?tag/jffs2" class="tag20" rel="tag">jffs2</a> </li><li><a href="http://bill.station51.net/index.php?tag/kernel" class="tag40" rel="tag">kernel</a> </li><li><a href="http://bill.station51.net/index.php?tag/linux" class="tag30" rel="tag">linux</a> </li><li><a href="http://bill.station51.net/index.php?tag/micro2440" class="tag60" rel="tag">micro2440</a> </li><li><a href="http://bill.station51.net/index.php?tag/mini2440" class="tag100" rel="tag">mini2440</a> </li><li><a href="http://bill.station51.net/index.php?tag/NFS" class="tag10" rel="tag">NFS</a> </li><li><a href="http://bill.station51.net/index.php?tag/openembedded" class="tag30" rel="tag">openembedded</a> </li><li><a href="http://bill.station51.net/index.php?tag/Qt" class="tag10" rel="tag">Qt</a> </li><li><a href="http://bill.station51.net/index.php?tag/rootfs" class="tag30" rel="tag">rootfs</a> </li><li><a href="http://bill.station51.net/index.php?tag/SD%20card" class="tag30" rel="tag">SD card</a> </li><li><a href="http://bill.station51.net/index.php?tag/u-boot" class="tag50" rel="tag">u-boot</a> </li><li><a href="http://bill.station51.net/index.php?tag/uboot" class="tag20" rel="tag">uboot</a> </li></ul></div><div class="syndicate"><h2>Subscribe</h2><ul><li><a type="application/rss+xml" href="http://bill.station51.net/index.php?feed/rss2" title="This blog's entries RSS feed" class="feed">Entries feed</a></li><li><a type="application/rss+xml" href="http://bill.station51.net/index.php?feed/rss2/comments" title="This blog's comments RSS feed" class="feed">Comments feed</a></li></ul></div><div class="text"><!-- Piwik -->
+<a href="http://piwik.org" title="Analytics" onclick="window.open(this.href);return(false);">
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.allof.eu/" : "http://stats.allof.eu/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 2;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p>Analytics <img src="http://stats.allof.eu/piwik.php?idsite=2" style="border:0" alt=""/></p></noscript></object></a>
+<!-- End Piwik Tag --></div><div class="contact-me"><h2>Contact</h2><p><a href="http://bill.station51.net/index.php?contact">Contact me</a></p></div>  </div> <!-- End #blognav -->
+  
+  <div id="blogextra">
+      </div> <!-- End #blogextra -->
+</div>
+</div> <!-- End #wrapper -->
+
+<div id="footer">
+  <p>Powered by <a href="http://dotclear.org/">Dotclear</a>  <br />Conception Internet : <a href="http://www.html-edition.com" title="Cr&eacute;ation de sites web, h&eacute;bergement, r&eacute;f&eacute;rencement">HTML-Edition.com</a></p>
+</div>
+
+<!-- Piwik -->
+<script type="text/javascript" src="http://stats.port80.eu/piwik.js"></script>
+<script type="text/javascript">//<![CDATA[
+piwik_tracker_pause = 250;
+piwik_log('post/2010/01/16/U-Boot-on-Mini2440', 2, 'http://stats.port80.eu/piwik.php');
+//]]>
+</script>
+<noscript><div><img src="http://stats.port80.eu/piwik.php" style="border:0" alt="piwik" width="0" height="0" /></div>
+</noscript>
+<!-- /Piwik -->
+</div> <!-- End #page -->
+</body>
+</html>

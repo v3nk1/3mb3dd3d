@@ -1,0 +1,125 @@
+
+apt-get install obexftp libopenobex1-dev libusb-dev
+
+apt-get source obexftp
+======================
+	./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var CC="arm-linux-gcc -L/usr/local/mini2440/bluez/usr/lib -L/usr/local/mini2440/bluez/usr/lib -I/usr/local/mini2440/bluez/usr/include/ -I/usr/local/mini2440/bluez/usr/include/" SHLIB_LIBS=-lopenobex --disable-perl --disable-python --disable-ruby --disable-tcl
+	
+
+	######
+	./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var CC="arm-linux-gcc -L/usr/local/mini2440/bluez/usr/lib -L/usr/local/mini2440/bluez/usr/lib -I/usr/local/mini2440/bluez/usr/include/ -I/usr/local/mini2440/bluez/usr/include/ -lusb" OPENOBEX_LIBS="-L/usr/local/mini2440/bluez/usr/lib -lopenobex" --disable-perl --disable-python --disable-ruby --disable-tcl CFLAGS="-L/usr/local/mini2440/bluez/usr/lib"
+
+	mv /usr/lib/libopenobex.so /
+	cp /usr/local/mini2440/bluez/usr/lib/libusb.la -Rfp /usr/lib/
+	
+	make PKG_CONFIG_PATH=/usr/local/mini2440/bluez/usr/lib/pkgconfig -j4
+	
+	cp obexftp/.libs/libobexftp.a obexftp/.libs/libobexftp.lai
+	cp multicobex/.libs/libmulticobex.a multicobex/.libs/libmulticobex.lai
+
+	make DESTDIR=/usr/local/mini2440/bluez install
+	
+	mv /libopenobex.so /usr/lib
+	rm /usr/lib/libusb.la	
+
+	apt-get source libopenobex1-dev
+	===============================
+		./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var PKG_CONFIG_PATH=/usr/local/mini2440/bluez/usr/lib/pkgconfig/ CC="arm-linux-gcc -I/usr/local/mini2440/bluez/usr/include/ -L/usr/local/mini2440/bluez/usr/lib"
+		make -j4
+		make DESTDIR=/usr/local/mini2440/bluez install
+
+		libusb-dev
+		==========
+			./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var \
+			OPENOBEX_LIBS=-L/usr/local/mini2440/bluez/usr/lib \
+			BLUETOOTH_LIBS=-L/usr/local/mini2440/bluez/usr/lib \
+			OPENOBEX_CFLAGS=-I/usr/local/mini2440/bluez/usr/include/ \
+			BLUETOOTH_CFLAGS=-I/usr/local/mini2440/bluez/usr/include/
+			make -j4
+			make DESTDIR=/usr/local/mini2440/bluez install
+			
+
+obexfs:
+=======
+	fuse:
+	=====
+	wget -c downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Ffuse%2F%3Fsource%3Dtyp_redirect&ts=1409211723&use_mirror=cznic
+
+		./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var CC="arm-linux-gcc -L/usr/local/mini2440/bluez/usr/lib -L/usr/local/mini2440/bluez/usr/lib -I/usr/local/mini2440/bluez/usr/include/ -I/usr/local/mini2440/bluez/usr/include/
+		make -j4
+		make DESTDIR=/usr/local/mini2440/bluez install
+
+wget -c pkgs.fedoraproject.org/repo/pkgs/obexfs/obexfs-0.12.tar.gz/0f505672b025cdb505e215ee707a2e2f/obexfs-0.12.tar.gz
+./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var CC="arm-linux-gcc -L/usr/local/mini2440/bluez/usr/lib -L/usr/local/mini2440/bluez/usr/lib -I/usr/local/mini2440/bluez/usr/include/ -I/usr/local/mini2440/bluez/usr/include/"
+make -j4
+make DESTDIR=/usr/local/mini2440/bluez install
+
+
+
+
+#########################################################################################################################
+bootup board
+
+/etc/init.d/bluetoothd start
+# SSH is compulsary, bcoz 1st minicom will be dedicated to [bluetoothctl];
+/etc/init.d/ssh start
+
+
+**********************************************************************************************************
+Any doubts refer manpages of those commands in HOST. man spdtool,obexftpd,obexftp
+**********************************************************************************************************
+
+# adding service to sdptool
+sdptool browse local
+sdptool add OPUSH
+sdptool add FTP
+sdptool browse local
+
+
+#BLUETOOTHCTL
+=============
+power on
+scan on
+pairable on
+discoverable on
+agent on
+default-agent
+trust {HOST.BLUE.ADDR}
+pair {HOST.BLUE.ADDR}
+
+#HOST:
+======
+ps -Af | grep obex-data-server
+kill -9 <pid>
+mkdir /tmp/inbox
+obexftpd -c /tmp/inbox -b &
+
+TARGET:
+=======
+obexftpd -c /tmp/inbox -b &
+
+###########
+# Sending:#
+###########
+from target
+-----------
+$ obexftp -b <blue-addr> -B 10 -p <file>
+The file will be copied to /tmp/inbox what u've specified while running obexftpd deamon with -c option.
+Here /tmp/inbox
+
+form host
+---------
+obexftp -b <blue-addr> -B 10 -p <file>
+The file will be copied to /tmp/inbox what u've specified while running obexftpd deamon with -c option.
+Here /tmp/inbox
+
+#############
+# Receiving:#
+#############
+If you want to get any thing from host/target maintain the requested file in given dedicated folder.
+That dedicated folder will be what u've specified while running the daemon on the system with -c flag. Here it will be /tmp/inbox
+So make sure that u've maintained that requested file in /tmp/inbox of server system.
+
+The daemon only search in that given /tmp/inbox only.
+
+obexftp -b <blue-addr> -g <file>

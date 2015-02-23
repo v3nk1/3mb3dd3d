@@ -1,0 +1,24 @@
+		       <loadaddr> <size>
+-> supervivi> load ram 0x31000000 242360 u		{Instead of "u" you can give "u-boot"}
+-> supervivi> go 0x31000000
+
+Now it will load uboot prompt from RAM:
+=======================================
+
+To write it onto nand flash:(deploying)
+---------------------------------------
+
+MINI2440# nand scrub
+MINI2440# nand createbbt
+MINI2440# mtdparts
+MINI2440# nand write 0x31000000 u-boot 			OR
+				      <size-in-hex>
+	  nand write.e 0x31000000 0x0 0x3b2b8
+
+MINI2440# dynpart
+MINI2440# dynenv set u-boot_env
+MINI2440# saveenv
+
+Above all in 1:
+---------------
+MINI2440# nand scrub;nand createbbt;nand write 0x31000000 u-boot;dynpart;dynenv set u-boot_env;saveenv

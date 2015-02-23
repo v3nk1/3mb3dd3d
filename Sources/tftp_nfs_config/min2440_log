@@ -1,0 +1,167 @@
+setenv bootargs console=ttySAC0,115200 root=ram0 initrd=0x32000000,4M ;bootm 0x31000000
+
+tftp 0x31000000 uImage_3.9 ; tftp 0x32000000 mini_fs8M ; setenv bootargs console=ttySAC0,115200 root=ram initrd=0x32000000,4M ;bootm 0x31000000
+=================================================================================================================================
+***************
+#mini2440
+***************
+
+
+
+
+MINI2440 # tftp 0x31000000 uImage_mini-3.9.8  
+
+MINI2440 # tftp 0x32000000 mini_fs8M
+ 
+
+
+
+
+
+MINI2440 # mtdparts                              
+
+device nand0 <mini2440-nand>, # parts = 4
+ #: name                  size            offset      mask_flags
+ 0: u-boot              0x00040000      0x00000000      0
+ 1: env                 0x00020000      0x00040000      0
+ 2: kernel              0x00500000      0x00060000      0
+ 3: root                0x3faa0000      0x00560000      0
+
+active partition: nand0,0 - (u-boot) 0x00040000 @ 0x00000000
+
+defaults:
+mtdids  : nand0=mini2440-nand
+mtdparts: <NULL>
+MINI2440 # nand erase kernel
+
+NAND erase: device 0 offset 0x60000, size 0x500000
+Erasing at 0x540000 -- 100% complete.
+OK
+MINI2440 # nand erase root
+
+NAND erase: device 0 offset 0x560000, size 0x3faa0000
+Skipping bad block at  0x16ba0000                                            
+Skipping bad block at  0x16be0000                                            
+Skipping bad block at  0x3ff80000                                            
+Skipping bad block at  0x3ffa0000                                            
+Skipping bad block at  0x3ffc0000                                            
+Skipping bad block at  0x3ffe0000                                            
+
+OK
+
+MINI2440 # nand write 0x31000000 kernel 0x400000
+
+NAND write: device 0 offset 0x60000, size 0x400000
+ 4194304 bytes written: OK
+
+
+MINI2440 # setenv bootargs console=ttySAC0,115200 root=ram initrd=0x32000000,8M ${mtdparts}
+
+MINI2440 # bootm 0x31000000
+
+
+
+/ # cat /proc/mtd 
+dev:    size   erasesize  name
+mtd0: 00040000 00020000 "u-boot"
+mtd1: 00020000 00020000 "u-boot-env"
+mtd2: 00500000 00020000 "kernel"
+mtd3: 3faa0000 00020000 "root"
+
+
+
+/ # flash_eraseall -j /dev/mtd3
+Erasing 128 Kibyte @ 16620000 - 35% complete. Cleanmarker written at 16620000.
+Skipping bad block at 0x16640000
+Erasing 128 Kibyte @ 16660000 - 35% complete. Cleanmarker written at 16660000.
+Skipping bad block at 0x16680000
+Erasing 128 Kibyte @ 3faa0000 - 100% complete.Cleanmarker written at 3fa80000.
+
+
+
+/ # mount -t jffs2 /dev/mtdblock3 /mnt/
+
+/ # cp -Rfp /rootfs/* /mnt/
+
+
+/ # umount /mnt
+
+
+/ # reboot
+
+
+MINI2440 # setenv bootargs console=ttySAC0,115200 noinitrd root=/dev/mtdblock3 rootfstype=jffs2 ${mtdparts}
+
+MINI2440 # setenv bootcmd nand read 0x31000000 kernel 0x400000 \; bootm 0x31000000
+
+
+MINI2440 # saveenv
+
+
+MINI2440 # reset
+==============================
+FOR INIT PROGRAM:
+*****************
+
+MINI2440 # setenv bootargs console=ttySAC0,115200 noinitrd root=/dev/mtdblock3 rootfstype=jffs2 ${mtdparts} init=/myinit
+
+MINI2440 # nand read 0x31000000 kernel 0x400000 ; bootm 0x31000000
+
+======================================================================================================================================
+sudo apt-get install nfs-kernel-server 
+
+setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs init=helloworld; nfs 0x31000000 10.0.0.4:/nfs/uImage_x35 ; bootm 0x31000000
+
+
+
+setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/ ;nfs 0x31000000 10.0.0.4:/nfs/uImage_nfs ; bootm 0x31000000
+
+tftp 0x31000000 uImage_mini-3.9.8 ;setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/ ;bootm 0x31000000
+
+setenv bootargs mem=64M noinitrd console=ttySAC0,115200n8 root=/dev/nfs rw nfsroot=10.0.0.4:/nfs/rootfs,nolock,rsize=1024,wsize=1024; nfs 0x31000000 10.0.0.4:/nfs/uImage_nfs ; bootm 0x31000000
+
+====================================================================================================================
+#KB9202:
+=======
+initrd-4m
+#*********
+tftp 0x21000000 uImage_kb9202 ; tftp 0x22000000 kb9202_fs4M ; setenv bootargs console=ttyS0,115200 root=ram initrd=0x22000000,4M init=/myinit;bootm 0x21000000
+
+setenv bootargs console=/dev/ttyS0,115200 noinitrd root=/dev/mtdblock1 rootfstype=jffs2 ${mtdparts} init=/myinit 
+
+====================================================================================================================
+ubifs:
+=======
+
+root@linux:/srv/tftp# cd rootfs/
+root@linux:/srv/tftp/rootfs# ls
+bin  dev  etc  linuxrc  media  mnt  opt  proc  root  sbin  sys  tmp  ubinize.cfg  usr  var
+root@linux:/srv/tftp/rootfs# vi ubinize.cfg 
+root@linux:/srv/tftp/rootfs# cd ../
+root@linux:/srv/tftp# ls
+mini_8m  mini_ext3_8m  mini_fs  mini_fs1  myfs_1  rootfs  uImage  uImage_1  uImage_mini  uImage_w35  uImage_x35  zImage
+root@linux:/srv/tftp# mkfs.ubifs -v -r rootfs -o rootfs.ubifs -m 2048 -e 126976 -c 4036
+mkfs.ubifs
+	root:         rootfs/
+	min_io_size:  2048
+	leb_size:     126976
+	max_leb_cnt:  4036
+	output:       rootfs.ubifs
+	jrn_size:     8388608
+	reserved:     0
+	compr:        lzo
+	keyhash:      r5
+	ubiformat -y /dev/mtd4 -f rootfs.ubifanout:       8
+	orph_lebs:    1
+	super lebs:   1
+	master lebs:  2
+	log_lebs:     5
+	lpt_lebs:     2
+	orph_lebs:    1
+	main_lebs:    9
+	gc lebs:      1
+	index lebs:   1
+	leb_cnt:      20
+	UUID:         6510DE54-BCF0-4531-9F87-E2E85AB94EB2
+Success!
+

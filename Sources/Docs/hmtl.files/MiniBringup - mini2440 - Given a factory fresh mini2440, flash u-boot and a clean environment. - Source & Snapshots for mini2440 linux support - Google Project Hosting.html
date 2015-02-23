@@ -1,0 +1,1563 @@
+
+ 
+
+
+
+ 
+ 
+ 
+
+
+
+ 
+ 
+ <!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <link rel="icon" type="image/vnd.microsoft.icon" href="http://www.gstatic.com/codesite/ph/images/phosting.ico">
+ 
+ 
+ <link rel="canonical" href="http://code.google.com/p/mini2440/wiki/MiniBringup" />
+ 
+ <script type="text/javascript">
+ 
+ 
+ 
+ 
+ var codesite_token = null;
+ 
+ 
+ var CS_env = {"loggedInUserEmail": null, "projectHomeUrl": "/p/mini2440", "projectName": "mini2440", "relativeBaseUrl": "", "assetVersionPath": "http://www.gstatic.com/codesite/ph/3076573747170053082", "token": null, "profileUrl": null, "domainName": null, "assetHostPath": "http://www.gstatic.com/codesite/ph"};
+ var _gaq = _gaq || [];
+ _gaq.push(
+ ['siteTracker._setAccount', 'UA-18071-1'],
+ ['siteTracker._trackPageview']);
+ 
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+ 
+ </script>
+ 
+ 
+ <title>MiniBringup - 
+ mini2440 -
+ 
+ Given a factory fresh mini2440, flash u-boot and a clean environment. - 
+ Source &amp; Snapshots for mini2440 linux support - Google Project Hosting
+ </title>
+ <link type="text/css" rel="stylesheet" href="http://www.gstatic.com/codesite/ph/3076573747170053082/css/core.css">
+ 
+ <link type="text/css" rel="stylesheet" href="http://www.gstatic.com/codesite/ph/3076573747170053082/css/ph_detail.css" >
+ 
+ 
+ 
+ <link type="application/atom+xml" rel="alternate" href="/feeds/p/mini2440/gitchanges/basic?path=/MiniBringup.wiki&amp;repo=wiki">
+ 
+ 
+<!--[if IE]>
+ <link type="text/css" rel="stylesheet" href="http://www.gstatic.com/codesite/ph/3076573747170053082/css/d_ie.css" >
+<![endif]-->
+ <style type="text/css">
+ .menuIcon.off { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -42px }
+ .menuIcon.on { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -28px }
+ .menuIcon.down { background: no-repeat url(http://www.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 0; }
+ 
+ 
+ #maincol {
+ padding-top: 0;
+ padding-bottom: 0;
+ }
+
+ 
+ </style>
+</head>
+<body class="t6">
+<script type="text/javascript">
+ window.___gcfg = {lang: 'en'};
+ (function() 
+ {var po = document.createElement("script");
+ po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(po, s);
+ })();
+</script>
+<div class="headbg">
+
+ <div id="gaia">
+ 
+
+ <span>
+ 
+ 
+ <a href="#" id="projects-dropdown" onclick="return false;"><u>My favorites</u> <small>&#9660;</small></a>
+ | <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=http%3A%2F%2Fcode.google.com%2Fp%2Fmini2440%2Fwiki%2FMiniBringup&amp;followup=http%3A%2F%2Fcode.google.com%2Fp%2Fmini2440%2Fwiki%2FMiniBringup" onclick="_CS_click('/gb/ph/signin');"><u>Sign in</u></a>
+ 
+ </span>
+
+ </div>
+
+ <div class="gbh" style="left: 0pt;"></div>
+ <div class="gbh" style="right: 0pt;"></div>
+ 
+ 
+ <div style="height: 1px"></div>
+<!--[if lte IE 7]>
+<div style="text-align:center;">
+Your version of Internet Explorer is not supported. Try a browser that
+contributes to open source, such as <a href="http://www.firefox.com">Firefox</a>,
+<a href="http://www.google.com/chrome">Google Chrome</a>, or
+<a href="http://code.google.com/chrome/chromeframe/">Google Chrome Frame</a>.
+</div>
+<![endif]-->
+
+
+
+ <table style="padding:0px; margin: 0px 0px 10px 0px; width:100%" cellpadding="0" cellspacing="0"
+ itemscope itemtype="http://schema.org/CreativeWork">
+ <tr style="height: 58px;">
+ 
+ 
+ 
+ <td id="plogo">
+ <link itemprop="url" href="/p/mini2440">
+ <a href="/p/mini2440/">
+ 
+ <img src="http://www.gstatic.com/codesite/ph/images/defaultlogo.png" alt="Logo" itemprop="image">
+ 
+ </a>
+ </td>
+ 
+ <td style="padding-left: 0.5em">
+ 
+ <div id="pname">
+ <a href="/p/mini2440/"><span itemprop="name">mini2440</span></a>
+ </div>
+ 
+ <div id="psum">
+ <a id="project_summary_link"
+ href="/p/mini2440/"><span itemprop="description">Source &amp; Snapshots for mini2440 linux support</span></a>
+ 
+ </div>
+ 
+ 
+ </td>
+ <td style="white-space:nowrap;text-align:right; vertical-align:bottom;">
+ 
+ <form action="/hosting/search">
+ <input size="30" name="q" value="" type="text">
+ 
+ <input type="submit" name="projectsearch" value="Search projects" >
+ </form>
+ 
+ </tr>
+ </table>
+
+</div>
+
+ 
+<div id="mt" class="gtb"> 
+ <a href="/p/mini2440/" class="tab ">Project&nbsp;Home</a>
+ 
+ 
+ 
+ 
+ <a href="/p/mini2440/downloads/list" class="tab ">Downloads</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="/p/mini2440/w/list" class="tab active">Wiki</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="/p/mini2440/issues/list"
+ class="tab ">Issues</a>
+ 
+ 
+ 
+ 
+ 
+ <a href="/p/mini2440/source/checkout"
+ class="tab ">Source</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class=gtbc></div>
+</div>
+<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0" class="st">
+ <tr>
+ 
+ 
+ 
+ <td class="subt">
+ <div class="issueDetail">
+<div class="isf">
+ 
+ <span class="inIssueList"> 
+ <span>Search</span>
+ <form action="/p/mini2440/w/list" method="GET" style="display:inline">
+ <select id="can" name="can" >
+ <option disabled="disabled">Search within:</option>
+ 
+ <option value="1" >&nbsp;All wiki pages</option>
+ <option value="3" >&nbsp;Featured pages</option>
+ <option value="2" selected="selected">&nbsp;Current pages</option>
+ 
+ 
+ <option value="4" >&nbsp;Deprecated pages</option>
+ 
+ </select>
+ <span>for</span>
+ <span id="qq"><input type="text" size="38" id="searchq" name="q" value=""
+ autocomplete="off" ></span>
+ 
+ 
+ 
+ <input type="submit" value="Search" >
+ </form>
+ </span>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+</div>
+</div>
+
+ </td>
+ 
+ 
+ 
+ 
+ 
+ 
+ <td align="right" valign="top" class="bevel-right"></td>
+ </tr>
+</table>
+
+
+<script type="text/javascript">
+ var cancelBubble = false;
+ function _go(url) { document.location = url; }
+</script>
+<div id="maincol"
+ 
+>
+
+ 
+
+
+
+
+
+
+
+ <style type="text/css">
+ .delcom { background: #e8e8e8 }
+ .commentcontent {
+ margin: 2em;
+ padding: 0px 10px;
+ width: 66em;
+ }
+ .artifactcomment {
+ border-top: 3px solid #c3d9ff;
+ }
+ #commentform {
+ border-top: 3px solid #c3d9ff;
+ }
+ </style>
+
+<div id="wikipage">
+<table>
+ <tr>
+ 
+ 
+ <td style="vertical-align:top; padding-left:5px">
+ 
+ <div id="wikiheader">
+ 
+ <span style="font-size:120%;font-weight:bold">MiniBringup</span>
+ &nbsp;
+ <div> 
+ 
+ <i>Given a factory fresh mini2440, flash u-boot and a clean environment.</i>
+ 
+ 
+ <br/>
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:mini2440"
+ title=""
+ >mini2440</a>, 
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:u-boot"
+ title=""
+ >u-boot</a>, 
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:nand"
+ title=""
+ >nand</a>, 
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:flash"
+ title=""
+ >flash</a>, 
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:tftp"
+ title=""
+ >tftp</a>, 
+ 
+ <a class="label" style="padding-top: 2px"
+ href="/p/mini2440/w/list?q=label:xmodem"
+ title=""
+ >xmodem</a>
+ 
+ 
+ 
+ <div id="wikiauthor" style="float:right">
+ Updated <span title="Thu Jan 12 05:07:29 2012">
+ Jan 12, 2012</span>
+ 
+ by 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>
+ 
+ </div>
+ </div>
+ </div>
+ 
+ <div id="wikicontent">
+ <div class="vt" id="wikimaincol">
+ <h1><a name="Introduction"></a>Introduction<a href="#Introduction" class="section_anchor"></a></h1><p>This gets rid of the QTopia install completely. You can always reflash it with vivi later if you really care, but we dont. This page assumes you are running a reasonably standard linux distro for the first bit (xmodem). </p><p>This assume you have set the switch to <strong>NOR BOOT</strong> and reset the board.  </p><p>This also assume you have a u-boot already compiled, in a directory called /tftpboot and that you have managed to configure your host computer as a tftp server. </p><h1><a name="Setup_picocom"></a>Setup picocom<a href="#Setup_picocom" class="section_anchor"></a></h1><p>You need a serial port terminal access.  &quot;picocom&quot; is rather superior to &quot;minicom&quot; these days, due to the fact it can be uded easily frim the command line. No wierd menus and modem init needed. You also need &quot;lrzsz&quot; for the x/y/z modem command line tools. </p><h1><a name="Run_picocom"></a>Run picocom<a href="#Run_picocom" class="section_anchor"></a></h1><p>This assume you have your mini plugged on the main serial port. If you use a usb/serial adapter it&#x27;s most probsbly ttyUSB0. </p><p><pre> </p><p>[michel@yap ~]% *picocom -b 115200 /dev/ttyS0 --send-cmd &quot;sx -vv&quot; * </p><p>picocom v1.4
+ </p><p>port is        : /dev/ttyS0
+ flowcontrol    : none
+ baudrate is    : 115200
+ parity is      : none
+ databits are   : 8
+ escape is      : C-a
+ noinit is      : no
+ noreset is     : no
+ nolock is      : no
+ send_cmd is    : _sx -vv_ 
+ receive_cmd is : rz -vv
+ </p><p>Terminal ready
+ </pre> </p><p>Now type return... to see the &quot;vivi&quot; bootloader menu. We&#x27;re going to immediately quit that menu too. </p><p><pre> ##### FriendlyARM BIOS for 2440 #####
+ [x] bon part 0 320k 2368k
+ [v] Download vivi
+ [k] Download linux kernel
+ [y] Download root_yaffs image
+ [c] Download root_cramfs image
+ [a] Absolute User Application
+ [n] Download Nboot
+ [e] Download Eboot
+ [i] Download WinCE NK.nb0
+ [w] Download WinCE NK.bin
+ [d] Download &amp; Run
+ [z] Download zImage into RAM
+ [g] Boot linux from RAM
+ [f] Format the nand flash
+ [p] Partition for Linux
+ [b] Boot the system
+ [s] Set the boot parameters
+ [t] Print the TOC struct of wince
+ [u] Backup NAND Flash to HOST through USB(upload)
+ [r] Restore NAND Flash from HOST through USB
+ [q] Goto shell of vivi
+ Enter your selection: *q* </p><p></pre> </p><h2><a name="Load_u-boot_into_RAM"></a>Load u-boot into RAM<a href="#Load_u-boot_into_RAM" class="section_anchor"></a></h2><p>This sets us up to the &quot;command line&quot; mode of vivi. We&#x27;re going to attempt to load the u-boot code into RAM first, and run it from there. We <i>could</i> flash it directly here, but since we are going to scrub the nand, it&#x27;s irrelevant. </p><p>First, check the size of the u-boot binary. The &quot;nand512&quot; one is padded to fit to a flash block. <pre> </p><p>[michel@yap ~]% *ls -l /tftpboot/u-boot-nand512.bin* </p><p>-rw-r--r-- 1 michel michel _232448_ Mar 13 09:28 /tftpboot/u-boot-nand512.bin
+ </pre> </p><p><strong>vivi</strong> default parameters are wrong, you need a longer timeout otherwise xmodem will not work. </p><p><pre> </p><p>Supervivi&gt; *param set xmodem_timeout 100000000* </p><p>Change &#x27;xmodem_timeout&#x27; value. 0x000f4240(1000000) to 0x05f5e100(100000000)
+ </pre> </p><p>Now, tell vivi to start receiving something of 232448 bytes: </p><p><pre> </p><p>Supervivi&gt; *load ram 0x33f80000 232448 x* </p><p>Ready for downloading using xmodem...
+ Waiting...
+ </pre> </p><p>Now in picocom, type &quot;control A&quot; then &quot;control S&quot;, this brings a filename prompt. <pre> +++ file: */tftpboot/u-boot-nand512.bin* </p><p>sx -vv /tftpboot/u-boot-nand512.bin
+ Sending /tftpboot/u-boot-nand512.bin, 1816 blocks: Give your local XMODEM receive command now.
+ Bytes Sent: 232448   BPS:7259
+ </p><p>Transfer complete
+ </p><p>+++ exit status: 0
+ 2448 bytes
+ Supervivi&gt;
+ </pre> </p><p>Loaded ! </p><h2><a name="Run_u-boot_from_RAM"></a>Run u-boot from RAM<a href="#Run_u-boot_from_RAM" class="section_anchor"></a></h2><p>Now, lets RUN the code we have loaded: <pre> </p><p>Supervivi&gt; *go 0x33f80000* </p><p>U-Boot 1.3.2-dirty-moko12 (Mar 12 2009 - 15:50:44)
+ </p><p>I2C:   ready
+ DRAM:  64 MB
+ Flash:  2 MB
+ NAND:  Bad block table not found for chip 0
+ Bad block table not found for chip 0
+ 64 MiB
+ +++ Warning - bad CRC or NAND, using default environment
+ </p><p>USB:   S3C2410 USB Deviced
+ In:    serial
+ Out:   serial
+ Err:   serial
+ MAC: 08:08:11:18:12:27
+ Hit any key to stop autoboot:  0
+ MINI2440 #
+ </pre> </p><h2><a name="Check_factory_bad_blocks"></a>Check factory bad blocks<a href="#Check_factory_bad_blocks" class="section_anchor"></a></h2><p>The nand comes with a list of &quot;already bad&quot; blocks, we can consult it: </p><p><pre> MINI2440 # *nand info* </p><p>Device 0: NAND 64MiB 3,3V 8-bit, page size 512, sector size 16 KiB
+ MINI2440 # *nand bad* </p><p>Device 0 bad blocks:
+   01df0000
+   037d8000
+   03ff0000
+   03ff4000
+   03ff8000
+   03ffc000
+ </pre> </p><h1><a name="Scrub_the_nand"></a>Scrub the nand<a href="#Scrub_the_nand" class="section_anchor"></a></h1><p>It&#x27;s better to clean the nand completely, detect real bad blocks and such. u-boot complains a bit about it, but we want a clean nand and will create a nice, up-to-date table. </p><p><pre> MINI2440 # *nand scrub* </p><p>NAND scrub: device 0 whole chip
+ Warning: scrub option will erase all factory set bad blocks!
+          There is no reliable way to recover them.
+          Use this command only for testing purposes if you
+          are sure of what you are doing!
+ </p><p>Really scrub this NAND flash? &lt;y/N&gt;
+ Erasing at 0x1d70000 --  46% complete.
+ NAND 64MiB 3,3V 8-bit: MTD Erase failure: -5
+ Erasing at 0x37ac000 --  87% complete.
+ NAND 64MiB 3,3V 8-bit: MTD Erase failure: -5
+ Erasing at 0x3ffc000 -- 100% complete.
+ Bad block table not found for chip 0
+ Bad block table not found for chip 0
+ OK
+ </pre> </p><p>So, it seems it didn&#x27;t find any more bad blocks, we&#x27;re clean. </p><p><pre> MINI2440 # *nand bad* </p><p>Device 0 bad blocks:
+   01df0000
+   037d8000
+   03ff0000
+   03ff4000
+   03ff8000
+   03ffc000
+ </pre> </p><h1><a name="Create_a_Bad_Block_Table"></a>Create a Bad Block Table<a href="#Create_a_Bad_Block_Table" class="section_anchor"></a></h1><p>This writes this table on the last blocks of the flash, so the kernel can find it. <pre> MINI2440 # *nand createbbt* </p><p>Create BBT and erase everything ? &lt;y/N&gt; *y* </p><p>Skipping bad block at  0x01df0000
+ Skipping bad block at  0x037d8000
+ Skipping bad block at  0x03ff0000
+ Skipping bad block at  0x03ff4000
+ Skipping bad block at  0x03ff8000
+ Skipping bad block at  0x03ffc000
+ </p><p>Creating BBT. Please wait ...Bad block table not found for chip 0
+ Bad block table not found for chip 0
+ Bad block table written to 0x03ffc000, version 0x01
+ Bad block table written to 0x03ff8000, version 0x01
+ </p><p>MINI2440 #
+ </pre> </p><h1><a name="Default_NAND_Partions"></a>Default NAND Partions<a href="#Default_NAND_Partions" class="section_anchor"></a></h1><p>By default u-boot uses a default set of variables, because it can&#x27;t find a valid  one in the nand. </p><p>First lets look where the default partitioning: </p><p><pre> MINI2440 # *mtdparts* </p><p>device nand0 &lt;mini2440-nand&gt;, # parts = 4
+  #: name                        size            offset          mask_flags
+  0: u-boot              0x00040000      0x00000000      0
+  *1: env                 0x00020000      0x00040000      0*  
+  2: kernel              0x00500000      0x00060000      0
+  3: root                0x03aa0000      0x00560000      0
+ </p><p>active partition: nand0,0 - (u-boot) 0x00040000 @ 0x00000000
+ </p><p>defaults:
+ mtdids  : nand0=mini2440-nand
+ mtdparts: &lt;NULL&gt; MINI2440 #
+ </pre> </p><p>So the environment is suposed to be written at 0x00040000 in the NAND. </p><h1><a name="Set_a_&quot;custom&quot;_ethernet_MAC_address"></a>Set a &quot;custom&quot; ethernet MAC address<a href="#Set_a_&quot;custom&quot;_ethernet_MAC_address" class="section_anchor"></a></h1><p>The board does not have an eeprom with a valid MAC address, it relies on the bootloader to  set it, and it can be anything that is &quot;valid&quot;. Since you are not a constructor, you don&#x27;t have &quot;registered&quot; addresses, so what I ususaly do is pick addresses from a &quot;dead&quot; nanufacturer. </p><p>My current favourite is &quot;Pr1me Computers&quot;, long dead, plenty of valid MAC addresses ! <pre> MINI2440 # *set ethaddr 08:00:2f:00:00:02* </pre> </p><h1><a name="Set_the_environmnet_&quot;dynamic&quot;_offset"></a>Set the environmnet &quot;dynamic&quot; offset<a href="#Set_the_environmnet_&quot;dynamic&quot;_offset" class="section_anchor"></a></h1><p>This u-boot has a way to have a &quot;dynamic&quot; environment offset written in the first NAND block (the most resilient block on the chip!). It will allow you to skio a &quot;bad&quot; environment block and relocate it somewhere further the chip. </p><p>You first need to tell u-boot to save the default environment offset. </p><p><pre> MINI2440 # *dynenv set 40000* </p><p>device 0 offset 0x40000, size 0x3fc0000
+ 45 4e 56 30 - 00 00 04 00
+ </pre> </p><h1><a name="Save_the_environment_to_flash"></a>Save the environment to flash<a href="#Save_the_environment_to_flash" class="section_anchor"></a></h1><p>Here goes, save the variables to the specified location. Including your new MAC address! <pre> MINI2440 # *saveenv* </p><p>Saving Environment to NAND...
+ Erasing Nand...
+ </pre> </p><h1><a name="Loading_/_flashing_the_first_u-boot"></a>Loading / flashing the first u-boot<a href="#Loading_/_flashing_the_first_u-boot" class="section_anchor"></a></h1><p>First you need a working network connection. I&#x27;m not going into details here, you can use dhcp or fixed IP addresses, and a remote TFTP server. </p><h2><a name="Loading_u-boot_from_the_network"></a>Loading u-boot from the network<a href="#Loading_u-boot_from_the_network" class="section_anchor"></a></h2><p>Load the u-boot binary, note we use the 512 aligned one, since NAND write needs sizes that are padded to 512 bytes. We load it bang in the middle of the RAM for convenience. <pre> MINI2440 # *tftp 32000000 u-boot-nand512.bin* </p><p>dm9000 i/o: 0x20000300, id: 0x90000a46
+ DM9000: running in 16 bit mode
+ MAC: 08:00:2f:00:00:02
+ TFTP from server 10.0.0.4; our IP address is 10.0.0.111
+ Filename &#x27;u-boot-nand512.bin&#x27;.
+ Load address: 0x32000000
+ Loading: T ################
+ done
+ Bytes transferred = 232448 (_38c00_ hex)
+ </pre> </p><h2><a name="Flash_u-boot"></a>Flash u-boot<a href="#Flash_u-boot" class="section_anchor"></a></h2><p>The &quot;.e&quot; variation of &quot;nand write&quot; in u-boot will write the error-correction bytes,  and skip any bad blocks in the way. Note that we don&#x27;t need to <i>erase</i> the NAND block here as it&#x27;s been &quot;scrubbed&quot;. <pre> MINI2440 # *nand write.e 32000000 0 38c00* </p><p>NAND write: device 0 offset 0x0, size 0x38c00
+ </p><p>Writing data at 0x38a00 -- 100% complete.
+  232448 bytes written: OK
+ MINI2440 #
+ </pre> </p><h1><a name="Done"></a>Done<a href="#Done" class="section_anchor"></a></h1><p>There you go. The first time you boot a real linux, you might hit various other problem, like </p><h2><a name="Initializing_the_hardware_clock"></a>Initializing the hardware clock<a href="#Initializing_the_hardware_clock" class="section_anchor"></a></h2><p>The RTC chip might come with garbage in, if you see this: </p><p><pre> s3c2410-rtc s3c2410-rtc: hctosys: invalid date/time
+ ...
+ Setting the system clock.
+ The Hardware Clock does not contain a valid time, so we cannot set the System Time from it.
+ </pre> </p><p>Use &quot;hwclock&quot; to force it&#x27;s initialization <pre> # *hwclock --set --utc --date=&quot;13 march 2009 09:54:00&quot;* </p><p># *reboot* </p><p></pre> </p>
+ </div>
+ </div>
+ </td><tr>
+</table>
+ </div>
+
+
+ 
+ <div id="wikicommentcol">
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+<div class="collapse">
+
+
+ 
+
+
+<div id="commentlist">
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/106524237999398511041/">razvan.i...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Wed Jun 10 19:41:20 2009">Jun 10, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Do you have an explicit line for booting a kernel from an SD card?  I installed uboot and followed all directions, but all I get is &quot;Wrong Image Format for bootm command                                             ERROR: can&#x27;t get kernel image!&quot; </p><p>the first partition on my SD contains the uImage file and the second one is populated with the file system. </p><p>Moreover, if I use the following settings: mmcinit; fatload mmc 0:1 0x31000000 uImage, I end up with: </p><blockquote>MINI2440 # fatload   mmc 0:2 0x31000000 uImage 
+</blockquote><p>===============&gt; MMC CMD Timeout ===============&gt; MMC CMD Timeout mmc_block_read: err SDIDSTA=0x00000020 </p><p><strong></strong> Unable to use mmc 0:2 for fatload <strong></strong> MINI2440 # fatload   mmc 0:1 0x31000000 uImage ===============&gt; MMC CMD Timeout ===============&gt; MMC CMD Timeout mmc_block_read: err SDIDSTA=0x00000020 </p><p><strong></strong> Unable to use mmc 0:1 for fatload <strong></strong> </p><p>TIA </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sat Jul 11 02:47:28 2009">Jul 11, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>the default u-boot environment has plenty of commands to boot from nfs.nand,mmc -- just do &quot;printenv&quot; and have a look... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/108021782061492145725/">findlayb...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Aug 18 12:12:28 2009">Aug 18, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>This all worked great for me, only kink I have which I haven&#x27;t investigated is that when loaded in SDRAM via vivi uboot &quot;-help&quot; works.  When I flashed the same image, it doesn&#x27;t after it boots from flash. Everything else I have tried works fine from either nand or SDRAM. Not sure if this is a &quot;feature&quot; or a bug.  Either way this was a HUGE help.. I thank you for this I am sure it was a great deal of work both doing the UBOOT config and writing these wikis.   </p><p>Thanks! Brian </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/118087671039672523527/">arcadios...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Wed Sep  2 07:08:19 2009">Sep 2, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I&#x27;m going to use an emulated mini2440-via-qemu to demonstrate my embedded systems project for school, and I&#x27;m finding these instructions invaluable.  Thank you very much!  Everything pretty much worked as stated. </p><p>I have a question though ... just for the sake of knowing ... you say up there when you tftp u-boot over the network you &quot;load it bang in the middle of the RAM for convenience&quot;.  What does that mean exactly?  Why is it convenient?  I tried using address 0 instead of 32000000 just to see what would happen, and it didn&#x27;t work. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Sep  8 06:35:32 2009">Sep 8, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>The RAM doesn&#x27;t start at address zero. it rarely does on any modern system! The address space is documented in the s3c2440 datasheet, and you&#x27;ll see that RAM physical address starts at 0x30000000. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/102182486071099430786/">Daniel.J...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Sep  8 11:21:54 2009">Sep 8, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>um.  I&#x27;ve followed this guide multiple times today attempting to flash u-boot on my mini2440.  However, I cannot get the mini2440 to boot into u-boot when I have the boot switch selecting NAND.  My console doesn&#x27;t show it booting.  I performed this flash last week and it worked.  I had to erase uBoot inorder to test WinCE.   Please advise.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/100046040287822765859/">Dhaval.M...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sat Sep 12 04:29:43 2009">Sep 12, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>hi, I have a mini2440, with 64Mb ram and 128Mb Flash. I am not able to boot. </p><p>i am getting : nand_scan(): Cannot allocate oob_buf mini2440. error. please help me . </p><p>Thanks  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/108021782061492145725/">findlayb...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sat Sep 12 19:14:29 2009">Sep 12, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Daniel, </p><p>A suggestion, the uboot that this is documented with is a different size than the one you will get from the git repository. If you look though these commands you will see several of them that ask for the image size such as:  </p><pre class="prettyprint">    load ram 0x33f80000 232448 x 
+    
+    nand write.e 32000000 0 38c00 </pre><p>Because I just blindly copied these strings (stupid me), I got some very strange results as I copied a truncated image to RAM, then to flash. So you may want to take a look at that, the current git image is larger so you will be losing a few bytes there. As soon as I got that right, everything works as advertised.. Hope that helps. </p><p>Good Luck .. Brian </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/100046040287822765859/">Dhaval.M...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sun Sep 13 23:24:11 2009">Sep 13, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Hi, </p><p>I am using uboot 1.3.3 from git repostry at  git clone git://repo.or.cz/u-boot-openmoko/mini2440.git </p><p>When i load this to Ram it works fine. but after wrting to flash,  </p><p>When i switch on the baord in NAND boot mode.  I am getting  </p><p>nand_scan(): Cannot allocate oob_buf 0 Mib </p><p>Thanks  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/110200318775387501773/">dannyg...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Sep 15 13:43:09 2009">Sep 15, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I had the allocate oob_buf error too. I had to use u-boot-nand2k.bin...check your &#x27;nand info&#x27; if you have 2048 size. You can compile it using the guide here: </p><p><a href="http://wiki.linuxmce.org/index.php/Mini2440" rel="nofollow">http://wiki.linuxmce.org/index.php/Mini2440</a> </p><p>by replacing &#x27;git clone git://repo.or.cz/u-boot-openmoko/mini2440.git&#x27; with &#x27;git clone git://gitorious.org/hiteg-development-boards/mini2440.git&#x27; </p><p>then compile it following the instructions there, just replace everything with u-boot-nand2k.bin </p><p>you have an upgraded board </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/113098675936135659883/">zol...@bendor.com.au</a
+>,
+ 
+ </span>
+ <span class="date" title="Thu Sep 17 17:13:38 2009">Sep 17, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I had a problem with u-boot on a MINI2440 with 128M FLASH. </p><p>It seems that if you have that new board with 128M FLASH then you have to fix a little problem with u-boot from the Czech repository. The problem is that the bigger FLASH needs different timing. In the u-boot source it is hard-coded that if you have a MINI2440 then it uses the timing for the smaller chips. The ideal solution would be if it actually checked what FLASH was connected (a register of the S3C2440<a href="/p/mini2440/w/edit/S3C2440">?</a> tells you that after boot) and set the timing accordingly, but as a quick fix, <strong>ONLY IF YOU HAVE 128M FLASH WITH 2K PAGE SIZE!!!</strong> then you can do the following: </p><p>in cpu/arm920t/s3c24x0/nand_read.c, line 59 reads: </p><p>#if defined(CONFIG_S3C2410<a href="/p/mini2440/w/edit/S3C2410">?</a>) || defined(CONFIG_MINI2440) </p><p>Just comment out the || defined(CONFIG_MINI2440) bit, recompile, load it with vivi and you&#x27;ll have a u-boot from FLASH. Note that this is not a solution, just a band-aid. Furthermore, there are hard-coded assumptions about the FLASH being 64MB in size, but that&#x27;s not causing problems apart from u-boot not knowing about half of your FLASH. Also, I don&#x27;t know (yet) if that&#x27;s enough to do anything useful with u-boot, but at least it starts up from the NAND. </p><p>Kocsonya </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/113098675936135659883/">zol...@bendor.com.au</a
+>,
+ 
+ </span>
+ <span class="date" title="Thu Sep 17 22:42:40 2009">Sep 17, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>An other issue: with the fatter NAND the block size is 128K. Alas, when you want to save the environment, it erases only 64K. The NAND erase routine fails and u-boot instead of giving you an error message just gives back the prompt, without actually doing anything at all. Band-aid solution: change CNF_ENV_SIZE from 0x10000 to 0x20000 in include/configs/mini2440.h. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Fri Sep 18 06:17:05 2009">Sep 18, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I&#x27;m in the final stage of having a u-boot that autodetects the nand type and boots accordingly. I&#x27;ll try to post it this week-end... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/116960881421270725664/">ober...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sun Sep 20 04:47:53 2009">Sep 20, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Is it possible to operate vivi/u-boot using USB alone ? I dont have a serial port in my desktop computer </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Mon Sep 21 00:12:02 2009">Sep 21, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Buy a USB serial adapter, they are $5. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/116960881421270725664/">ober...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Wed Sep 23 14:07:42 2009">Sep 23, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I know ,but I ask &quot;why&quot; .. everything can be done using the USB host + software serial over USB </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Thu Sep 24 10:05:03 2009">Sep 24, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>There we go, do patch u-boot to fix the USB device code, I&#x27;m delighted to have a volunteer at last ! :-) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111387094029238541867/">buser...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Oct 20 12:18:32 2009">Oct 20, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>BTW I fixed the USB code, and DFU now works to flash the board... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/102847502250589032140/">bar...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Fri Nov 20 00:34:33 2009">Nov 20, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>I&#x27;m using U-Boot 1.3.2-mini2440, built by OE. </p><p>Somehow I get the problem similar to what Dhaval.Modi had: <blockquote>When i load this to Ram it works fine. but after wrting to flash, 
+When i switch on the baord in NAND boot mode. I am getting 
+nand_scan(): Cannot allocate oob_buf 0 Mib 
+</blockquote></p><p>I dug a bit into it, and found that it&#x27;s malloc that fails. I added some prints, and found that the humble 512 bytes is the first allocation ever in the u-boot. Further investigation revealed that sbrk_base variable is -1 on first invocation of malloc from RAM (which is reasonable), while it&#x27;s value is 0x33d60000 on first invocation of malloc from NAND FLASH. This is weird, as this variable is assigned from within malloc (malloc_extend_top). </p><p>Something with start.S? Any ideas? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111832900674738238386/">dirix...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Thu Nov 26 02:42:39 2009">Nov 26, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>This helped in my case:  <a href="https://www.blogger.com/comment.g?blogID=11320970&amp;postID=8052884915704378273&amp;pli=1" rel="nofollow">https://www.blogger.com/comment.g?blogID=11320970&amp;postID=8052884915704378273&amp;pli=1</a> </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/110055045897753671054/">dave_fes...@hotmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Dec  1 01:56:18 2009">Dec 1, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Warning: scrub option will erase all factory set bad blocks! <blockquote>There is no reliable way to recover them. 
+Use this command only for testing purposes if you 
+are sure of what you are doing! 
+</blockquote></p><p>Does this mean that after you create a new BBT with u-boot that you might have problems returning to use Supervivi?  After playing around with several kernel and applications using u-boot I have returned to the factory install.   </p><p>It seems to work OK , but I like to know if I am just lucky so far and if there is the potential for problems down the track. </p><p>Thanks Dave </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/109570473864371971535/">girar...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sat Dec  5 12:10:53 2009">Dec 5, 2009</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks a lot for writing this great bringup webpage. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/103948585348230092425/">fcs...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Wed Jan 20 05:24:35 2010">Jan 20, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>I got a new mini2400 with 2Gbit(256M) Flash (Samsung K9F2G08U0B) &amp; VF1601. </p><p>Stuck at Here... </p><p>U-Boot 1.3.2-mini2440 (Jan 20 2010 - 21:02:37) </p><p>I2C:   ready DRAM:  64 MB Flash:  2 MB NAND:  Bad block table not found for chip 0 Bad block table not found for chip 0 256 MiB <strong></strong><strong> Warning - bad CRC or NAND, using default environment </strong></p><p>USB:   S3C2410<a href="/p/mini2440/w/edit/S3C2410">?</a> USB Deviced In:    serial Out:   serial Err:   serial </p><p>U-Boot 1.3.2-mini2440 (Jan 20 2010 - 21:02:37) </p><p>I2C:   ready DRAM:  64 MB Flash:  2 MB NAND:  nand_scan(): Cannot allocate oob_buf 0 MiB </p><p>(And Halt.) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/103496723554309329244/">amitro...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Wed Feb 24 20:33:30 2010">Feb 24, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>I have a 128Mb board , I was able to compile and install u-boot without any issues. The problem i&#x27;m facing is the kernel loads but never boots. Excerpt &quot; ## Booting kernel from Legacy Image at 32000000 ... <blockquote>Image Name: 
+Created:      2010-02-09  12:25:48 UTC 
+Image Type:   ARM Linux Kernel Image (uncompressed) 
+Data Size:    2041256 Bytes =  1.9 MB 
+Load Address: 30008000 
+Entry Point:  30008000 
+Verifying Checksum ... OK 
+Loading Kernel Image ... OK 
+</blockquote>OK &quot; How to make the linux kernel boot?  but if I use tftpboot to load the kernel the linux kernel boot and starts loading. Settings for  bootcmd are bootargs  &quot; bootcmd=nboot.e kernel ; bootm bootargs=noinitrd console=ttySAC0,115200 root=/dev/mtdblock2 rootfstype=jffs2 rw <blockquote>mini2440=3tb 
+</blockquote>&quot; </p><p>When the kernel starts booting via tftpboot i get the following errors &quot; -&gt;read(0x400 bytes from 0x420000) returned ECC error jffs2_scan_eraseblock(): Node at 0x00420000 {0x1985, 0xe000, 0x00000029) has invalid CRC 0x60046646 (calculated 0x1c7375c8) jffs2_scan_eraseblock(): Magic bitmask 0x1985 not found at 0x00420004: 0x0029 instead &quot; </p><p>Can anyone explain as to what is going on.. </p><p>regards </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/106241510224371818093/">kugel.an...@googlemail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Thu Apr  8 16:31:18 2010">Apr 8, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks for this guide, I was using this guide here to go through <a href="http://mini2440.spaceopera.org/site/developmentenviroment/stepbystep/index.html" rel="nofollow">http://mini2440.spaceopera.org/site/developmentenviroment/stepbystep/index.html</a> </p><p>(I used his uboot image in the end since the one from the git repo does not work for me). With your fine guide I managed to get finally a proper uboot install (and android on top :P </p><p>I don&#x27;t have supervivi anymore, so I didn&#x27;t go through the tftp thing but used openocd instead. </p><p>But as it has been noted, you must take care to not copy all, it some arguments must match the uboot image you&#x27;re using. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/100722870818974459422/">nandakum...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Mon Apr 12 11:39:28 2010">Apr 12, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Hi, I use mini2440 with 64MB flash. When I try to run the u-Boot from the RAM, MINI2440# prompt doesn&#x27;t come (Able to see initial U-boot messages and doesn&#x27;t stop on MINI2440 prompt), instead it goes back to the SuperVivi<a href="/p/mini2440/w/edit/SuperVivi">?</a> prompt. Please help on this. Thanks Nandu  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/100722870818974459422/">nandakum...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Tue Apr 13 10:01:05 2010">Apr 13, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>hmm got it, it was the same nand_scan() problem... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment"
+ 
+ >
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink"
+ href="/u/111659994407846785760/">ramgopal...@gmail.com</a
+>,
+ 
+ </span>
+ <span class="date" title="Sat Aug 14 07:02:43 2010">Aug 14, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Hi Buserror, Thank you for excellent info I have couple questions . a) How to load uboot with out NOR <blockquote>b) The latest uboot sources are not working for RAM loading 
+</blockquote>. c) Are there any stable uboot sorce code tags to download  </p><p>The board i m having is similar to micro2440 without NOR.Please point me how to proceed.If i load uboot into NAaND from debugger nothing is seen on console If i load vivi bootloader into nand it boots ok and from there if i RAM load uboot there is no output onconsole </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+</div>
+</div>
+
+ 
+
+
+ <script type="text/javascript">
+ function delComment(sequence_num, create_time, delete_mode) {
+ var f = document.forms["delcom"];
+ f.sequence_num.value = sequence_num;
+ f.create_time.value = create_time;
+ f.mode.value = delete_mode;
+ f.submit();
+ return false;
+ }
+ </script>
+
+
+ </div>
+ 
+ 
+ 
+ 
+ <br>
+ <div class="artifactcomment">
+ <span class="indicator">&#9658;</span> <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=http%3A%2F%2Fcode.google.com%2Fp%2Fmini2440%2Fwiki%2FMiniBringup&amp;followup=http%3A%2F%2Fcode.google.com%2Fp%2Fmini2440%2Fwiki%2FMiniBringup"
+ >Sign in</a> to add a comment
+ </div>
+ 
+ 
+ 
+ 
+ <form name="delcom" action="../w/delComment.do" method="POST">
+ <input type="hidden" name="sequence_num" value="" >
+ <input type="hidden" name="create_time" value="" >
+ <input type="hidden" name="mode" value="" >
+ <input type="hidden" name="pagename" value="MiniBringup" >
+ <input type="hidden" name="token" value="" >
+ </form>
+
+
+ <script src="http://www.gstatic.com/codesite/ph/3076573747170053082/js/prettify/prettify.js"></script>
+ <script type="text/javascript">
+ prettyPrint();
+ </script>
+
+<script type="text/javascript" src="http://www.gstatic.com/codesite/ph/3076573747170053082/js/dit_scripts.js"></script>
+
+
+
+  
+ 
+ 
+ <script type="text/javascript" src="http://www.gstatic.com/codesite/ph/3076573747170053082/js/ph_core.js"></script>
+ 
+ <script type="text/javascript" src="http://www.gstatic.com/codesite/ph/3076573747170053082/js/ph_dwiki.js"></script>
+ 
+ 
+ 
+ 
+</div> 
+
+<div id="footer" dir="ltr">
+ <div class="text">
+ <a href="/projecthosting/terms.html">Terms</a> -
+ <a href="http://www.google.com/privacy.html">Privacy</a> -
+ <a href="/p/support/">Project Hosting Help</a>
+ </div>
+</div>
+ <div class="hostedBy" style="margin-top: -20px;">
+ <span style="vertical-align: top;">Powered by <a href="http://code.google.com/projecthosting/">Google Project Hosting</a></span>
+ </div>
+
+ 
+ 
+
+
+ 
+ </body>
+</html>
+
+

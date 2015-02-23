@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html style="" class=" client-js js no-touch localstorage sessionstorage svg inlinesvg svgclippaths no-ie8compat" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>How to read data from a file in Qt - Nokia Developer Wiki</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.19.15">
+<link rel="shortcut icon" href="http://developer.nokia.com/community/piazza/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://developer.nokia.com/community/wiki/opensearch_desc.php" title="Nokia Developer Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://developer.nokia.com/community/wiki/api.php?action=rsd">
+<link rel="copyright" href="http://developer.nokia.com/community/wiki/Content_Licence">
+<link rel="alternate" type="application/atom+xml" title="Nokia Developer Wiki Atom feed" href="http://developer.nokia.com/community/wiki/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load.css">
+<style type="text/css" media="all">.js-messagebox{margin:1em 5%;padding:0.5em 2.5%;border:1px solid #ccc;background-color:#fcfcfc;font-size:0.8em}.js-messagebox .js-messagebox-group{margin:1px;padding:0.5em 2.5%;border-bottom:1px solid #ddd}.js-messagebox .js-messagebox-group:last-child{border-bottom:thin none transparent}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:8b08bdc91c52a9ffba396dccfb5b473c */
+
+.ui-tooltip,.qtip{position:absolute;left:-28000px;top:-28000px;display:none;max-width:280px;min-width:50px;font-size:10.5px;line-height:12px;border-width:1px;border-style:solid} .ui-tooltip-fluid{display:block;visibility:hidden;position:static !important;float:left !important}.ui-tooltip-content{position:relative;padding:5px 9px;overflow:hidden;text-align:left;word-wrap:break-word}.ui-tooltip-titlebar{position:relative;min-height:14px;padding:5px 35px 5px 10px;overflow:hidden;border-width:0 0 1px;font-weight:bold}.ui-tooltip-titlebar + .ui-tooltip-content{border-top-width:0 !important} .ui-tooltip-titlebar .ui-state-default{position:absolute;right:4px;top:50%;margin-top:-9px;cursor:pointer;outline:medium none;border-width:1px;border-style:solid}* html .ui-tooltip-titlebar .ui-state-default{top:16px} .ui-tooltip-titlebar .ui-icon,.ui-tooltip-icon .ui-icon{display:block;text-indent:-1000em;direction:ltr}.ui-tooltip-icon,.ui-tooltip-icon .ui-icon{-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;text-decoration:none}.ui-tooltip-icon .ui-icon{width:18px;height:14px;text-align:center;text-indent:0;font:normal bold 10px/13px Tahoma,sans-serif;color:inherit;background:transparent none no-repeat -100em -100em} .ui-tooltip-focus{} .ui-tooltip-hover{} .ui-tooltip-default{border-color:#F1D031;background-color:#FFFFA3;color:#555}.ui-tooltip-default .ui-tooltip-titlebar{background-color:#FFEF93}.ui-tooltip-default .ui-tooltip-icon{border-color:#CCC;background:#F1F1F1;color:#777}.ui-tooltip-default .ui-tooltip-titlebar .ui-state-hover{border-color:#AAA;color:#111} .ui-tooltip-light{background-color:white;border-color:#E2E2E2;color:#454545}.ui-tooltip-light .ui-tooltip-titlebar{background-color:#f1f1f1} .ui-tooltip-dark{background-color:#505050;border-color:#303030;color:#f3f3f3}.ui-tooltip-dark .ui-tooltip-titlebar{background-color:#404040}.ui-tooltip-dark .ui-tooltip-icon{border-color:#444}.ui-tooltip-dark .ui-tooltip-titlebar .ui-state-hover{border-color:#303030} .ui-tooltip-cream{background-color:#FBF7AA;border-color:#F9E98E;color:#A27D35}.ui-tooltip-cream .ui-tooltip-titlebar{background-color:#F0DE7D}.ui-tooltip-cream .ui-state-default .ui-tooltip-icon{background-position:-82px 0} .ui-tooltip-red{background-color:#F78B83;border-color:#D95252;color:#912323}.ui-tooltip-red .ui-tooltip-titlebar{background-color:#F06D65}.ui-tooltip-red .ui-state-default .ui-tooltip-icon{background-position:-102px 0}.ui-tooltip-red .ui-tooltip-icon{border-color:#D95252}.ui-tooltip-red .ui-tooltip-titlebar .ui-state-hover{border-color:#D95252} .ui-tooltip-green{background-color:#CAED9E;border-color:#90D93F;color:#3F6219}.ui-tooltip-green .ui-tooltip-titlebar{background-color:#B0DE78}.ui-tooltip-green .ui-state-default .ui-tooltip-icon{background-position:-42px 0} .ui-tooltip-blue{background-color:#E5F6FE;border-color:#ADD9ED;color:#5E99BD}.ui-tooltip-blue .ui-tooltip-titlebar{background-color:#D0E9F5}.ui-tooltip-blue .ui-state-default .ui-tooltip-icon{background-position:-2px 0} .ui-tooltip-shadow{-webkit-box-shadow:1px 1px 3px 1px rgba(0,0,0,0.15);-moz-box-shadow:1px 1px 3px 1px rgba(0,0,0,0.15);box-shadow:1px 1px 3px 1px rgba(0,0,0,0.15)} .ui-tooltip-rounded,.ui-tooltip-tipsy,.ui-tooltip-bootstrap{-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px} .ui-tooltip-youtube{-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:0 0 3px #333;-moz-box-shadow:0 0 3px #333;box-shadow:0 0 3px #333;color:white;border-width:0;background:#4A4A4A;background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0,#4A4A4A),color-stop(100%,black));background-image:-webkit-linear-gradient(top,#4A4A4A 0,black 100%);background-image:-moz-linear-gradient(top,#4A4A4A 0,black 100%);background-image:-ms-linear-gradient(top,#4A4A4A 0,black 100%);background-image:-o-linear-gradient(top,#4A4A4A 0,black 100%)}.ui-tooltip-youtube .ui-tooltip-titlebar{background-color:#4A4A4A;background-color:rgba(0,0,0,0)}.ui-tooltip-youtube .ui-tooltip-content{padding:.75em;font:12px arial,sans-serif;filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);-ms-filter:"progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);"}.ui-tooltip-youtube .ui-tooltip-icon{border-color:#222}.ui-tooltip-youtube .ui-tooltip-titlebar .ui-state-hover{border-color:#303030} .ui-tooltip-jtools{background:#232323;background:rgba(0,0,0,0.7);background-image:-webkit-gradient(linear,left top,left bottom,from(#717171),to(#232323));background-image:-moz-linear-gradient(top,#717171,#232323);background-image:-webkit-linear-gradient(top,#717171,#232323);background-image:-ms-linear-gradient(top,#717171,#232323);background-image:-o-linear-gradient(top,#717171,#232323);border:2px solid #ddd;border:2px solid rgba(241,241,241,1);-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;-webkit-box-shadow:0 0 12px #333;-moz-box-shadow:0 0 12px #333;box-shadow:0 0 12px #333} .ui-tooltip-jtools .ui-tooltip-titlebar{background-color:transparent;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)"}.ui-tooltip-jtools .ui-tooltip-content{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)"}.ui-tooltip-jtools .ui-tooltip-titlebar,.ui-tooltip-jtools .ui-tooltip-content{background:transparent;color:white;border:0 dashed transparent}.ui-tooltip-jtools .ui-tooltip-icon{border-color:#555}.ui-tooltip-jtools .ui-tooltip-titlebar .ui-state-hover{border-color:#333} .ui-tooltip-cluetip{-webkit-box-shadow:4px 4px 5px rgba(0,0,0,0.4);-moz-box-shadow:4px 4px 5px rgba(0,0,0,0.4);box-shadow:4px 4px 5px rgba(0,0,0,0.4);background-color:#D9D9C2;color:#111;border:0 dashed transparent}.ui-tooltip-cluetip .ui-tooltip-titlebar{background-color:#87876A;color:white;border:0 dashed transparent}.ui-tooltip-cluetip .ui-tooltip-icon{border-color:#808064}.ui-tooltip-cluetip .ui-tooltip-titlebar .ui-state-hover{border-color:#696952;color:#696952} .ui-tooltip-tipsy{background:black;background:rgba(0,0,0,.87);color:white;border:0 solid transparent;font-size:11px;font-family:'Lucida Grande',sans-serif;font-weight:bold;line-height:16px;text-shadow:0 1px black}.ui-tooltip-tipsy .ui-tooltip-titlebar{padding:6px 35px 0 10;background-color:transparent}.ui-tooltip-tipsy .ui-tooltip-content{padding:6px 10}.ui-tooltip-tipsy .ui-tooltip-icon{border-color:#222;text-shadow:none}.ui-tooltip-tipsy .ui-tooltip-titlebar .ui-state-hover{border-color:#303030} .ui-tooltip-tipped{border:3px solid #959FA9;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;background-color:#F9F9F9;color:#454545;font-weight:normal;font-family:serif}.ui-tooltip-tipped .ui-tooltip-titlebar{border-bottom-width:0;color:white;background:#3A79B8;background-image:-webkit-gradient(linear,left top,left bottom,from(#3A79B8),to(#2E629D));background-image:-webkit-linear-gradient(top,#3A79B8,#2E629D);background-image:-moz-linear-gradient(top,#3A79B8,#2E629D);background-image:-ms-linear-gradient(top,#3A79B8,#2E629D);background-image:-o-linear-gradient(top,#3A79B8,#2E629D);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)"}.ui-tooltip-tipped .ui-tooltip-icon{border:2px solid #285589;background:#285589}.ui-tooltip-tipped .ui-tooltip-icon .ui-icon{background-color:#FBFBFB;color:#555} .ui-tooltip-bootstrap{font-size:13px;line-height:18px;color:#333333;background-color:#ffffff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);*border-right-width:2px;*border-bottom-width:2px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);box-shadow:0 5px 10px rgba(0,0,0,0.2);-webkit-background-clip:padding-box;-moz-background-clip:padding;background-clip:padding-box}.ui-tooltip-bootstrap .ui-tooltip-titlebar{font-size:18px;line-height:22px;border-bottom:1px solid #ccc;background-color:transparent}.ui-tooltip-bootstrap .ui-tooltip-titlebar .ui-state-default{right:9px;top:49%;border-style:none}.ui-tooltip-bootstrap .ui-tooltip-icon{background:white}.ui-tooltip-bootstrap .ui-tooltip-icon .ui-icon{width:auto;height:auto;float:right;font-size:20px;font-weight:bold;line-height:18px;color:#000000;text-shadow:0 1px 0 #ffffff;opacity:0.2;filter:alpha(opacity=20)}.ui-tooltip-bootstrap .ui-tooltip-icon .ui-icon:hover{color:#000000;text-decoration:none;cursor:pointer;opacity:0.4;filter:alpha(opacity=40)} .ui-tooltip:not(.ie9haxors) div.ui-tooltip-content,.ui-tooltip:not(.ie9haxors) div.ui-tooltip-titlebar{filter:none;-ms-filter:none} .ui-tooltip .ui-tooltip-tip{margin:0 auto;overflow:hidden;z-index:10}.ui-tooltip .ui-tooltip-tip,.ui-tooltip .ui-tooltip-tip *{position:absolute;line-height:0.1px !important;font-size:0.1px !important;color:#123456;background:transparent;border:0 dashed transparent}.ui-tooltip .ui-tooltip-tip canvas{top:0;left:0} #qtip-overlay{position:fixed;left:-10000em;top:-10000em} #qtip-overlay.blurs{cursor:pointer} #qtip-overlay div{position:absolute;left:0;top:0;width:100%;height:100%;background-color:black;opacity:0.7;filter:alpha(opacity=70);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:4bbb55072f6cad2f96ea1a1b1527a70a */
+
+#mw-panel.collapsible-nav div h5:hover{cursor:pointer;text-decoration:none}#mw-panel.collapsible-nav div.collapsed h5:hover{text-decoration:underline}#mw-panel.collapsible-nav div.portal div.body{display:none}#mw-panel.collapsible-nav div.persistent div.body{display:block}#mw-panel.collapsible-nav div.first h5{display:none}#mw-panel.collapsible-nav div.persistent h5{cursor:default}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:2b7660b6bc289cb7f97173ab5ed66c64 */
+
+.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */
+
+.no_sub_categories #mw-subcategories{display:none}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:8201b086724a2cc0052fbc767894fda8 */
+
+.ui-helper-hidden{display:none}.ui-helper-hidden-accessible{position:absolute !important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px)}.ui-helper-reset{margin:0;padding:0;border:0;outline:0;line-height:1.3;text-decoration:none;font-size:100%;list-style:none}.ui-helper-clearfix:before,.ui-helper-clearfix:after{content:"";display:table}.ui-helper-clearfix:after{clear:both}.ui-helper-clearfix{zoom:1}.ui-helper-zfix{width:100%;height:100%;top:0;left:0;position:absolute;opacity:0;filter:Alpha(Opacity=0)} .ui-state-disabled{cursor:default !important}  .ui-icon{display:block;text-indent:-99999px;overflow:hidden;background-repeat:no-repeat}  .ui-widget-overlay{position:absolute;top:0;left:0;width:100%;height:100%}  .ui-widget{font-family:Verdana,Arial,sans-serif;font-size:1.1em}.ui-widget .ui-widget{font-size:1em}.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button{font-family:Verdana,Arial,sans-serif;font-size:1em}.ui-widget-content{border:1px solid #aaaaaa;background:#ffffff url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_flat_75_ffffff_40x100.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;color:#222222}.ui-widget-content a{color:#222222}.ui-widget-header{border:1px solid #aaaaaa;background:#cccccc url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_highlight-soft_75_cccccc_1x100.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;color:#222222;font-weight:bold}.ui-widget-header a{color:#222222} .ui-state-default,.ui-widget-content .ui-state-default,.ui-widget-header .ui-state-default{border:1px solid #d3d3d3;background:#e6e6e6 url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_glass_75_e6e6e6_1x400.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;font-weight:normal;color:#555555}.ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited{color:#555555;text-decoration:none}.ui-state-hover,.ui-widget-content .ui-state-hover,.ui-widget-header .ui-state-hover,.ui-state-focus,.ui-widget-content .ui-state-focus,.ui-widget-header .ui-state-focus{border:1px solid #999999;background:#dadada url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_glass_75_dadada_1x400.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;font-weight:normal;color:#212121}.ui-state-hover a,.ui-state-hover a:hover{color:#212121;text-decoration:none}.ui-state-active,.ui-widget-content .ui-state-active,.ui-widget-header .ui-state-active{border:1px solid #aaaaaa;background:#ffffff url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_glass_65_ffffff_1x400.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;font-weight:normal;color:#212121}.ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited{color:#212121;text-decoration:none}.ui-widget :active{outline:none} .ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight{border:1px solid #fcefa1;background:#fbf9ee url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_glass_55_fbf9ee_1x400.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;color:#363636}.ui-state-highlight a,.ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a{color:#363636}.ui-state-error,.ui-widget-content .ui-state-error,.ui-widget-header .ui-state-error{border:1px solid #cd0a0a;background:#fef1ec url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_glass_95_fef1ec_1x400.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;color:#cd0a0a}.ui-state-error a,.ui-widget-content .ui-state-error a,.ui-widget-header .ui-state-error a{color:#cd0a0a}.ui-state-error-text,.ui-widget-content .ui-state-error-text,.ui-widget-header .ui-state-error-text{color:#cd0a0a}.ui-priority-primary,.ui-widget-content .ui-priority-primary,.ui-widget-header .ui-priority-primary{font-weight:bold}.ui-priority-secondary,.ui-widget-content .ui-priority-secondary,.ui-widget-header .ui-priority-secondary{opacity:.7;filter:Alpha(Opacity=70);font-weight:normal}.ui-state-disabled,.ui-widget-content .ui-state-disabled,.ui-widget-header .ui-state-disabled{opacity:.35;filter:Alpha(Opacity=35);background-image:none}  .ui-icon{width:16px;height:16px;background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2014-01-23T11:28:20Z)}.ui-widget-content .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2014-01-23T11:28:20Z)}.ui-widget-header .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2014-01-23T11:28:20Z)}.ui-state-default .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_888888_256x240.png?2014-01-23T11:28:20Z)}.ui-state-hover .ui-icon,.ui-state-focus .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_454545_256x240.png?2014-01-23T11:28:20Z)}.ui-state-active .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_454545_256x240.png?2014-01-23T11:28:20Z)}.ui-state-highlight .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_2e83ff_256x240.png?2014-01-23T11:28:20Z)}.ui-state-error .ui-icon,.ui-state-error-text .ui-icon{background-image:url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-icons_cd0a0a_256x240.png?2014-01-23T11:28:20Z)} .ui-icon-carat-1-n{background-position:0 0}.ui-icon-carat-1-ne{background-position:-16px 0}.ui-icon-carat-1-e{background-position:-32px 0}.ui-icon-carat-1-se{background-position:-48px 0}.ui-icon-carat-1-s{background-position:-64px 0}.ui-icon-carat-1-sw{background-position:-80px 0}.ui-icon-carat-1-w{background-position:-96px 0}.ui-icon-carat-1-nw{background-position:-112px 0}.ui-icon-carat-2-n-s{background-position:-128px 0}.ui-icon-carat-2-e-w{background-position:-144px 0}.ui-icon-triangle-1-n{background-position:0 -16px}.ui-icon-triangle-1-ne{background-position:-16px -16px}.ui-icon-triangle-1-e{background-position:-32px -16px}.ui-icon-triangle-1-se{background-position:-48px -16px}.ui-icon-triangle-1-s{background-position:-64px -16px}.ui-icon-triangle-1-sw{background-position:-80px -16px}.ui-icon-triangle-1-w{background-position:-96px -16px}.ui-icon-triangle-1-nw{background-position:-112px -16px}.ui-icon-triangle-2-n-s{background-position:-128px -16px}.ui-icon-triangle-2-e-w{background-position:-144px -16px}.ui-icon-arrow-1-n{background-position:0 -32px}.ui-icon-arrow-1-ne{background-position:-16px -32px}.ui-icon-arrow-1-e{background-position:-32px -32px}.ui-icon-arrow-1-se{background-position:-48px -32px}.ui-icon-arrow-1-s{background-position:-64px -32px}.ui-icon-arrow-1-sw{background-position:-80px -32px}.ui-icon-arrow-1-w{background-position:-96px -32px}.ui-icon-arrow-1-nw{background-position:-112px -32px}.ui-icon-arrow-2-n-s{background-position:-128px -32px}.ui-icon-arrow-2-ne-sw{background-position:-144px -32px}.ui-icon-arrow-2-e-w{background-position:-160px -32px}.ui-icon-arrow-2-se-nw{background-position:-176px -32px}.ui-icon-arrowstop-1-n{background-position:-192px -32px}.ui-icon-arrowstop-1-e{background-position:-208px -32px}.ui-icon-arrowstop-1-s{background-position:-224px -32px}.ui-icon-arrowstop-1-w{background-position:-240px -32px}.ui-icon-arrowthick-1-n{background-position:0 -48px}.ui-icon-arrowthick-1-ne{background-position:-16px -48px}.ui-icon-arrowthick-1-e{background-position:-32px -48px}.ui-icon-arrowthick-1-se{background-position:-48px -48px}.ui-icon-arrowthick-1-s{background-position:-64px -48px}.ui-icon-arrowthick-1-sw{background-position:-80px -48px}.ui-icon-arrowthick-1-w{background-position:-96px -48px}.ui-icon-arrowthick-1-nw{background-position:-112px -48px}.ui-icon-arrowthick-2-n-s{background-position:-128px -48px}.ui-icon-arrowthick-2-ne-sw{background-position:-144px -48px}.ui-icon-arrowthick-2-e-w{background-position:-160px -48px}.ui-icon-arrowthick-2-se-nw{background-position:-176px -48px}.ui-icon-arrowthickstop-1-n{background-position:-192px -48px}.ui-icon-arrowthickstop-1-e{background-position:-208px -48px}.ui-icon-arrowthickstop-1-s{background-position:-224px -48px}.ui-icon-arrowthickstop-1-w{background-position:-240px -48px}.ui-icon-arrowreturnthick-1-w{background-position:0 -64px}.ui-icon-arrowreturnthick-1-n{background-position:-16px -64px}.ui-icon-arrowreturnthick-1-e{background-position:-32px -64px}.ui-icon-arrowreturnthick-1-s{background-position:-48px -64px}.ui-icon-arrowreturn-1-w{background-position:-64px -64px}.ui-icon-arrowreturn-1-n{background-position:-80px -64px}.ui-icon-arrowreturn-1-e{background-position:-96px -64px}.ui-icon-arrowreturn-1-s{background-position:-112px -64px}.ui-icon-arrowrefresh-1-w{background-position:-128px -64px}.ui-icon-arrowrefresh-1-n{background-position:-144px -64px}.ui-icon-arrowrefresh-1-e{background-position:-160px -64px}.ui-icon-arrowrefresh-1-s{background-position:-176px -64px}.ui-icon-arrow-4{background-position:0 -80px}.ui-icon-arrow-4-diag{background-position:-16px -80px}.ui-icon-extlink{background-position:-32px -80px}.ui-icon-newwin{background-position:-48px -80px}.ui-icon-refresh{background-position:-64px -80px}.ui-icon-shuffle{background-position:-80px -80px}.ui-icon-transfer-e-w{background-position:-96px -80px}.ui-icon-transferthick-e-w{background-position:-112px -80px}.ui-icon-folder-collapsed{background-position:0 -96px}.ui-icon-folder-open{background-position:-16px -96px}.ui-icon-document{background-position:-32px -96px}.ui-icon-document-b{background-position:-48px -96px}.ui-icon-note{background-position:-64px -96px}.ui-icon-mail-closed{background-position:-80px -96px}.ui-icon-mail-open{background-position:-96px -96px}.ui-icon-suitcase{background-position:-112px -96px}.ui-icon-comment{background-position:-128px -96px}.ui-icon-person{background-position:-144px -96px}.ui-icon-print{background-position:-160px -96px}.ui-icon-trash{background-position:-176px -96px}.ui-icon-locked{background-position:-192px -96px}.ui-icon-unlocked{background-position:-208px -96px}.ui-icon-bookmark{background-position:-224px -96px}.ui-icon-tag{background-position:-240px -96px}.ui-icon-home{background-position:0 -112px}.ui-icon-flag{background-position:-16px -112px}.ui-icon-calendar{background-position:-32px -112px}.ui-icon-cart{background-position:-48px -112px}.ui-icon-pencil{background-position:-64px -112px}.ui-icon-clock{background-position:-80px -112px}.ui-icon-disk{background-position:-96px -112px}.ui-icon-calculator{background-position:-112px -112px}.ui-icon-zoomin{background-position:-128px -112px}.ui-icon-zoomout{background-position:-144px -112px}.ui-icon-search{background-position:-160px -112px}.ui-icon-wrench{background-position:-176px -112px}.ui-icon-gear{background-position:-192px -112px}.ui-icon-heart{background-position:-208px -112px}.ui-icon-star{background-position:-224px -112px}.ui-icon-link{background-position:-240px -112px}.ui-icon-cancel{background-position:0 -128px}.ui-icon-plus{background-position:-16px -128px}.ui-icon-plusthick{background-position:-32px -128px}.ui-icon-minus{background-position:-48px -128px}.ui-icon-minusthick{background-position:-64px -128px}.ui-icon-close{background-position:-80px -128px}.ui-icon-closethick{background-position:-96px -128px}.ui-icon-key{background-position:-112px -128px}.ui-icon-lightbulb{background-position:-128px -128px}.ui-icon-scissors{background-position:-144px -128px}.ui-icon-clipboard{background-position:-160px -128px}.ui-icon-copy{background-position:-176px -128px}.ui-icon-contact{background-position:-192px -128px}.ui-icon-image{background-position:-208px -128px}.ui-icon-video{background-position:-224px -128px}.ui-icon-script{background-position:-240px -128px}.ui-icon-alert{background-position:0 -144px}.ui-icon-info{background-position:-16px -144px}.ui-icon-notice{background-position:-32px -144px}.ui-icon-help{background-position:-48px -144px}.ui-icon-check{background-position:-64px -144px}.ui-icon-bullet{background-position:-80px -144px}.ui-icon-radio-off{background-position:-96px -144px}.ui-icon-radio-on{background-position:-112px -144px}.ui-icon-pin-w{background-position:-128px -144px}.ui-icon-pin-s{background-position:-144px -144px}.ui-icon-play{background-position:0 -160px}.ui-icon-pause{background-position:-16px -160px}.ui-icon-seek-next{background-position:-32px -160px}.ui-icon-seek-prev{background-position:-48px -160px}.ui-icon-seek-end{background-position:-64px -160px}.ui-icon-seek-start{background-position:-80px -160px} .ui-icon-seek-first{background-position:-80px -160px}.ui-icon-stop{background-position:-96px -160px}.ui-icon-eject{background-position:-112px -160px}.ui-icon-volume-off{background-position:-128px -160px}.ui-icon-volume-on{background-position:-144px -160px}.ui-icon-power{background-position:0 -176px}.ui-icon-signal-diag{background-position:-16px -176px}.ui-icon-signal{background-position:-32px -176px}.ui-icon-battery-0{background-position:-48px -176px}.ui-icon-battery-1{background-position:-64px -176px}.ui-icon-battery-2{background-position:-80px -176px}.ui-icon-battery-3{background-position:-96px -176px}.ui-icon-circle-plus{background-position:0 -192px}.ui-icon-circle-minus{background-position:-16px -192px}.ui-icon-circle-close{background-position:-32px -192px}.ui-icon-circle-triangle-e{background-position:-48px -192px}.ui-icon-circle-triangle-s{background-position:-64px -192px}.ui-icon-circle-triangle-w{background-position:-80px -192px}.ui-icon-circle-triangle-n{background-position:-96px -192px}.ui-icon-circle-arrow-e{background-position:-112px -192px}.ui-icon-circle-arrow-s{background-position:-128px -192px}.ui-icon-circle-arrow-w{background-position:-144px -192px}.ui-icon-circle-arrow-n{background-position:-160px -192px}.ui-icon-circle-zoomin{background-position:-176px -192px}.ui-icon-circle-zoomout{background-position:-192px -192px}.ui-icon-circle-check{background-position:-208px -192px}.ui-icon-circlesmall-plus{background-position:0 -208px}.ui-icon-circlesmall-minus{background-position:-16px -208px}.ui-icon-circlesmall-close{background-position:-32px -208px}.ui-icon-squaresmall-plus{background-position:-48px -208px}.ui-icon-squaresmall-minus{background-position:-64px -208px}.ui-icon-squaresmall-close{background-position:-80px -208px}.ui-icon-grip-dotted-vertical{background-position:0 -224px}.ui-icon-grip-dotted-horizontal{background-position:-16px -224px}.ui-icon-grip-solid-vertical{background-position:-32px -224px}.ui-icon-grip-solid-horizontal{background-position:-48px -224px}.ui-icon-gripsmall-diagonal-se{background-position:-64px -224px}.ui-icon-grip-diagonal-se{background-position:-80px -224px}  .ui-corner-all,.ui-corner-top,.ui-corner-left,.ui-corner-tl{-moz-border-radius-topleft:4px;-webkit-border-top-left-radius:4px;-khtml-border-top-left-radius:4px;border-top-left-radius:4px}.ui-corner-all,.ui-corner-top,.ui-corner-right,.ui-corner-tr{-moz-border-radius-topright:4px;-webkit-border-top-right-radius:4px;-khtml-border-top-right-radius:4px;border-top-right-radius:4px}.ui-corner-all,.ui-corner-bottom,.ui-corner-left,.ui-corner-bl{-moz-border-radius-bottomleft:4px;-webkit-border-bottom-left-radius:4px;-khtml-border-bottom-left-radius:4px;border-bottom-left-radius:4px}.ui-corner-all,.ui-corner-bottom,.ui-corner-right,.ui-corner-br{-moz-border-radius-bottomright:4px;-webkit-border-bottom-right-radius:4px;-khtml-border-bottom-right-radius:4px;border-bottom-right-radius:4px} .ui-widget-overlay{background:#aaaaaa url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_flat_0_aaaaaa_40x100.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;opacity:.3;filter:Alpha(Opacity=30)}.ui-widget-shadow{margin:-8px 0 0 -8px;padding:8px;background:#aaaaaa url(http://developer.nokia.com/community/wiki/resources/jquery.ui/themes/default/images/ui-bg_flat_0_aaaaaa_40x100.png?2014-01-23T11:28:20Z) 50% 50% repeat-x;opacity:.3;filter:Alpha(Opacity=30);-moz-border-radius:8px;-khtml-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:59048ccc9ae87f9b92e739cd04bfcdd4 */
+
+
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:d789e2f0629cbde0c0a1edf19a79b98a */
+
+.ui-resizable{position:relative}.ui-resizable-handle{position:absolute;font-size:0.1px;z-index:99999;display:block}.ui-resizable-disabled .ui-resizable-handle,.ui-resizable-autohide .ui-resizable-handle{display:none}.ui-resizable-n{cursor:n-resize;height:7px;width:100%;top:-5px;left:0}.ui-resizable-s{cursor:s-resize;height:7px;width:100%;bottom:-5px;left:0}.ui-resizable-e{cursor:e-resize;width:7px;right:-5px;top:0;height:100%}.ui-resizable-w{cursor:w-resize;width:7px;left:-5px;top:0;height:100%}.ui-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ui-resizable-sw{cursor:sw-resize;width:9px;height:9px;left:-5px;bottom:-5px}.ui-resizable-nw{cursor:nw-resize;width:9px;height:9px;left:-5px;top:-5px}.ui-resizable-ne{cursor:ne-resize;width:9px;height:9px;right:-5px;top:-5px}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:a1604431aa9d45f0af92cad720068fe8 */
+
+.ui-autocomplete{position:absolute;cursor:default} * html .ui-autocomplete{width:1px}  .ui-menu{list-style:none;padding:2px;margin:0;display:block;float:left}.ui-menu .ui-menu{margin-top:-3px}.ui-menu .ui-menu-item{margin:0;padding:0;zoom:1;float:left;clear:left;width:100%}.ui-menu .ui-menu-item a{text-decoration:none;display:block;padding:.2em .4em;line-height:1.5;zoom:1}.ui-menu .ui-menu-item a.ui-state-hover,.ui-menu .ui-menu-item a.ui-state-active{font-weight:normal;margin:-1px}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:077c6bd92e26af3697f31cda64ffe7da */
+
+.ui-button{display:inline-block;position:relative;padding:0;margin-right:.1em;text-decoration:none !important;cursor:pointer;text-align:center;zoom:1;overflow:visible} .ui-button-icon-only{width:2.2em} button.ui-button-icon-only{width:2.4em} .ui-button-icons-only{width:3.4em}button.ui-button-icons-only{width:3.7em} .ui-button .ui-button-text{display:block;line-height:1.4}.ui-button-text-only .ui-button-text{padding:.4em 1em}.ui-button-icon-only .ui-button-text,.ui-button-icons-only .ui-button-text{padding:.4em;text-indent:-9999999px}.ui-button-text-icon-primary .ui-button-text,.ui-button-text-icons .ui-button-text{padding:.4em 1em .4em 2.1em}.ui-button-text-icon-secondary .ui-button-text,.ui-button-text-icons .ui-button-text{padding:.4em 2.1em .4em 1em}.ui-button-text-icons .ui-button-text{padding-left:2.1em;padding-right:2.1em} input.ui-button{padding:.4em 1em} .ui-button-icon-only .ui-icon,.ui-button-text-icon-primary .ui-icon,.ui-button-text-icon-secondary .ui-icon,.ui-button-text-icons .ui-icon,.ui-button-icons-only .ui-icon{position:absolute;top:50%;margin-top:-8px}.ui-button-icon-only .ui-icon{left:50%;margin-left:-8px}.ui-button-text-icon-primary .ui-button-icon-primary,.ui-button-text-icons .ui-button-icon-primary,.ui-button-icons-only .ui-button-icon-primary{left:.5em}.ui-button-text-icon-secondary .ui-button-icon-secondary,.ui-button-text-icons .ui-button-icon-secondary,.ui-button-icons-only .ui-button-icon-secondary{right:.5em}.ui-button-text-icons .ui-button-icon-secondary,.ui-button-icons-only .ui-button-icon-secondary{right:.5em} .ui-buttonset{margin-right:7px}.ui-buttonset .ui-button{margin-left:0;margin-right:-.3em} button.ui-button::-moz-focus-inner{border:0;padding:0}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:1f2c4eae2dc2eb4e945f661639d202e3 */
+
+.ui-dialog{position:absolute;padding:.2em;width:300px;overflow:hidden}.ui-dialog .ui-dialog-titlebar{padding:.4em 1em;position:relative}.ui-dialog .ui-dialog-title{float:left;margin:.1em 16px .1em 0}.ui-dialog .ui-dialog-titlebar-close{position:absolute;right:.3em;top:50%;width:19px;margin:-10px 0 0 0;padding:1px;height:18px}.ui-dialog .ui-dialog-titlebar-close span{display:block;margin:1px}.ui-dialog .ui-dialog-titlebar-close:hover,.ui-dialog .ui-dialog-titlebar-close:focus{padding:0}.ui-dialog .ui-dialog-content{position:relative;border:0;padding:.5em 1em;background:none;overflow:auto;zoom:1}.ui-dialog .ui-dialog-buttonpane{text-align:left;border-width:1px 0 0 0;background-image:none;margin:.5em 0 0 0;padding:.3em 1em .5em .4em}.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{float:right}.ui-dialog .ui-dialog-buttonpane button{margin:.5em .4em .5em 0;cursor:pointer}.ui-dialog .ui-resizable-se{width:14px;height:14px;right:3px;bottom:3px}.ui-draggable .ui-dialog-titlebar{cursor:move}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:1fdd777c30f0659b0402133497a24792 */
+
+#ecsCategoryButtons{padding-top:10px;padding-bottom:10px}#ecsCategoryButtons label{padding-right:8px}#ecsPopupButton{padding-left:10px}#ecsPopupButton a{margin-bottom:8px}#ecspopup div.column{margin-right:0px !important}#ecsCurrentCheckboxes{color:#555}#ecsCurrentCheckboxes span{margin-right:10px}#ecsCurrentCheckboxes span input{margin-right:3px}#ecsMainCategories{border:solid;border-width:1px;border-color:#333;color:#555}#ecsMainCategories td{padding:7px}.ecsColumn{margin-right:0px}.ecsColumnHeading th{background-color:#ccc;font-weight:bold;padding:5px}#ecsMainCategories p{margin-bottom:2px}.ecsCategoryChosen{background-color:#F0F0F0}.ui-autocomplete{z-index:100 !important;overflow-y:auto;overflow-x:hidden;max-height:12em} #ecspopup{overflow:hidden !important;color:#555}#ecspopup label{display:inline}#ecspopup p{margin-bottom:7px}.mediawiki .ui-dialog a.ui-dialog-titlebar-close{height:21px;width:28px}#ecsPopupSearchBar td{vertical-align:baseline}#ecsPopupMainTitle{padding-top:10px;padding-bottom:10px}#ecsOntologyTopics,#ecsOtherTopics{width:100%;border:solid;border-width:1px;border-color:#999;overflow-x:hidden;overflow-y:scroll;background:url(http://developer.nokia.com/community/piazza/images/loading.gif) no-repeat center center}#ecsPopupOthersTitle{padding-top:10px;padding-bottom:10px}.ui-icon{height:20px !important}.ui-icon-closethick{background-image:none !important;text-indent:2px !important;width:26px !important}.editHelp{margin-left:2px}.editHelp a{padding:0px 4px;vertical-align:middle}.ui-widget{font-family:"NokiaPureHWebLight",Arial,sans-serif !important;font-size:14px !important}
+
+/* cache key: wiki:resourceloader:filter:minify-css:7:06ad5ffb476778c67db8bb40f592400e */</style><meta name="ResourceLoaderDynamicStyles" content="">
+
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_006.php"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_003.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"How_to_read_data_from_a_file_in_Qt","wgTitle":"How to read data from a file in Qt","wgCurRevisionId":175019,"wgArticleId":10467,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Files/Data","Qt","How To","Code Snippet","MeeGo Harmattan","Symbian"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"How_to_read_data_from_a_file_in_Qt","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"editwarning":false,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"simplesearch":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":false,"toc":false},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":1,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"nokiadev2013","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":1,
+"watchdeletion":1,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":1,"wllimit":250,"upwiz_deflicense":"default","upwiz_def3rdparty":"default","upwiz_deflicensetype":"default","vector-simplesearch":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs104":false,"searchNs105":false,"searchNs112":false,"searchNs113":false,"searchNs114":false,"searchNs115":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: wiki:resourceloader:filter:minify-js:7:2a5159739d86749bb3f35bdb19d48902 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script type="text/javascript" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_007.php"></script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp-qt {line-height: normal;}
+.source-cpp-qt li, .source-cpp-qt pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp-qt
+ * CSS class: source-cpp-qt, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp-qt.source-cpp-qt .de1, .cpp-qt.source-cpp-qt .de2 {}
+.cpp-qt.source-cpp-qt  {font-family:monospace;}
+.cpp-qt.source-cpp-qt .imp {font-weight: bold; color: red;}
+.cpp-qt.source-cpp-qt li, .cpp-qt.source-cpp-qt .li1 {font-weight: normal; vertical-align:top;}
+.cpp-qt.source-cpp-qt .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp-qt.source-cpp-qt .li2 {font-weight: bold; vertical-align:top;}
+.cpp-qt.source-cpp-qt .kw1 {color: #000000; font-weight:bold;}
+.cpp-qt.source-cpp-qt .kw2 {color: #0057AE;}
+.cpp-qt.source-cpp-qt .kw3 {color: #2B74C7;}
+.cpp-qt.source-cpp-qt .kw4 {color: #0057AE;}
+.cpp-qt.source-cpp-qt .kw5 {color: #22aadd;}
+.cpp-qt.source-cpp-qt .co1 {color: #888888;}
+.cpp-qt.source-cpp-qt .co2 {color: #006E28;}
+.cpp-qt.source-cpp-qt .coMULTI {color: #888888; font-style: italic;}
+.cpp-qt.source-cpp-qt .es0 {color: #000099; font-weight: bold;}
+.cpp-qt.source-cpp-qt .es1 {color: #000099; font-weight: bold;}
+.cpp-qt.source-cpp-qt .es2 {color: #660099; font-weight: bold;}
+.cpp-qt.source-cpp-qt .es3 {color: #660099; font-weight: bold;}
+.cpp-qt.source-cpp-qt .es4 {color: #660099; font-weight: bold;}
+.cpp-qt.source-cpp-qt .es5 {color: #006699; font-weight: bold;}
+.cpp-qt.source-cpp-qt .br0 {color: #006E28;}
+.cpp-qt.source-cpp-qt .sy0 {color: #006E28;}
+.cpp-qt.source-cpp-qt .st0 {color: #BF0303;}
+.cpp-qt.source-cpp-qt .nu0 {color: #B08000;}
+.cpp-qt.source-cpp-qt .nu6 {color: #208080;}
+.cpp-qt.source-cpp-qt .nu8 {color: #208080;}
+.cpp-qt.source-cpp-qt .nu12 {color: #208080;}
+.cpp-qt.source-cpp-qt .nu16 {color:#800080;}
+.cpp-qt.source-cpp-qt .nu17 {color:#800080;}
+.cpp-qt.source-cpp-qt .nu18 {color:#800080;}
+.cpp-qt.source-cpp-qt .nu19 {color:#800080;}
+.cpp-qt.source-cpp-qt .me1 {color: #2B74C7;}
+.cpp-qt.source-cpp-qt .me2 {color: #2B74C7;}
+.cpp-qt.source-cpp-qt .me3 {color: #2B74C7;}
+.cpp-qt.source-cpp-qt .ln-xtra, .cpp-qt.source-cpp-qt li.ln-xtra, .cpp-qt.source-cpp-qt div.ln-xtra {background-color: #ffc;}
+.cpp-qt.source-cpp-qt span.xtra { display:block; }
+.mw-geshi ol {list-style-position: inside; margin-left: 0 !important; padding-left: 0 !important; }.mw-geshi pre {border: 0 !important; margin-bottom: 0; padding: 0 !important; background-color: inherit;}.mw-geshi ol pre {display: inline;}.mw-geshi ol li {border: 0; background-color: #fafafa;}.mw-geshi {-webkit-border-bottom-left-radius: 8px;
+            -khtml-border-radius-bottomleft: 8px;
+            -moz-border-radius-bottomleft: 8px;
+            border-bottom-left-radius: 8px;
+            background-color: #FAFAFA;
+            border: 1px solid #CAC9C9 !important;
+            padding: 10px 15px !important;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            font-family: "Courier New", Courier, monospace;}
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/community/wiki/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style>    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Nokia">
+    <meta name="author" content="Nokia">
+    <link rel="shortcut icon" href="http://developer.nokia.com/favicon.ico">
+
+    <link href="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/normalize.css" rel="stylesheet">
+    <link href="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/font-awesome.css" rel="stylesheet">
+    <script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/custom.js"></script>
+    <script>function closePopup(){$("#loginModal").foundation('reveal', 'close');}</script><link rel="stylesheet" type="text/css" href="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/piazza.css"><meta class="foundation-mq-small"><meta class="foundation-mq-medium"><meta class="foundation-mq-large"><style></style><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_007.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_005.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_004.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_008.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_003.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_002.php" async="" type="text/javascript"></script><script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/in_006.php" async="" type="text/javascript"></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-How_to_read_data_from_a_file_in_Qt skin-nokiadev2013 action-view yui3-skin-sam controls-visible signed-in public-page site ncs-mac">
+        <script type="text/javascript">
+    var talkHistory = {"username":"drg0072","lastmod":"5 April 2012 15:47"};
+</script>        <div class="cookies-style" data-alert="">Nokia sites 
+use cookies to improve and personalize your experience and to display 
+advertisements. The sites may also include cookies from third parties. 
+By using this site, you consent to the use of cookies.  <a href="http://www.nokia.com/cookiepolicy">Learn more ›</a><a href="#" class="cookie close">&nbsp;</a></div><div class="top-wrapper utility">
+    <div class="row">
+      <div id="otherSites" class="reveal-modal">      
+        <a class="close-reveal-modal">×</a>
+		<div class="medium-3 large-3 columns">
+          <a href="http://developer.here.com/" target="_blank"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/Here_400x160.jpg"></a>
+        </div>
+        <div class="medium-3 large-3 columns">
+          <a href="http://www.dvlup.com/" target="_blank"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/DVLUP_400x160.jpg"></a>
+        </div>
+        <div class="medium-3 large-3 columns">
+          <a href="http://xpresswebapps.nokia.com/" target="_blank"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/wab_400x160.jpg"></a>
+        </div>
+        <div class="medium-3 large-3 columns">
+          <a href="http://dev.mixrad.io/" target="_blank"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/mix_radio_400x160.jpg"></a>
+        </div> 
+      </div>
+    </div><!-- row -->
+
+    <div class="row">
+
+        <div class="small-6 medium-6 large-6 columns">
+            <div class="login" id="header-login"><p id="piazzaLoginBox"><a href="#" id="piazzaLogin">Sign in | Register</a></p></div>
+        </div> <!-- 6 -->
+
+        <div class="small-6 medium-6 large-6 columns">
+            <div class="sites">
+              <p><a style="" href="#" data-reveal-id="otherSites">Other sites <i class=" fa fa-chevron-up"></i></a></p>
+            </div>
+        </div> <!-- 6 -->
+
+    </div><!-- row -->
+</div> <!-- top-wrapper -->
+
+
+<header class="full-width header-area">
+  <div class="row">
+
+    <div class="small-12 medium-5 large-5 columns">
+          <div class="logo">
+            <h1><a href="http://developer.nokia.com/"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/logo-beta.png" alt="Nokia Developer"></a></h1>
+          </div>
+    </div>
+
+    <div class="small-12 medium-7 large-7 columns">
+          <nav class="menu secondary">
+            <ul>
+              <li><a href="http://developer.nokia.com/devices">Devices</a></li>
+              <li><a href="http://developer.nokia.com/events">Events</a></li>			  
+              <li><a href="http://developer.nokia.com/support">Support</a></li>
+              <li><a href="http://developer.nokia.com/contact">Contact</a></li>
+            </ul>
+          </nav>
+    </div>
+
+  </div><!-- row -->
+</header> 
+
+
+
+<div class="full-width navigation-area">
+  <div class="row">
+        <div class="large-12 columns top-bar-wrapper">
+
+
+            <!-- Nav Wrap -->
+            <nav class="top-bar">
+                <ul class="title-area">
+                <!-- Title Area -->
+                    <li class="name"></li>
+                    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+                </ul>
+
+                <!-- The Section wrap -->
+                
+
+            <section class="top-bar-section">
+                    <!-- Left Nav Section -->
+                    <ul class="left">
+                      <li><a href="http://developer.nokia.com/platforms">Platforms</a></li>
+                      <li><a href="http://developer.nokia.com/resources">Resources</a></li>      
+					  <li><a href="http://developer.nokia.com/publish/redirect?v=1392810781">Publish</a></li>					  
+                      <li><a href="http://developer.nokia.com/community">Community</a></li>
+                      <li><a href="http://developer.nokia.com/blogs">Blogs</a></li>
+                      <li><a class="search" href="http://developer.nokia.com/search"><i class="fa fa-search"></i></a></li>
+                    </ul>
+                    <!-- Right Nav Section -->
+                    <ul class="right"></ul>
+                </section></nav>
+
+        </div>
+    </div>
+</div><!-- navigation-area -->        
+        
+            <div class="row">
+                <div class="small-12 medium-12 large-12 columns">
+                    <ul class="breadcrumbs">
+                        <li><a href="http://developer.nokia.com/">Home</a></li>
+                        <li><a href="http://developer.nokia.com/community/">Community</a></li>
+                        <li><a href="http://developer.nokia.com/community/wiki/">Wiki</a></li>
+                        <li class="current"><a href="http://developer.nokia.com/community/wiki/How%20to%20read%20data%20from%20a%20file%20in%20Qt">How to read data from a file in Qt</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row first piazzaContent">
+                <div class="small-12 medium-3 large-3 columns piazzaContainer">
+                    <div id="piazzaLeftColumn">
+                        <!-- panel -->
+                        <div id="mw-panel" class="noprint collapsible-nav">
+                            <!-- logo -->
+                            <div id="p-logo"><a href="http://developer.nokia.com/community/wiki/Wiki_Home" title="Visit the main page"></a></div>
+                            <!-- /logo -->
+                            
+<!-- new page -->
+<div class="portal expanded" id="p-new_page">
+	<h5 tabindex="2">new page</h5>
+	<div style="display: block;" class="body">
+		<ul>
+			<li id="n-Create-New-Wiki-Page"><a class="ncs-button-small" href="http://developer.nokia.com/community/wiki/FNWiki:New_Page">Create New Wiki Page</a></li>
+
+		</ul>
+	</div>
+</div>
+
+<!-- /new page -->
+
+<!-- Wiki Resources -->
+<div class="portal collapsed" id="p-Wiki_Resources">
+	<h5 tabindex="3">Wiki Resources</h5>
+	<div class="body">
+		<ul>
+			<li id="n-Wiki-Home"><a href="http://developer.nokia.com/community/wiki/Wiki_Home">Wiki Home</a></li>
+			<li id="n-Help"><a href="http://developer.nokia.com/community/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			<li id="n-Etiquette"><a href="http://developer.nokia.com/community/wiki/Community_Standards_and_Participation_Guidelines">Etiquette</a></li>
+			<li id="n-Featured-Articles"><a href="http://developer.nokia.com/community/wiki/Portal:Featured_Articles">Featured Articles</a></li>
+			<li id="n-Feedback"><a href="http://developer.nokia.com/community/wiki/Help:Providing_Feedback">Feedback</a></li>
+
+		</ul>
+	</div>
+</div>
+
+<!-- /Wiki Resources -->
+
+<!-- Main Platforms -->
+<div class="portal collapsed" id="p-Main_Platforms">
+	<h5 tabindex="4">Main Platforms</h5>
+	<div class="body">
+		<ul>
+			<li id="n-Windows-Phone-.28Lumia.29"><a href="http://developer.nokia.com/community/wiki/Portal:Windows_Phone">Windows Phone (Lumia)</a></li>
+			<li id="n-Nokia-X"><a href="http://developer.nokia.com/community/wiki/Category:Nokia_X">Nokia X</a></li>
+			<li id="n-Nokia-Asha-.28Series-40.29"><a href="http://developer.nokia.com/community/wiki/Category:Nokia_Asha">Nokia Asha (Series 40)</a></li>
+			<li id="n---Java-ME"><a href="http://developer.nokia.com/community/wiki/Category:Java_ME">- Java ME</a></li>
+			<li id="n---Web-Apps"><a href="http://developer.nokia.com/community/wiki/Category:Nokia_Asha_Web_Apps">- Web Apps</a></li>
+
+		</ul>
+	</div>
+</div>
+
+<!-- /Main Platforms -->
+
+<!-- Other -->
+<div class="portal collapsed" id="p-Other">
+	<h5 tabindex="5">Other</h5>
+	<div class="body">
+		<ul>
+			<li id="n-HERE-Maps"><a href="http://developer.nokia.com/community/wiki/Category:HERE_Maps">HERE Maps</a></li>
+			<li id="n-3D-Printing"><a href="http://developer.nokia.com/community/wiki/Category:3D_Printing">3D Printing</a></li>
+			<li id="n-Web"><a href="http://developer.nokia.com/community/wiki/Portal:Web">Web</a></li>
+			<li id="n-Design"><a href="http://developer.nokia.com/community/wiki/Category:Mobile_Design">Design</a></li>
+			<li id="n-Qt"><a href="http://developer.nokia.com/community/wiki/Qt">Qt</a></li>
+			<li id="n-Symbian"><a href="http://developer.nokia.com/community/wiki/Symbian_C%2B%2B">Symbian</a></li>
+			<li id="n-MeeGo-Harmattan"><a href="http://developer.nokia.com/community/wiki/MeeGo_Harmattan">MeeGo Harmattan</a></li>
+			<li id="n-Known-Issues"><a href="http://developer.nokia.com/community/wiki/Category:Known_Issue">Known Issues</a></li>
+
+		</ul>
+	</div>
+</div>
+
+<!-- /Other -->
+
+<!-- Natural Languages -->
+<div class="portal collapsed" id="p-Natural_Languages">
+	<h5 tabindex="6">Natural Languages</h5>
+	<div class="body">
+		<ul>
+			<li id="n-.E4.B8.AD.E6.96.87Wiki-.28Chinese.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Chinese">中文Wiki (Chinese)</a></li>
+			<li id="n-.E6.97.A5.E6.9C.AC.E8.AA.9EWiki-.28Japanese.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Japanese">日本語Wiki (Japanese)</a></li>
+			<li id="n-Portugu.C3.AAs-.28Portuguese-Brazilian.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Portuguese">Português (Portuguese-Brazilian)</a></li>
+			<li id="n-.D0.A0.D1.83.D1.81.D1.81.D0.BA.D0.B8.D0.B9-.28Russian.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Russian">Русский (Russian)</a></li>
+			<li id="n-Bahasa-Indonesia"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Bahasa_Indonesia">Bahasa Indonesia</a></li>
+			<li id="n-Espa.C3.B1ol-.28Spanish.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Spanish">Español (Spanish)</a></li>
+			<li id="n-.D8.A7.D9.84.D8.B9.D8.B1.D8.A8.D9.8A.D8.A9-.28Arabic.29"><a href="http://developer.nokia.com/community/wiki/Category:Lang-Arabic">العربية (Arabic)</a></li>
+
+		</ul>
+	</div>
+</div>
+
+<!-- /Natural Languages -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal collapsed" id="p-tb">
+	<h5 tabindex="7">Tools</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://developer.nokia.com/community/wiki/Special:WhatLinksHere/How_to_read_data_from_a_file_in_Qt" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://developer.nokia.com/community/wiki/Special:RecentChangesLinked/How_to_read_data_from_a_file_in_Qt" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://developer.nokia.com/community/wiki/Special:UploadWizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://developer.nokia.com/community/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li><a href="http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;oldid=175019" title="Permanent link to this revision of the page">Permanent link</a></li>
+<li id="t-pdf"><a rel="nofollow" href="http://developer.nokia.com/community/wiki/index.php?title=Special:WebkitPdfPrint&amp;page=How_to_read_data_from_a_file_in_Qt">Download as PDF</a></li>
+                <li id="pt-privatemessages"><a href="http://developer.nokia.com/community/discussion/private.php" target="_blank">Private Messages</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+                            <!-- /panel -->
+                        </div>
+                        <div class="social">
+                            <p>Share this page:</p>
+                            <ul class="social-icons">
+                                <li>
+                                    <a class="fa fa-circle" href="http://twitter.com/share?url=http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt&amp;text=How%20to%20read%20data%20from%20a%20file%20in%20Qt">
+                                        <i class="fa fa-twitter white"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fa fa-circle" href="http://facebook.com/sharer/sharer.php?u=http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt">
+                                        <i class="fa fa-facebook white"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="fa fa-circle" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt&amp;title=How%20to%20read%20data%20from%20a%20file%20in%20Qt">
+                                        <i class="fa fa-linkedin white"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-12 medium-9 large-9 columns piazzaContainer">
+                    <div id="piazzaTabs" class="small-12 medium-12 large-12 columns">
+                         <!-- header -->
+                         <div id="mw-head" class="noprint">
+                             
+<!-- 0 -->
+
+<!-- /0 -->
+                             <div id="left-navigation">
+                                 
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt" title="View the content page [alt-shift-c]" accesskey="c" rel="nofollow">Article</a></span></li>
+					<li aria-describedby="ui-tooltip-0" id="ca-talk"><span><a href="#talkhere" title="Discussion about the content page [alt-shift-t]" accesskey="t" rel="nofollow">Read Comments</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+                             </div>
+                             <div id="right-navigation">
+                                 
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt" rel="nofollow">View</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e" rel="nofollow">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h" rel="nofollow">History</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	
+	<form action="/community/wiki/index.php" id="searchform">
+    	<div id="simpleSearch">
+		    <button name="button" title="Search the pages for this text" id="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+		    <input tabindex="1" name="search" title="Search Nokia Developer Wiki [alt-shift-f]" accesskey="f" id="searchInput" placeholder="Search Wiki">		    <input name="title" value="Special:Search" type="hidden">
+            <!-- <button><img src="i/icon_search_medium.png"></button>
+            <input type="text" value="Search Wiki topics"> -->
+        </div>
+	</form>
+</div>
+
+<!-- /2 -->
+                             </div>
+                         </div>
+                         <!-- /header -->
+                     </div>
+                     <!-- content -->
+                     <div id="piazzaContent" class="small-12 medium-12 large-12 columns">
+                         <div id="content" class="mw-body">
+                             <a id="top"></a>
+                             <div class="js-messagebox" id="mw-js-message" style="display:none;"></div>
+                             <div id="piazzaRightWrapper" class="small-12 medium-4 large-3 right columns"><div class="rightColumnTop" style="margin-left: 20px; margin-bottom:5px;"><a href="#Article_Review_Nayan_trivedi_20090915" title="{{{width}}}"><img alt="{{{width}}}" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/Reviewer-approved.png" height="41" width="41"></a><br>15 Sep<br>2009</div><div class="rightColumnTop" style="margin-left: 20px; margin-bottom:5px;"><a href="#Article_Review_Savaj_20090928" title="{{{width}}}"><img alt="{{{width}}}" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/Reviewer-approved.png" height="41" width="41"></a><br>28 Sep<br>2009</div>
+                                 
+                                 <div id="piazzaRightColumn">
+                                 <div class="rightColumn infoBox portal collapsible-nav expanded collapsed">
+<div class="h5 infoBoxTitle">Article Metadata</div>
+<div class="body">Tested with<div style="padding:10px 10px 5px 10px;">Devices(s): Emulator</div>Compatibility<div style="padding-left:10px; padding-top:10px; padding-right:10px;">Platform(s): Qt<br><b><a href="http://developer.nokia.com/community/wiki/Category:Symbian" title="Category:Symbian">Symbian</a></b></div>Article<div style="padding-left:10px; padding-top:10px; padding-right:10px;">Keywords: QFile</div><div style="padding-left:10px; padding-top:10px; padding-right:10px;">Created: <span class="userlink" name="userLink">james1980</span>
+ (07 Jan 2009)</div><div style="padding:10px 10px 5px 10px;">Last edited: <span class="userlink" name="userLink">hamishwillee</span>
+ (11 Oct 2012)</div></div>
+</div></div>
+                             </div>
+                                                          <!-- catlinks -->
+<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://developer.nokia.com/community/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://developer.nokia.com/community/wiki/Category:Files/Data" title="Category:Files/Data">Files/Data</a></li><li><a href="http://developer.nokia.com/community/wiki/Category:Qt" title="Category:Qt">Qt</a></li><li><a href="http://developer.nokia.com/community/wiki/Category:How_To" title="Category:How To">How To</a></li><li><a href="http://developer.nokia.com/community/wiki/Category:Code_Snippet" title="Category:Code Snippet">Code Snippet</a></li><li><a href="http://developer.nokia.com/community/wiki/Category:MeeGo_Harmattan" title="Category:MeeGo Harmattan">MeeGo Harmattan</a></li><li><a href="http://developer.nokia.com/community/wiki/Category:Symbian" title="Category:Symbian">Symbian</a></li></ul></div></div><!-- /catlinks -->
+                             <div id="contentSub"></div>
+                             <!-- firstHeading -->
+                             <h1 id="firstHeading" class="firstHeading">
+                                 <span dir="auto">How to read data from a file in Qt</span>
+                             </h1>
+                             <!-- /firstHeading -->
+                             <!-- bodyContent -->
+                             <div id="bodyContent">
+                                                                  <!-- tagline -->
+                                 <div id="siteSub">From Nokia Developer Wiki</div>
+                                 <!-- /tagline -->
+                                                                                                   <!-- /subtitle -->
+                                                                        
+                                                            <!-- jumpto -->
+                                 <div id="jump-to-nav" class="mw-jump">
+                                     Jump to: <a href="#mw-head">navigation</a>,
+                                     <a href="#p-search">search</a>
+                                 </div>
+                                 <!-- /jumpto -->
+                                                                  <!-- bodycontent -->
+                                 <div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>This code snippet demonstrates how to read a file using <a rel="nofollow" class="external text" href="http://doc.qt.nokia.com/stable/qfile.html#">QFile</a>.
+</p>
+
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<ul><li> Make a text file and give full path in the program.
+</li><li> The following code snippet would read this file and display its content as a text label.
+</li></ul>
+<h2> <span class="mw-headline" id="Source_File"> Source File </span></h2>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="cpp-qt source-cpp-qt"><pre class="de1"><span class="co2">#include &lt;QFile&gt;</span><br><span class="co2">#include &lt;QApplication&gt;</span><br><span class="co2">#include &lt;QLabel&gt;</span><br><span class="co2">#include &lt;QString&gt;</span><br><span class="co2">#include &lt;QTextStream&gt;</span><br><span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span> <span class="sy0">*</span>argv<span class="br0">[</span><span class="br0">]</span><span class="br0">)</span><br><span class="br0">{</span><br>	<a href="http://doc.trolltech.com/latest/qapplication.html"><span class="kw5">QApplication</span></a> app<span class="br0">(</span>argc<span class="sy0">,</span> argv<span class="br0">)</span><span class="sy0">;</span><br>	<a href="http://doc.trolltech.com/latest/qfile.html"><span class="kw5">QFile</span></a> file<span class="br0">(</span><span class="st0">"c://in.txt"</span><span class="br0">)</span><span class="sy0">;</span><br>	file.<span class="me1">open</span><span class="br0">(</span><a href="http://doc.trolltech.com/latest/qiodevice.html"><span class="kw5">QIODevice</span></a><span class="sy0">::</span><span class="me2">ReadOnly</span> <span class="sy0">|</span> <a href="http://doc.trolltech.com/latest/qiodevice.html"><span class="kw5">QIODevice</span></a><span class="sy0">::</span><span class="me2">Text</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp;<br>&nbsp;<br>	<a href="http://doc.trolltech.com/latest/qtextstream.html"><span class="kw5">QTextStream</span></a> in<span class="br0">(</span><span class="sy0">&amp;</span>file<span class="br0">)</span><span class="sy0">;</span><br>	<a href="http://doc.trolltech.com/latest/qstring.html"><span class="kw5">QString</span></a> line <span class="sy0">=</span> in.<span class="me1">readLine</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp;<br>	<a href="http://doc.trolltech.com/latest/qlabel.html"><span class="kw5">QLabel</span></a> label<span class="br0">(</span>line<span class="br0">)</span><span class="sy0">;</span><br>	label.<span class="me1">show</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>&nbsp;<br>	<span class="kw1">return</span> app.<span class="me1">exec</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Screenshot"> Screenshot </span></h2>
+<p><a href="http://developer.nokia.com/community/wiki/File:Fileread.jpg" class="image"><img alt="Fileread.jpg" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/Fileread.jpg" height="324" width="466"></a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 518/1000000
+Post‐expand include size: 3754/2097152 bytes
+Template argument size: 931/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wiki:pcache:idhash:10467-0!*!0!!*!2!* and timestamp 20140427122708 -->
+</div>                                 <!-- /bodycontent -->
+                                                                  <!-- printfooter -->
+                                 <div class="printfooter">
+                                 Retrieved from "<a href="http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;oldid=175019">http://developer.nokia.com/community/wiki/index.php?title=How_to_read_data_from_a_file_in_Qt&amp;oldid=175019</a>"                                 </div>
+                                 <!-- /printfooter -->
+                                                                                                   <div class="visualClear"></div>
+                                 <!-- debughtml -->
+                                                                  <!-- /debughtml -->
+                             </div>
+                             <!-- /bodyContent -->                             
+                         </div>
+                         <!-- /content -->
+                         <div id="lastmod">
+                                                           This page was last modified on 11 October 2012, at 04:17.
+                                 <div id="pageCounts">
+                                     651 page views in the last 30 days. 
+                                 </div>
+
+                                                  </div>
+                     </div>
+                     <div style="display: block;" id="talkGoesHere" class="talkhere small-12 medium-12 large-12 columns">
+                     <div class="talkhere-tomove nd-shadow-line" style=""><div class="talkhere" id="talkhere"><div class="talkhere-head"><h1>Comments</h1></div><div class="talkhere-comments"><span id="Article_Review_Nayan_trivedi_20090915"></span><strong>Article Review by <span class="userlink" name="userLink">nayan_trivedi</span>
+</strong> (20090915)<br><br>This article is one of the very basic 
+example of QT. Here they used Qfile class for reading data form a 
+file.in Qt Qfile useful for  reading from and writing to files.
+<p>This class can be used by it self.But hear they used it with  
+QTextStream for displaying Hello.You can check for a file's existence 
+using exists(), and remove a file using remove().
+</p><p>The file is opened with open(), closed with close(), and flushed 
+with flush(). Data is usually read and written using QDataStream or 
+QTextStream so you can use any of this command for making different 
+operation with use of Qt.This article is very useful for beginner.
+</p>
+<hr>
+<span id="Article_Review_Savaj_20090928"></span><strong>Article Review by <span class="userlink" name="userLink">savaj</span>
+</strong> (20090928)<br><br>Application may need to save some text data 
+on client. Flat text file is more suitable in storing large data. 
+Creating a text file and saving text data, in it for later use, is good 
+option. Reading text file is basic operation to use text file. QFile is 
+key API to read data from file in Qt.
+<p>The article describes methods to read data from text file. Before 
+opening a file in ReadOnly mode one must check existence of a file, 
+Opening a file in WriteOnly or ReadWrite mode will create a file if the 
+relevant file does not already exist, but ReadOnly mode will gives error
+ if file does not already exist.
+</p>
+<hr>
+<h2> <span class="mw-headline" id="Drg0072_-"> Drg0072 -  </span></h2>
+it just shows only first line of file given<p style="text-align:right"><span class="userlink" name="userLink">drg0072</span>
+ 15:47, 5 April 2012 (EEST)</p>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 134/1000000
+Post‐expand include size: 5484/2097152 bytes
+Template argument size: 2856/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wiki:pcache:idhash:15981-0!*!0!*!*!2!* and timestamp 20140427122708 -->
+</div><div class="talkhere-foot"><div class="talkhere-talklink"><a href="https://sso.developer.nokia.com/login?service=http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt">Log in</a> or <a href="https://sso.developer.nokia.com/login?service=http://developer.nokia.com/community/wiki/How_to_read_data_from_a_file_in_Qt" rel="nofollow">Join</a> to leave comments.</div></div></div></div></div>
+                </div>
+            </div>
+        
+        <footer>
+    <div class="top">
+        <div class="row">
+            <div class="small-12 medium-12  large-12 columns">
+
+                <div class="logo">
+                  <p><a href="http://developer.nokia.com/"><img src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/logo-beta.png" alt="Nokia Developer"></a></p>
+                </div>              
+
+                 <ul class="social">
+<li><a href="http://twitter.com/nokiadeveloper" target="_blank"><i class="fa fa-twitter footerlightblue"></i></a></li>
+<li><a href="http://www.facebook.com/NokiaDevelopers" target="_blank"><i class="fa fa-facebook footerlightblue"></i></a></li>
+<li><a href="http://developer.nokia.com/feed/rss" target="_blank"><i class="fa fa-rss footerlightblue"></i></a></li>
+<li><a href="http://www.youtube.com/user/nokiadevforum" target="_blank"><i class="fa fa-youtube footerlightblue"></i></a></li>
+</ul>
+
+
+
+
+
+            </div><!-- 12 column -->
+        </div><!--row -->
+    </div><!-- top -->
+
+
+    <div class="middle">
+        <div class="row">
+            <div class="small-12 medium-12  large-12 columns fullWidthRow">
+
+                <div class="small-3 medium-3 large-3 columns">
+                    <ul class="footersubnav">
+                        <li class="footertopnav"><a href="http://developer.nokia.com/lumia">Lumia</a></li>
+                        <li><a href="http://developer.nokia.com/lumia/opportunity">Opportunity</a></li>
+                        <li><a href="http://developer.nokia.com/lumia/nokia-apis">Nokia APIs</a></li>
+						<li><a href="http://developer.nokia.com/lumia/lumia-app-labs">Lumia App Labs</a></li>
+                        <li><a href="http://developer.nokia.com/lumia/documentation">Documentation</a></li>
+                    </ul>
+                </div><!-- 3 columns -->
+
+                <div class="small-3 medium-3 large-3 columns">
+                    <ul class="footersubnav">
+                        <li class="footertopnav"><a href="http://developer.nokia.com/nokia-x">Nokia X</a></li>
+                       <li><a href="http://developer.nokia.com/nokia-x/platform-overview">Overview</a></li>
+                        <li><a href="http://developer.nokia.com/nokia-x/business-opportunity">Opportunity</a></li>
+                        <li><a href="http://developer.nokia.com/nokia-x/get-started">Get Started</a></li>
+                        <li><a href="http://developer.nokia.com/nokia-x/documentation">Documentation</a></li>
+                    </ul>
+                </div><!-- 3 columns -->
+
+                 <div class="small-3 medium-3 large-3 columns">
+                    <ul class="footersubnav">
+                        <li class="footertopnav"><a href="http://developer.nokia.com/resources">Resources</a></li>
+                        <li><a href="http://developer.nokia.com/community">Community</a></li>
+                        <li><a href="http://developer.nokia.com/blogs">Blogs</a></li>
+                        <li><a href="http://developer.nokia.com/devices">Devices</a></li>
+                        <li><a href="http://developer.nokia.com/support">Support</a></li>
+                        <li><a href="http://developer.nokia.com/contact">Contact</a></li>
+                    </ul>
+                </div><!-- 3 columns -->
+
+
+                <div class="small-3 medium-3 large-3 columns">
+                    <div class="news">
+                        <h4>Newsletter</h4>
+                        <p>Register to receive weekly updates.</p>
+
+
+                        <form novalidate="novalidate" id="mailinglist_form" name="newsletter" method="post" action="http://wl4.peer360.com/add_recipient_via_form.asp" data-abide="">
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <label for="newsletter-email"></label>
+                                    <input id="email" name="email" maxlength="50" placeholder="Email Address" required="required" pattern="email" type="email">
+                                    <small class="error" data-error-message="">Valid email is required</small>
+                                </div>
+                            </div><!-- row -->
+
+                            <div class="row">
+                                <div class="large-8 columns">
+                                    <input id="fullname" name="fullname" maxlength="50" placeholder="Name" required="required" type="text">           
+                                    <small class="error" data-error-message="">Required field</small>
+                                                                        
+                                                                        
+                                                                        
+                            
+                                </div>
+
+                                <div class="large-4 columns">
+                                    <input name="submit" value="Sign Up" class="btn" type="submit">
+                                    <!-- Hidden fields -->
+                                    <input name="Format" value="0" type="hidden">
+                                    <input name="List__ID" value="3618" type="hidden">
+                                    <input name="Customer__ID" value="taOS557a7nPt1iUeIz9b" type="hidden">
+                                    <input name="Post__URL" value="http://developer.nokia.com/site/confirmation?return_url=http://developer.nokia.com" type="hidden">
+                                    <input name="XID" value="97c2ed14cf8d57888d2f8d8164e38922884da944" type="hidden">
+                                    <input name="Noredirect" value="1" type="hidden">
+                                </div>                                                                                                                  
+                            </div><!-- row -->
+                        </form>
+                    </div> <!-- news -->
+                </div><!-- 3 columns -->
+
+            </div>
+        </div><!--row -->
+    </div><!-- middle -->
+
+
+    <div class="bottom">
+        <div class="row">
+        <div class="small-12 medium-12 large-12 columns">
+            <p class="copyright">© Copyright Nokia 2014 All rights reserved</p>
+            <p class="terms">
+                <a class="cond" href="http://developer.nokia.com/terms-and-conditions">Terms &amp; Conditions</a>  
+                <a class="priv" href="http://www.nokia.com/global/privacy/privacy/policy/privacy-policy">Privacy</a>
+            </p>         
+        </div><!-- 12 column -->
+        </div><!--row -->
+    </div><!-- bottom -->
+</footer>
+
+
+<script>
+    // Adding Abide validation support through js,
+    // since data-abide can't be hard-coded on <form> element. 
+    // Must be loaded before foundation.js
+    $("form.validate").attr("data-abide", "");
+</script>
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/jquery_002.js"></script>
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/foundation.js"></script>
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/jquery.js"></script>
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/p.js"></script>
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/custom_002.js"></script>
+<script>
+$(document).ready(function () {	
+    var cookie_name = 'nokia_cookiepolicy';
+    var cookie_value = '11111111';
+    var cookie_dm = 'nokia.com'; 
+    var cookie_path = '/';
+    var c = $.cookie(cookie_name);
+    if ( typeof(c) == "undefined" || c == null || c != '11111111') { // 1st
+        // show mobile cookie
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $('.top-wrapper').before('<div data-alert class="cookies-style">This site uses cookies. <a href="http://www.nokia.com/cookiepolicy">Learn more ›</a><a href="#" class="cookie close">&nbsp;</a></div>'); 
+         } else {
+            // show non-mobile cookie
+                $('.top-wrapper').before('<div class="cookies-style" data-alert>Nokia sites use cookies to improve and personalize your experience and to display advertisements. The sites may also include cookies from third parties. By using this site, you consent to the use of cookies.  <a href="http://www.nokia.com/cookiepolicy">Learn more ›</a><a href="#" class="cookie close">&nbsp;</a></div>');
+         }
+    }
+    if ( c == '11111111' ) { // 2nd
+        $.cookie(cookie_name, cookie_value, { expires: 365, domain: cookie_dm, path: cookie_path} );
+    } 
+    $('a.cookie.close').click(function(){
+        $.cookie(cookie_name, cookie_value, { expires: 365, domain: cookie_dm, path: cookie_path} );
+    });
+}); // rdy
+</script>
+
+
+<script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/js.js" type="text/javascript"></script>
+<script type="text/javascript">try{clicky.init(100590948); }catch(e){}</script>
+<noscript>
+   <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100590948ns.gif" /></p>
+  </noscript>
+        <script src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_004.php"></script><script type="text/javascript" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_002.php"></script><script type="text/javascript" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_005.php"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","ext.jqueryqtip","ext.nokiadev","ext.talkhere","ext.collapsiblesections","ext.tabber","ext.enhancedCategorySelector"], null, true);
+}</script><script type="text/javascript" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load.php"></script><script type="text/javascript" src="How%20to%20read%20data%20from%20a%20file%20in%20Qt%20-%20Nokia%20Developer%20Wiki_files/load_008.php"></script>
+<script type="text/javascript">
+function toggleDisplay( id, hidetext, showtext ) {
+    link = document.getElementById( id + "l" ).childNodes[0];
+    with( document.getElementById( id ).style ) {
+        if( display == "none" ) {
+                display = "inline";
+                link.nodeValue = hidetext;
+        } else {
+                display = "none";
+                link.nodeValue = showtext;
+        }
+    }
+}
+
+function togglePortalDisplay(id, hidetext, showtext) {
+    $('#'+id).slideToggle( 'fast' );
+    link = document.getElementById( id + "l" ).childNodes[0];
+    if ($('#'+id+"l").hasClass('toggleDisplay-expanded')) {
+        link.nodeValue = showtext;
+    } else {
+        link.nodeValue = hidetext;
+    }    
+    $('#'+id+"l").toggleClass('toggleDisplay-expanded');
+    $('#'+id+"l").toggleClass('toggleDisplay-collapsed');
+}
+</script>
+<!-- Served in 0.467 secs. -->        
+        
+<!--
+DPL Stats
+
+Queries cache hit count: 1
+Queries run count: 0
+Queries not run count: 0
+
+Total number of queries: 1
+-->
+                
+        <!-- ============= -->
+        <!-- = LOGIN BOX = -->
+        <!-- ============= -->
+        
+        <script type="text/javascript">
+        <!--
+        mw.loader.using( ['mediawiki.util', 'jquery'], function () {
+            $('.login').empty();
+                
+            $('<p id="piazzaLoginBox"></div>').appendTo('.login');
+    
+ $('<a href="#" id="piazzaLogin">Sign in | Register</a>').appendTo('#piazzaLoginBox');             $('.rightColumnTop').prependTo('#piazzaRightWrapper');
+            $('.rightColumn').appendTo('#piazzaRightColumn');
+    
+            $('#piazzaLogin').click( function() {
+                window.location.href = "https://sso.developer.nokia.com/login?service=" + escape(window.location.href);
+                return false;
+            });
+            $('.piazzaLogin').click( function() {
+                window.location.href = "https://sso.developer.nokia.com/login?service=" + escape(window.location.href);
+                return false;
+            });
+            $('#piazzaLogout').click( function() {
+                logoutUrl = "https://sso.developer.nokia.com/logout?service=" + escape(window.location.href);
+                window.location.href = logoutUrl;
+                return false;
+            });
+        });
+        // -->
+        </script>
+        <!-- =========================== -->
+        <!-- = END LOGIN BOX = -->
+        <!-- =========================== -->
+        
+	
+
+<div style="width: 251px; z-index: 15001;" aria-hidden="true" aria-describedby="ui-tooltip-0-content" aria-atomic="false" aria-live="polite" role="alert" tracking="false" class="ui-tooltip qtip ui-helper-reset ui-tooltip-default ui-tooltip-blue ui-tooltip-rounded ui-tooltip-shadow nd-ui-tooltip  ui-tooltip-pos-bc" id="ui-tooltip-0"><div style="background-color: transparent ! important; border: 0px none ! important; height: 6px; width: 6px; left: 50%; margin-left: -3px; bottom: -6px;" class="ui-tooltip-tip"><canvas width="6" height="6" style="background-color: transparent ! important; border: 0px none ! important;"></canvas></div><div aria-atomic="true" id="ui-tooltip-0-content" class="ui-tooltip-content"><ul class="userPopup">                <li>Last comment by drg0072</li>                <li>5 April 2012 15:47</li>            </ul></div></div></body></html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>Basic rootfs for Mini2440 - Wikiface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.4">
+<link rel="shortcut icon" href="http://wiki.iface.ch/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.iface.ch/opensearch_desc.php" title="Wikiface (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.iface.ch/index.php?title=Basic_rootfs_for_Mini2440&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikiface Atom feed" href="http://wiki.iface.ch/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/main-ltr.css" media="screen">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/shared.css" media="screen">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/index_003.css">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/index.css" media="print">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/index_002.css">
+<link rel="stylesheet" href="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/index_004.css">
+<script>
+var skin="vector",
+stylepath="/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/index.php/$1",
+wgScriptPath="",
+wgScriptExtension=".php",
+wgScript="/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://wiki.iface.ch",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Basic_rootfs_for_Mini2440",
+wgTitle="Basic rootfs for Mini2440",
+wgAction="view",
+wgArticleId=25,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=121,
+wgVersion="1.16.4",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikiface", "5": "Wikiface talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikiface": 4, "wikiface_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="Wikiface",
+wgCategories=["Mini2440", "Linux"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/wikibits.js"></script>
+<script src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/ajax.js"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.htc")}</style><![endif]-->
+<script src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/index.php"></script>
+
+<script src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/a.js" async="" type="text/javascript"></script></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Basic_rootfs_for_Mini2440 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Basic rootfs for Mini2440</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<h3 id="siteSub">From Wikiface</h3>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<p>In this article we're going to create a basic root filesystem bootable by a Mini2440. This root filesystem will be based under <i>busybox</i> rel. 1.18.4.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Building_and_checking_busybox"><span class="tocnumber">2</span> <span class="toctext">Building and checking busybox</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Download"><span class="tocnumber">2.1</span> <span class="toctext">Download</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Compile"><span class="tocnumber">2.2</span> <span class="toctext">Compile</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Check_and_final_steps"><span class="tocnumber">2.3</span> <span class="toctext">Check and final steps</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Basic_root_filesystem_elements"><span class="tocnumber">3</span> <span class="toctext">Basic root filesystem elements</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Other_directories"><span class="tocnumber">3.1</span> <span class="toctext">Other directories</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Devices"><span class="tocnumber">3.2</span> <span class="toctext">Devices</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Configuration_files"><span class="tocnumber">3.3</span> <span class="toctext">Configuration files</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#.2Fetc.2Finittab"><span class="tocnumber">3.3.1</span> <span class="toctext">/etc/inittab</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#.2Fetc.2Fhostname"><span class="tocnumber">3.3.2</span> <span class="toctext">/etc/hostname</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#.2Fetc.2Fgroup"><span class="tocnumber">3.3.3</span> <span class="toctext">/etc/group</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#.2Fetc.2Fpasswd"><span class="tocnumber">3.3.4</span> <span class="toctext">/etc/passwd</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#.2Fetc.2Fnetwork.2Finterfaces"><span class="tocnumber">3.3.5</span> <span class="toctext">/etc/network/interfaces</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#.2Fetc.2Ffstab"><span class="tocnumber">3.3.6</span> <span class="toctext">/etc/fstab</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#.2Fetc.2Finit.d.2FrcS"><span class="tocnumber">3.3.7</span> <span class="toctext">/etc/init.d/rcS</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#.2Fetc.2Fissue"><span class="tocnumber">3.3.8</span> <span class="toctext">/etc/issue</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#Final_touches"><span class="tocnumber">3.4</span> <span class="toctext">Final touches</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Host"><span class="tocnumber">3.4.1</span> <span class="toctext">Host</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Mini2440"><span class="tocnumber">3.4.2</span> <span class="toctext">Mini2440</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#The_result"><span class="tocnumber">4</span> <span class="toctext">The result</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#External_references"><span class="tocnumber">5</span> <span class="toctext">External references</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Prerequisites">Prerequisites</span></h1>
+<p>To successfully execute what contained in this article you have to read and execute the following:
+</p>
+<ul><li><a href="http://wiki.iface.ch/index.php/Installing_u-boot_on_Mini2440" title="Installing u-boot on Mini2440"> Install u-boot on Mini2440</a> that install the bootloader on your brand new Mini2440;
+</li><li><a href="http://wiki.iface.ch/index.php/Setup_a_testing_environment_for_Mini2440" title="Setup a testing environment for Mini2440"> Setup a develop and testing environment for the Mini2440 board</a>;
+</li><li><a href="http://wiki.iface.ch/index.php/How_to_cross_compile_a_working_kernel_for_Mini2440" title="How to cross compile a working kernel for Mini2440"> Compile and test the kernel</a>.
+</li></ul>
+<h1> <span class="mw-headline" id="Building_and_checking_busybox">Building and checking busybox</span></h1>
+<p>In this step we will compile and check <b>busybox</b> rel. 1.18.4 starting from source.
+</p>
+<h2> <span class="mw-headline" id="Download">Download</span></h2>
+<p>Before downloading busybox, move to your testing directory and setup all the environment variables:
+</p>
+<pre>$ <b>cd ~</b>
+~$ <b>cd fadevel/</b>
+~/fadevel$ <b>. ./setvars</b>
+~/fadevel$ <b>printenv</b>
+<i>...cut...</i>
+<b>PATH=/home/fpiraneo/fadevel/arm-2010.09/bin:</b>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/gnat/bin
+<i>...cut...</i>
+<b>CFLAGS=-O3 -march=armv4t -mtune=arm920t</b>
+<i>...cut...</i>
+<b>ARCH=arm</b>
+<i>...cut...</i>
+<b>CROSS_COMPILE=arm-none-linux-gnueabi-</b>
+<i>...cut...</i>
+</pre>
+<p>Last <b>printenv</b> has been issued to be sure that all needed environment variables has been correctly set.
+</p><p>Busybox can be downloaded from his website at <a href="http://www.busybox.net/" class="external free" rel="nofollow">http://www.busybox.net/</a>; a direct <b>wget</b> can help us to download the desired source tar.bz2:
+</p>
+<pre>~/fadevel$ <b>wget <a href="http://www.busybox.net/downloads/busybox-1.18.4.tar.bz2" class="external free" rel="nofollow">http://www.busybox.net/downloads/busybox-1.18.4.tar.bz2</a></b>
+--2011-04-19 13:57:58--  <a href="http://www.busybox.net/downloads/busybox-1.18.4.tar.bz2" class="external free" rel="nofollow">http://www.busybox.net/downloads/busybox-1.18.4.tar.bz2</a>
+Risoluzione di www.busybox.net... 140.211.167.224
+Connessione a www.busybox.net|140.211.167.224|:80... connesso.
+HTTP richiesta inviata, in attesa di risposta... 200 OK
+Lunghezza: 2130598 (2.0M) [application/x-bzip2]
+Salvataggio in: "busybox-1.18.4.tar.bz2"
+
+100%[=======================================================&gt;] 2'130'598    616K/s   in 4.1s    
+
+2011-04-19 13:58:03 (510 KB/s) - "busybox-1.18.4.tar.bz2" salvato [2130598/2130598]
+
+~/fadevel$ <b>tar -xf busybox-1.18.4.tar.bz2</b>
+~/fadevel$ <b>mv busybox-1.18.4.tar.bz2 zipped/</b>
+~/fadevel$ <b>ls -l</b>
+totale 36K
+drwxr-xr-x  8 fpiraneo fpiraneo 4.0K 2011-04-19 14:00 ./
+drwxr-xr-x 76 fpiraneo fpiraneo 4.0K 2011-04-19 11:05 ../
+drwxr-xr-x  7 fpiraneo fpiraneo 4.0K 2011-04-08 11:04 arm-2010.09/
+<b>drwxr-xr-x 31 fpiraneo fpiraneo 4.0K 2011-03-13 02:47 busybox-1.18.4/</b>
+drwxr-xr-x  2 fpiraneo fpiraneo 4.0K 2011-04-08 18:57 helloworld/
+drwxr-xr-x 24 fpiraneo fpiraneo 4.0K 2011-04-08 18:55 linux-2.6.32.2/
+-rwxr-xr-x  1 fpiraneo fpiraneo  295 2011-04-08 11:17 setvars*
+drwxr-xr-x  3 fpiraneo fpiraneo 4.0K 2011-04-08 18:34 target/
+drwxr-xr-x  2 fpiraneo fpiraneo 4.0K 2011-04-19 14:00 zipped/
+</pre>
+<p>Here the directory <b>busybox-1.18.4</b> has been created and now we are ready to compile.
+</p>
+<h2> <span class="mw-headline" id="Compile">Compile</span></h2>
+<p>Busybox to be configured uses a <b>make menuconfig</b> instruction 
+like kernel does; what utility to include it's up to you and the use you
+ plan for your board; here the option I set up for building:
+</p>
+<ul><li><b>Busybox Configuration</b> -&gt; <b>Busybox Settings</b> -&gt; <b>Installation Options ("make install" behavior)</b> -&gt; <b>(./_install) BusyBox installation prefix</b> -&gt; I set this option to my testing directory; in this case will be: <b>/home/fpiraneo/fadevel/target/</b>
+</li></ul>
+<p><b>NOTE:</b> No shortcuts like "~" or ".." are allowed here! You have to specify the full installation path!
+Then I leave all options as default; obviously feel free to set option you feel useful or remove the ones you think superfluous.
+</p><p>Exit saving changes from menuconfig.
+</p>
+<pre>~/fadevel/busybox-1.18.4$ <b>make</b>
+{lot of compile output}
+</pre>
+<p>This will start the building; when it finish the following warn us that we're ready to install:
+</p>
+<pre>  LINK    busybox_unstripped
+Trying libraries: crypt m
+ Library crypt is not needed, excluding it
+ Library m is needed, can't exclude it (yet)
+Final link with: m
+  DOC     busybox.pod
+  DOC     BusyBox.txt
+  DOC     busybox.1
+  DOC     BusyBox.html
+~/fadevel/busybox-1.18.4$ <b>make install</b>
+</pre>
+<p>...again lots of output stating that busybox is installing himself where we indicated.
+</p>
+<h2> <span class="mw-headline" id="Check_and_final_steps">Check and final steps</span></h2>
+<p>With the following steps we're going to check the libraries needed by
+ busybox to run; remember that busybox as default compile as dynamic 
+executable so it needs shared libraries to run that has to find into the
+ <i>/lib</i> directory.
+So move into the <b>bin</b> directory where busybox resides and with the <b>readelf</b> command check what libraries are needed:
+</p>
+<pre>~/fadevel/target$ <b>cd bin/</b>
+~/fadevel/target/bin$ <b>"$CROSS_COMPILE"readelf -a busybox | grep lib</b>
+      <b>[Requesting program interpreter: /lib/ld-linux.so.3]</b>
+ <b>0x00000001 (NEEDED)                     Shared library: [libm.so.6]</b>
+ <b>0x00000001 (NEEDED)                     Shared library: [libc.so.6]</b>
+000ee1a0  00002916 R_ARM_JUMP_SLOT   0000c2cc   __libc_start_main
+    41: 0000c2cc     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.4 (2)
+  000000: Version: 1  File: libm.so.6  Cnt: 1
+  0x0020: Version: 1  File: libc.so.6  Cnt: 1
+</pre>
+<p>Makes the needed <b>/lib</b> directory and cd into:
+</p>
+<pre>~/fadevel/target/bin$ <b>cd ..</b>
+~/fadevel/target$ <b>mkdir lib</b>
+~/fadevel/target$ <b>cd lib</b>
+</pre>
+<p>Now it's time to copy the shared libraries into our library 
+directory; note that we're going to copy the appropriate libraries 
+depending on our ARM architecture; in our case as <i>CFLAGS</i> states is <i>armv4t</i>:
+</p>
+<pre>~/fadevel/target/lib$ <b>cp ~/fadevel/arm-2010.09/arm-none-linux-gnueabi/libc/armv4t/lib/ld-linux.so.3 .</b>
+~/fadevel/target/lib$ <b>~/fadevel/target/lib$ cp ~/fadevel/arm-2010.09/arm-none-linux-gnueabi/libc/armv4t/lib/libm.so.6 .</b>
+~/fadevel/target/lib$ <b>cp ~/fadevel/arm-2010.09/arm-none-linux-gnueabi/libc/armv4t/lib/libc.so.6 .</b>
+~/fadevel/target/lib$ <b>ls -l</b>
+totale 2624
+-rwxr-xr-x 1 fpiraneo fpiraneo  162597 2011-04-19 14:44 ld-linux.so.3
+-rwxr-xr-x 1 fpiraneo fpiraneo 1749928 2011-04-19 14:45 libc.so.6
+-rwxr-xr-x 1 fpiraneo fpiraneo  766659 2011-04-19 14:44 libm.so.6
+</pre>
+<h1> <span class="mw-headline" id="Basic_root_filesystem_elements">Basic root filesystem elements</span></h1>
+<p>In order to make our root filesystem to work we have to add some elements as detailed below.
+As preliminary cd into our root filesystem directory with:
+</p>
+<pre>$ <b>cd ~/fadevel/target/</b>
+</pre>
+<h2> <span class="mw-headline" id="Other_directories">Other directories</span></h2>
+<p>To make our root filesystem partially FHS compliant<sup id="cite_ref-0" class="reference"><a href="#cite_note-0">[1]</a></sup> we have to create some folders:
+</p>
+<pre>$ <b>mkdir -p etc/init.d</b>
+$ <b>mkdir {proc,sys,mnt,opt,tmp,var,root}</b>
+</pre>
+<p>Create the <b>/var/log</b> directory to guest all the log messages:
+</p>
+<pre>$ <b>mkdir var/log</b>
+</pre>
+<p>You have to create the following directories into <b>/etc</b> to accommodate init configuration for the network:
+</p>
+<pre>$ <b>mkdir etc/network/{,if-down.d,if-post-down.d,if-pre-up.d,if-up.d}</b>
+</pre>
+<h2> <span class="mw-headline" id="Devices">Devices</span></h2>
+<p>Into the <b>~/fadevel/target/dev</b> directory add the following devices:
+</p>
+<pre>$ <b>sudo mknod tty c 4 0</b>
+$ <b>sudo mknod tty0 c 4 0</b>
+$ <b>sudo mknod tty1 c 4 1</b>
+$ <b>sudo mknod tty2 c 4 2</b>
+$ <b>sudo mknod tty3 c 4 3</b>
+$ <b>sudo mknod tty4 c 4 4</b>
+$ <b>sudo mknod -m 666 null c 1 3</b>
+$ <b>sudo mknod ttySAC0 c 204 64</b>
+$ <b>sudo mknod ttySAC1 c 204 65</b>
+$ <b>sudo mknod ttySAC2 c 204 66</b>
+</pre>
+<p><b>NOTE:</b> Because you're operating as <i>root</i>, be sure to issue all these commands into the appropriate directory as state above, otherwise you'll corrupt your system!!
+</p>
+<h2> <span class="mw-headline" id="Configuration_files">Configuration files</span></h2>
+<p>For each paragraph here create a file into the indicated directory into your <b>~/fadevel/target/</b>.
+</p>
+<h3> <span class="mw-headline" id=".2Fetc.2Finittab"><i>/etc/inittab</i></span></h3>
+<p><i>inittab</i> is the file that drives the initialization of the system. Here is a starting point freely inspired by the <i>buildroot</i> default inittab:
+</p>
+<pre># /etc/inittab
+#
+# Copyright (C) 2001 Erik Andersen &lt;andersen@codepoet.org&gt;
+#
+# Note: BusyBox init doesn't support runlevels.  The runlevels field is
+# completely ignored by BusyBox init. If you want runlevels, use
+# sysvinit.
+#
+# Format for each entry: &lt;id&gt;:&lt;runlevels&gt;:&lt;action&gt;:&lt;process&gt;
+#
+# id        == tty to run on, or empty for /dev/console
+# runlevels == ignored
+# action    == one of sysinit, respawn, askfirst, wait, and once
+# process   == program to run
+
+# Startup the system
+null::sysinit:/bin/mount -t proc proc /proc
+null::sysinit:/bin/mount -o remount,rw /
+null::sysinit:/bin/mkdir -p /dev/pts
+null::sysinit:/bin/mount -a
+null::sysinit:/bin/hostname -F /etc/hostname
+# now run any rc scripts
+::sysinit:/etc/init.d/rcS
+
+# Set up a couple of getty's
+tty1::respawn:/sbin/getty 38400 tty1
+tty2::respawn:/sbin/getty 38400 tty2
+
+# Put a getty on the serial port
+ttySAC0::respawn:/sbin/getty -L ttySAC0 115200 vt100 # GENERIC_SERIAL
+
+# Logging junk
+null::sysinit:/bin/touch /var/log/messages
+null::respawn:/sbin/syslogd -n -m 0
+null::respawn:/sbin/klogd -n
+tty3::respawn:/usr/bin/tail -f /var/log/messages
+
+# Stuff to do for the 3-finger salute
+::ctrlaltdel:/sbin/reboot
+
+# Stuff to do before rebooting
+null::shutdown:/usr/bin/killall klogd
+null::shutdown:/usr/bin/killall syslogd
+null::shutdown:/bin/umount -a -r
+null::shutdown:/sbin/swapoff -a
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Fhostname"><i>/etc/hostname</i></span></h3>
+<p>Typically the hostname on a linux machine is contained into the <b>/etc/hostname</b> file:
+</p>
+<pre>IKEA-FA
+</pre>
+<p>Actually I named this system <i>IKEA-FA</i> but you can also set as boardname <i>FOO-BAR</i>!
+</p><p><b>NOTE:</b> We aren't connected in any way to IKEA of Sweden nor
+ we intend to make any kind of promotion to this company; we named 
+"IKEA" the board because this system setup is <i>minimalist</i> as the IKEA design.
+</p>
+<h3> <span class="mw-headline" id=".2Fetc.2Fgroup"><i>/etc/group</i></span></h3>
+<p>This file contains the groups for the system; for more information look at <a href="http://www.linuxbase.org/" class="external text" rel="nofollow">Linux Standard Base website</a> for the groups that has to be presents.
+</p>
+<pre>root:x:0:
+bin:x:1:
+nogroup:x:99:
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Fpasswd"><i>/etc/passwd</i></span></h3>
+<p>This file contains the users for the system; for this system only basic users will be declared: 
+</p>
+<pre>root::0:0:root:/root:/bin/sh
+bin:x:1:1:bin:/dev/null:/bin/false
+nobody:x:99:99:Unpriviledged user:/dev/null:/bin/false
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Fnetwork.2Finterfaces"><i>/etc/network/interfaces</i></span></h3>
+<pre># Defines wich interfaces has to brought up automatically
+auto lo eth0
+
+# Configure loopback interface
+iface lo inet loopback
+
+# Configure eth0 interface
+iface eth0 inet dhcp
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Ffstab"><i>/etc/fstab</i></span></h3>
+<p>To avoid some complains while powering off our system, we need to <i>touch</i> the <b>/etc/fstab</b> file: 
+</p>
+<pre>$ <b>touch fstab</b>
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Finit.d.2FrcS"><i>/etc/init.d/rcS</i></span></h3>
+<p>To avoid some complains while booting, <i>touch</i> the <b>rcS</b> init file into <b>/etc/init.d</b> and make it executable:
+</p>
+<pre>~/fadevel/target/etc$ <b>touch etc/init.d/rcS</b>
+~/fadevel/target/etc$ <b>chmod a+x etc/init.d/rcS</b>
+</pre>
+<h3> <span class="mw-headline" id=".2Fetc.2Fissue"><i>/etc/issue</i></span></h3>
+<p>More than a fancy login prompt, the content of the <b>/etc/issue</b> file can contain useful informations; please check the <b>getty</b> manpage for available options: 
+</p>
+<pre>Welcome to IFACE distro for embedded.
+\l on \n
+</pre>
+<h2> <span class="mw-headline" id="Final_touches">Final touches</span></h2>
+<h3> <span class="mw-headline" id="Host">Host</span></h3>
+<p>All files and directories under <b>~/fadevel/target/</b> has to be owned by <i>root</i>, so:
+</p>
+<pre>$ <b>cd ~/fadevel/target</b>
+~/fadevel/target$ <b>sudo chown -R root:root *</b>
+</pre>
+<p><b>NOTE:</b> Be careful! You're doing this as <i>root</i>!!!
+</p>
+<h3> <span class="mw-headline" id="Mini2440">Mini2440</span></h3>
+<p>Connect Mini2440 as usual to power supply, RS232 port and Ethernet as
+ documented in the precedent articles. Start the board and on <i>minicom</i> stop the boot counter on Mini2440. Now with <b>printenv</b> on u-boot look at the following line:
+</p>
+<pre>bootargs=console=ttySAC0,115200 ip=10.0.100.10:10.0.20.1::255.0.0.0 root=/dev/nfs nfsroot=10.0.20.1:/home/fpiraneo/fadevel/target init=helloworld
+</pre>
+<p>Everything fine but it has to be modified as follows:
+</p>
+<pre>MINI2440 # <b>setenv bootargs console=ttySAC0,115200 ip=10.0.100.10:10.0.20.1::255.0.0.0 root=/dev/nfs nfsroot=10.0.20.1:/home/fpiraneo/fadevel/target</b>
+MINI2440 # <b>saveenv</b>
+Saving Environment to NAND...
+Erasing Nand...Writing to Nand... done
+</pre>
+<p>This modification to allow the boot process continue with <i>inittab</i>.
+</p>
+<h1> <span class="mw-headline" id="The_result">The result</span></h1>
+<p>No comments, just admire!
+</p><p><a href="http://wiki.iface.ch/index.php/File:IKEA_booted_on_FA.png" class="image"><img alt="IKEA booted on FA.png" src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/IKEA_booted_on_FA.png" height="311" width="489"></a>
+</p>
+<h1> <span class="mw-headline" id="External_references">External references</span></h1>
+<ol class="references"><li id="cite_note-0"><a href="#cite_ref-0">↑</a> FHS stands for Filesystem Hierachy Standard; our filesystem is not fully compliant; for more information visit <a href="http://www.pathname.com/fhs/" class="external text" rel="nofollow">the FHS website</a></li></ol>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 109/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikiface:pcache:idhash:25-0!1!0!!en!2!edit=0 and timestamp 20131220061429 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wiki.iface.ch/index.php/Basic_rootfs_for_Mini2440">http://wiki.iface.ch/index.php/Basic_rootfs_for_Mini2440</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://wiki.iface.ch/index.php/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Mini2440" title="Category:Mini2440">Mini2440</a></span> | <span dir="ltr"><a href="http://wiki.iface.ch/index.php/Category:Linux" title="Category:Linux">Linux</a></span></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li id="pt-login"><a href="http://wiki.iface.ch/index.php?title=Special:UserLogin&amp;returnto=Basic_rootfs_for_Mini2440" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><a href="http://wiki.iface.ch/index.php/Basic_rootfs_for_Mini2440" title="View the content page [alt-shift-c]" accesskey="c"><span>Page</span></a></li>
+					<li id="ca-talk" class="new"><a href="http://wiki.iface.ch/index.php?title=Talk:Basic_rootfs_for_Mini2440&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t"><span>Discussion</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><a href="http://wiki.iface.ch/index.php/Basic_rootfs_for_Mini2440"><span>Read</span></a></li>
+					<li id="ca-viewsource"><a href="http://wiki.iface.ch/index.php?title=Basic_rootfs_for_Mini2440&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e"><span>View source</span></a></li>
+					<li id="ca-history" class="collapsible "><a href="http://wiki.iface.ch/index.php?title=Basic_rootfs_for_Mini2440&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h"><span>View history</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" name="search" title="Search Wikiface [alt-shift-f]" accesskey="f" type="text">
+		<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">
+		<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/skins/common/images/wikiface-logo.png);" href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="http://wiki.iface.ch/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+					<li id="n-portal"><a href="http://wiki.iface.ch/index.php/Wikiface:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+					<li id="n-currentevents"><a href="http://wiki.iface.ch/index.php/Wikiface:Current_events" title="Find background information on current events">Current events</a></li>
+					<li id="n-recentchanges"><a href="http://wiki.iface.ch/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+					<li id="n-randompage"><a href="http://wiki.iface.ch/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+					<li id="n-help"><a href="http://wiki.iface.ch/index.php/Help:Contents" title="The place to find out">Help</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://wiki.iface.ch/index.php/Special:WhatLinksHere/Basic_rootfs_for_Mini2440" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="http://wiki.iface.ch/index.php/Special:RecentChangesLinked/Basic_rootfs_for_Mini2440" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="http://wiki.iface.ch/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+									<li id="t-print"><a href="http://wiki.iface.ch/index.php?title=Basic_rootfs_for_Mini2440&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+						<li id="t-permalink"><a href="http://wiki.iface.ch/index.php?title=Basic_rootfs_for_Mini2440&amp;oldid=121" title="Permanent link to this revision of the page">Permanent link</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 21 April 2011, at 09:55.</li>
+																							<li id="footer-info-viewcount">This page has been accessed 28,840 times.</li>
+																							<li id="footer-info-copyright">Content is available under <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/" class="external ">Attribution-NonCommercial-NoDerivs 3.0 Unported</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://wiki.iface.ch/index.php/Wikiface:Privacy_policy" title="Wikiface:Privacy policy">Privacy policy</a></li>
+																							<li id="footer-places-about"><a href="http://wiki.iface.ch/index.php/Wikiface:About" title="Wikiface:About">About Wikiface</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://wiki.iface.ch/index.php/Wikiface:General_disclaimer" title="Wikiface:General disclaimer">Disclaimers</a></li>
+															</ul>
+										<ul id="footer-icons" class="noprint">
+								<li id="footer-icon-poweredby"><a href="http://www.mediawiki.org/"><img src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></li>
+												<li id="footer-icon-copyright"><a href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/88x31.png" alt="Attribution-NonCommercial-NoDerivs 3.0 Unported" height="31" width="88"></a></li>
+							</ul>
+			<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Basic%20rootfs%20for%20Mini2440%20-%20Wikiface_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-22891129-1");
+pageTracker._trackPageview();
+</script>		<!-- Served in 0.122 secs. -->			
+
+</body></html>

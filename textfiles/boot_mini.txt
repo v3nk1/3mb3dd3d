@@ -1,0 +1,21 @@
+INITRD:
+=======
+		
+setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv;
+
+tftp 0x31000000 uImage;tftp 0x32000000 rootfs.img ; setenv bootargs console=ttySAC0,115200 root=/dev/ram initrd=0x32000000,4M,rw; bootm 0x31000000
+
+INITRAMFS:
+==========
+setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv;
+
+tftp 0x31000000 uImage; setenv bootargs console=ttySAC0,115200; bootm 0x31000000
+
+NFS:
+====
+
+setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; 
+
+tftp 0x32000000 uImage; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:<path/to/your/rootfs/on/host>; bootm 0x32000000
+
+

@@ -1,0 +1,57 @@
+.
+|-- bin
+|-- include
+|   `-- readline
+|       |-- chardefs.h
+|       |-- history.h
+|       |-- keymaps.h
+|       |-- readline.h
+|       |-- rlconf.h
+|       |-- rlstdc.h
+|       |-- rltypedefs.h
+|       `-- tilde.h
+|-- lib
+|   |-- libhistory.a
+|   |-- libhistory.old
+|   |-- libhistory.so -> libhistory.so.6
+|   |-- libhistory.so.6 -> libhistory.so.6.3
+|   |-- libhistory.so.6.3
+|   |-- libhistory.so.6.3.old
+|   |-- libreadline.a
+|   |-- libreadline.old
+|   |-- libreadline.so -> libreadline.so.6
+|   |-- libreadline.so.6 -> libreadline.so.6.3
+|   |-- libreadline.so.6.3
+|   `-- libreadline.so.6.3.old
+`-- share
+    |-- doc
+    |   `-- readline
+    |       |-- CHANGES
+    |       |-- INSTALL
+    |       `-- README
+    |-- info
+    |   |-- dir
+    |   |-- history.info
+    |   |-- readline.info
+    |   `-- rluserman.info
+    |-- man
+    |   `-- man3
+    |       |-- history.3
+    |       `-- readline.3
+    `-- readline
+        |-- excallback.c
+        |-- fileman.c
+        |-- hist_erasedups.c
+        |-- histexamp.c
+        |-- hist_purgecmd.c
+        |-- manexamp.c
+        |-- rl.c
+        |-- rl-callbacktest.c
+        |-- rlcat.c
+        |-- rlevent.c
+        |-- rl-fgets.c
+        |-- rlptytest.c
+        |-- rltest.c
+        `-- rlversion.c
+
+11 directories, 43 files

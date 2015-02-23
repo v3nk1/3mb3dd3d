@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>A complete system using Buildroot - OK6410 wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.2">
+<link rel="shortcut icon" href="http://www.arm9board.net/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://www.arm9board.net/wiki/opensearch_desc.php" title="OK6410 wiki (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot&amp;action=creativecommons" rel="meta">
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html">
+<link rel="alternate" type="application/atom+xml" title="OK6410 wiki Atom feed" href="http://www.arm9board.net/wiki/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/shared.css" media="screen">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/main.css" media="screen">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/index_004.css">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/index_003.css" media="print">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/index.css">
+<link rel="stylesheet" href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/index_002.css">
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php?title=$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://www.arm9board.net",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="A_complete_system_using_Buildroot",
+wgTitle="A complete system using Buildroot",
+wgAction="view",
+wgArticleId=240,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=907,
+wgVersion="1.16.2",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OK6410 wiki", "5": "OK6410 wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "ok6410_wiki": 4, "ok6410_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="OK6410 wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/wikibits.js"></script><link href="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/FF2Fixes.css" rel="stylesheet" type="text/css">
+<script src="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/ajax.js"></script>
+<script src="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/index.php"></script>
+
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "/wiki/index.php?title=MediaWiki:Geshi.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+/*]]>*/
+</style></head>
+<body class="mediawiki ltr ns-0 ns-subject page-A_complete_system_using_Buildroot skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">A complete system using Buildroot</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From OK6410 wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p><a href="http://buildroot.uclibc.org/" class="external text" rel="nofollow">Buildroot</a>
+ is nothing more than a collection of Makefiles. By using a menuconfig 
+command you can choose all the elements that you want to include in your
+ build. For this tutorial I used the buildroot-2011.05.tar.gz file. You 
+can decide to use another version of Buildroot, but it could be possible
+ that some options have changed in newer versions.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Downloading_the_kernel_packages"><span class="tocnumber">1</span> <span class="toctext">Downloading the kernel packages</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Configuring_buildroot"><span class="tocnumber">2</span> <span class="toctext">Configuring buildroot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Defconfig_for_the_2.6.28_kernel_version"><span class="tocnumber">2.1</span> <span class="toctext">Defconfig for the 2.6.28 kernel version</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Defconfig_for_the_2.6.36_kernel_version"><span class="tocnumber">2.2</span> <span class="toctext">Defconfig for the 2.6.36 kernel version</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Buildroots_menuconfig"><span class="tocnumber">3</span> <span class="toctext">Buildroots menuconfig</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Configure_software_parameters"><span class="tocnumber">4</span> <span class="toctext">Configure software parameters</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#For_the_2.6.28_linux_version"><span class="tocnumber">4.1</span> <span class="toctext">For the 2.6.28 linux version</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#For_the_2.6.36_linux_version"><span class="tocnumber">4.2</span> <span class="toctext">For the 2.6.36 linux version</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Making_the_changes_to_the_kernel"><span class="tocnumber">4.3</span> <span class="toctext">Making the changes to the kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Build_everything"><span class="tocnumber">5</span> <span class="toctext">Build everything</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Program_the_board"><span class="tocnumber">6</span> <span class="toctext">Program the board</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#For_the_2.6.28_version_of_the_kernel"><span class="tocnumber">6.1</span> <span class="toctext">For the 2.6.28 version of the kernel</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#For_the_2.6.36_version_of_the_linux_kernel"><span class="tocnumber">6.2</span> <span class="toctext">For the 2.6.36 version of the linux kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Boot_the_board"><span class="tocnumber">7</span> <span class="toctext">Boot the board</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h3> <span class="mw-headline" id="Downloading_the_kernel_packages"> Downloading the kernel packages </span></h3>
+<p>Depending on the version of the kernel you want to use you need to select a directory on the main page of the FTP website:
+</p><p><a href="ftp://ftp.arm9board.net/" class="external free" rel="nofollow">ftp://wikiusers@ftp.arm9board.net/</a> (password: Arm9board)
+</p><p>You have two directories: 2.6.28 and 2.6.36, and you need to 
+choose which version of the kernel and corresponding U-boot version you 
+want to use and download.
+</p>
+<h2> <span class="mw-headline" id="Configuring_buildroot"> Configuring buildroot </span></h2>
+<p>First you must install the necessary packages:
+</p>
+<pre>$ sudo apt-get install libncurses5-dev bison flex texinfo
+</pre>
+<p><b>IMPORTANT:</b> 64-bit Ubuntu Users have to install the 32-bit 
+libraries to work with the CodeSourcery Toolchains!! This is done with 
+the following command:
+</p>
+<pre>$ sudo apt-get install ia32-libs
+</pre>
+<p>After downloading Buildroot, copy it to your home folder and untar it:
+</p>
+<pre>$ tar -xf buildroot-2011.05.tar.gz
+</pre>
+<p>Go into the freshly created directory:
+</p>
+<pre>$ cd buildroot-2011.05
+</pre>
+<p>Inside the buildroot directory, create a <i>dl</i> folder where we can store the specific u-boot, and kernel source packages for the OK6410 board.
+</p>
+<pre>$ mkdir dl
+</pre>
+<p>Drag the OK6410_linux.2.6.28_v1.2.tgz and uboot1.1.6_OK6410_V1.0.tgz 
+(for 2.6.28) or OK6410_linux2.6.36.2.tgz and u-boot1.1.6_TE6410_2636.tgz
+ (for 2.6.36) from the FTP server into the dl folder. After this we only
+ need to tell buildroot what the name is of the packages to look for. 
+Now we need to make a little change inside the linux tar package. Open 
+it using the Archive manager:
+</p>
+<h3> <span class="mw-headline" id="Defconfig_for_the_2.6.28_kernel_version"> Defconfig for the 2.6.28 kernel version </span></h3>
+<p>Double click on the OK6410_CFG file to open it. Go back to the archive mounter and look for the following file:
+</p>
+<pre>arch/arm/configs/smdk6410onenand_defconfig
+</pre>
+<p>Open the file and replace the complete content with the content of 
+the OK6410_CFG file. Save the smdk6410onenand_defconfig file and close 
+the archive manager (after the archive has updated the new file).
+</p>
+<h3> <span class="mw-headline" id="Defconfig_for_the_2.6.36_kernel_version"> Defconfig for the 2.6.36 kernel version </span></h3>
+<p>When the archive is opened select the OK6410_CFG file and copy it. Move into the following folder:
+</p>
+<pre>arch/arm/configs
+</pre>
+<p>And paste the file here. After pasting it, rename it to the following:
+</p>
+<pre>smdk6410onenand_defconfig
+</pre>
+<p>Wait until the archive is updated and you're ready
+</p>
+<h2> <span class="mw-headline" id="Buildroots_menuconfig"> Buildroots menuconfig </span></h2>
+<p>Now we can start changing Buildroot. In a terminal, go into the Buildroot directory and use the <i>make menuconfig</i> command to start adapting Buildroot to your needs:
+</p>
+<pre>$ make menuconfig
+</pre>
+<p>And make the first basic changes:
+</p>
+<pre>Target Architecture (i386) ---&gt;
+              (X) arm
+
+Target Architecture Variant (generic_arm) ---&gt;
+              (X) arm1176jzf-s
+</pre>
+<pre>Target (EABI) ---&gt;
+              (X) EABI
+</pre>
+<p>Now make the settings for the Toolchain, go back to the top menu and change the following sections:
+</p>
+<pre>Toolchain ---&gt;
+         Toolchain type ---&gt;
+              (X) External toolchain
+         Toolchain (CodeSourcery ARM 2011.03) ---&gt;
+              (X) CodeSourcery ARM 2010q1
+         [*] Download toolchain automatically
+         (In this menu you can select gdb options if you want to)
+</pre>
+<p>Time to make the system configuration. Inside the top level menu, make the following changes:
+</p>
+<pre>System configuration ---&gt;
+         (Choose a system hostname and banner if you want to)
+
+         (ttySAC0) Port to run a getty (login prompt) on
+         Baudrate to use (115200)
+</pre>
+<h2> <span class="mw-headline" id="Configure_software_parameters"> Configure software parameters </span></h2>
+<p>Still inside the buildroot configuration, go back to the top level and make the package selection for the target:
+</p>
+<pre>Package selection for the target ---&gt;
+         [*] Busybox
+                Busybox version (BusyBox  1.18.x)
+         (The rest of the options we'll discuss later)
+</pre>
+<p>If you ever want to, you can always change the specific busybox 
+settings and build packages by typing the following command in the 
+terminal:
+</p>
+<pre>$ make busybox-menuconfig
+</pre>
+<p>The rest of the packages will be discussed later. First let's select 
+what filesystems Buildroot has to create. This filesystem contains all 
+the packages you have selected for the board. You can always read the 
+article about <a href="http://free-electrons.com/doc/flash-filesystems.pdf" class="external text" rel="nofollow">Flash filesystems</a> on the <a href="http://free-electrons.com/" class="external text" rel="nofollow">Free-electrons website</a>. But for now we will create a cramfs image:
+</p>
+<pre>Filesystem images ---&gt;
+          [*] cramfs root filesystem
+          [ ] tar the root filesystem (Unselect this option)
+</pre>
+<h3> <span class="mw-headline" id="For_the_2.6.28_linux_version"> For the 2.6.28 linux version </span></h3>
+<p>Configure U-boot:
+</p>
+<pre>Bootloaders ---&gt;
+          [*] U-Boot ---&gt;
+                (smdk6410) U-boot board name
+                 U-boot version (Custom tarball) ---&gt;
+                (uboot1.1.6_OK6410_V1.0.tgz) URL of custom U-Boot tarball 
+</pre>
+<p>Now, last but not least configure the kernel. From the top level, make the following settings:
+</p>
+<pre>Kernel ---&gt;
+        [*] Linux Kernel
+                Kernel version (Custom tarball)  ---&gt;
+                (OK6410_linux2.6.28_v1.2.tgz) URL of custom kernel tarball 
+                Kernel configuration (use a defconfig) ---&gt;
+                (smdk6410onenand) Defconfig name   
+                Kernel binary format (zImage) ---&gt;
+</pre>
+<h3> <span class="mw-headline" id="For_the_2.6.36_linux_version"> For the 2.6.36 linux version </span></h3>
+<p>Bootloaders ---&gt;
+</p>
+<pre>          [*] U-Boot ---&gt;
+                (smdk6410) U-boot board name
+                 U-boot version (Custom tarball) ---&gt;
+                (u-boot1.1.6__TE6410_2636.tgz) URL of custom U-Boot tarball 
+</pre>
+<p>Now, last but not least configure the kernel. From the top level, make the following settings:
+</p>
+<pre>Kernel ---&gt;
+        [*] Linux Kernel
+                Kernel version (Custom tarball)  ---&gt;
+                (OK6410_linux2.6.36.2.tgz) URL of custom kernel tarball 
+                Kernel configuration (use a defconfig) ---&gt;
+                (smdk6410onenand) Defconfig name   
+                Kernel binary format (zImage) ---&gt;
+</pre>
+<h3> <span class="mw-headline" id="Making_the_changes_to_the_kernel"> Making the changes to the kernel </span></h3>
+<p>Now to complete, exit buildroot and save your configuration.
+You still need to select the right LCD-driver for your Linux Kernel. To configure the kernel type:
+</p>
+<pre>$ make linux26-menuconfig
+</pre>
+<p>And make select the right LCD-driver, as explained <a href="http://www.arm9board.net/wiki/index.php?title=Building_the_Linux_kernel" class="external text" rel="nofollow">here</a> in the section <b>Choosing your LCD type</b>.
+</p>
+<h2> <span class="mw-headline" id="Build_everything"> Build everything </span></h2>
+<p>To start we need to download all the necessary packages and tools 
+you've selected. You can do this by going (if you're not there anymore) 
+to the main buildroot directory and type:
+</p>
+<pre>$ make source
+</pre>
+<p>This can take some time to finish and after this you can start compiling:
+</p>
+<pre>$ make all
+</pre>
+<p>It could be that you need to install some additional packages for 
+Buildroot to work properly. Buildroot will ask this before compiling.
+</p><p>Inside the Buildroot directory, the compilation process created the <i>output</i> directory. Let's have a quick look to the structure of this directory:
+</p>
+<pre>Output
+  |
+  | - Build: Contains all the extracted sources from the dl folder and the build files
+  | - Host: Contains the binaries and files from the selected toolchain
+  | - Images: Contains the files for the board: U-boot.bin, zImage and rootfs.cramfs
+  | - Staging: You can ignore this folder for now
+  | - Stamps: In this case, this folder will only mention that we used an external toolchain
+  | - Target: Contains the directory structure for the board. The mkcramfs tool used this folder. Good to use as NFS filesystem.
+  | - Toolchain: Only used if you created a specific toolchain.
+</pre>
+<h2> <span class="mw-headline" id="Program_the_board"> Program the board </span></h2>
+<p>Let's assume here that the OK6410 board has never been used. The 
+programming will be explained from zero on. A complete tutorial on the 
+programming of the board can be found on the following two Wiki pages:
+</p>
+<ul><li> Programming flash using <a href="http://www.arm9board.net/wiki/index.php?title=Flash_using_OpenOCD" class="external text" rel="nofollow">only OpenOCD</a>
+</li><li> Programming flash using <a href="http://www.arm9board.net/wiki/index.php?title=Flash_using_OpenOCD_and_DNW" class="external text" rel="nofollow">OpenOCD and DNW</a>
+</li></ul>
+<p>I used the first for programming U-boot and the second method for programming the kernel image and the root filesystem.
+</p><p>I'll give you all the commands to be short:
+</p><p>Power up the board and open a terminal
+</p>
+<pre>$ sudo openocd -f ok6410.cfg
+</pre>
+<p>Open another terminal to log in on openOCD:
+</p>
+<pre>&gt; nand erase 0 (if all data needs to be erased)
+&gt; nand write 0 /home/your-user-name/buildroot-2011.05/output/images/u-boot.bin 0
+</pre>
+<p>open another terminal, load the USB2Serial drivers and start minicom
+</p>
+<pre>$ sudo minicom
+</pre>
+<h3> <span class="mw-headline" id="For_the_2.6.28_version_of_the_kernel"> For the 2.6.28 version of the kernel </span></h3>
+<pre>SMDK6410 # dnw c0008000
+</pre>
+<p>open another terminal and send the kernel zImage to the board
+</p>
+<pre>$ cd ~/dnw
+$ sudo ./dnw ~/buildroot-2011.05/output/images/zImage
+
+SMDK6410 # nand write.e c0008000 100000 300000
+SMDK6410 # dnw c0008000
+</pre>
+<p>In the DNW terminal, type:
+</p>
+<pre>$ sudo ./dnw ~/buildroot-2011.05/output/images/rootfs.cramfs 
+</pre>
+<p>Program the filesystem in flash through the minicom terminal:
+</p>
+<pre>SMDK6410 # nand write.e c0008000 400000 5000000
+</pre>
+<h3> <span class="mw-headline" id="For_the_2.6.36_version_of_the_linux_kernel"> For the 2.6.36 version of the linux kernel </span></h3>
+<p>Stop the boot procedure of the board and inside the minicom terminal, press the <b>k</b>
+ key, put the OTG cable into the board and connect it to the host PC. 
+Move to a new terminal, go into the DNW directory and upload the zImage 
+to the board:
+</p>
+<pre>$ cd ~/dnw
+$ sudo ./dnw /the/location/of/zImage
+</pre>
+<h2> <span class="mw-headline" id="Boot_the_board"> Boot the board </span></h2>
+<p>Reset the board and you'll see the buildroot login. 
+</p><p><b>Buildroot login:</b> root
+<b>Password:</b> <i>none</i>
+</p><p>The next subject will focus on the use of a NFS (based on the 
+output/target directory) filesystem. This is for two major reasons:
+</p>
+<ul><li> The NAND Flash filesystem is readonly mounted
+</li><li> With a NFS filesystem you don't have to re-program the board every time you change something inside the filesystem
+</li><li> If you have an error regarding ttySAC0 nu such device or directory, the solution can be found <a href="http://www.arm9board.net/wiki/index.php?title=Configuring_NFS_Filesystem#ttySAC0:_no_such_device" class="external text" rel="nofollow">here</a>.
+</li></ul>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="bash source-bash"><pre class="de1">OK
+&nbsp;
+U-Boot 1.1.6 <span class="br0">(</span>Jun <span class="nu0">23</span> <span class="nu0">2011</span> - <span class="nu0">19</span>:<span class="nu0">58</span>:<span class="nu0">53</span><span class="br0">)</span> <span class="kw1">for</span> SMDK6410
+&nbsp;
+<span class="sy0">****************************************</span>
+<span class="sy0">**</span>    u-boot 1.1.6                    <span class="sy0">**</span>
+<span class="sy0">**</span>    Updated <span class="kw1">for</span> TE6410 Board        <span class="sy0">**</span>
+<span class="sy0">**</span>    Version <span class="nu0">1.0</span> <span class="br0">(</span><span class="nu0">10</span>-01-<span class="nu0">15</span><span class="br0">)</span>          <span class="sy0">**</span>
+<span class="sy0">**</span>    OEM: Witech Embedded            <span class="sy0">**</span>
+<span class="sy0">**</span>    Web: http:<span class="sy0">//</span>www.arm9board.net   <span class="sy0">**</span>
+<span class="sy0">****************************************</span>
+&nbsp;
+CPU:     S3C6410 <span class="sy0">@</span>532MHz
+         Fclk = 532MHz, Hclk = 133MHz, Pclk = 66MHz, Serial = CLKUART <span class="br0">(</span>SYNC Mode<span class="br0">)</span> 
+Board:   SMDK6410
+DRAM:    <span class="nu0">128</span> MB
+Flash:   <span class="nu0">0</span> kB
+NAND:    <span class="nu0">1024</span> MB 
+<span class="sy0">***</span> Warning - bad CRC or NAND, using default environment
+&nbsp;
+In:      serial
+Out:     serial
+Err:     serial
+Hit any key to stop autoboot:  <span class="nu0">0</span> 
+&nbsp;
+NAND read: device <span class="nu0">0</span> offset 0x100000, <span class="kw2">size</span> 0x300000
+ <span class="nu0">3145728</span> bytes read: OK
+Boot with zImage
+&nbsp;
+Starting kernel ...
+&nbsp;
+Uncompressing Linux............................................................................................................................................................... <span class="kw1">done</span>, booting the kernel.
+Linux version 2.6.28.6 <span class="br0">(</span>hacor<span class="sy0">@</span>intel-i7<span class="br0">)</span> <span class="br0">(</span><span class="kw2">gcc</span> version 4.4.1 <span class="br0">(</span>Sourcery G++ Lite 2010q1-<span class="nu0">202</span><span class="br0">)</span> <span class="br0">)</span> <span class="co0">#1 Thu Jun 23 21:55:16 CEST 2011</span>
+CPU: ARMv6-compatible processor <span class="br0">[</span>410fb766<span class="br0">]</span> revision <span class="nu0">6</span> <span class="br0">(</span>ARMv7<span class="br0">)</span>, <span class="re2">cr</span>=00c5387f
+CPU: VIPT nonaliasing data cache, VIPT nonaliasing instruction cache
+Machine: SMDK6410
+Memory policy: ECC disabled, Data cache writeback
+CPU S3C6410 <span class="br0">(</span><span class="kw2">id</span> 0x36410101<span class="br0">)</span>
+S3C24XX Clocks, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2004</span> Simtec Electronics
+S3C64XX: PLL settings, <span class="re2">A</span>=<span class="nu0">532000000</span>, <span class="re2">M</span>=<span class="nu0">532000000</span>, <span class="re2">E</span>=<span class="nu0">24000000</span>
+S3C64XX: <span class="re2">HCLKx2</span>=<span class="nu0">266000000</span>, <span class="re2">HCLK</span>=<span class="nu0">133000000</span>, <span class="re2">PCLK</span>=<span class="nu0">66500000</span>
+div1: 00000555
+mout_apll: <span class="kw3">source</span> is fout_apll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">532000000</span>
+mout_epll: <span class="kw3">source</span> is fout_epll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+mout_mpll: <span class="kw3">source</span> is mpll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">532000000</span>
+mmc_bus: <span class="kw3">source</span> is dout_mpll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">44333333</span>
+mmc_bus: <span class="kw3">source</span> is dout_mpll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">44333333</span>
+mmc_bus: <span class="kw3">source</span> is dout_mpll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">44333333</span>
+usb-host-bus: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+uclk1: <span class="kw3">source</span> is dout_mpll <span class="br0">(</span><span class="nu0">1</span><span class="br0">)</span>, rate is <span class="nu0">66500000</span>
+spi-bus: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+spi-bus: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+audio-bus0: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+audio-bus1: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+audio-bus2: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+irda-bus: <span class="kw3">source</span> is mout_epll <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span>, rate is <span class="nu0">24000000</span>
+s3c64xx: <span class="nu0">15728640</span> bytes SDRAM reserved <span class="kw1">for</span> fimc at 0x5063f000
+s3c64xx: <span class="nu0">8388608</span> bytes SDRAM reserved <span class="kw1">for</span> pp at 0x5153f000
+s3c64xx: <span class="nu0">8388608</span> bytes SDRAM reserved <span class="kw1">for</span> tv at 0x51d3f000
+s3c64xx: <span class="nu0">6291456</span> bytes SDRAM reserved <span class="kw1">for</span> mfc at 0x5253f000
+s3c64xx: <span class="nu0">8388608</span> bytes SDRAM reserved <span class="kw1">for</span> jpeg at 0x52b3f000
+s3c64xx: <span class="nu0">8388608</span> bytes SDRAM reserved <span class="kw1">for</span> cmm at 0x5333f000
+Built <span class="nu0">1</span> zonelists <span class="kw1">in</span> Zone order, mobility grouping on.  Total pages: <span class="nu0">32512</span>
+Kernel <span class="kw3">command</span> line: <span class="re2">root</span>=<span class="sy0">/</span>dev<span class="sy0">/</span>mtdblock2 <span class="re2">rootfstype</span>=cramfs <span class="re2">console</span>=ttySAC0,<span class="nu0">115200</span>
+PID <span class="kw3">hash</span> table entries: <span class="nu0">512</span> <span class="br0">(</span>order: <span class="nu0">9</span>, <span class="nu0">2048</span> bytes<span class="br0">)</span>
+Console: colour dummy device 80x30
+s3c24xx_serial_init_ports: initialising <span class="re2">ports</span>=<span class="nu0">4</span>...
+console <span class="br0">[</span>ttySAC0<span class="br0">]</span> enabled
+Dentry cache <span class="kw3">hash</span> table entries: <span class="nu0">16384</span> <span class="br0">(</span>order: <span class="nu0">4</span>, <span class="nu0">65536</span> bytes<span class="br0">)</span>
+Inode-cache <span class="kw3">hash</span> table entries: <span class="nu0">8192</span> <span class="br0">(</span>order: <span class="nu0">3</span>, <span class="nu0">32768</span> bytes<span class="br0">)</span>
+Memory: 128MB = 128MB total
+Memory: 70172KB available <span class="br0">(</span>4508K code, 525K data, 268K init<span class="br0">)</span>
+SLUB: <span class="re2">Genslabs</span>=<span class="nu0">12</span>, <span class="re2">HWalign</span>=<span class="nu0">32</span>, <span class="re2">Order</span>=<span class="nu0">0</span>-<span class="nu0">3</span>, <span class="re2">MinObjects</span>=<span class="nu0">0</span>, <span class="re2">CPUs</span>=<span class="nu0">1</span>, <span class="re2">Nodes</span>=<span class="nu0">1</span>
+Calibrating delay loop... <span class="nu0">530.84</span> BogoMIPS <span class="br0">(</span><span class="re2">lpj</span>=<span class="nu0">1327104</span><span class="br0">)</span>
+Mount-cache <span class="kw3">hash</span> table entries: <span class="nu0">512</span>
+CPU: Testing <span class="kw2">write</span> buffer coherency: ok
+net_namespace: <span class="nu0">316</span> bytes
+NET: Registered protocol family <span class="nu0">16</span>
+S3C6410: Initialising architecture
+S3C DMA-pl080 Controller Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2006</span>-<span class="nu0">2007</span> Samsung Electronics
+Total <span class="nu0">32</span> DMA channels will be initialized.
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+cfg80211: Using static regulatory domain info
+cfg80211: Regulatory domain: US
+        <span class="br0">(</span>start_freq - end_freq <span class="sy0">@</span> bandwidth<span class="br0">)</span>, <span class="br0">(</span>max_antenna_gain, max_eirp<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">2402000</span> KHz - <span class="nu0">2472000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">2700</span> mBm<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">5170000</span> KHz - <span class="nu0">5190000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">2300</span> mBm<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">5190000</span> KHz - <span class="nu0">5210000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">2300</span> mBm<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">5210000</span> KHz - <span class="nu0">5230000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">2300</span> mBm<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">5230000</span> KHz - <span class="nu0">5330000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">2300</span> mBm<span class="br0">)</span>
+        <span class="br0">(</span><span class="nu0">5735000</span> KHz - <span class="nu0">5835000</span> KHz <span class="sy0">@</span> <span class="nu0">40000</span> KHz<span class="br0">)</span>, <span class="br0">(</span><span class="nu0">600</span> mBi, <span class="nu0">3000</span> mBm<span class="br0">)</span>
+cfg80211: Calling CRDA <span class="kw1">for</span> country: US
+NET: Registered protocol family <span class="nu0">2</span>
+IP route cache <span class="kw3">hash</span> table entries: <span class="nu0">1024</span> <span class="br0">(</span>order: <span class="nu0">0</span>, <span class="nu0">4096</span> bytes<span class="br0">)</span>
+TCP established <span class="kw3">hash</span> table entries: <span class="nu0">4096</span> <span class="br0">(</span>order: <span class="nu0">3</span>, <span class="nu0">32768</span> bytes<span class="br0">)</span>
+TCP <span class="kw3">bind</span> <span class="kw3">hash</span> table entries: <span class="nu0">4096</span> <span class="br0">(</span>order: <span class="nu0">4</span>, <span class="nu0">81920</span> bytes<span class="br0">)</span>
+TCP: Hash tables configured <span class="br0">(</span>established <span class="nu0">4096</span> <span class="kw3">bind</span> <span class="nu0">4096</span><span class="br0">)</span>
+TCP reno registered
+NET: Registered protocol family <span class="nu0">1</span>
+NetWinder Floating Point Emulator V0.97 <span class="br0">(</span>double precision<span class="br0">)</span>
+yaffs Jun <span class="nu0">23</span> <span class="nu0">2011</span> <span class="nu0">21</span>:<span class="nu0">54</span>:08 Installing. 
+msgmni has been <span class="kw1">set</span> to <span class="nu0">137</span>
+alg: No <span class="kw3">test</span> <span class="kw1">for</span> stdrng <span class="br0">(</span>krng<span class="br0">)</span>
+io scheduler noop registered
+io scheduler anticipatory registered
+io scheduler deadline registered
+io scheduler cfq registered <span class="br0">(</span>default<span class="br0">)</span>
+S3C_LCD clock got enabled&nbsp;:: <span class="nu0">133.000</span> Mhz
+LCD TYPE&nbsp;:: LTE480WV will be initialized
+Window<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> - FB1: map_video_memory: <span class="kw2">clear</span> ff000000:0007f800
+            FB1: map_video_memory: <span class="re2">dma</span>=<span class="nu0">57180000</span> <span class="re2">cpu</span>=ff000000 <span class="re2">size</span>=0007f800
+Window<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> - FB2: map_video_memory: <span class="kw2">clear</span> ff03fc00:0003fc00
+            FB2: map_video_memory: <span class="re2">dma</span>=571bfc00 <span class="re2">cpu</span>=ff03fc00 <span class="re2">size</span>=0003fc00
+<span class="br0">[</span>DEBUG<span class="br0">]</span>logo_lines <span class="nu0">34</span>, vc-<span class="sy0">&gt;</span>vc_bottom <span class="nu0">34</span>
+Console: switching to colour frame buffer device 60x34
+fb0: s3cfb frame buffer device
+Window<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> - FB1: map_video_memory: <span class="kw2">clear</span> ff080000:0007f800
+            FB1: map_video_memory: <span class="re2">dma</span>=<span class="nu0">57200000</span> <span class="re2">cpu</span>=ff080000 <span class="re2">size</span>=0007f800
+Window<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> - FB2: map_video_memory: <span class="kw2">clear</span> ff0bfc00:0003fc00
+            FB2: map_video_memory: <span class="re2">dma</span>=5723fc00 <span class="re2">cpu</span>=ff0bfc00 <span class="re2">size</span>=0003fc00
+fb1: s3cfb frame buffer device
+Window<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span> - FB1: map_video_memory: <span class="kw2">clear</span> ff100000:0003fc00
+            FB1: map_video_memory: <span class="re2">dma</span>=<span class="nu0">57140000</span> <span class="re2">cpu</span>=ff100000 <span class="re2">size</span>=0003fc00
+fb2: s3cfb frame buffer device
+Window<span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span> - FB1: map_video_memory: <span class="kw2">clear</span> ff140000:0003fc00
+            FB1: map_video_memory: <span class="re2">dma</span>=<span class="nu0">57280000</span> <span class="re2">cpu</span>=ff140000 <span class="re2">size</span>=0003fc00
+fb3: s3cfb frame buffer device
+enter s3c6410_leds_init
+leds initialized
+s3c6400-uart.0: s3c2410_serial0 at MMIO 0x7f005000 <span class="br0">(</span>irq = <span class="nu0">16</span><span class="br0">)</span> is a S3C6400<span class="sy0">/</span><span class="nu0">10</span>
+s3c6400-uart.1: s3c2410_serial1 at MMIO 0x7f005400 <span class="br0">(</span>irq = <span class="nu0">20</span><span class="br0">)</span> is a S3C6400<span class="sy0">/</span><span class="nu0">10</span>
+s3c6400-uart.2: s3c2410_serial2 at MMIO 0x7f005800 <span class="br0">(</span>irq = <span class="nu0">24</span><span class="br0">)</span> is a S3C6400<span class="sy0">/</span><span class="nu0">10</span>
+s3c6400-uart.3: s3c2410_serial3 at MMIO 0x7f005c00 <span class="br0">(</span>irq = <span class="nu0">28</span><span class="br0">)</span> is a S3C6400<span class="sy0">/</span><span class="nu0">10</span>
+brd: module loaded
+loop: module loaded
+PPP generic driver version 2.4.2
+dm9000 Ethernet Driver
+eth<span class="sy0">%</span>d: con201 Invalid ethernet MAC address. using default config,  Please <span class="kw1">set</span> using <span class="kw2">ifconfig</span>
+eth0: dm9000 at f7b00300,f7b00304 IRQ <span class="nu0">108</span> MAC: 00:e0:4a:bc:<span class="nu0">15</span>:e7
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver rndis_host
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver zd1211rw
+usbcore: registered new interface driver rndis_wlan
+usbcore: registered new interface driver zd1201
+libertas_sdio: Libertas SDIO driver
+libertas_sdio: Copyright Pierre Ossman
+usbcore: registered new interface driver lbtf_usb
+Linux video capture interface: v2.00
+s3c-fimc: controller <span class="nu0">0</span> registered successfully
+s3c-fimc: controller <span class="nu0">1</span> registered successfully
+printk ov965x_init
+s3c-fimc: info ov965x_init
+S3C6400 MFC Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2007</span> Samsung Electronics
+S3C6400 MFC Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2007</span> Samsung Electronics
+S3C PostProcessor Driver v3.12, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2009</span> Samsung Electronics
+S3C6410 TV encoder Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+ S3C6410 TV encoder Driver init OK. 
+S3C6410 TV scaler Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+ S3C6410 TV scaler Driver init OK. 
+S3C Rotator Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+s3c_rotator_probe called
+s3c_rotator_probe success
+S3C JPEG Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2007</span> Samsung Electronics
+s3c_g2d_probe called
+ s3c_g2d_probe Success
+ S3C G2D Init&nbsp;: Done
+S3C G3D Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2007</span>-<span class="nu0">2009</span> Samsung Electronics
+s3c_g3d version&nbsp;: 0x1050000
+ S3C G3D Init&nbsp;: Done
+S3C CMM Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+Driver <span class="st_h">'sd'</span> needs updating - please use bus_type methods
+S3C NAND Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+S3C NAND Driver is using software ECC.
+NAND device: Manufacturer ID: 0xec, Chip ID: 0xd3 <span class="br0">(</span>Samsung NAND 1GiB <span class="nu0">3</span>,3V <span class="nu0">8</span>-bit<span class="br0">)</span>
+Creating <span class="nu0">4</span> MTD partitions on <span class="st0">"NAND 1GiB 3,3V 8-bit"</span>:
+0x00000000-0x00040000&nbsp;: <span class="st0">"Bootloader"</span>
+0x00040000-0x00400000&nbsp;: <span class="st0">"Kernel"</span>
+0x00400000-0x20400000&nbsp;: <span class="st0">"Rootfs"</span>
+0x20400000-0x40000000&nbsp;: <span class="st0">"File System"</span>
+Samsung SoC SPI Driver loaded <span class="kw1">for</span> SPI-<span class="nu0">0</span>
+        Max,Min-Speed <span class="br0">[</span><span class="nu0">33250000</span>, <span class="nu0">129882</span><span class="br0">]</span>Hz
+        <span class="re2">Irq</span>=<span class="nu0">80</span>  <span class="re2">IOmem</span>=<span class="br0">[</span>0x7f00bfff-0x7f00b000<span class="br0">]</span>   <span class="re2">DMA</span>=<span class="br0">[</span>Rx-<span class="nu0">33</span>, Tx-<span class="nu0">34</span><span class="br0">]</span>
+Samsung SoC SPI Driver loaded <span class="kw1">for</span> SPI-<span class="nu0">1</span>
+        Max,Min-Speed <span class="br0">[</span><span class="nu0">33250000</span>, <span class="nu0">129882</span><span class="br0">]</span>Hz
+        <span class="re2">Irq</span>=<span class="nu0">81</span>  <span class="re2">IOmem</span>=<span class="br0">[</span>0x7f00cfff-0x7f00c000<span class="br0">]</span>   <span class="re2">DMA</span>=<span class="br0">[</span>Rx-<span class="nu0">35</span>, Tx-<span class="nu0">36</span><span class="br0">]</span>
+ohci_hcd: USB <span class="nu0">1.1</span> <span class="st_h">'Open'</span> Host Controller <span class="br0">(</span>OHCI<span class="br0">)</span> Driver
+s3c2410-ohci s3c2410-ohci: S3C24XX OHCI
+s3c2410-ohci s3c2410-ohci: new USB bus registered, assigned bus number <span class="nu0">1</span>
+s3c2410-ohci s3c2410-ohci: irq <span class="nu0">79</span>, io mem 0x74300000
+usb usb1: configuration <span class="co0">#1 chosen from 1 choice</span>
+hub <span class="nu0">1</span>-<span class="nu0">0</span>:<span class="nu0">1.0</span>: USB hub found
+hub <span class="nu0">1</span>-<span class="nu0">0</span>:<span class="nu0">1.0</span>: <span class="nu0">2</span> ports detected
+Initializing USB Mass Storage driver...
+usbcore: registered new interface driver usb-storage
+USB Mass Storage support registered.
+s3c-udc&nbsp;: S3C HS USB OTG Device Driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span>-<span class="nu0">2009</span> Samsung Electronics
+s3c-udc&nbsp;: version <span class="nu0">15</span> March <span class="nu0">2009</span> <span class="br0">(</span>DMA Mode<span class="br0">)</span> 
+mice: PS<span class="sy0">/</span><span class="nu0">2</span> mouse device common <span class="kw1">for</span> all mice
+gpio keys driver.
+input: gpio-keys <span class="kw2">as</span> <span class="sy0">/</span>class<span class="sy0">/</span>input<span class="sy0">/</span>input0
+S3C Touchscreen driver, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2008</span> Samsung Electronics
+S3C TouchScreen got loaded successfully&nbsp;: <span class="nu0">12</span> bits
+input: S3C TouchScreen <span class="kw2">as</span> <span class="sy0">/</span>class<span class="sy0">/</span>input<span class="sy0">/</span>input1
+S3C24XX RTC, <span class="br0">(</span>c<span class="br0">)</span> <span class="nu0">2004</span>,<span class="nu0">2006</span> Simtec Electronics
+s3c2410_rtc: tick irq <span class="nu0">34</span>, alarm irq <span class="nu0">92</span>
+s3c2410-rtc s3c2410-rtc: rtc disabled, re-enabling
+s3c2410-rtc s3c2410-rtc: rtc core: registered s3c <span class="kw2">as</span> rtc0
+i2c <span class="sy0">/</span>dev entries driver
+s3c2440-i2c s3c2440-i2c: slave address 0x10
+s3c2440-i2c s3c2440-i2c: bus frequency <span class="kw1">set</span> to <span class="nu0">377</span> KHz
+<span class="br0">[</span>OV965X<span class="br0">]</span>ov965x_attach_adapter.
+<span class="br0">[</span>CAM<span class="br0">]</span>s3c_fimc_register_camera,cam-<span class="sy0">&gt;</span><span class="re2">id</span>=<span class="nu0">0</span>
+parent clock <span class="kw1">for</span> camera: <span class="nu0">266.000</span> MHz, divisor: <span class="nu0">11</span>
+<span class="br0">[</span>CAM<span class="br0">]</span>RESET CAM.<span class="br0">[</span>CAM<span class="br0">]</span>Reset and init reg<span class="sy0">!</span>1cam-<span class="sy0">&gt;</span><span class="re2">client</span>=<span class="nu0">0</span>
+<span class="br0">[</span>CAM<span class="br0">]</span>Reset and init reg<span class="sy0">!</span><span class="nu0">1</span>
+<span class="br0">[</span>CAM<span class="br0">]</span>Reset and init reg<span class="sy0">!</span><span class="nu0">3</span>
+s3c2440-i2c s3c2440-i2c: i2c-<span class="nu0">0</span>: S3C I2C adapter
+sdhci: Secure Digital Host Controller Interface driver
+sdhci: Copyright<span class="br0">(</span>c<span class="br0">)</span> Pierre Ossman
+s3c-sdhci s3c-sdhci.0: clock <span class="kw3">source</span> <span class="nu0">0</span>: hsmmc <span class="br0">(</span><span class="nu0">133000000</span> Hz<span class="br0">)</span>
+s3c-sdhci s3c-sdhci.0: clock <span class="kw3">source</span> <span class="nu0">1</span>: hsmmc <span class="br0">(</span><span class="nu0">133000000</span> Hz<span class="br0">)</span>
+s3c-sdhci s3c-sdhci.0: clock <span class="kw3">source</span> <span class="nu0">2</span>: mmc_bus <span class="br0">(</span><span class="nu0">44333333</span> Hz<span class="br0">)</span>
+mmc0: SDHCI controller on samsung-hsmmc <span class="br0">[</span>s3c-sdhci.0<span class="br0">]</span> using ADMA
+sdhci: card inserted.
+s3c-sdhci s3c-sdhci.1: clock <span class="kw3">source</span> <span class="nu0">0</span>: hsmmc <span class="br0">(</span><span class="nu0">133000000</span> Hz<span class="br0">)</span>
+s3c-sdhci s3c-sdhci.1: clock <span class="kw3">source</span> <span class="nu0">1</span>: hsmmc <span class="br0">(</span><span class="nu0">133000000</span> Hz<span class="br0">)</span>
+s3c-sdhci s3c-sdhci.1: clock <span class="kw3">source</span> <span class="nu0">2</span>: mmc_bus <span class="br0">(</span><span class="nu0">44333333</span> Hz<span class="br0">)</span>
+mmc1: SDHCI controller on samsung-hsmmc <span class="br0">[</span>s3c-sdhci.1<span class="br0">]</span> using ADMA
+usbcore: registered new interface driver usbhid
+usbhid: v2.6:USB HID core driver
+Advanced Linux Sound Architecture Driver Version 1.0.18rc3.
+ASoC version 0.13.2
+WM9713<span class="sy0">/</span>WM9714 SoC Audio Codec <span class="nu0">0.15</span>
+playback: <span class="nu0">1</span>, capture&nbsp;: <span class="nu0">1</span>
+asoc: AC97 HiFi <span class="sy0">&lt;</span>-<span class="sy0">&gt;</span> s3c64xx-ac97 mapping ok
+mmc0: new high speed SD card at address 0002
+mmcblk0: mmc0:0002 00000 <span class="nu0">974</span> MiB 
+ mmcblk0: p1 p2
+<span class="br0">[</span>WM9713<span class="br0">]</span>Open speaker volume.
+ALSA device list:
+  <span class="co0">#0: SMDK6400 (WM9713)</span>
+TCP cubic registered
+can: controller area network core <span class="br0">(</span><span class="kw2">rev</span> <span class="nu0">20081130</span> abi <span class="nu0">8</span><span class="br0">)</span>
+NET: Registered protocol family <span class="nu0">29</span>
+can: raw protocol <span class="br0">(</span><span class="kw2">rev</span> <span class="nu0">20081130</span><span class="br0">)</span>
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+ieee80211: <span class="nu0">802.11</span> data<span class="sy0">/</span>management<span class="sy0">/</span>control stack, git-1.1.13
+ieee80211: Copyright <span class="br0">(</span>C<span class="br0">)</span> <span class="nu0">2004</span>-<span class="nu0">2005</span> Intel Corporation <span class="sy0">&lt;</span>jketreno<span class="sy0">@</span>linux.intel.com<span class="sy0">&gt;</span>
+VFP support v0.3: implementor <span class="nu0">41</span> architecture <span class="nu0">1</span> part <span class="nu0">20</span> variant b <span class="kw2">rev</span> <span class="nu0">5</span>
+s3c2410-rtc s3c2410-rtc: setting system clock to <span class="nu0">2001</span>-04-06 02:<span class="nu0">43</span>:<span class="nu0">46</span> UTC <span class="br0">(</span><span class="nu0">986525026</span><span class="br0">)</span>
+mtd-<span class="sy0">&gt;</span><span class="kw2">size</span> = <span class="nu0">20000000</span> blocks = <span class="nu0">800</span>
+cheaking bad block...............
+................................................................................................................................................................................................................................................................................
+Freeing init memory: 268K
+Initializing random number generator... read-only <span class="kw2">file</span> system detected...done
+Starting network...
+&nbsp;
+Welcome to Buildroot
+buildroot login:</pre></div></div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 58/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key C292798_wiki:pcache:idhash:240-0!1!0!!en!2!edit=0 and timestamp 20131223151107 -->
+<div class="printfooter">
+Retrieved from "<a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot">http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="http://www.arm9board.net/wiki/index.php?title=Talk:A_complete_system_using_Buildroot&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://www.arm9board.net/wiki/index.php?title=Special:UserLogin&amp;returnto=A_complete_system_using_Buildroot" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/wiki/images/wiki_logo.gif);" href="http://www.arm9board.net/wiki/index.php?title=Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="http://www.arm9board.net/wiki/index.php?title=Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-Windows-CE"><a href="http://www.arm9board.net/wiki/index.php?title=Windows_CE">Windows CE</a></li>
+				<li id="n-Embedded-Linux"><a href="http://www.arm9board.net/wiki/index.php?title=Embedded_Linux">Embedded Linux</a></li>
+				<li id="n-Android"><a href="http://www.arm9board.net/wiki/index.php?title=Android">Android</a></li>
+				<li id="n-arm9board.net"><a href="http://www.arm9board.net/sel/default.aspx">arm9board.net</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" title="Search OK6410 wiki" accesskey="f" name="search" type="search">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://www.arm9board.net/wiki/index.php?title=Special:WhatLinksHere/A_complete_system_using_Buildroot" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://www.arm9board.net/wiki/index.php?title=Special:RecentChangesLinked/A_complete_system_using_Buildroot" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="http://www.arm9board.net/wiki/index.php?title=Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://www.arm9board.net/wiki/index.php?title=A_complete_system_using_Buildroot&amp;oldid=907" title="Permanent link to this revision of the page">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></div>
+	<div id="f-copyrightico"><a href="http://www.gnu.org/copyleft/fdl.html"><img src="A%20complete%20system%20using%20Buildroot%20-%20OK6410%20wiki_files/gnu-fdl.png" alt="GNU Free Documentation License 1.3" height="31" width="88"></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 23 September 2011, at 09:17.</li>
+		<li id="viewcount">This page has been accessed 4,168 times.</li>
+		<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" class="external ">GNU Free Documentation License 1.3</a>.</li>
+		<li id="privacy"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:Privacy_policy" title="OK6410 wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:About" title="OK6410 wiki:About">About OK6410 wiki</a></li>
+		<li id="disclaimer"><a href="http://www.arm9board.net/wiki/index.php?title=OK6410_wiki:General_disclaimer" title="OK6410 wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.218 secs. -->
+</body></html>

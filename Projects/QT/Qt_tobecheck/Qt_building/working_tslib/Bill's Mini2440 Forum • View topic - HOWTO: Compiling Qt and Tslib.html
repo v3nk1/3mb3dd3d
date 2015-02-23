@@ -1,0 +1,1146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="en-gb" lang="en-gb"><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-language" content="en-gb">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="imagetoolbar" content="no">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<title>Bill's Mini2440 Forum • View topic - HOWTO: Compiling Qt and Tslib</title>
+
+
+
+<link rel="stylesheet" href="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/stylesheet.css" type="text/css">
+
+<script type="text/javascript">
+// <![CDATA[
+
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+function jumpto()
+{
+	var page = prompt('Enter the page number you wish to go to:', '1');
+	var per_page = '10';
+	var base_url = './viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560';
+
+	if (page !== null && !isNaN(page) && page == Math.floor(page) && page > 0)
+	{
+		if (base_url.indexOf('?') == -1)
+		{
+			document.location.href = base_url + '?start=' + ((page - 1) * per_page);
+		}
+		else
+		{
+			document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * per_page);
+		}
+	}
+}
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+	
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+
+
+// ]]>
+</script>
+</head>
+<body class="ltr">
+
+<a name="top"></a>
+
+<div id="wrapheader">
+
+	<div id="logodesc">
+		<table cellspacing="0" width="100%">
+		<tbody><tr>
+			<td><a href="http://billforums.station51.net/index.php?sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/site_logo.gif" alt="" title="" height="94" width="170"></a></td>
+			<td align="center" width="100%"><h1>Bill's Mini2440 Forum</h1><span class="gen">A Companion Forum for Bill's Blog</span></td>
+		</tr>
+		</tbody></table>
+	</div>
+
+	<div id="menubar">
+		<table cellspacing="0" width="100%">
+		<tbody><tr>
+			<td class="genmed">
+				<a href="http://billforums.station51.net/ucp.php?mode=login&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_mini_login.gif" alt="*" height="13" width="12"> Login</a>&nbsp;
+			</td>
+			<td class="genmed" align="right">
+				<a href="http://billforums.station51.net/faq.php?sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_mini_faq.gif" alt="*" height="13" width="12"> FAQ</a>
+				&nbsp; &nbsp;<a href="http://billforums.station51.net/search.php?sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_mini_search.gif" alt="*" height="13" width="12"> Search</a>
+			</td>
+		</tr>
+		</tbody></table>
+	</div>
+
+	<div id="datebar">
+		<table cellspacing="0" width="100%">
+		<tbody><tr>
+			<td class="gensmall"></td>
+			<td class="gensmall" align="right">It is currently Tue Apr 22, 2014 1:32 pm<br></td>
+		</tr>
+		</tbody></table>
+	</div>
+
+</div>
+
+<div id="wrapcentre">
+
+	
+	<p class="searchbar">
+		<span style="float: left;"><a href="http://billforums.station51.net/search.php?search_id=unanswered&amp;sid=25a4898637c77946ff59bf84b53c3560">View unanswered posts</a> | <a href="http://billforums.station51.net/search.php?search_id=active_topics&amp;sid=25a4898637c77946ff59bf84b53c3560">View active topics</a></span>
+		
+	</p>
+	
+
+	<br style="clear: both;">
+
+	<table class="tablebg" style="margin-top: 5px;" cellpadding="0" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="http://billforums.station51.net/index.php?sid=25a4898637c77946ff59bf84b53c3560">Board index</a> » <a href="http://billforums.station51.net/viewforum.php?f=8&amp;sid=25a4898637c77946ff59bf84b53c3560">Qt</a></p>
+			<p class="datetime">All times are UTC </p>
+		</td>
+	</tr>
+	</tbody></table>
+
+	<br>
+
+<div id="pageheader">
+	<h2><a class="titles" href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560">HOWTO: Compiling Qt and Tslib</a></h2>
+
+
+</div>
+
+<br clear="all"><br>
+
+<div id="pagecontent">
+
+	<table cellspacing="1" width="100%">
+	<tbody><tr>
+		<td align="left" nowrap="nowrap" valign="middle">
+		<a href="http://billforums.station51.net/posting.php?mode=post&amp;f=8&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/button_topic_new.gif" alt="Post new topic" title="Post new topic"></a>&nbsp;<a href="http://billforums.station51.net/posting.php?mode=reply&amp;f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic"></a>
+		</td>
+		
+			<td class="nav" nowrap="nowrap" valign="middle">&nbsp;Page <strong>1</strong> of <strong>15</strong><br></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 142 posts ]&nbsp;</td>
+			<td class="gensmall" align="right" nowrap="nowrap" width="100%"><b><a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Go to page</a> <strong>1</strong><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=10">2</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=20">3</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=30">4</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=40">5</a><span class="page-dots"> ... </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=140">15</a> &nbsp;<a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=10">Next</a></b></td>
+		
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="cat">
+			<table cellspacing="0" width="100%">
+			<tbody><tr>
+				<td class="nav" nowrap="nowrap">&nbsp;
+				<a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;view=print" title="Print view">Print view</a>
+				</td>
+				<td class="nav" align="right" nowrap="nowrap"><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;view=previous&amp;sid=25a4898637c77946ff59bf84b53c3560">Previous topic</a> | <a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;view=next&amp;sid=25a4898637c77946ff59bf84b53c3560">Next topic</a>&nbsp;</td>
+			</tr>
+			</tbody></table>
+		</td>
+	</tr>
+
+	</tbody></table>
+
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	
+		<tbody><tr>
+			<th>Author</th>
+			<th>Message</th>
+		</tr>
+	<tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p44"></a>
+				<b class="postauthor" style="color: #AA0000">Bill</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p44">HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=44&amp;sid=25a4898637c77946ff59bf84b53c3560#p44"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Sun Jun 13, 2010 12:19 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td class="postdetails">Site Admin</td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon May 31, 2010 10:04 am<br><b>Posts:</b> 256
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><strong><span style="text-decoration: underline">Introduction</span></strong><br>This
+ howto quickly shows you what I did in order to get Qt working for me on
+ the Mini2440. I'm very new to Qt and I don't know anything more than 
+what I'm showing you here. I'm not a coder, I'm an "installer". I gather
+ information around the net, and pool it in one place in a hopefully 
+easy way to understand. If you know more about this, and would like to 
+offer tips, or tell me what I may have wrong here. Please do so.<br><br><strong><span style="text-decoration: underline">Base System</span></strong><br><br>I'm
+ recommending that you use OpenEmbedded and to build an Ångström base 
+image with it. Please visit the OpenEmbedded forum on this site for 
+information on getting OE working. You should be able to use the 
+official OE but I would recommend Michael's OE from the Mini2440 
+repository. It's outlined in my OE howto on this forum. His version is 
+maintained and for the most part completely works with the mini. The 
+official OE, while it works, isn't geared strictly for this device and 
+you could run in to problems baking certain recipes.<br><br><br><strong><span style="text-decoration: underline">Toolchain Used</span></strong><br><br>I
+ used the toolchain from OpenEmbedded from when I built the Ångström 
+base image, which I'll talk more about in a minute. This toolchain 
+worked better for me than the Codesourcery toolchain that I normally 
+use. I attempted to use their 2008q3 toolchain and it needed -mtune 
+-march and -D__GCC_FLOAT_NOT_NEEDED added to the compile line for it to 
+work correctly and even then, I got some strange behavior. If you insist
+ on using it, please note those options above. If you're looking at this
+ because you've already done it, and you're getting "Invalid 
+Instruction", well... thats why I changed to the OE toolchain. Despite 
+people's advice about those options above, it only seemed to half-way 
+work for me.<br><br>You can find the toolchain for OE in the /path/to/oe-build-dir/tmp/cross/. Just copy that directory to /usr/local<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ cp -R /home/bill/mini2440-oe/build/tmp/cross/* /usr/local/</div><br><br>You should now have an armv4t directory in /usr/local.  <br><br>You can temporarily add it to your path by typing this:<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ export PATH=/usr/local/armv4t/bin:$PATH</div><br><br>Any toolchain you use should be in your path in order to compile tslib correctly.<br><br><strong><span style="text-decoration: underline">Obtaining and Compiling Tslib:</span></strong><br><br>Tslib
+ is available from a git repository, so you'll need git installed. By 
+now, you should already have this installed because its a crucial part 
+of working with the mini since so many projects you'll need require it 
+to access the code.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ mkdir tslib ; cd tslib<br>$ git clone http://github.com/kergoth/tslib.git<br></div><br>Compiling
+ tslib should be done first before Qt because you need to link against 
+the tslib libraries. I recommend compiling it for both shared and static
+ libraries so that the binaries come out static, and you have both 
+versions of the libs just in case you need them. Plus, it makes the 
+binaries more portable. Tslib isn't that large. Unless you're working on
+ a micro filesystem, it should be fine. <br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ ./autogen.sh<br>$ ./configure --host=arm-angstrom-linux-gnueabi --prefix=/usr/local/tslib --enable-static --enable-shared<br>$ make -j4<br>$ make install<br></div><br><br>Assuming
+ that went well, you should have the complete set of binaries, libraries
+ and what not, in /usr/local/tslib which is where you'll also put this 
+on your root filesystem for the mini.<br><br><strong><span style="text-decoration: underline">Obtaining, configuring, and compiling Qt</span></strong>:<br><br>You can get the latest version of Qt from this link:<br><br><a href="http://qt.nokia.com/downloads/embedded-linux-cpp" class="postlink">http://qt.nokia.com/downloads/embedded-linux-cpp</a><br><br>When building Qt, you need to modify mkspecs/qws/linux-arm-g++/qmake.conf<br><br>You'll
+ need to change the following lines so that they correspond with the 
+path to your toolchain. If you followed my advice above, you can simply 
+copy what I have here. Also, I added 2 lines. QMAKE_INCDIR and 
+QMAKE_LIBDIR. Those tell it to look in the tslib directory for the 
+libraries for tslib. And the "+" isn't a mistake, this tells the source 
+tree that you're appending those directories to the already defined 
+QMAKE_INCDIR and QMAKE_LIBDIR. <br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">QMAKE_CC&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-gcc<br>QMAKE_CXX&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-g++<br>QMAKE_LINK&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-g++<br>QMAKE_LINK_SHLIB = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-g++<br><br>QMAKE_AR&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-ar cqs<br>QMAKE_OBJCOPY&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-objcopy<br>QMAKE_STRIP&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gnueabi-strip<br>QMAKE_INCDIR&nbsp; += /usr/local/tslib/include<br>QMAKE_LIBDIR&nbsp; += /usr/local/tslib/lib<br><br></div><br><br>Save that and run configure.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">configure -embedded arm -xplatform qws/linux-arm-g++ -prefix /usr/local/Qt -qt-mouse-tslib -little-endian</div><br><br>I
+ added -static and it compiled just fine, but created 2.4GB of 
+statically compiled libraries and binaries that still required 
+libstdc++6. So you can skip -static unless you know what you're doing. 
+And I don't. Remember, I'm no expert. I'm just showing you what I did 
+and how it worked for me. <img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_e_smile.gif" alt=":)" title="Smile"><br><br>You can now run make -j4 to compile the tree. It took about 45 minutes on my dual core machine.<br><br>After
+ it's done, run make install and it should be in /usr/local/Qt ... you 
+MUST copy that to your root filesystem in the same location. Same with 
+tslib. <br><br><br><span style="text-decoration: underline"><strong>Creating your root filesystem</strong></span><br><br>Please
+ follow my instructions in the OE forum on baking a filesystem image. I 
+used "base-image" for mine. Steps for doing this, and for copying the 
+uImage and filesystem to an SD card or to NAND can be found on this 
+forum. Please get your filesystem working, booting and set up before 
+proceeding. You'll need to install libstdc++6 with ipkg or opkg from 
+within the booted machine. I also recommend pico as well, since you'll 
+need to edit a file or two and I hate vi.  <br><br>I used an SD card for all of this. And I recommend it over NAND. It's cheaper and more durable. <br><br>Mount your SD card's root partition somewhere (i.e /mnt) on your build machine.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ mount /dev/sdd3 /mnt</div><br><br>Now, copy your Qt and tslib to your root filesystem<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ cp -R /usr/local/Qt /mnt/usr/local <br>$ cp -R /usr/local/tslib /mnt/usr/local<br></div><br>You can now umount your SD card and boot up your mini with it.<br><br>If
+ you built Qt dynamically shared, as well as tslib, you'll need to add 
+tslib to the ldconfig. Add these lines to /etc/ld.so.conf and run 
+ldconfig so that the system knows where the libraries are.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">/usr/local/tslib/lib<br>/usr/local/Qt/lib<br></div><br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ ldconfig</div><br><br>Now create the touchscreen device as well as a mouse device in your /dev/input directory.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ mknod c 13 65 /dev/input/touchscreen0<br>$ mknod c 13 32 /dev/input/mice</div><br><br>Now, assuming everything is compiled correctly, and in its proper place, you should be able to run some Qt demos. <br><span style="text-decoration: underline"><br><strong>Testing Qt by running the Fluid Launcher</strong></span><br><br>Fluid launcher is a really cool way of showing just what Qt can do visually. <br><br>Create the following shell script and name it startfluid.sh. You may need to install bash on your system. (ipkg install bash)<br><br>Example Fluidlauncher Script:<br><div class="codetitle"><b>Code:</b></div><div class="codecontent">#!/bin/bash<br>export TSLIB_TSEVENTTYPE=INPUT<br>export TSLIB_CONSOLEDEVICE=none<br>export TSLIB_FBDEVICE=/dev/fb0<br>export TSLIB_TSDEVICE=/dev/input/touchscreen0<br>export TSLIB_CALIBFILE=/etc/ts.calib<br>export TSLIB_CONFFILE=/usr/local/tslib/etc/ts.conf<br>export TSLIB_PLUGINDIR=/usr/local/tslib/lib<br><br>if [-f -etc-ts.calib]; then<br>&nbsp; echo "Touchscreen already calibrated..."<br>else<br>&nbsp; echo "Calibrating Touchscreen..."<br>&nbsp; /usr/local/tslib/bin/ts_calibrate /etc/ts.calib<br>fi<br><br>export QWS_MOUSE_PROTO=tslib:/dev/input/touchscreen0<br>cd /usr/local/Qt/demos/embedded/fluidlauncher ; ./fluidlauncher -qws<br></div><br><br>Change permissions on the script filename by using chmod to add the ability to execute it.<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$ chmod +x startfluid</div><br><br>Now
+ go ahead. Run it. See if it works. If everything is done correctly, it 
+should bring up the calibration for the display first, and then bring up
+ a pretty neat looking demo.<br><br><br><strong><span style="text-decoration: underline">Adjusting Fonts:</span></strong><br><br>I thought the font was way too tiny for my display. You can add this to the script above after the -qws switch. <br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">-fn helvetica</div><br><br>Please see this site for more information. <a href="http://doc.trolltech.com/4.6/qt-embedded-running.html#command-line-options" class="postlink">http://doc.trolltech.com/4.6/qt-embedded-running.html#command-line-options</a><br><br><span style="text-decoration: underline"><strong>Final Thoughts</strong></span><br><br>I've
+ seen a lot of sites talk about how easy this is to get going. Well I 
+didn't find that to be very true. I fought with the compiler, and 
+missing packages the whole way. And you'll probably run in to a few 
+things as well depending on what you already have installed, and what 
+distro you have etc.. I used Ubunti 9.04 to compile this. It took me 2 
+days following someone else directions to finally get it working the way
+ I wanted. I think Qt is probably the better solution over running X11 
+or Gnome or whatever on the Mini2440. I think it's faster and has a lot 
+of stunning effects. And there are a lot more things you can do with it 
+that are way beyond my ability or the scope of this howto, but you can 
+view the Trolltech website to learn more about it. Please share your 
+successes and failures with me. And as always, I hope this has helped 
+you in some way. <br><br>Thanks,<br>Bill<br><br>Oh, and here are a few links you can look at that helped me:<br><br><a href="http://blog.cor-net.org/embedded/mini2440/qt-45-on-mini2440/" class="postlink">http://blog.cor-net.org/embedded/mini2440/qt-45-on-mini2440/</a><br><a href="http://www.electronics.diycinema.co.uk/embedded/mini2440/cross-compiling-qt-embedded-4-5-3/" class="postlink">http://www.electronics.diycinema.co.uk/embedded/mini2440/cross-compiling-qt-embedded-4-5-3/</a></div>
+
+					
+						<div class="postbody"><br>_________________<br>Join our mailing list by sending mail to <strong>mini2440-on @ station51 dot net</strong>.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=2&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p98"></a>
+				<b class="postauthor">Nandy</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p98">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=98&amp;sid=25a4898637c77946ff59bf84b53c3560#p98"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Thu Jul 08, 2010 6:08 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Thu Jul 08, 2010 5:23 pm<br><b>Posts:</b> 52<br><b>Location:</b> India
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Dear Bill,<br><br>Make install for tslib gives me the following error,<br><br>libtool: install: arm-angstrom-linux-gnueabi-ranlib /usr/local/tslib/lib/libts.a<br>../libtool: line 944: arm-angstrom-linux-gnueabi-ranlib: command not found<br>make[2]: *** [install-libLTLIBRARIES] Error 127<br>make[2]: Leaving directory `/home/nandu/tslib/tslib/src'<br>make[1]: *** [install-am] Error 2<br>make[1]: Leaving directory `/home/nandu/tslib/tslib/src'<br>make: *** [install-recursive] Error 1<br><br>Any help is appreciated.... thanks...</div>
+
+					
+						<div class="postbody"><br>_________________<br>Regards,<br>Nandy</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=80&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p106"></a>
+				<b class="postauthor" style="color: #AA0000">Bill</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p106">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=106&amp;sid=25a4898637c77946ff59bf84b53c3560#p106"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Sun Jul 11, 2010 10:59 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td class="postdetails">Site Admin</td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon May 31, 2010 10:04 am<br><b>Posts:</b> 256
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">Nandy wrote:</div><div class="quotecontent">Dear Bill,<br><br>Make install for tslib gives me the following error,<br><br>libtool: install: arm-angstrom-linux-gnueabi-ranlib /usr/local/tslib/lib/libts.a<br>../libtool: line 944: arm-angstrom-linux-gnueabi-ranlib: command not found<br>make[2]: *** [install-libLTLIBRARIES] Error 127<br>make[2]: Leaving directory `/home/nandu/tslib/tslib/src'<br>make[1]: *** [install-am] Error 2<br>make[1]: Leaving directory `/home/nandu/tslib/tslib/src'<br>make: *** [install-recursive] Error 1<br><br>Any help is appreciated.... thanks...</div><br><br>Well
+ my first question is, does the command 
+arm-angstrom-linux-gnueabi-ranlib exist in your toolchain? If not, you 
+may have the wrong toolchain or it may be missing components. You need 
+to make sure that your toolchain is in your path as well.<br><br>Please keep me posted. <img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_e_smile.gif" alt=":)" title="Smile"><br><br>Bill</div>
+
+					
+						<div class="postbody"><br>_________________<br>Join our mailing list by sending mail to <strong>mini2440-on @ station51 dot net</strong>.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=2&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p109"></a>
+				<b class="postauthor">Mikko</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p109">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=109&amp;sid=25a4898637c77946ff59bf84b53c3560#p109"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 11:06 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Jul 05, 2010 10:06 am<br><b>Posts:</b> 48
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Hello,<br><br>I followed this guide and ran into problems when I tried to configure Qt<br><div class="codetitle"><b>Code:</b></div><div class="codecontent">sudo ./configure -embedded arm -xplatform qws/linux-arm-g++ -prefix /usr/local/Qt -qt-mouse-tslib -little-endian</div><br><br>I get this:<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">The tslib functionality test failed!<br>&nbsp;You might need to modify the include and library search paths by editing<br>&nbsp;QMAKE_INCDIR and QMAKE_LIBDIR in<br>&nbsp;/home/mikko/qt-everywhere-opensource-src-4.6.3/mkspecs/qws/linux-arm-g++</div><br><br>This my qmake.conf:<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">#<br># qmake configuration for building with arm-linux-g++<br>#<br><br>include(../../common/g++.conf)<br>include(../../common/linux.conf)<br>include(../../common/qws.conf)<br><br># modifications to g++.conf<br>QMAKE_CC&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-gcc<br>QMAKE_CXX&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-g++<br>QMAKE_LINK&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-g++<br>QMAKE_LINK_SHLIB = /usr/local/armv4t/bin/arm-angstrom-linux-g++<br><br># modifications to linux.conf<br>QMAKE_AR&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-ar cqs<br>QMAKE_OBJCOPY&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-objcopy<br>QMAKE_STRIP&nbsp; = /usr/local/armv4t/bin/arm-angstrom-linux-strip<br>QMAKE_INCDIR&nbsp; += /usr/local/tslib/include<br>QMAKE_LIBDIR&nbsp; += /usr/local/tslib/lib<br><br>load(qt_config)</div><br><br>Mikko</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=77&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p110"></a>
+				<b class="postauthor" style="color: #AA0000">Bill</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p110">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=110&amp;sid=25a4898637c77946ff59bf84b53c3560#p110"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 11:26 am&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td class="postdetails">Site Admin</td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon May 31, 2010 10:04 am<br><b>Posts:</b> 256
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody">Hi Mikko,<br><br>I have to ask just to be very certain, but you DID compile tslib and it is installed in /usr/local/tslib right?<br><br>Look at the logs when you ran configure for QT and see if they tell you more about the error such as missing files etc...<br><br>Bill</div>
+
+					
+						<div class="postbody"><br>_________________<br>Join our mailing list by sending mail to <strong>mini2440-on @ station51 dot net</strong>.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=2&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p111"></a>
+				<b class="postauthor">Mikko</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p111">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=111&amp;sid=25a4898637c77946ff59bf84b53c3560#p111"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 12:02 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Jul 05, 2010 10:06 am<br><b>Posts:</b> 48
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">Bill wrote:</div><div class="quotecontent">Hi Mikko,<br><br>I have to ask just to be very certain, but you DID compile tslib and it is installed in /usr/local/tslib right?<br><br>Look at the logs when you ran configure for QT and see if they tell you more about the error such as missing files etc...<br><br>Bill</div><br><br>Yes I did. There's bin, etc, include and lib directories under /usr/local/tslib so it tslib it's properly installed.<br><br>Mikko</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=77&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p112"></a>
+				<b class="postauthor" style="color: #AA0000">Bill</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p112">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=112&amp;sid=25a4898637c77946ff59bf84b53c3560#p112"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 12:11 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td class="postdetails">Site Admin</td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon May 31, 2010 10:04 am<br><b>Posts:</b> 256
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">Mikko wrote:</div><div class="quotecontent"><br>Yes I did. There's bin, etc, include and lib directories under /usr/local/tslib so it tslib it's properly installed.<br><br>Mikko</div><br><br><br>Ok
+ then, check the config log and it should show you what commands it ran 
+to check to tslib, and what the results were. That should give you some 
+idea of what is happening. I had a hell of a time getting this to work 
+myself. So don't feel bad! <img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_e_wink.gif" alt=";)" title="Wink"><br><br>Bill</div>
+
+					
+						<div class="postbody"><br>_________________<br>Join our mailing list by sending mail to <strong>mini2440-on @ station51 dot net</strong>.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=2&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p113"></a>
+				<b class="postauthor">Mikko</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p113">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=113&amp;sid=25a4898637c77946ff59bf84b53c3560#p113"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 12:37 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Jul 05, 2010 10:06 am<br><b>Posts:</b> 48
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">Bill wrote:</div><div class="quotecontent"><div class="quotetitle">Mikko wrote:</div><div class="quotecontent"><br>Yes I did. There's bin, etc, include and lib directories under /usr/local/tslib so it tslib it's properly installed.<br><br>Mikko</div><br><br><br>Ok
+ then, check the config log and it should show you what commands it ran 
+to check to tslib, and what the results were. That should give you some 
+idea of what is happening. I had a hell of a time getting this to work 
+myself. So don't feel bad! <img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_e_wink.gif" alt=";)" title="Wink"><br><br>Bill</div><br><br>Here's my config.log <a href="http://pastebin.com/ydtAQAzq" class="postlink">http://pastebin.com/ydtAQAzq</a><br><br>I
+ highlighted the parts I thought were not okay but I can't analyze it 
+much further. All I can think of is that some path settings were not 
+right but I've followed this tutorial so they ought to be ok. <br><br>Mikko</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=77&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row1">
+
+			<td align="center" valign="middle">
+				<a name="p114"></a>
+				<b class="postauthor" style="color: #AA0000">Bill</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p114">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=114&amp;sid=25a4898637c77946ff59bf84b53c3560#p114"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 12:44 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				<tr>
+					<td class="postdetails">Site Admin</td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon May 31, 2010 10:04 am<br><b>Posts:</b> 256
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">Mikko wrote:</div><div class="quotecontent"><div class="quotetitle">Bill wrote:</div><div class="quotecontent"><div class="quotetitle">Mikko wrote:</div><div class="quotecontent"><br>Yes I did. There's bin, etc, include and lib directories under /usr/local/tslib so it tslib it's properly installed.<br><br>Mikko</div><br><br><br>Ok
+ then, check the config log and it should show you what commands it ran 
+to check to tslib, and what the results were. That should give you some 
+idea of what is happening. I had a hell of a time getting this to work 
+myself. So don't feel bad! <img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_e_wink.gif" alt=";)" title="Wink"><br><br>Bill</div><br><br>Here's my config.log <a href="http://pastebin.com/ydtAQAzq" class="postlink">http://pastebin.com/ydtAQAzq</a><br><br>I
+ highlighted the parts I thought were not okay but I can't analyze it 
+much further. All I can think of is that some path settings were not 
+right but I've followed this tutorial so they ought to be ok. <br><br>Mikko</div><br><br>Yeah that's not right at all. It can't find your cross compiler... try this<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$&nbsp;
+ PATH=/usr/local/armv4t/bin:$PATH ./configure 
+--host=arm-angstrom-linux-gnueabi --prefix=/usr/local/tslib 
+--enable-static --enable-shared<br></div><br><br>Or change the path to where your cross compiler's bin dir is.</div>
+
+					
+						<div class="postbody"><br>_________________<br>Join our mailing list by sending mail to <strong>mini2440-on @ station51 dot net</strong>.</div>
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=2&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr class="row2">
+
+			<td align="center" valign="middle">
+				<a name="p115"></a>
+				<b class="postauthor">Mikko</b>
+			</td>
+			<td height="25" width="100%">
+				<table cellspacing="0" width="100%">
+				<tbody><tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>Post subject:</b> <a href="#p115">Re: HOWTO: Compiling Qt and Tslib</a></div><div style="float: right;"><a href="http://billforums.station51.net/viewtopic.php?p=115&amp;sid=25a4898637c77946ff59bf84b53c3560#p115"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_post_target.gif" alt="Post" title="Post" height="9" width="12"></a><b>Posted:</b> Mon Jul 12, 2010 1:25 pm&nbsp;</div></td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile" valign="top">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tbody><tr>
+					<td><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_offline.gif" alt="Offline" title="Offline"></td>
+				</tr>
+			
+				</tbody></table>
+
+				<span class="postdetails">
+					<br><b>Joined:</b> Mon Jul 05, 2010 10:06 am<br><b>Posts:</b> 48
+				</span>
+
+			</td>
+			<td valign="top">
+				<table cellspacing="5" width="100%">
+				<tbody><tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle"><b>Quote:</b></div><div class="quotecontent">Yeah that's not right at all. It can't find your cross compiler... try this<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">$&nbsp;
+ PATH=/usr/local/armv4t/bin:$PATH ./configure 
+--host=arm-angstrom-linux-gnueabi --prefix=/usr/local/tslib 
+--enable-static --enable-shared<br></div><br><br>Or change the path to where your cross compiler's bin dir is.</div><br><br>The
+ configure part went ok now with your command. I don't why it didn't 
+work if I exported PATH before the configure command as in your guide. 
+However, when running make -j4 i get:<br><br><div class="codetitle"><b>Code:</b></div><div class="codecontent">/usr/local/armv4t/bin/../lib/gcc/arm-angstrom-linux-gnueabi/4.2.4/../../../../arm-angstrom-linux-gnueabi/bin/ld:
+ unknown architecture of input file `.libs/ts_fd.o' is incompatible with
+ arm output<br>collect2: ld returned 1 exit status<br>make[2]: *** [libts.la] Error 1<br>make[2]: Leaving directory `/home/mikko/tslib/tslib/src'<br>make[1]: *** [all-recursive] Error 1<br>make[1]: Leaving directory `/home/mikko/tslib/tslib'<br>make: *** [all] Error 2<br></div><br><br>Mikko</div>
+
+					<br clear="all"><br>
+
+						<table cellspacing="0" width="100%">
+						<tbody><tr valign="middle">
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">Top</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="http://billforums.station51.net/memberlist.php?mode=viewprofile&amp;u=77&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/icon_user_profile.gif" alt="Profile" title="Profile"></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/spacer.gif" alt="" height="1" width="1"></td>
+	</tr>
+	</tbody></table>
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr align="center">
+		<td class="cat"><form name="viewtopic" method="post" action="./viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560"><span class="gensmall">Display posts from previous:</span> <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select>&nbsp;<span class="gensmall">Sort by</span> <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select> <select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select>&nbsp;<input class="btnlite" value="Go" name="sort" type="submit"></form></td>
+	</tr>
+	</tbody></table>
+	
+
+	<table cellspacing="1" width="100%">
+	<tbody><tr>
+		<td align="left" nowrap="nowrap" valign="middle">
+		<a href="http://billforums.station51.net/posting.php?mode=post&amp;f=8&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/button_topic_new.gif" alt="Post new topic" title="Post new topic"></a>&nbsp;<a href="http://billforums.station51.net/posting.php?mode=reply&amp;f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560"><img src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/button_topic_reply.gif" alt="Reply to topic" title="Reply to topic"></a>
+		</td>
+		
+			<td class="nav" nowrap="nowrap" valign="middle">&nbsp;Page <strong>1</strong> of <strong>15</strong><br></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 142 posts ]&nbsp;</td>
+			<td class="gensmall" align="right" nowrap="nowrap" width="100%"><b><a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Go to page</a> <strong>1</strong><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=10">2</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=20">3</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=30">4</a><span class="page-sep">, </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=40">5</a><span class="page-dots"> ... </span><a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=140">15</a> &nbsp;<a href="http://billforums.station51.net/viewtopic.php?f=8&amp;t=15&amp;sid=25a4898637c77946ff59bf84b53c3560&amp;start=10">Next</a></b></td>
+		
+	</tr>
+	</tbody></table>
+
+</div>
+
+<div id="pagefooter"></div>
+
+<br clear="all">
+<table class="tablebg" style="margin-top: 5px;" cellpadding="0" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="http://billforums.station51.net/index.php?sid=25a4898637c77946ff59bf84b53c3560">Board index</a> » <a href="http://billforums.station51.net/viewforum.php?f=8&amp;sid=25a4898637c77946ff59bf84b53c3560">Qt</a></p>
+			<p class="datetime">All times are UTC </p>
+		</td>
+	</tr>
+	</tbody></table>
+	<br clear="all">
+
+	<table class="tablebg" cellspacing="1" width="100%">
+	<tbody><tr>
+		<td class="cat"><h4>Who is online</h4></td>
+	</tr>
+	<tr>
+		<td class="row1"><p class="gensmall">Users browsing this forum: No registered users and 1 guest</p></td>
+	</tr>
+	</tbody></table>
+
+
+<br clear="all">
+
+<table cellspacing="1" width="100%">
+<tbody><tr>
+	<td align="left" nowrap="nowrap" valign="top" width="40%"></td>
+	<td align="right" nowrap="nowrap" valign="top"><span class="gensmall">You <strong>cannot</strong> post new topics in this forum<br>You <strong>cannot</strong> reply to topics in this forum<br>You <strong>cannot</strong> edit your posts in this forum<br>You <strong>cannot</strong> delete your posts in this forum<br>You <strong>cannot</strong> post attachments in this forum<br></span></td>
+</tr>
+</tbody></table>
+
+<br clear="all">
+
+<table cellspacing="0" width="100%">
+<tbody><tr>
+	<td><form method="get" name="search" action="./search.php?sid=25a4898637c77946ff59bf84b53c3560"><span class="gensmall">Search for:</span> <input class="post" name="keywords" size="20" type="text"> <input class="btnlite" value="Go" type="submit"><input name="t" value="15" type="hidden">
+<input name="sf" value="msgonly" type="hidden">
+<input name="sid" value="25a4898637c77946ff59bf84b53c3560" type="hidden">
+</form></td>
+	<td align="right">
+	<form method="post" name="jumpbox" action="./viewforum.php?sid=25a4898637c77946ff59bf84b53c3560" onsubmit="if(document.jumpbox.f.value == -1){return false;}">
+
+	<table cellpadding="0" cellspacing="0" border="0">
+	<tbody><tr>
+		<td nowrap="nowrap"><span class="gensmall">Jump to:</span>&nbsp;<select name="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+
+		
+			<option value="-1">Select a forum</option>
+		<option value="-1">------------------</option>
+			<option value="6">Site News</option>
+		
+			<option value="4">General Discussion</option>
+		
+			<option value="1">U-Boot</option>
+		
+			<option value="3">OpenEmbedded</option>
+		
+			<option value="7">Android</option>
+		
+			<option value="8" selected="selected">Qt</option>
+		
+			<option value="5">Linux 101</option>
+		
+			<option value="9">Windows CE</option>
+		
+
+		</select>&nbsp;<input class="btnlite" value="Go" type="submit"></td>
+	</tr>
+	</tbody></table>
+
+	</form>
+</td>
+</tr>
+</tbody></table>
+
+
+</div>
+
+<div id="wrapfooter">
+	
+	<span class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a>® Forum Software © phpBB Group
+	</span>
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.port80.eu/" : "http://stats.port80.eu/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Bill%27s%20Mini2440%20Forum%20%E2%80%A2%20View%20topic%20-%20HOWTO:%20Compiling%20Qt%20and%20Tslib_files/piwik.js" type="text/javascript"></script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 11);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://stats.port80.eu/piwik.php?idsite=11" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+</div>
+
+
+</body></html>

@@ -1,0 +1,89 @@
+util-linux:
+===========
+apt-get source util-linux	or
+apt-get source libblkid-dev
+
+rm -rf *.diff.* *.orig.* *.dsc *.debian*
+cd util-linux*
+echo "scanf_cv_type_modifier=arm-linux-as" > config.cache
+./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var --cache-file=config.cache --without-ncurses
+
+#This will cause error UL_SCNsA is defined in ./include/c.h but not parsing while compiling.
+#So i manually replace it to "%ms" using 'sed'
+#For repacement: sed "s/match-text/replacement-string/" -i file.c
+
+INSTALL_DIR=/embedded/mini2440/projects/udev/Recipe
+sed "s/UL_SCNsA/\"%ms\"/" -i ./libmount/src/tab_parse.c
+make CC="arm-linux-gcc -std=c99" -j4
+make DESTDIR=${INSTALL_DIR} install
+
+libkmod:
+========
+apt-file search libkmod
+apt-get source libkmod-dev
+rm -rf *.diff.* *.orig.* *.dsc *.debian*
+./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var --disable-manpages
+make -j4
+make DESTDIR=${INSTALL_DIR} install
+
+pciutils:
+=========
+dependancy zlib.
+	Zlib:
+	=====
+
+apt-file search pci.ids
+apt-get source pciutils
+rm -rf *.diff.* *.orig.* *.dsc *.debian*
+cd pciutils*
+
+INSTALL_DIR=/embedded/mini2440/projects/udev/Recipe
+mkdir -p ${INSTALL_DIR}-udeb/usr/sbin/lspci
+
+cp Makefile Makefile.old
+sed 's/$(STRIP)//' -i Makefile
+
+make PREFIX=/usr CROSS_COMPILE=arm-linux- CC="arm-linux-gcc -I${INSTALL_DIR}/usr/include -L${INSTALL_DIR}/usr/lib -L/embedded/mini2440/projects/udev/pkg-build/pciutils-3.2.1/lib -lz" SHAREDIR=/usr/share/misc SHARED=yes ZLIB=yes
+
+make PREFIX=/usr CROSS_COMPILE=arm-linux- CC="arm-linux-gcc -I${INSTALL_DIR}/usr/include -L${INSTALL_DIR}/usr/lib -L/embedded/mini2440/projects/udev/pkg-build/pciutils-3.2.1/lib -lz" SHAREDIR=/usr/share/misc SHARED=yes ZLIB=yes DESTDIR=${INSTALL_DIR} install install-lib
+
+/*
+make PREFIX=/usr              	\
+	CC=arm-linux-gcc	\
+     	SHAREDIR=/usr/share/misc \
+     	SHARED=yes
+make PREFIX=/usr              \
+     	SHAREDIR=/usr/share/misc \
+	CC=arm-linux-gcc	\
+     	SHARED=yes               \
+     	DESTDIR=${INSTALL_DIR}	\
+     	install install-lib
+*/
+chmod -v 755 /usr/lib/libpci.so
+
+gobject-introspection
+=====================
+
+	python-dev:
+	===========
+	apt-get source python-dev
+	rm -rf *.diff.* *.orig.* *.dsc *.debian* *ubuntu*
+	cd python*
+	echo "ac_cv_file__dev_ptc=yes" > arm-linux.cache
+	echo "ac_cv_file__dev_ptmx=yes" >> arm-linux.cache
+	CC=arm-linux-gcc CXX=arm-linux-g++ AR=arm-linux-ar RANLIB=arm-linux-ranlib ./configure --host=arm-linux --build=arm --prefix=/usr --disable-ipv6 --cache-file=arm-linux.cache --sysconfdir=/etc --localstatedir=/var
+	make -j4
+	make DESTDIR=${INSTALL_DIR} install
+
+
+apt-file search gobject-introspection-1.0
+apt-get source libgirepository1.0-dev
+rm -rf *.diff.* *.orig.* *.dsc *.debian*
+cd gobject-introspection*
+
+
+udev:
+====
+mkdir -p ${INSTALL_DIR}/var/lib/usbutils
+cp <pci-utils>/pci.ids ${INSTALL_DIR}/var/lib/usbutils
+./configure --host=arm-linux --sysconfdir=/etc --prefix=/usr --localstatedir=/var PKG_CONFIG_PATH=/embedded/mini2440/projects/udev/Recipe/usr/lib/pkgconfig BLKID_CFLAGS=-I/embedded/mini2440/projects/udev/Recipe/usr/include/ BLKID_LIBS=-L/embedded/mini2440/projects/udev/Recipe/lib/ --with-pci-ids-path=${INSTALL_DIR}/var/lib/usbutils/usb.ids

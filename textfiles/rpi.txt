@@ -1,0 +1,56 @@
+Rpi:BCM2835
+===========
+
+We can get LOADADDR by running uboot on the target board
+and give command 'bdinfo'. Try to notify the start and end(size) of DRAM. 
+For this board(rpi):
+
+U-Boot> bdinfo
+
+arch_number = 0x00000C42
+boot_params = 0x00000100
+DRAM bank   = 0x00000000
+-> start    = 0x00000000
+-> size     = 0x1C000000
+current eth = unknown
+ip_addr     = <NULL>
+baudrate    = 115200 bps
+TLB addr    = 0x1BFF0000
+relocaddr   = 0x1BF54000
+reloc off   = 0x1BF4C000
+irq_sp      = 0x1BB4FEE0
+sp start    = 0x1BB4FED0
+FB base     = 0x1C006000
+
+LOADADDR= Start + 8000 = 0x00008000
+
+Valid LOADADDR= 0x00008000 to 0x1a000000
+
+uncompression error
+
+ -- System halted
+
+Commands:
+=========
+usb start 
+setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111
+tftp 0x01000000 uImage-rpi;tftp 0x02000000 bcm2835-rpi-b.dtb
+setenv bootargs console=ttyAMA0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 \
+root=/dev/nfs nfsroot=10.0.0.4:/nfs/rootfs/rpifs rootfstype=nfs rootwait
+bootm 0x01000000 - 0x02000000		
+
+
+fatload mmc 0:1 0x01000000 uImage-rpi;fatload mmc 0:1 0x02000000 bcm2835-rpi-b.dtb
+setenv bootargs console=ttyAMA0,115200 root=/dev/mmcblk0p2 rootfstype=ext3 rootwait
+bootm 0x01000000 - 0x02000000
+
+
+
+
+
+
+
+
+
+
+

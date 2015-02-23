@@ -1,0 +1,10 @@
+# sdcard found from dmesg above
+SDCARD=/dev/sdb
+URL=https://releases.linaro.org/13.04/ubuntu/panda/panda-quantal_developer_20130423-299.img.gz
+curl $URL | gunzip | sudo dd bs=64k of=$SDCARD
+
+=========================================================================
+wget https://releases.linaro.org/13.04/ubuntu/panda/linaro-quantal-developer-20130422-342.tar.gz
+wget https://releases.linaro.org/13.04/ubuntu/panda/hwpack_linaro-panda_20130423-299_armhf_supported.tar.gz
+
+sudo linaro-media-create --mmc /dev/sdb --dev panda --hwpack hwpack_linaro-panda_20130423-299_armhf_supported.tar.gz --binary linaro-quantal-developer-20130422-342.tar.gz

@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":3,"url":"http:\/\/www.wikihow.com\/Install-Qt-SDK-on-Ubuntu-Linux\/"});

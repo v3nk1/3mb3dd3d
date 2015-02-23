@@ -1,0 +1,143 @@
+BOOTING:
+========
+
+In all procedures kernel image(uImage) has been copied using "tftp" from HOST to MINI2440 RAM at offset 0x31000000 or 0x32000000
+
+	MINI2440# u-boot prompt give respective commands
+
+	I.TARGET:(initrd)
+	=========
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x31000000 uImage_x35;tftp 0x32000000 rootfs.img ; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/ram initrd=0x32000000,4M,rw; bootm 0x31000000
+
+	II.TARGET:(initramfs)
+	==========
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x31000000 uImage_x35; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/ram0 noinitrd; bootm 0x31000000
+	
+	III.TARGET:(nfs)
+	===========
+		In this rootfs has been mounted using "nfs protocol".
+
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x32000000 uImage_broot; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/minifs; bootm 0x32000000
+
+############################################################################################
+#====> LITERELLY NAND HAVE 4 PARTITIONS IN IT., u-boot,kernel,u-boot-env var,rootfs <======#
+############################################################################################
+
+	IV.TARGET:(burning kernel Image onto NAND flash,rootfs accessed from nfs)
+	==========
+	THIS WILL AUTOMATE THE JOB OF COPYING UiMAGE ONTO RAM:
+
+		MINI2440# tftp 0x31000000 uImage
+		MINI2440# mtdparts
+		MINI2440# nand erase kernel			OR 	
+			  nand erase 60000 500000		as in mtdparts
+
+		MINI2440# nand write 0x31000000 kernel		OR u can give offset and size
+			  nand write.e 0x31000000 0x60000 <size-of-uImage-in-hex>
+
+<tel-cpu-whr-bootImage-is>
+		MINI2440# setenv bootcmd nand read 0x31000000 kernel; saveenv; bootm 0x31000000
+					The problem with this command is you have to give bootm 0x31000000 every time u OFF/ON the board.
+
+			  setenv bootcmd 'nand read 0x31000000 kernel;bootm 0x31000000';saveenv
+					Here abv 2 commands cpu will read nand for uImage and copy it onto RAM of mini2440 and run through 
+					using bootm 0x31000000 RAM location. Inorder to bind 2 commands like 1., with semicolon we place in 						single quotes.
+
+			  setenv bootcmd 'nboot.e kernel;bootm';saveenv     		OR
+			  setenv bootcmd 'nboot kernel;bootm';saveenv
+					Its all automated from NAND
+
+<tel-cpu-whr-rootfs-is>			  
+		MINI2440# setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/minifs;saveenv
+
+
+	V.TARGET:(burning kernel Image,rootfs onto NAND flash)
+	=========
+	THIS WILL AUTOMATE THE JOB OF COPYING UiMAGE ONTO RAM:
+
+	#########################
+	Writing uImage onto nand:
+	#########################
+
+		MINI2440# tftp 0x31000000 uImage
+		MINI2440# mtdparts
+		MINI2440# nand erase kernel				OR 	
+			  nand erase 60000 500000			as in mtdparts
+
+		MINI2440# nand write 0x31000000 kernel <0xsize>		OR u can give offset and size {size is optional}
+			  nand write.e 0x31000000 0x60000 <size-of-uImage-in-hex>
+
+	#########################
+	Writing rootfs onto nand:
+	#########################
+
+		MINI2440# tftp 0x31000000 rootfs.jffs2
+		MINI2440# mtdparts
+		MINI2440# nand erase rootfs
+		MINI2440# nand write 0x31000000 rootfs <size-rootfs-in-hex>		OR nand write.yaffs ...
+				Here size must be padded like bellow
+				MINI2440# nand info
+				Device 0: NAND 1GiB 3,3V 8-bit, page size 2048, sector size 128 KiB
+				
+				(size-of-rootfs.jffs2-in-bytes) / nand-page-size = 313.464, then roundoff it to 314
+				So 
+				<nand-page-size> * <roundoff-value> = size-of-rootfs.jffs2
+				convert it into hex and give as last argument 
+
+<tel-cpu-whr-bootImage-is>
+		MINI2440# setenv bootcmd nand read 0x31000000 kernel; saveenv; bootm 0x31000000
+					The problem with this command is you have to give bootm 0x31000000 every time u OFF/ON the board.
+
+			  setenv bootcmd 'nand read 0x31000000 kernel;bootm 0x31000000';saveenv
+					Here abv 2 commands cpu will read nand for uImage and copy it onto RAM of mini2440 and run through 
+					using bootm 0x31000000 RAM location. Inorder to bind 2 commands like 1., with semicolon we place in 						single quotes.
+
+			  setenv bootcmd nboot.e kernel \; bootm			OR
+			  setenv bootcmd 'nboot.e kernel;bootm';saveenv     		OR
+			  setenv bootcmd 'nboot kernel;bootm';saveenv
+					Its all automated from NAND
+
+<tel-cpu-whr-rootfs-is>	
+			  create rootfs.img by enable /dev management dynamic tmpfs., dont use mdev
+		To tel the cpu that rootfs has loaded onto nand mtdblock3(ie., rootfs partition)
+		  
+		MINI2440# setenv bootargs console=ttySAC0,115200 root=/dev/mtdblock3 rootfstype=jffs2;saveenv
+
+
+	VI.TARGET:(burning kernel Image using U-boot,rootfs onto NAND flash with nfs after target booted)
+	=========
+
+	->	While building uImage make sure u build with jffs2 support.
+		@Host#
+			[*] Miscellaneous filesystems  --->
+				<*>   Journalling Flash File System v2 (JFFS2) support
+		
+
+	->	Boot as in III method; After booted make a copy of the rootfs in the booted rootfs directory.
+		If u dont gernater a binary "flash_eraseall" option using busy box then build it follows
+		
+		HOST@root# tar xvf <busybox-X.X.X.tar.gz>
+		HOST@root# cd <busybox-X.X.X.tar.gz> && make menuconfig
+
+	->	Select
+			   Miscellaneous Utilities  ---> 
+				 [*] flash_eraseall 
+
+		HOST@root# make CROSS_COMPILE=arm-linux-
+		HOST@root# make CROSS_COMPILE=arm-linux- install
+		HOST@root# cp _install/usr/sbin/flash_eraseall /nfs/minifs/usr/sbin
+		
+		BOOT TARGET WITH NFS METHOD OF DEPLOYMENT.
+
+		Target#/ flash_eraseall /dev/mtd3
+		Target#/ mount -t jffs2 /dev/mtdblock3 /mnt
+		Target#/ cp -Rfp path/to/rootfs/* /mnt
+			<It will take around 10minutes>
+
+		Target#/ umount /mnt
+		Target#/ reboot
+
+uboot prompt	MINI2440# setenv bootargs console=ttySAC0,115200 root=/dev/mtdblock3 rootfstype=jffs2;saveenv
+
+
+Boot command	MINI2440# tftp 0x31000000 uImage;bootm 0x31000000	

@@ -1,0 +1,11 @@
+# cd /embdd/mini2440/tslib/
+# git clone http://github.com/kergoth/tslib.git
+# export PATH=/usr/local/arm/4.3.2/bin:$PATH
+# export CROSS_COMPILE=arm-linux- ; export CC=${CROSS_COMPILE}gcc ; export CFLAGS=-march=armv4t;export CXX=${CROSS_COMPILE}"g++" ;export AR=${CROSS_COMPILE}"ar" ;export AS=${CROSS_COMPILE}"as";export RANLIB=${CROSS_COMPILE}"ranlib";export LD=${CROSS_COMPILE}"ld";export STRIP=${CROSS_COMPILE}"strip";export ac_cv_func_malloc_0_nonnull=yes
+
+#cd /embdd/mini2440/tslib/tslib
+# ./autogen-clean.sh
+# ./autogen.sh
+# ./configure --host=arm-linux --prefix=/home/tslib --enable-shared=yes --enable-static=yes
+# make
+# make install

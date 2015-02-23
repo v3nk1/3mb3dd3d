@@ -1,0 +1,46 @@
+TFTP:
+=====
+	After configuration done:
+	HOST:
+		if u want to share any thing through tftp then copy that IMAGE into /tftpboot directory
+		cp <file_name> /tftpboot
+		
+	to recieve that on target
+	TARGET:
+		tftp 0x32000000 <file_name>
+
+
+
+NFS:
+====
+
+In sudo vi /etc/exports	add line:
+ 
+	HOST:	/nfs    10.0.0.111(rw,sync,no_subtree_check,no_root_squash)
+
+	restart nfs-kernel-services
+	
+	HOST:	sudo /etc/init.d/nfs-kernel-server restart                      ========> means stop and start
+
+
+
+
+
+BOOTING:
+========
+
+	I.TARGET:(initrd)
+	=========
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x31000000 uImage_x35;tftp 0x32000000 rootfs.img ; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/ram initrd=0x32000000,4M,rw; bootm 0x31000000
+
+	II.TARGET:(initramfs)
+	==========
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x31000000 uImage_x35; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/ram0 noinitrd; bootm 0x31000000
+	
+	III.TARGET:(nfs)
+	===========
+		setenv serverip 10.0.0.4;setenv ipaddr 10.0.0.111; saveenv; tftp 0x32000000 uImage_broot; setenv bootargs console=ttySAC0,115200 ip=10.0.0.111:10.0.0.4::255.255.255.0 root=/dev/nfs nfsroot=10.0.0.4:/nfs/minifs; bootm 0x32000000
+
+	IV.TARGET:(burning kernel Image)
+	==========
+		

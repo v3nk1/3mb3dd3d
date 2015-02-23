@@ -1,0 +1,2 @@
+00:15:83:0C:BF:EB ==> usb-blue
+50:B7:C3:AF:A1:5F ==> ven_ubuntu

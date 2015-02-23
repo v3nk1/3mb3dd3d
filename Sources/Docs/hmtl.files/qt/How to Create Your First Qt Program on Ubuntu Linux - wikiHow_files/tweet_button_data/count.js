@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":4,"url":"http:\/\/www.wikihow.com\/Create-Your-First-Qt-Program-on-Ubuntu-Linux\/"});

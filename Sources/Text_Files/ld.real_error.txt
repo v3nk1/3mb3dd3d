@@ -1,0 +1,15 @@
+root@linux:linux-3.15.3# make ARCH=arm CROSS_COMPILE=arm-linux- uImage  CHK     include/config/kernel.release
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+make[1]: `include/generated/mach-types.h' is up to date.
+  CALL    scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  LD      init/mounts.o
+arm-linux-ld (ld-elf2flt): error trying to exec '/embedded/mini2440/Toolchain/buildroot-2014.05/output/host/usr/bin/ld.real': execvp: No such file or directory
+make[1]: *** [init/mounts.o] Error 255
+make: *** [init] Error 2
+
+THEN:
+=====
+
+cp /embedded/mini2440/Toolchain/buildroot-2014.05/output/host/usr/bin/arm-mini2440-linux-uclibcgnueabi-ld.real /embedded/mini2440/Toolchain/buildroot-2014.05/output/host/usr/bin/ld.real -Rfp

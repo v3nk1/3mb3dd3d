@@ -1,0 +1,43 @@
+#################################################################################################################
+To enable touch screen on target make sure that u have selected correct LCD configration(resolution size), and touchscreen support
+while building uImage for target.
+#################################################################################################################
+
+make copy of normal generated rootfs for arm mini2440:
+------------------------------------------------------
+
+	HOST# cp -Rfp minifs qtrootfs
+	copying cross-qt;ts-lib to target rootfs as same path where the host builted-in
+	HOST# cp -Rfp /path/2/cross/qt /path/2/target/rootfs/<similar-path-as-source>
+	HOST# cp -Rfp /path/2/cross/tslib /path/2/target/rootfs/<similar-path-as-source>
+
+	Make symbolic links of these libraries
+	syntax: ln -s /path/2/source/file /path/2/where/link/to/be/create
+
+	HOST# ln -s /Qfresh/cross-tslib/lib/libz.so.1 /nfs/last/usr/lib/libz.so.1
+	HOST# ln -s /Qfresh/cross-tslib/lib/libts-1.0.so.0.0.0 /nfs/last/usr/lib/libts-1.0.so.0
+
+Append the following lines in target etc/profile
+------------------------------------------------
+<Here the given paths shud be in target rootfs only. since its executed in target>
+
+export LD_LIBRARY_PATH=/Qfresh/cross-tslib/lib
+export QTDIR=/Qfresh/cross-qt
+export QWS_MOUSE_PROTO=tslib:/dev/input/event0
+export TSLIB_CALIBFILE=/etc/pointercal
+export TSLIB_CONFFILE=/Qfresh/cross-tslib/etc/ts.conf
+export TSLIB_CONSOLEDEVICE=none
+export TSLIB_FBDEVICE=/dev/fb0
+export TSLIB_PLUGINDIR=/Qfresh/cross-tslib/lib/ts
+export TSLIB_TSDEVICE=/Qfresh/cross-tslib/lib/ts
+export TSLIB_TSEVENTTYPE=INPUT
+export QWS_DISPLAY=LinuxFB:mmWidth=105:mmHeight=140
+
+Append the following lines in target etc/ld.so.conf:
+----------------------------------------------------
+<Here the given paths shud be in target rootfs only. since its executed in target>
+
+/Qfresh/cross-tslib/lib
+/Qfresh/cross-qt/lib
+
+

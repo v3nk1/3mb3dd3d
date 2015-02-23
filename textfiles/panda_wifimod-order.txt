@@ -1,0 +1,20 @@
+wlcore_sdio
+wl1251_sdio
+libertas_sdio
+
+wl12xx_sdio
+
+/*****************************/
+cfg80211
+mac80211
+wlcore
+wlcore_spi
+wlcore_sdio
+wl12xx
+/*****************************/
+modprobe cfg80211;modprobe mac80211;modprobe wlcore;modprobe wlcore_spi;modprobe wlcore_sdio;modprobe wl12xx
+
+wl1251
+wl1251_spi
+wl1251_sdio
+wl18xx

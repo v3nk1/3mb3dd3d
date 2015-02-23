@@ -1,0 +1,69 @@
+slabinfo file interpretation:
+=============================
+# cat /proc/slabinfo | more
+
+	
+=============================================================================================================================================
+# name        <actve_objs> <num_objs> <objsize> <obj/slab> <pgs/slab> : tunables <limt> <batchcnt> <sharedfactor> : slabdata <actve_slabs> <num_slabs> <sharedavail>
+=============================================================================================================================================
+
+test_cache          1          31       528          31         4     : tunables    0        0           0        : slabdata      1      
+    1            0
+
+isofs_inode_cache   75        250       632          25         4     : tunables    0        0           0        : slabdata     10
+   10            0
+
+nfsd4_delegations    0         0        368          22         2     : tunables    0        0           0        : slabdata      0      
+   0             0
+
+nfsd4_openowners     0         0        392   	     20         2     : tunables    0        0           0        : slabdata      0   
+   0             0
+
+nfs_direct_cache     0         0        208          39         2     : tunables    0        0           0        : slabdata      0   
+   0             0
+
+nfs_commit_data      4         23       704          23         4     : tunables    0        0           0        : slabdata      1   
+   1             0
+
+nfs_write_data      32         34       960          34         8     : tunables    0        0           0        : slabdata      1    
+   1             0
+
+nfs_inode_cache     0           0       1048         31         8     : tunables    0        0           0        : slabdata      0   
+   0             0
+
+rpc_inode_cache     25          25      640          25         4     : tunables    0        0           0        : slabdata      1   
+   1             0
+
+fscache_cookie_jar   1          46       88          46         1     : tunables    0        0           0        : slabdata      1   
+   1             0
+
+kvm_async_pf         0           0       136         30         1     : tunables    0        0           0        : slabdata      0   
+   0             0
+
+
+Description:
+============
+
+								|`````````|	|--> Obj
+							|----->	|  Slab	  |---- |--> Obj
+							|	|_________|	|--> Obj   .. so on
+							|
+							|
+				|```````````````|	|	|`````````|
+				|     Cache	|-------|----->	|  Slab	  |
+				|_______________|	|	|_________|
+							|
+							|
+							|	|`````````|
+							|----->	|  Slab	  |	
+								|_________| .. so on
+
+
+
+Object size is size of object 
+active objects currently using objects
+objects per a slab = no. of pages perslab* 4K /sizeof object
+num_objects= Total objects in cache(means in all slabs) = ?
+pages per slab= no of pages allocated for that particular slab.
+num_slabs = how many slabs in that given cache.
+
