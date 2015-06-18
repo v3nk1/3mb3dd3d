@@ -1,0 +1,36 @@
+SD/MMC:
+=======
+fatload mmc 0:1 41000000 uImage;fatload mmc 0:1 44000000 sun7i-a20-cubieboard2.dtb
+setenv bootargs console=ttyS0,115200 root=/dev/mmcblk0p2 rw
+bootm 41000000 - 44000000
+
+MMC-initrd:
+===========
+fatload mmc 0:1 41000000 uImage-main;fatload mmc 0:1 44000000 sun7i-a20-cubieboard2.dtb;fatload mmc 0:1 45000000 rootfs.img
+setenv bootargs console=ttyS0,115200 root=/dev/ram0 initrd=0x45000000 rw
+bootm 41000000 - 44000000
+
+
+Gen-u-boot:
+===========
+usb start;
+
+sunxi-uboot:
+============
+To bootwith mainline kernel, below has to be set.
+
+sun7i# setenv fdt_high 0xffffffff
+sun7i# setenv ipaddr 10.0.0.111;setenv serverip 10.0.0.4;saveenv
+
+tftp 0x41000000 cubie2/uImage;tftp 0x42000000 cubie2/sun7i-a20-cubieboard2.dtb;
+
+setenv bootargs console=ttyS0,115200 root=/dev/nfs ip=10.0.0.111:10.0.0.4::255.255.255.0 nfsroot=10.0.0.4:/nfs/rootfs/cubie2/rootfs;
+
+bootm 41000000 - 42000000
+
+=================================
+
+nfs-sunxi-kernel:
+-----------------
+setenv bootargs console=ttyS0,115200 root=/dev/nfs ip=10.0.0.111:10.0.0.4::255.255.255.0 nfsroot=10.0.0.4:/nfs/rootfs/cubie2/rootfs;
+tftp 0x43000000 cubie2/script.bin;tftp 0x48000000 cubie2/uImage-git;bootm 0x48000000
