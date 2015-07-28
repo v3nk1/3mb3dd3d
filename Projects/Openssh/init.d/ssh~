@@ -61,7 +61,6 @@ group_passwd () {
 		adduser root -G root -u 0 -D -h /root
 		#echo "Enter Passwd for root: "
 		echo "Pre-chosen Passwd for root: letmein"
-		#passwd hard-coded
 		(echo letmein) | passwd
 	fi
 

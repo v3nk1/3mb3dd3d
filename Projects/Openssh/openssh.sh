@@ -10,7 +10,6 @@ NORM="\033[0m"
 BY="\033[3;33m${bold}"
 
 #Local env:
-LOG=build.log
 ZLIB=0
 OPENSSH=0
 OPENSSL=0
@@ -18,6 +17,7 @@ OPENSSL=0
 ROOTDIR=${PWD}
 INSTDIR=${ROOTDIR}/Recipe
 PKGDIR=${ROOTDIR}/pkg-build
+LOG=${PKGDIR}/build.log
 
 export INSTALL_DIR=${INSTDIR}
 export PRE_FIX=/usr
@@ -54,7 +54,10 @@ download_pkg () {
         echo -e "\nChecking/Downloading packages .." >> $LOG    &&
         if test -e ./down       
                 then
-                ./down
+                cp ./down ${PKGDIR}	&&
+			cd ${PKGDIR}	&&
+			./down		&&
+			rm -rf down
 		echo "Acomplished Checking/Downloading packages." >> $LOG       
                 colored_echo "Accomplished downloading"
         else
@@ -105,11 +108,14 @@ colored_echo "Building openssh"    &&
         echo -e "\nStarted building openssh .." >> $LOG    &&
         tar -xvf openssh*.tar* &&
         cd openssh*   &&
-	./configure --host=arm-linux --prefix=/usr --disable-strip CC="arm-linux-gcc -L${INSTALL_DIR}/usr/lib -I${INSTALL_DIR}/usr/include" AR="arm-linux-ar"
+	./configure --host=arm-linux --prefix=/usr --sysconfdir=${MY_SYSCONFDIR}/ssh \
+	--localstatedir=${MY_LOCALSTATEDIR} --disable-strip \
+	CC="arm-linux-gcc -L${INSTALL_DIR}/usr/lib -I${INSTALL_DIR}/usr/include" AR="arm-linux-ar"	&&
 
 	## Removing these strings 'check-config' and '$(STRIP_OPT)' in entire file.
-	sed 's/check-config//' -i Makefile
-	sed 's/$(STRIP_OPT)//' -i Makefile
+	cp Makefile Makefile.old
+	sed 's/check-config//' -i Makefile	&&
+	sed 's/$(STRIP_OPT)//' -i Makefile	&&
 
 	make DESTDIR=${INSTALL_DIR} -j4 &&
 	make DESTDIR=${INSTALL_DIR} install &&
@@ -151,7 +157,9 @@ case "$1" in
         date >> $LOG
         ;;
     clean-build)
+	cd ${PKGDIR}
         rm -rf zlib-1.2.8 openssl-1.0.1h openssh-6.6p1
+	cd ..
         ;;
     *)
         echo "Usage: $0 {make-all-install|make-openssh|clean-build}"
