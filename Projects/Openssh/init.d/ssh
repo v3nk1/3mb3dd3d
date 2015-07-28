@@ -11,6 +11,8 @@ DAEMON=/usr/sbin/$NAME
 PIDFILE=/var/run/$NAME.pid
 SYSCONF_DIR=/etc/ssh
 
+PASSWD=letmein
+
 if ! test -x "$DAEMON" ;then 
 	echo $DAEMON": Not found or no execution permission"
 	exit 0
@@ -39,7 +41,7 @@ gen_ssh_id_rsa () {
 	if [ ! -d /root -o ! -d /root/.ssh -o ! -e /root/.ssh/id_rsa ];	then
 		echo "Generating id_rsa ..."
 		mkdir -p /root/.ssh
-		(echo -e "\n\n") | ssh-keygen
+		(echo -e "\n\n\n") | ssh-keygen
 		rm -rf /etc/ssh_host_*
 		gen_ssh_hostkeys
 	
@@ -62,7 +64,7 @@ group_passwd () {
 		#echo "Enter Passwd for root: "
 		echo "Pre-chosen Passwd for root: letmein"
 		#passwd hard-coded
-		(echo letmein) | passwd
+		(echo -e "${PASSWD}\n${PASSWD}") | passwd
 	fi
 
 	if ! grep -q sshd "/etc/passwd"; then
