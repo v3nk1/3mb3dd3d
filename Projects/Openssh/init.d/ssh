@@ -39,7 +39,7 @@ gen_ssh_id_rsa () {
 	if [ ! -d /root -o ! -d /root/.ssh -o ! -e /root/.ssh/id_rsa ];	then
 		echo "Generating id_rsa ..."
 		mkdir -p /root/.ssh
-		ssh-keygen
+		(echo -e "\n\n") | ssh-keygen
 		rm -rf /etc/ssh_host_*
 		gen_ssh_hostkeys
 	
@@ -59,12 +59,14 @@ group_passwd () {
 	if ! grep -q root "/etc/passwd"; then
 		echo "Creating /etc/passwd and adding entries ... "
 		adduser root -G root -u 0 -D -h /root
-		echo "Enter Passwd for root: "
-		passwd
+		#echo "Enter Passwd for root: "
+		echo "Pre-chosen Passwd for root: letmein "
+		(echo letmein) | passwd
 	fi
 
 	if ! grep -q sshd "/etc/passwd"; then
 		echo "Adding sshd user to passwd ..."
+		mkdir -p /var/run
 		adduser sshd -G root -D -h /var/run/sshd -s /usr/sbin/nologin
 		#sshd:x:117:65534::/var/run/sshd:/usr/sbin/nologin
 	fi
@@ -120,7 +122,7 @@ case "$1" in
         fi
         ;;
     *)
-        echo "Usage: /etc/init.d/ssh {start|stop|restart|force-reload|status}"
+        echo "Usage: $0 {start|stop|restart|force-reload|status}"
         exit 1
         ;;
 esac
