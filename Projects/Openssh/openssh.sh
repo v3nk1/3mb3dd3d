@@ -52,16 +52,16 @@ download_pkg () {
 
         colored_echo "Downloading packages"
         echo -e "\nChecking/Downloading packages .." >> $LOG    &&
-        if test -e ./down       
+        if test $1 = all       
                 then
-                cp ./down ${PKGDIR}	&&
 			cd ${PKGDIR}	&&
-			./down		&&
-			rm -rf down
+			wget -c http://zlib.net/zlib-1.2.8.tar.gz &&
+                        wget -c https://www.openssl.org/source/openssl-1.0.1h.tar.gz &&
+			wget -c ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-6.6p1.tar.gz &&
 		echo "Acomplished Checking/Downloading packages." >> $LOG       
                 colored_echo "Accomplished downloading"
         else
-                echo "Failed: Download script is not found." >> $LOG
+                echo "Failed: Download is not found." >> $LOG
                 colored_echo "Failed downloading"
                 exit 0
         fi
@@ -126,6 +126,150 @@ colored_echo "Acomplished openssh"
 
 }
 
+make_initd_script () {
+
+        if test $ZLIB = 1 && test $OPENSSL = 1 && test $OPENSSH = 1 ;
+        then
+                mkdir -p ${INSTDIR}${MY_SYSCONFDIR}/init.d &&
+		(echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/ssh
+		echo "### BEGIN INIT INFO
+# Provides:          sshd
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: Starts or stops the sshd daemon.
+### END INIT INFO
+
+NAME=sshd
+DAEMON=/usr/sbin/\$NAME
+PIDFILE=/var/run/\$NAME.pid
+SYSCONF_DIR=/etc/ssh
+
+PASSWD=letmein
+
+if ! test -x \"\$DAEMON\" ;then 
+	echo \$DAEMON\": Not found or no execution permission\"
+	exit 0
+fi
+
+gen_ssh_hostkeys () {
+
+	if [ ! -e \${SYSCONF_DIR}/ssh_host_key -o 				\
+		! -e \${SYSCONF_DIR}/ssh_host_dsa_key -o				\
+		! -e \${SYSCONF_DIR}/ssh_host_rsa_key -o				\
+		! -e \${SYSCONF_DIR}/ssh_host_ecdsa_key -o			\
+		! -e \${SYSCONF_DIR}/ssh_host_ed25519_key ];	then
+		rm -rf \${SYSCONF_DIR}/ssh_host*
+		echo \"Generating Keys ...\"
+		ssh-keygen -q -t rsa1 -f \${SYSCONF_DIR}/ssh_host_key -N \"\"          &&
+		ssh-keygen -q -t dsa -f \${SYSCONF_DIR}/ssh_host_dsa_key -N \"\"       &&
+		ssh-keygen -q -t rsa -f \${SYSCONF_DIR}/ssh_host_rsa_key -N \"\"       &&
+		ssh-keygen -q -t ecdsa -f \${SYSCONF_DIR}/ssh_host_ecdsa_key -N \"\"   &&
+		ssh-keygen -q -t ed25519 -f \${SYSCONF_DIR}/ssh_host_ed25519_key -N \"\" ;
+	fi
+
+}
+
+gen_ssh_id_rsa () {
+
+	if [ ! -d /root -o ! -d /root/.ssh -o ! -e /root/.ssh/id_rsa ];	then
+		echo \"Generating id_rsa ...\"
+		mkdir -p /root/.ssh
+		(echo -e \"\n\n\n\") | ssh-keygen
+		rm -rf /etc/ssh_host_*
+		gen_ssh_hostkeys
+	
+	fi
+
+}
+
+group_passwd () {
+
+	touch /etc/group /etc/passwd
+
+	if ! grep -q root \"/etc/group\"; then
+		echo \"Creating /etc/group and adding entries ... \"
+		addgroup -S root
+	fi
+
+	if ! grep -q root \"/etc/passwd\"; then
+		echo \"Creating /etc/passwd and adding entries ... \"
+		adduser root -G root -u 0 -D -h /root
+		#echo \"Enter Passwd for root: \"
+		echo \"Pre-chosen Passwd for root: letmein\"
+		#passwd hard-coded
+		(echo -e \"${PASSWD}\n${PASSWD}\") | passwd
+	fi
+
+	if ! grep -q sshd \"/etc/passwd\"; then
+		echo \"Adding sshd user to passwd ...\"
+		mkdir -p /var/run
+		adduser sshd -G root -D -h /var/run/sshd -s /usr/sbin/nologin
+		#sshd:x:117:65534::/var/run/sshd:/usr/sbin/nologin
+	fi
+}
+
+_start () {
+
+	if ! test -d /dev/pts	;then :
+		# These below 2 steps are necessary for ssh connection to HOST
+		echo \"Mounting devpts to /dev/pts\"
+		mkdir -p /dev/pts
+		mount -t devpts devpts  /dev/pts
+	fi
+
+	group_passwd
+	gen_ssh_id_rsa
+	gen_ssh_hostkeys
+
+}
+
+
+case \"\$1\" in
+    start)
+	rm -rf \$PIDFILE
+	if [ ! -e \$PIDFILE ]; then
+	        echo \"Starting daemon\" \"\$NAME\"
+		_start
+		start-stop-daemon --start --quiet --oknodo -m --pidfile \"\$PIDFILE\" --exec \"\$DAEMON\"
+		#echo \$?
+	else
+		echo \"\$NAME-daemon is running.\"
+	fi
+        ;;
+    stop)
+	if [ -e \$PIDFILE ]; then
+	        echo \"Stopping daemon\" \"\$NAME\"
+		start-stop-daemon --stop --quiet --oknodo --pidfile \"\$PIDFILE\"
+		rm -rf \$PIDFILE
+	        #echo \$?
+	else
+		echo \"\$NAME-daemon is not running.\"
+	fi
+        ;;
+    restart|force-reload)
+        \$0 stop
+        \$0 start
+        ;;
+    status)
+        if [ -e \$PIDFILE ] ; then
+		echo \"SSH is upon running\"
+	else
+		echo \"SSH is not running\"
+        fi
+        ;;
+    *)
+        echo \"Usage: \$0 {start|stop|restart|force-reload|status}\"
+        exit 1
+        ;;
+esac
+
+exit 0" >> ${INSTDIR}${MY_SYSCONFDIR}/init.d/ssh
+		chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/ssh
+		echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/ssh" >> $LOG        &&
+		colored_echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/ssh"
+	fi
+}
+
 check_build_success () {
 
         colored_echo "BUILDING LOG:"
@@ -140,16 +284,17 @@ check_build_success () {
 case "$1" in
     make-all-install)
         $0 clean-build    &&
-        download_pkg    &&
+        download_pkg  all &&
         zlib    &&
         openssl    &&
         openssh
+	make_initd_script
         check_build_success
         date >> $LOG
         ;;
     make-openssh)
         $0 clean-build    &&
-        download_pkg    &&
+        download_pkg  all  &&
         zlib    &&
         openssl    &&
         openssh

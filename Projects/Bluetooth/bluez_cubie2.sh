@@ -71,22 +71,64 @@ check_pkgsuccess () {
 #
 #}
 
+down_bluez() {
+
+##bluez
+	wget -c http://zlib.net/zlib-1.2.8.tar.gz       &&                                                          wget -c www.mirrorservice.org/sites/sourceware.org/pub/libffi/libffi-3.1.tar.gz &&
+	wget -c http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.1.tar.xz        &&
+	wget -c http://ftp.gnome.org/pub/gnome/sources/glib/2.40/glib-2.40.0.tar.xz     &&
+	wget -c http://sourceforge.net/projects/expat/files/expat/2.1.0/expat-2.1.0.tar.gz      &&
+	wget -c http://dbus.freedesktop.org/releases/dbus/dbus-1.8.0.tar.gz     &&
+	wget -c http://downloads.sourceforge.net/freeassociation/libical-1.0.tar.gz     &&
+	wget -c http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz   &&
+	wget -c ftp://ftp.cwru.edu/pub/bash/readline-6.3.tar.gz &&
+	wget -c http://www.kernel.org/pub/linux/bluetooth/bluez-5.20.tar.xz
+
+
+}
+
+
+down_obex () {
+
+#pre-requisites on host                                                                     
+	apt-get install obexftp libopenobex1-dev libusb-dev
+	#obex-ftp
+	apt-get source libusb-dev
+	apt-get source libopenobex1-dev
+	apt-get source obexftp
+	#obex-fs
+	wget -c -O fuse-2.9.3.tar.gz downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Ffuse%2F%3Fsource%3Dtyp_redirect&ts=1409211723&use_mirror=cznic &&
+	wget -c pkgs.fedoraproject.org/repo/pkgs/obexfs/obexfs-0.12.tar.gz/0f505672b025cdb505e215ee707a2e2f/obexfs-0.12.tar.gz
+	#removing junk
+	rm -rf *dsc* *diff* *debian* *orig* *ubuntu*
+
+}
+
 download_pkg () {
 
 	#pkg_check
 
 	colored_echo "Downloading packages"
 	echo -e "\nChecking/Downloading packages .." >> $LOG    &&
-	if test -e ./down	
+	if test $1 = all
 		then 
-		cp ./down ${PKGDIR}     &&
                 cd ${PKGDIR}    &&
-                ./down          &&
-                rm -rf down
+		down_bluez
+		down_obex
 		echo "Acomplished Checking/Downloading packages." >> $LOG        &&
 		colored_echo "Accomplished downloading"	
+	elif test $1 = obex
+		then
+		down_obex
+		echo "Acomplished Checking/Downloading packages." >> $LOG        &&
+		colored_echo "Accomplished downloading"	
+	elif test $1 = bluez
+		then
+                down_bluez
+                echo "Acomplished Checking/Downloading packages." >> $LOG        &&                         
+                colored_echo "Accomplished downloading"
 	else
-		echo "Failed: Download script is not found." >> $LOG
+		echo "Failed: Download is not found." >> $LOG
 		colored_echo "Failed downloading"	
 		exit 0	
 	fi
@@ -285,6 +327,285 @@ colored_echo "Acomplished Bluez"
 	cd $ROOTDIR
 
 }
+			#######################
+build_libusb () {
+
+colored_echo "Building libusb"
+	echo -e "\nStarted building libusb .." >> $LOG    &&
+	cd libusb* &&
+	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX}	\
+			--localstatedir=${MY_LOCALSTATEDIR}				\
+			OPENOBEX_LIBS=-L${INSTDIR}/usr/lib 				\
+			BLUETOOTH_LIBS=-L${INSTDIR}/usr/lib 				\
+			OPENOBEX_CFLAGS=-I${INSTDIR}/usr/include 			\
+			BLUETOOTH_CFLAGS=-I${INSTDIR}/usr/include
+	make DESTDIR=${INSTALL_DIR} -j4 &&
+        make DESTDIR=${INSTALL_DIR} install &&
+	cd ..   &&
+        echo "Acomplished libusb." >> $LOG        &&
+colored_echo "Acomplished libusb"
+
+
+}
+
+build_libopenobex () {
+
+colored_echo "Building libopenobex"
+	echo -e "\nStarted building openobex .." >> $LOG    &&
+	cd libopenobex* &&
+	sed 's/test "$cross_compiling" = yes \&\&/test "$cross_compiling" = * \&\&/' -i configure
+	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX}	\
+		--localstatedir=${MY_LOCALSTATEDIR} 	\
+		PKG_CONFIG_PATH=${INSTDIR}/usr/lib/pkgconfig	\
+		 CC="arm-linux-gcc -I${INSTDIR}/usr/include/ -L${INSTDIR}/usr/lib"
+	make DESTDIR=${INSTALL_DIR} -j4 &&
+        make DESTDIR=${INSTALL_DIR} install &&
+	cd ..   &&
+        echo "Acomplished libopenobex." >> $LOG        &&
+colored_echo "Acomplished libopenobex"
+
+}
+
+build_obexftp () {
+
+colored_echo "Building obexftp"    &&
+        echo -e "\nStarted building obexftp .." >> $LOG    &&
+	build_libusb
+	build_libopenobex
+        cd obexftp* &&
+	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
+	--localstatedir=${MY_LOCALSTATEDIR} \
+	CC="arm-linux-gcc -L${INSTDIR}/usr/lib -L${INSTDIR}/usr/lib -I${INSTDIR}/usr/include/ -I${INSTDIR}/usr/include/ -lusb" 			\
+	OPENOBEX_LIBS="-L${INSTDIR}/usr/lib -lopenobex" 			\
+	--disable-perl --disable-python --disable-ruby --disable-tcl CFLAGS="-L${INSTDIR}/usr/lib" &&	
+	mv /usr/lib/libopenobex.so /	&&
+	cp ${INSTDIR}/usr/lib/libusb.la -Rfp /usr/lib/ &&
+	
+	make DESTDIR=${INSTALL_DIR} PKG_CONFIG_PATH=${INSTDIR}/usr/lib/pkgconfig -j4 &&
+	
+	cp obexftp/.libs/libobexftp.a obexftp/.libs/libobexftp.lai	&&
+	cp multicobex/.libs/libmulticobex.a multicobex/.libs/libmulticobex.lai	&&
+
+	make DESTDIR=${INSTALL_DIR} install	&&
+	
+	mv /libopenobex.so /usr/lib		&&
+	rm -rf /usr/lib/libusb.la		&&
+	
+        cd ..   &&
+        echo "Acomplished obexftp." >> $LOG        &&
+colored_echo "Acomplished obexftp"
+
+}
+
+build_libfuse () {
+
+colored_echo "Building libfuse"
+	echo -e "\nStarted building libfuse .." >> $LOG    &&
+	tar -xvf fuse-2.9.3*
+	cd fuse* &&
+	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
+	--localstatedir=${MY_LOCALSTATEDIR} \
+	CC="arm-linux-gcc -L${INSTDIR}/usr/lib -L${INSTDIR}/usr/lib -I${INSTDIR}/usr/include/ -I${INSTDIR}/usr/include"        &&
+	make DESTDIR=${INSTALL_DIR} -j4 &&
+        make DESTDIR=${INSTALL_DIR} install &&
+	cd ..   &&
+        echo "Acomplished libfuse." >> $LOG        &&
+colored_echo "Acomplished libfuse"
+
+}
+
+build_obexfs () {
+
+colored_echo "Building obexfs"
+	echo -e "\nStarted building obexfs .." >> $LOG    &&
+	build_libfuse
+	tar -xvf obexfs*
+	cd obexfs* &&
+	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
+        --localstatedir=${MY_LOCALSTATEDIR} \
+	CC="arm-linux-gcc -L${INSTDIR}/usr/lib -L${INSTDIR}/usr/lib -I${INSTDIR}/usr/include/ -I${INSTDIR}/usr/include"        &&
+	make DESTDIR=${INSTALL_DIR} -j4 &&
+        make DESTDIR=${INSTALL_DIR} install &&
+        cd ..   &&
+        echo "Acomplished obexfs." >> $LOG        &&
+colored_echo "Acomplished obexfs"
+
+}
+
+make_initd_script () {
+
+        if test $BLUEZ = 1 && test $OBEX = 1 
+        then
+                mkdir -p ${INSTDIR}${MY_SYSCONFDIR}/init.d &&
+#### bluetoothd
+                (echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd &&
+		echo "### BEGIN INIT INFO
+# Provides: bluetoothd
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: Starts or stops the bluetoothd daemon.
+### END INIT INFO
+
+NAME=bluetoothd
+DAEMON=/usr/libexec/bluetooth/\$NAME
+PIDFILE=/var/run/\$NAME.pid
+
+# This --compat will allows you to add sdptool service otherwise
+# Failed to connect to SDP server on FF:FF:FF:00:00:00: No such file or directory
+BLUEZ_OPS=\"--compat\"
+
+if ! test -x \"\$DAEMON\" ;then 
+	echo \$DAEMON\": Not found or no execution permission\"
+	exit 0
+fi
+
+case \"\$1\" in
+    start)
+	#/etc/init.d/dbus start
+	rm -rf \$PIDFILE
+	if [ ! -e \$PIDFILE ]; then
+		/etc/init.d/dbus start
+	        echo \"Starting daemon\" \"\$NAME\"
+		start-stop-daemon --start --quiet --oknodo -m --pidfile \"\$PIDFILE\" --exec \"\$DAEMON\" -- \${BLUEZ_OPS} &
+		/usr/bin/hciconfig hci0 up
+	else 
+		echo \"\$NAME-deamon is running.\"	
+	fi
+	#/usr/bin/hciconfig hci0 up
+       	 ;;
+    stop)
+	if [ -e \$PIDFILE ]; then
+	        echo \"Stopping daemon\" \"\$NAME\"
+		#start-stop-daemon --stop --quiet --oknodo --name bluetoothd --pidfile \"\$PIDFILE\"
+		start-stop-daemon --stop --quiet --oknodo --pidfile \"\$PIDFILE\"
+		rm -rf \$PIDFILE
+	else
+		echo \"\$NAME-daemon is not running.\"
+	fi
+	
+        ;;
+    restart|force-reload)
+        \$0 stop
+        \$0 start
+        ;;
+    status)
+        if [ -e \$PIDFILE ] ; then
+		echo \"Bluetoothd is upon running\"
+	else
+		echo \"Bluetoothd is not running\"
+        fi
+        ;;
+    *)
+        echo \"Usage: /etc/init.d/bluetoothd {start|stop|restart|force-reload|status}\"
+        exit 1
+        ;;
+esac
+
+exit 0" >> ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd
+	chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd
+echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd" >> $LOG        &&
+colored_echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd"
+
+####### dbus 
+	(echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus &&
+	echo "### BEGIN INIT INFO
+# Provides: dbus
+# Default-Start:     
+# Default-Stop:      
+# Short-Description: Starts or stops the sshd daemon.
+### END INIT INFO
+
+NAME=dbus-daemon
+DAEMON=/usr/bin/\$NAME
+#if dbus giving connection refused then give PIDFILE=/var/run/dbus/\$NAME.pid
+PIDFILE=/var/run/\$NAME.pid
+
+# It restrict dbus-daemon to create pid file in /var/run/dbus/pid
+OPS=--nopidfile
+
+if ! test -x \"\$DAEMON\" ;then 
+	echo \$DAEMON\": Not found or no execution permission\"
+	exit 0
+fi
+
+gen_group_passwd () {
+
+	touch /etc/group /etc/passwd
+	mkdir -p /home/messagebus /root
+
+	if ! grep -q root \"/etc/group\"; then
+		echo \"Creating /etc/group and adding entries ... \"
+		addgroup -S root
+	fi
+
+	if ! grep -q messagebus \"/etc/group\"; then
+		echo \"Adding group messagebus to /etc/group ..\"
+		addgroup -S messagebus
+	fi
+
+	if ! grep -q root \"/etc/passwd\"; then
+		echo \"Creating /etc/passwd and adding entries ... \"
+		adduser root -G root -u 0 -D -h /root
+		echo \"Enter Passwd for root: \"
+		passwd
+	fi
+
+	if ! grep -q messagebus \"/etc/passwd\"; then
+		echo \"Adding user messagebus to /etc/passwd ..\"	
+		adduser -S messagebus -G messagebus
+	fi
+}
+
+case \"\$1\" in
+    start)
+	rm -rf \$PIDFILE
+	if [ ! -e \$PIDFILE ]; then
+	        echo \"Starting daemon\" \"\$NAME\"
+		gen_group_passwd
+		#rm -rf /var/run/dbus/pid
+		start-stop-daemon --start --quiet --oknodo -m --pidfile \"\$PIDFILE\" --exec \$DAEMON -- --system \${OPS}
+		#dbus-daemon --system
+	else
+		echo \"\$NAME-deamon is running.\"
+	fi
+        ;;
+    stop)
+	if [ -e \$PIDFILE ]; 
+	then
+	        echo \"Stopping daemon\" \"\$NAME\"
+		# Here i'm using name for stopping b'coz its been a garbage value in pid file created by
+		# start-stop-daemon
+		start-stop-daemon --stop --quiet --oknodo --name \"dbus-daemon\"
+		#rm -fr /var/run/dbus/pid
+		rm -rf \$PIDFILE
+	else 
+		echo \"\$NAME-daemon is not running.\"
+	fi
+        ;;
+    restart|force-reload)
+        \$0 stop
+        \$0 start
+        ;;
+    status)
+        if [ -e \$PIDFILE ] ; then
+		echo \"dbus-daemon is upon running\"
+	else
+		echo \"dbus-daemon is not running\"
+        fi
+        ;;
+    *)
+        echo \"Usage: /etc/init.d/dbus {start|stop|restart|force-reload|status}\"
+        exit 1
+        ;;
+esac
+
+exit 0" >> ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus &&
+chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus  	
+echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus" >> $LOG        &&
+colored_echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus"
+	fi
+
+}
 
 check_build_success () {
 
@@ -310,7 +631,7 @@ check_build_success () {
 case "$1" in
     make-bluez)
 	$0 clean-build    &&
-	download_pkg	&&
+	download_pkg bluez &&
 	zlib		&&
 	libffi		&&
 	gettext    &&
@@ -321,33 +642,34 @@ case "$1" in
 	ncurses    &&
 	readline    &&
 	bluez
+	make_initd_script
 	check_build_success
 	date >> $LOG	
         ;;
+    make-init-scripts)
+	BLUEZ=1
+	OBEX=1
+	make_initd_script
+	
+	;;
     make-bluez-obex)
-#	$0 clean-build    &&
-	download_pkg    &&
-        zlib    &&
-        libffi    &&
-        gettext    &&
-        glib    &&
-        expat    &&
-        dbus    &&
-        libical    &&
-        ncurses    &&
-        readline    &&
-        bluez	&&
-	./obex.sh make-install &&
+	$0 clean-build    &&
+	download_pkg obex    &&
+	$0 make-bluez
+	date >> ${LOG}
+	build_obexftp	&&
+	build_obexfs
+	make_initd_script
 	OBEX=1
 	check_build_success
 	date >> $LOG	
         ;;
     clean-build)
-	rm -rf bluez-5.20 dbus-1.8.0 gettext-0.19.1 expat-2.1.0 glib-2.40.0 libffi-3.1 \
-		libical-1.0 ncurses-5.9 readline-6.3 zlib-1.2.8
+	rm -rf ${PKGDIR}/{bluez-5.20,dbus-1.8.0,gettext-0.19.1,expat-2.1.0,glib-2.40.0,libffi-3.1,libical-1.0,ncurses-5.9,readline-6.3,zlib-1.2.8}
+	rm -rf ${PKGDIR}/*
         ;;
     *)
-        echo "Usage: $0 {make-bluez|make-bluez-obex|clean-build}"
+        echo "Usage: $0 {make-bluez|make-bluez-obex|make-init-scripts|clean-build}"
         exit 1
         ;;
 esac

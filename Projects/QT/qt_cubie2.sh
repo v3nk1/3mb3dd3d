@@ -23,6 +23,7 @@ export INSTALL_DIR=${INSTDIR}
 export PRE_FIX=/usr
 export MY_SYSCONFDIR=/etc
 export MY_LOCALSTATEDIR=/var
+export MY_LIBDIR=/lib
 
 mkdir -p ${INSTDIR} ${PKGDIR}
 
@@ -55,7 +56,7 @@ download_pkg () {
         if test $1 = all        
                 then
                 cd ${PKGDIR}    &&
-#		wget -c www.mirrorservice.org/sites/download.qt-project.org/archive/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz &&
+		wget -c www.mirrorservice.org/sites/download.qt-project.org/archive/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz &&
 		git clone http://github.com/kergoth/tslib.git &&
 		wget -c http://zlib.net/zlib-1.2.8.tar.gz &&
 		echo "Acomplished Checking/Downloading packages." >> $LOG       
@@ -73,7 +74,7 @@ download_pkg () {
                 echo "Acomplished Checking/Downloading packages." >> $LOG       
                 colored_echo "Accomplished downloading"
         else
-                echo "Failed: Download script is not found." >> $LOG
+                echo "Failed: Download is not found." >> $LOG
                 colored_echo "Failed downloading"
                 exit 0
         fi
@@ -86,7 +87,9 @@ colored_echo "Building zlib"    &&
         echo -e "\nStarted building zlib .." >> $LOG    &&
         tar -xvf zlib-1.2.8.tar.gz &&
         cd zlib-1.2.8   &&
-        CC=arm-linux-gcc CFLAGS="-O4" ./configure --prefix=${PRE_FIX} --sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
+        CC=arm-linux-gcc CFLAGS="-O4" ./configure --prefix=${PRE_FIX} \
+	--sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
+#       --libdir=/lib   \
         make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
         cd ..   &&
@@ -107,6 +110,7 @@ colored_echo "Building tslib"    &&
 	./configure --build=i386-linux --host=arm-linux --target=arm \
 		--enable-static --enable-shared --prefix=${PRE_FIX} \
 		--sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
+#		--libdir=/lib	\
         make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
 	unset CC && unset CXX &&
@@ -160,13 +164,43 @@ load(qt_config)
 "	> mkspecs/qws/linux-arm-g++/qmake.conf &&
 	
 	(echo -e "o\nyes\n") | ./configure -embedded arm -xplatform qws/linux-arm-g++ -prefix ${PRE_FIX} \
-		-sysconfdir ${MY_SYSCONFDIR} -qt-mouse-tslib -little-endian -no-pch &&
+		-sysconfdir ${MY_SYSCONFDIR} -qt-mouse-tslib -little-endian -no-pch \
+		-examplesdir ${PRE_FIX}/local/Qt/examples -demosdir ${PRE_FIX}/local/Qt/demos \
+		-plugindir ${PRE_FIX}/local/Qt/plugins -importdir ${PRE_FIX}/local/Qt/imports \
+		-translationdir ${PRE_FIX}/local/Qt/translations &&
 	make INSTALL_ROOT=${INSTALL_DIR} -j4 &&
 	make INSTALL_ROOT=${INSTALL_DIR} install
 	cd ..   &&
 	QT=1 &&
         echo "Acomplished qt-4.8.5." >> $LOG        &&
 colored_echo "Acomplished qt-4.8.5"
+}
+
+make_initd_script () {
+
+	if test $ZLIB = 1 && test $TSLIB = 1 && test $QT = 1 ;
+        then
+		mkdir -p ${INSTDIR}${MY_SYSCONFDIR}/init.d &&
+		(echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/qt-touchenv && 
+		echo "chmod +w /sys/module/kernel/parameters/consoleblank &&
+echo 0 > /sys/module/kernel/parameters/consoleblank
+
+export TSLIB_TSEVENTTYPE=INPUT
+export TSLIB_CONSOLEDEVICE=none
+export TSLIB_FBDEVICE=/dev/fb0
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_CALIBFILE=${MY_SYSCONFDIR}/pointercal
+export TSLIB_CONFFILE=${MY_SYSCONFDIR}/ts.conf
+export TSLIB_PLUGINDIR=${PRE_FIX}/lib/ts
+export QWS_MOUSE_PROTO=tslib:/dev/input/event0
+export QTDIR=${PRE_FIX}
+export QWS_DISPLAY=LinuxFB:mmWidth=105:mmHeight=140
+
+${PRE_FIX}/bin/ts_calibrate" > ${INSTDIR}${MY_SYSCONFDIR}/init.d/qt-touchenv &&
+		chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/qt-touchenv
+
+	fi
+
 }
 
 check_build_success () {
@@ -187,6 +221,7 @@ case "$1" in
         tslib    &&
         qt-4.8.5
         check_build_success
+	make_initd_script
         date >> $LOG
         ;;
     make-tslib)

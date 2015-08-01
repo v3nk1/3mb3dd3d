@@ -3,7 +3,7 @@
 # Provides: bluetoothd
 # Default-Start:     
 # Default-Stop:      
-# Short-Description: Starts or stops the sshd daemon.
+# Short-Description: Starts or stops the bluetoothd daemon.
 ### END INIT INFO
 
 NAME=bluetoothd
