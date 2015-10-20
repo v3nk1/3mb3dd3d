@@ -108,37 +108,42 @@ download_pkg () {
 
 	#pkg_check
 
-	colored_echo "Downloading packages"
-	echo -e "\nChecking/Downloading packages .." >> $LOG    &&
+        cd ${PKGDIR}    &&
 	if test $1 = all
 		then 
-                cd ${PKGDIR}    &&
+		colored_echo "Downloading packages(all)"
+		echo -e "\nChecking/Downloading packages(all) .." >> $LOG    &&
 		down_bluez
 		down_obex
-		echo "Acomplished Checking/Downloading packages." >> $LOG        &&
-		colored_echo "Accomplished downloading"	
+		echo "Acomplished Checking/Downloading(all) packages." >> $LOG        &&
+		colored_echo "Accomplished downloading(all)"	
 	elif test $1 = obex
 		then
+		colored_echo "Downloading packages(obex)"
+		echo -e "\nChecking/Downloading packages(obex) .." >> $LOG    &&
 		down_obex
-		echo "Acomplished Checking/Downloading packages." >> $LOG        &&
-		colored_echo "Accomplished downloading"	
+		echo "Acomplished Checking/Downloading(obex) packages." >> $LOG        &&
+		colored_echo "Accomplished downloading(obex)"	
 	elif test $1 = bluez
 		then
+		colored_echo "Downloading packages(bluez)"
+		echo -e "\nChecking/Downloading packages(bluez) .." >> $LOG    &&
                 down_bluez
-                echo "Acomplished Checking/Downloading packages." >> $LOG        &&                         
-                colored_echo "Accomplished downloading"
+                echo "Acomplished Checking/Downloading(bluez) packages." >> $LOG        &&
+                colored_echo "Accomplished downloading(bluez)"
 	else
 		echo "Failed: Download is not found." >> $LOG
 		colored_echo "Failed downloading"	
 		exit 0	
 	fi
-
+	cd ..
 }
 
 zlib () {
 
 colored_echo "Building zlib"	&&
 	echo -e "\nStarted building zlib .." >> $LOG	&&
+        cd ${PKGDIR}    &&
 	tar -xvf zlib-1.2.8.tar.gz &&
 	cd zlib-1.2.8	&&
 	CC=arm-linux-gcc CFLAGS="-O4" ./configure --prefix=${PRE_FIX} --sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
@@ -155,6 +160,7 @@ libffi () {
 
 colored_echo "Building libffi"	&&
 	echo -e "\nStarted building libffi .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvf libffi*	&&
 	cd libffi*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX} --sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
@@ -171,6 +177,7 @@ gettext () {
 
 colored_echo "Building gettext"	&&
 	echo -e "\nStarted building gettext .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvf gettext*	&&
 	cd gettext*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX} --sysconfdir=${MY_SYSCONFDIR} --localstatedir=${MY_LOCALSTATEDIR} &&
@@ -189,6 +196,7 @@ sudo apt-get install libglib2.0-dev	&&
 
 colored_echo "Building glib"	&&
 	echo -e "\nStarted building glib .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvf glib-*	&&
 	cd glib-*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX} \
@@ -210,6 +218,7 @@ expat () {
 
 colored_echo "Building expat"	&&
 	echo -e "\nStarted building expat .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvzf expat-*	&&
 	cd expat*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX}	\
@@ -227,6 +236,7 @@ dbus () {
 
 colored_echo "Building Dbus"	&&
 	echo -e "\nStarted building Dbus .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xzvf dbus-*	&&
 	cd dbus*	&&
 	export PKG_CONFIG_LIBDIR=${INSTDIR}/usr/lib/pkgconfig	&&
@@ -252,6 +262,7 @@ sudo apt-get install cmake	&&
 
 colored_echo "Building libical"	&&
 	echo -e "\nStarted building libical .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xzvf libical* &&
 	cd libical*	&&
 	export CC=arm-linux-gcc	&&
@@ -270,6 +281,7 @@ ncurses () {
 
 colored_echo "Building ncurses"	&&
 	echo -e "\nStarted building ncurses .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvf ncurses*	&&
 	cd ncurses*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX} CXX="arm-linux-g++"	\
@@ -287,6 +299,7 @@ readline () {
 
 colored_echo "Building readline"	&&
 	echo -e "\nStarted building readline .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvzf readline*	&&
 	cd readline*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX} \
@@ -308,6 +321,7 @@ bluez () {
 
 colored_echo "Building Bluez"		&&
 	echo -e "\nStarted building Bluez .." >> $LOG &&
+        cd ${PKGDIR}    &&
 	tar -xvf bluez-*	&&
 	cd bluez-*	&&
 	./configure --host=arm-linux --prefix=${PRE_FIX}	\
@@ -332,6 +346,7 @@ build_libusb () {
 
 colored_echo "Building libusb"
 	echo -e "\nStarted building libusb .." >> $LOG    &&
+        cd ${PKGDIR}    &&
 	cd libusb* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX}	\
 			--localstatedir=${MY_LOCALSTATEDIR}				\
@@ -352,6 +367,7 @@ build_libopenobex () {
 
 colored_echo "Building libopenobex"
 	echo -e "\nStarted building openobex .." >> $LOG    &&
+        cd ${PKGDIR}    &&
 	cd libopenobex* &&
 	sed 's/test "$cross_compiling" = yes \&\&/test "$cross_compiling" = * \&\&/' -i configure
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX}	\
@@ -372,6 +388,7 @@ colored_echo "Building obexftp"    &&
         echo -e "\nStarted building obexftp .." >> $LOG    &&
 	build_libusb
 	build_libopenobex
+        cd ${PKGDIR}    &&
         cd obexftp* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
 	--localstatedir=${MY_LOCALSTATEDIR} \
@@ -401,6 +418,7 @@ build_libfuse () {
 
 colored_echo "Building libfuse"
 	echo -e "\nStarted building libfuse .." >> $LOG    &&
+        cd ${PKGDIR}    &&
 	tar -xvf fuse-2.9.3*
 	cd fuse* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
@@ -419,6 +437,7 @@ build_obexfs () {
 colored_echo "Building obexfs"
 	echo -e "\nStarted building obexfs .." >> $LOG    &&
 	build_libfuse
+        cd ${PKGDIR}    &&
 	tar -xvf obexfs*
 	cd obexfs* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
@@ -630,7 +649,7 @@ check_build_success () {
 
 case "$1" in
     make-bluez)
-	$0 clean-build    &&
+	$0 clean-build bluez   &&
 	download_pkg bluez &&
 	zlib		&&
 	libffi		&&
@@ -653,9 +672,9 @@ case "$1" in
 	
 	;;
     make-bluez-obex)
-	$0 clean-build    &&
+	$0 clean-build all  &&
 	download_pkg obex    &&
-	$0 make-bluez
+	$0 make-bluez	&&
 	date >> ${LOG}
 	build_obexftp	&&
 	build_obexfs
@@ -665,8 +684,19 @@ case "$1" in
 	date >> $LOG	
         ;;
     clean-build)
-	rm -rf ${PKGDIR}/{bluez-5.20,dbus-1.8.0,gettext-0.19.1,expat-2.1.0,glib-2.40.0,libffi-3.1,libical-1.0,ncurses-5.9,readline-6.3,zlib-1.2.8}
-	rm -rf ${PKGDIR}/*
+	case "$2" in
+    		all)
+			rm -rf ${PKGDIR}/*
+			;;
+		bluez)
+			rm -rf ${PKGDIR}/{bluez-5.20,dbus-1.8.0,gettext-0.19.1,expat-2.1.0,glib-2.40.0,libffi-3.1,libical-1.0,ncurses-5.9,readline-6.3,zlib-1.2.8}
+		;;
+		obex)
+			#rm -rf ${PKGDIR}
+		;;
+		*)
+		;;
+	esac
         ;;
     *)
         echo "Usage: $0 {make-bluez|make-bluez-obex|make-init-scripts|clean-build}"
