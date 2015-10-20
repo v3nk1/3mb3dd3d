@@ -441,7 +441,7 @@ colored_echo "Building obexfs"
 	tar -xvf obexfs*
 	cd obexfs* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX} \
-        --localstatedir=${MY_LOCALSTATEDIR} \
+        --localstatedir=${MY_LOCALSTATEDIR} PKG_CONFIG_PATH=${INSTDIR}/usr/lib/pkgconfig \
 	CC="arm-linux-gcc -L${INSTDIR}/usr/lib -L${INSTDIR}/usr/lib -I${INSTDIR}/usr/include/ -I${INSTDIR}/usr/include"        &&
 	make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
