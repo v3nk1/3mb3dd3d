@@ -10,17 +10,17 @@ NORM="\033[0m"
 BY="\033[3;33m${bold}"
 
 #Local env:
-ZLIB=0
-LIBFFI=0
-GETTEXT=0
-GLIB=0
-EXPAT=0
-DBUS=0
-LIBICAL=0
-NCURSES=0
-READLINE=0
-BLUEZ=0
-OBEX=0
+export ZLIB=0
+export LIBFFI=0
+export GETTEXT=0
+export GLIB=0
+export EXPAT=0
+export DBUS=0
+export LIBICAL=0
+export NCURSES=0
+export READLINE=0
+export BLUEZ=0
+export OBEX=0
 
 ROOTDIR=${PWD}
 INSTDIR=${ROOTDIR}/Recipe
@@ -640,7 +640,6 @@ check_build_success () {
 	check_pkgsuccess $READLINE "readline"
 	check_pkgsuccess $BLUEZ bluez
 	check_pkgsuccess $OBEX obex
-
 
 }
 
