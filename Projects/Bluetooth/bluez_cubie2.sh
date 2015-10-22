@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#For debug a sript, Uncommet bellow:
+#set -x
+
+#if [ $# -gt 0 ]
+#then
+##To recored compilation
+#	#execute below command in your shell before execute this script
+#	script -f compilation-record	
+#else
+#	echo "Please provide respective arguments:"
+#fi
+
 bold=`tput bold`
 unline="\033[0m"
 #bold yellow underline
@@ -45,6 +57,13 @@ echo -e ${BYU}"\n$1"${unline}${BY}" .."${NORM}
 
 }
 
+LOG () {
+
+	colored_echo "$1"
+	echo -en "\n$1" >> $LOG
+	date >> $LOG    
+
+}
 check_pkgsuccess () {
 
 	if [ $1 -ne 1 ]; 
@@ -93,12 +112,12 @@ down_obex () {
 #pre-requisites on host                                                                     
 	apt-get install obexftp libopenobex1-dev libusb-dev
 	#obex-ftp
-	apt-get source libusb-dev
-	apt-get source libopenobex1-dev
-	apt-get source obexftp
+	apt-get source libusb-dev			&&	
+	apt-get source libopenobex1-dev			&&
+	apt-get source obexftp				&&
 	#obex-fs
 	wget -c -O fuse-2.9.3.tar.gz downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Ffuse%2F%3Fsource%3Dtyp_redirect&ts=1409211723&use_mirror=cznic &&
-	wget -c pkgs.fedoraproject.org/repo/pkgs/obexfs/obexfs-0.12.tar.gz/0f505672b025cdb505e215ee707a2e2f/obexfs-0.12.tar.gz
+	wget -c pkgs.fedoraproject.org/repo/pkgs/obexfs/obexfs-0.12.tar.gz/0f505672b025cdb505e215ee707a2e2f/obexfs-0.12.tar.gz	&&
 	#removing junk
 	rm -rf *dsc* *diff* *debian* *orig* *ubuntu*
 
@@ -111,29 +130,22 @@ download_pkg () {
         cd ${PKGDIR}    &&
 	if test $1 = all
 		then 
-		colored_echo "Downloading packages(all)"
-		echo -e "\nChecking/Downloading packages(all) .." >> $LOG    &&
-		down_bluez
-		down_obex
-		echo "Acomplished Checking/Downloading(all) packages." >> $LOG        &&
-		colored_echo "Accomplished downloading(all)"	
+		LOG "Checking/Downloading packages(all) .."
+		down_bluez	&&
+		down_obex	&&
+		LOG "Acomplished Checking/Downloading(all) packages."
 	elif test $1 = obex
 		then
-		colored_echo "Downloading packages(obex)"
-		echo -e "\nChecking/Downloading packages(obex) .." >> $LOG    &&
-		down_obex
-		echo "Acomplished Checking/Downloading(obex) packages." >> $LOG        &&
-		colored_echo "Accomplished downloading(obex)"	
+		LOG "Checking/Downloading packages(obex) .."
+		down_obex	&&
+		LOG "Acomplished Checking/Downloading(obex) packages."
 	elif test $1 = bluez
 		then
-		colored_echo "Downloading packages(bluez)"
-		echo -e "\nChecking/Downloading packages(bluez) .." >> $LOG    &&
-                down_bluez
-                echo "Acomplished Checking/Downloading(bluez) packages." >> $LOG        &&
-                colored_echo "Accomplished downloading(bluez)"
+		LOG "Checking/Downloading packages(bluez) .."
+                down_bluez	&&
+                LOG "Acomplished Checking/Downloading(bluez) packages." 
 	else
-		echo "Failed: Download is not found." >> $LOG
-		colored_echo "Failed downloading"	
+		LOG "Failed: Download is not found."
 		exit 0	
 	fi
 	cd ..
@@ -141,8 +153,7 @@ download_pkg () {
 
 zlib () {
 
-colored_echo "Building zlib"	&&
-	echo -e "\nStarted building zlib .." >> $LOG	&&
+	LOG "Started building zlib .."
         cd ${PKGDIR}    &&
 	tar -xvf zlib-1.2.8.tar.gz &&
 	cd zlib-1.2.8	&&
@@ -151,15 +162,13 @@ colored_echo "Building zlib"	&&
 	make DESTDIR=${INSTALL_DIR} install &&
 	cd ..	&&
 	ZLIB=1	&&
-	echo "Acomplished zlib." >> $LOG	&&
-colored_echo "Acomplished zlib"	
+	LOG "Acomplished zlib."	
 	
 }
 
 libffi () {
 
-colored_echo "Building libffi"	&&
-	echo -e "\nStarted building libffi .." >> $LOG &&
+	LOG "Started building libffi .."
         cd ${PKGDIR}    &&
 	tar -xvf libffi*	&&
 	cd libffi*	&&
@@ -168,15 +177,13 @@ colored_echo "Building libffi"	&&
 	make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	LIBFFI=1	&&
-	echo "Acomplished libffi." >> $LOG      &&
-colored_echo "Acomplished libffi"	
+	LOG "Acomplished libffi."
 
 }
 
 gettext () {
 
-colored_echo "Building gettext"	&&
-	echo -e "\nStarted building gettext .." >> $LOG &&
+	LOG "Started building gettext .." 
         cd ${PKGDIR}    &&
 	tar -xvf gettext*	&&
 	cd gettext*	&&
@@ -185,8 +192,7 @@ colored_echo "Building gettext"	&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	GETTEXT=1	&&
-	echo "Acomplished gettext." >> $LOG      &&
-colored_echo "Acomplished gettext"	
+	LOG "Acomplished gettext."	
 
 }
 
@@ -194,8 +200,7 @@ glib () {
 
 sudo apt-get install libglib2.0-dev	&&
 
-colored_echo "Building glib"	&&
-	echo -e "\nStarted building glib .." >> $LOG &&
+	LOG "Started building glib .."
         cd ${PKGDIR}    &&
 	tar -xvf glib-*	&&
 	cd glib-*	&&
@@ -209,15 +214,13 @@ colored_echo "Building glib"	&&
 	make DESTDIR=${INSTALL_DIR} install	&&
 	cd ..	&&
 	GLIB=1	&&
-	echo "Acomplished glib." >> $LOG      &&
-colored_echo "Acomplished glib"	
+	LOG "Acomplished glib."	
 
 }
 
 expat () {
 
-colored_echo "Building expat"	&&
-	echo -e "\nStarted building expat .." >> $LOG &&
+	LOG "Started building expat .."
         cd ${PKGDIR}    &&
 	tar -xvzf expat-*	&&
 	cd expat*	&&
@@ -227,15 +230,13 @@ colored_echo "Building expat"	&&
         make DESTDIR=${INSTALL_DIR} install &&
         cd ..	&&
 	EXPAT=1	&&
-	echo "Acomplished expat." >> $LOG      &&
-colored_echo "Acomplished expat"	
+	LOG "Acomplished expat."	
 
 }
 
 dbus () {
 
-colored_echo "Building Dbus"	&&
-	echo -e "\nStarted building Dbus .." >> $LOG &&
+	LOG "Started building Dbus .." 
         cd ${PKGDIR}    &&
 	tar -xzvf dbus-*	&&
 	cd dbus*	&&
@@ -250,8 +251,7 @@ colored_echo "Building Dbus"	&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	DBUS=1	&&
-	echo "Acomplished Dbus." >> $LOG      &&
-colored_echo "Acomplished Dbus"	
+	LOG "Acomplished Dbus."	
 
 }
 
@@ -260,8 +260,7 @@ libical () {
 
 sudo apt-get install cmake	&&
 
-colored_echo "Building libical"	&&
-	echo -e "\nStarted building libical .." >> $LOG &&
+	LOG "Started building libical .."
         cd ${PKGDIR}    &&
 	tar -xzvf libical* &&
 	cd libical*	&&
@@ -272,15 +271,13 @@ colored_echo "Building libical"	&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	LIBICAL=1	&&
-	echo "Acomplished libical." >> $LOG      &&
-colored_echo "Acomplished libical"	
+	LOG "Acomplished libical."	
 
 }
 
 ncurses () {
 
-colored_echo "Building ncurses"	&&
-	echo -e "\nStarted building ncurses .." >> $LOG &&
+	LOG "Started building ncurses .."
         cd ${PKGDIR}    &&
 	tar -xvf ncurses*	&&
 	cd ncurses*	&&
@@ -290,15 +287,13 @@ colored_echo "Building ncurses"	&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	NCURSES=1	&&
-	echo "Acomplished ncurses." >> $LOG      &&
-colored_echo "Acomplished ncurses"
+	LOG "Acomplished ncurses."
 
 }
 
 readline () {
 
-colored_echo "Building readline"	&&
-	echo -e "\nStarted building readline .." >> $LOG &&
+	LOG "Started building readline .."
         cd ${PKGDIR}    &&
 	tar -xvzf readline*	&&
 	cd readline*	&&
@@ -312,15 +307,13 @@ colored_echo "Building readline"	&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	READLINE=1	&&
-	echo "Acomplished readline." >> $LOG      &&
-colored_echo "Acomplished readline"	
+	LOG "Acomplished readline."	
 
 }
 
 bluez () {
 
-colored_echo "Building Bluez"		&&
-	echo -e "\nStarted building Bluez .." >> $LOG &&
+	LOG "Started building Bluez .."
         cd ${PKGDIR}    &&
 	tar -xvf bluez-*	&&
 	cd bluez-*	&&
@@ -336,16 +329,14 @@ colored_echo "Building Bluez"		&&
         make DESTDIR=${INSTALL_DIR} install	&&
         cd ..	&&
 	BLUEZ=1	&&
-	echo "Acomplished Bluez." >> $LOG      &&
-colored_echo "Acomplished Bluez"
+	LOG "Acomplished Bluez."
 	cd $ROOTDIR
 
 }
 			#######################
 build_libusb () {
 
-colored_echo "Building libusb"
-	echo -e "\nStarted building libusb .." >> $LOG    &&
+	LOG "Started building libusb .." 
         cd ${PKGDIR}    &&
 	cd libusb* &&
 	./configure --host=arm-linux --sysconfdir=${MY_SYSCONFDIR} --prefix=${PRE_FIX}	\
@@ -357,16 +348,14 @@ colored_echo "Building libusb"
 	make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
 	cd ..   &&
-        echo "Acomplished libusb." >> $LOG        &&
-colored_echo "Acomplished libusb"
+	LOG "Acomplished libusb."
 
 
 }
 
 build_libopenobex () {
 
-colored_echo "Building libopenobex"
-	echo -e "\nStarted building openobex .." >> $LOG    &&
+	LOG "Started building openobex .."
         cd ${PKGDIR}    &&
 	cd libopenobex* &&
 	sed 's/test "$cross_compiling" = yes \&\&/test "$cross_compiling" = * \&\&/' -i configure
@@ -377,15 +366,13 @@ colored_echo "Building libopenobex"
 	make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
 	cd ..   &&
-        echo "Acomplished libopenobex." >> $LOG        &&
-colored_echo "Acomplished libopenobex"
+	LOG "Acomplished libopenobex."
 
 }
 
 build_obexftp () {
 
-colored_echo "Building obexftp"    &&
-        echo -e "\nStarted building obexftp .." >> $LOG    &&
+        LOG "Started building obexftp .."
 	build_libusb
 	build_libopenobex
         cd ${PKGDIR}    &&
@@ -409,15 +396,13 @@ colored_echo "Building obexftp"    &&
 	rm -rf /usr/lib/libusb.la		&&
 	
         cd ..   &&
-        echo "Acomplished obexftp." >> $LOG        &&
-colored_echo "Acomplished obexftp"
+	LOG "Acomplished obexftp."
 
 }
 
 build_libfuse () {
 
-colored_echo "Building libfuse"
-	echo -e "\nStarted building libfuse .." >> $LOG    &&
+	LOG "Started building libfuse .."
         cd ${PKGDIR}    &&
 	tar -xvf fuse-2.9.3*
 	cd fuse* &&
@@ -427,15 +412,13 @@ colored_echo "Building libfuse"
 	make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
 	cd ..   &&
-        echo "Acomplished libfuse." >> $LOG        &&
-colored_echo "Acomplished libfuse"
+	LOG "Acomplished libfuse."
 
 }
 
 build_obexfs () {
 
-colored_echo "Building obexfs"
-	echo -e "\nStarted building obexfs .." >> $LOG    &&
+	LOG "Started building obexfs .." 
 	build_libfuse
         cd ${PKGDIR}    &&
 	tar -xvf obexfs*
@@ -446,8 +429,24 @@ colored_echo "Building obexfs"
 	make DESTDIR=${INSTALL_DIR} -j4 &&
         make DESTDIR=${INSTALL_DIR} install &&
         cd ..   &&
-        echo "Acomplished obexfs." >> $LOG        &&
-colored_echo "Acomplished obexfs"
+	LOG "Acomplished obexfs."
+
+}
+
+making_bluez () {
+
+LOG "Bluez ingredients making initiated.."
+	zlib		&&
+	libffi		&&
+	gettext    &&
+	glib    &&
+	expat    &&
+	dbus    &&
+	libical    &&
+	ncurses    &&
+	readline    &&
+	bluez
+LOG "Bluez making accomplished."
 
 }
 
@@ -455,6 +454,7 @@ make_initd_script () {
 
         if test $BLUEZ = 1 && test $OBEX = 1 
         then
+		LOG "Making init.d scripts .."
                 mkdir -p ${INSTDIR}${MY_SYSCONFDIR}/init.d &&
 #### bluetoothd
                 (echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd &&
@@ -522,8 +522,7 @@ esac
 
 exit 0" >> ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd
 	chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd
-echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd" >> $LOG        &&
-colored_echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd"
+LOG "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/bluetoothd"
 
 ####### dbus 
 	(echo -n "#!" && echo "/bin/sh") | tee > ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus &&
@@ -620,8 +619,7 @@ esac
 
 exit 0" >> ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus &&
 chmod +x ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus  	
-echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus" >> $LOG        &&
-colored_echo "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus"
+LOG "Made init.d script in ${INSTDIR}${MY_SYSCONFDIR}/init.d/dbus"
 	fi
 
 }
@@ -650,16 +648,7 @@ case "$1" in
     make-bluez)
 	$0 clean-build bluez   &&
 	download_pkg bluez &&
-	zlib		&&
-	libffi		&&
-	gettext    &&
-	glib    &&
-	expat    &&
-	dbus    &&
-	libical    &&
-	ncurses    &&
-	readline    &&
-	bluez
+	making_bluez	&&
 	make_initd_script
 	check_build_success
 	date >> $LOG	
@@ -668,17 +657,15 @@ case "$1" in
 	BLUEZ=1
 	OBEX=1
 	make_initd_script
-	
 	;;
     make-bluez-obex)
 	$0 clean-build all  &&
-	download_pkg obex    &&
-	$0 make-bluez	&&
-	date >> ${LOG}
+	download_pkg all    &&
+	making_bluez	&&
 	build_obexftp	&&
 	build_obexfs
-	make_initd_script
 	OBEX=1
+	make_initd_script
 	check_build_success
 	date >> $LOG	
         ;;
@@ -703,5 +690,6 @@ case "$1" in
         ;;
 esac
 
+exit # for compilation-record
 
 #################################################################################
