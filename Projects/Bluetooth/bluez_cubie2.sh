@@ -60,7 +60,7 @@ echo -e ${BYU}"\n$1"${unline}${BY}" .."${NORM}
 LOG () {
 
 	colored_echo "$1"
-	echo -en "\n$1" >> $LOG
+	echo -en "\n$1 " >> $LOG
 	date >> $LOG    
 
 }
