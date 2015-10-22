@@ -116,7 +116,8 @@ down_obex () {
 	apt-get source libopenobex1-dev			&&
 	apt-get source obexftp				&&
 	#obex-fs
-	wget -c -O fuse-2.9.3.tar.gz downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Ffuse%2F%3Fsource%3Dtyp_redirect&ts=1409211723&use_mirror=cznic &&
+	apt-get source fuse
+	#wget -c -O fuse-2.9.3.tar.gz downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Ffuse%2F%3Fsource%3Dtyp_redirect&ts=1409211723&use_mirror=cznic &&
 	wget -c pkgs.fedoraproject.org/repo/pkgs/obexfs/obexfs-0.12.tar.gz/0f505672b025cdb505e215ee707a2e2f/obexfs-0.12.tar.gz	&&
 	#removing junk
 	rm -rf *dsc* *diff* *debian* *orig* *ubuntu*
@@ -419,7 +420,7 @@ build_libfuse () {
 build_obexfs () {
 
 	LOG "Started building obexfs .." 
-	build_libfuse
+	build_libfuse	&&
         cd ${PKGDIR}    &&
 	tar -xvf obexfs*
 	cd obexfs* &&
