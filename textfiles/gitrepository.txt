@@ -5,7 +5,10 @@ Step 1:
 Step 2:
 	Create a directory in Host where you want to maintain
 	repository through terminal
-	
+	-- If it is new HOST where your git hub details are not configured. Then
+	   it may thrown this error: "*** Please tell me who you are."
+		# git config --global user.email "you@example.com"
+		# git config --global user.name "Your Name"
 Step 3:
 	Create a new repository in your web browser "github.com" account by
 	clicking new-repository right after your user name
